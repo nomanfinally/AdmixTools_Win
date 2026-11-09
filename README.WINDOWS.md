@@ -9,9 +9,10 @@ a standard MSI installer are later milestones.
 **Development status:** 37 executables build; 35 integration cases across 26
 tools have been compared with a pinned Linux reference. Full-suite parity has
 not yet been established. See [WINDOWS_PORT_STATUS.md](WINDOWS_PORT_STATUS.md)
-for exact coverage and remaining work. The initial port and filename fixes are
-committed on the local `windows-port` branch; subsequent fixes are still being
-reviewed. The branch has not been published.
+for exact coverage and remaining work. Development is published on the
+[`windows-port` branch](https://github.com/nomanfinally/AdmixTools_Win/tree/windows-port).
+The per-tool hard compatibility audit is still pending; this is a development
+source publication, with no release or MSI installer yet.
 
 For the sequential per-tool/module bug and compatibility review, see
 [COMPATIBILITY_AUDIT.md](COMPATIBILITY_AUDIT.md). Existing fixture coverage does
@@ -67,19 +68,18 @@ origin    https://github.com/nomanfinally/AdmixTools_Win.git
 upstream  https://github.com/DReichLab/AdmixTools.git
 ```
 
-After these changes have been reviewed, committed and the branch published, a
-fresh Windows checkout can use:
+A fresh Windows checkout of the published port can use:
 
 ```powershell
 git clone --branch windows-port https://github.com/nomanfinally/AdmixTools_Win.git
 Set-Location AdmixTools_Win
 ```
 
-That clone command is for the published branch; it will not retrieve the current
-uncommitted local work. The original upstream revision also contains 11 names
-with colons, which ordinary Windows checkouts cannot create. The narrowly scoped
-renames listed below must be included in the published port branch. Do not
-reorganize the upstream directories to solve this checkout problem.
+The port branch contains the narrow filename renames needed for a Windows
+checkout. The original upstream revision contains 11 names with colons, which
+ordinary Windows checkouts cannot create. The mapping is listed below; the
+upstream directory layout is retained. `master` remains the upstream tracking
+line, so select `windows-port` explicitly when cloning or browsing this fork.
 
 ## 3. Prepare GNU argument parsing
 
@@ -391,7 +391,7 @@ Four files are qpGraph parameters and seven are reference logs. The existing
 Windows-compatible generated graph/log names. They remain shell/Perl scripts.
 
 The replacements and removal of the original colon paths are committed in
-`5c27c7e` on the local port branch. Publish that commit with the port branch so
-fresh Windows checkouts can use the ordinary layout. This clone's local
+`5c27c7e` on the published port branch, so fresh Windows checkouts can use the
+ordinary layout. This clone's local
 `.git/info/sparse-checkout` exclusions remain useful when switching to the
 upstream tracking branch, which retains the original names.
