@@ -2,8 +2,8 @@
 
 Inventory snapshot: 10 November 2026. Upstream baseline:
 `67bc219174a109951a9434e0a383ec464fb140ee`.
-Snapshot base HEAD: `5c27c7e`; the inventory captured the port worktree before
-its subsequent commit `5a302f9`. The recorded hashes describe that snapshot.
+Snapshot base HEAD: `9bfd9ee`; the inventory captured the port worktree before
+its subsequent commit `145a0ca`. The recorded hashes describe that snapshot.
 
 This is the queue for a hard compatibility and bug check **one item at a time**.
 All items start **pending**. Previous passing fixtures are evidence to extend,

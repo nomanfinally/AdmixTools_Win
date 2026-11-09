@@ -391,7 +391,7 @@ Four files are qpGraph parameters and seven are reference logs. The existing
 Windows-compatible generated graph/log names. They remain shell/Perl scripts.
 
 The replacements and removal of the original colon paths are committed in
-`5c27c7e` on the published port branch, so fresh Windows checkouts can use the
+`9bfd9ee` on the published port branch, so fresh Windows checkouts can use the
 ordinary layout. This clone's local
 `.git/info/sparse-checkout` exclusions remain useful when switching to the
 upstream tracking branch, which retains the original names.

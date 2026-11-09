@@ -2,7 +2,7 @@
   "schema": 1,
   "snapshot_date": "2026-11-10",
   "upstream_commit": "67bc219174a109951a9434e0a383ec464fb140ee",
-  "working_head": "5c27c7ea29a23bd9832cbf07d3c66cca826721e7",
+  "working_head": "9bfd9ee0d235d9c76a9cd193f0d8283480bec79e",
   "snapshot_includes_uncommitted_changes": true,
   "first_queued_item": "T01",
   "scope_note": "All hard checks start pending. Prior fixtures are not hard-audit completion. Link inputs are not a verified function call graph. Assign new IDs by appending; never renumber existing items.",
