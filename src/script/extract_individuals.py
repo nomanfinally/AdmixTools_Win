@@ -1,12 +1,15 @@
 import argparse
 import subprocess
 import tempfile
+import os
+import shutil
 
 from hash_checks import hash_checks
 from geno_header import geno_header
 from merge_transpose import transpose_packed_merge, merge_ind_files
 from nick_hash_file import ind_hash, snp_hash
 from pathlib import Path
+from platform_compat import native_executable
 
 # extract single individual from ind_filename and put it into output_filename
 def individual_index(ind_filename, output_filename, single_id):
@@ -14,7 +17,7 @@ def individual_index(ind_filename, output_filename, single_id):
 		for index, line in enumerate(f):
 			identifier, sex, group = line.strip().split()
 			if single_id == identifier:
-				with open(output_filename, 'w') as out:
+				with open(output_filename, 'w', newline='\n') as out:
 					print(line, end='', file=out)
 				return index
 		raise ValueError(f'{single_id} not found in individuals file')
@@ -31,7 +34,7 @@ def extract_single_sample_stem(input_stem, output_stem, single_id, geno_single_e
 	index = individual_index(input_ind, output_ind, single_id)
 	print(index)
 	individuals_hash = ind_hash(output_ind)
-	subprocess.run([str(geno_single_exec), input_geno, str(index), output_geno], check=True)
+	subprocess.run([str(native_executable(geno_single_exec)), input_geno, str(index), output_geno], check=True)
 	geno_header(output_geno, individual_hash=individuals_hash)
 
 def extract_multiple_individuals(input_stem, output_stem, individuals_list, geno_single_exec, merge_transpose_exec, input_geno_extension='geno', working_directory=None):
@@ -40,9 +43,9 @@ def extract_multiple_individuals(input_stem, output_stem, individuals_list, geno
 
 		# extract single individuals to temporary files
 		component_stems = str(Path(temp_directory) / "component_stems")
-		with open(component_stems, 'w') as f:
+		with open(component_stems, 'w', newline='\n') as f:
 			for index, individual_id in enumerate(individuals_list):
-				component_stem = f'{directory}/{index}'
+				component_stem = str(Path(directory) / str(index))
 				extract_single_sample_stem(input_stem, component_stem, individual_id, geno_single_exec, input_geno_extension)
 				print(component_stem, file=f)
 		# merge temporary_files
@@ -60,7 +63,14 @@ def extract_multiple_individuals(input_stem, output_stem, individuals_list, geno
 				raise FileExistsError(output_snp_file)
 		else:
 			input_snp_file_fullpath = Path(input_snp_file).resolve()
-			output_snp_file.symlink_to(input_snp_file_fullpath)
+			try:
+				output_snp_file.symlink_to(input_snp_file_fullpath)
+			except OSError as error:
+				# Native Windows symlinks may require a privilege/Developer Mode.
+				# Copy identical bytes only for that restriction; expose other errors.
+				if os.name != 'nt' or getattr(error, 'winerror', None) != 1314:
+					raise
+				shutil.copyfile(input_snp_file_fullpath, output_snp_file)
 		# geno
 		transpose_packed_merge(merge_transpose_exec, component_stems, output_stem, ind_file_hash_str=individual_hash_str, snp_file_hash_str=snp_hash_str)
 

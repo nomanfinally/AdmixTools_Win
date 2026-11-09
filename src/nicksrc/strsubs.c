@@ -2145,16 +2145,21 @@ char *mytemp (char *qqq)
   tmpdir = getenv("STMP") ;  
 #ifdef _WIN32
   if (tmpdir == NULL) tmpdir = (char *)admix_tempdir();
-#else
-  if (tmpdir == NULL) tmpdir = strdup("/tmp") ;
-#endif
-  if (snprintf(ss, sizeof(ss), "%s/%s.%d", tmpdir, qqq, t) >= sizeof(ss))
-    fatalx("temporary path too long\n");
-#ifdef _WIN32
   {
-    char *component = strrchr(ss, '/');
+    size_t length = strlen(tmpdir);
+    const char *separator = (length && (tmpdir[length-1] == '/' || tmpdir[length-1] == '\\')) ? "" : "\\";
+    char *component;
+    if (snprintf(ss, sizeof(ss), "%s%s%s.%d", tmpdir, separator, qqq, t) >= sizeof(ss))
+      fatalx("temporary path too long\n");
+    for (component = ss; *component; ++component)
+      if (*component == '/') *component = '\\';
+    component = strrchr(ss, '\\');
     if (component) while (*++component) if (*component == ':') *component = '_';
   }
+#else
+  if (tmpdir == NULL) tmpdir = strdup("/tmp") ;
+  if (snprintf(ss, sizeof(ss), "%s/%s.%d", tmpdir, qqq, t) >= sizeof(ss))
+    fatalx("temporary path too long\n");
 #endif
   return strdup(ss) ;
 }

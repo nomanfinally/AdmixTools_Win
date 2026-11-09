@@ -152,7 +152,8 @@ def normalize(data, binary_dir):
     text = re.sub(r"((?:version: |Version )\d+)\.w\b", r"\1", text)
     # Replace only nondeterministic values, keeping their labels and whitespace.
     text = re.sub(r"(?<=mmfaddr: )0x[0-9a-fA-F]+", "<ADDRESS>", text)
-    text = re.sub(r"((?:tmp|/tmp)/(?:fsx|ppp|pops|tpar|fstpar|fslog)\.)\d+", r"\1<PID>", text)
+    text = re.sub(r"((?:tmp|/tmp)[/\\](?:fsx|ppp|pops|tpar|fstpar|fslog)\.)\d+",
+                  lambda match: match[1].replace("\\", "/") + "<PID>", text)
     text = re.sub(r"[ ]*[0-9]+\.[0-9]+(?= seconds cpu)", " <CPU>", text)
     text = re.sub(r"(?<=seconds cpu)[ ]*-?[0-9]+\.[0-9]+(?= Mbytes)", " <MEMORY>", text)
     text = re.sub(r"(?<=time in dofstats:)[ ]*[0-9]+\.[0-9]+", " <CPU>", text)

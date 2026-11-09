@@ -42,6 +42,11 @@
 
 ## Validation
 
+- Use `COMPATIBILITY_AUDIT.md` and `tests/windows/audit_inventory.json` as the
+  per-tool/module hard-check queue. Existing build/parity fixtures are prior
+  evidence, not completed hard audits. Keep IDs stable, record findings and
+  regression cases, and finish each item's applicable checks before marking it
+  passed. Preserve the distinction between Windows regressions and upstream bugs.
 - Inventory all upstream default/install executables, additional buildable tools,
   and interpreter-based helpers. Track gaps explicitly; do not equate a subset
   with the full suite.
@@ -58,6 +63,9 @@
   justified, and documented. Timing, memory usage, addresses, paths, newline
   conventions, and the requested `.w` suffix can differ in value, while retaining
   upstream's output format.
+- Use native backslashes for generated Windows filesystem paths, including
+  temporary paths printed in the terminal. Preserve Unix path formatting on
+  Linux/macOS and continue accepting forward slashes in Windows input paths.
 - Avoid fast-math, reassociation, CPU-specific optimizations, changed PRNGs, or
   silently different BLAS integer ABIs. Investigate numerical differences before
   changing tolerances. Report what was actually tested and what remains untested.

@@ -4,6 +4,11 @@ Development baseline: DReichLab/AdmixTools commit
 `67bc219174a109951a9434e0a383ec464fb140ee` (upstream package 8.1.0).
 The local development branch is `windows-port`. No release or MSI exists yet.
 
+The complete tool/module inventory and sequential hard-check queue are maintained
+in [COMPATIBILITY_AUDIT.md](COMPATIBILITY_AUDIT.md), with machine-readable sources
+and dependencies in `tests/windows/audit_inventory.json`. No item is considered
+hard-audited solely because the earlier fixtures passed.
+
 ## Scope
 
 The Windows build produces 37 separate executables in upstream's `bin/` layout:
@@ -39,6 +44,19 @@ the upstream Makefile and remain outside the supported build inventory.
   the Linux reference. Its LGPL notices must accompany future distributions.
 - Windows quoted string parameters and CRLF merge lists accommodate native paths.
 - Eleven illegal Windows filenames are renamed in place, preserving their bytes.
+- An 8 MiB main-thread stack reserve matches the tested Linux reference's
+  allowance, replacing MinGW's 2 MiB default without changing calculations.
+- Native zlib gzip decompression, retaining the existing format readers and
+  terminal labels; successful reads and decompression failures remove temporary
+  files. No Unix gzip command is required. zlib's DLL/license are packaged.
+- Native Graphviz/Ghostscript invocation for `qpreroot`'s optional PDF rendering.
+- Python conversion/extraction/merge/hash helpers resolve native executables,
+  quote Windows parameter paths, preserve LF data, and copy identical SNP bytes
+  when Windows denies the upstream symlink operation for lack of privilege.
+
+The local Sapphiregnm port was reviewed for compatibility techniques against
+the pinned upstream source. See [WINDOWS_PORT_REVIEW.md](WINDOWS_PORT_REVIEW.md)
+for the source inventory, decisions, and excluded behavior changes.
 
 No new statistical defaults, data formats, SIMD, parallel execution, automatic
 logging, combined executable, or optimization pass has been introduced.
@@ -95,6 +113,30 @@ written to `bin/windows-build.json`; raw results stay in ignored
 `validation-results/`. The build manifest deliberately does not certify complete
 release parity.
 
+A second compatibility pass checked gzip input and optional rendering against
+the same pristine reference: 11 shared cases, 22 stdout/stderr comparisons, and
+14 byte-identical genotype/graph/DOT files. Text EIGENSTRAT, packed, transposed
+packed and ANCESTRYMAP inputs use concatenated gzip members. Statistics agree
+across those formats, and conversions reproduce the uncompressed output bytes.
+Windows additionally rejects CRC errors, truncation, plain/empty `.gz` inputs,
+and handles spaces/metacharacters in genotype and rendered graph filenames.
+Successful reads and decompression errors leave no decompressed temporary file.
+Graphviz/Ghostscript validate the resulting PDFs; PDFs are not byte-compared
+because renderer versions, fonts and metadata differ (Linux Graphviz 14.1.2 /
+Ghostscript 10.06.0; Windows Graphviz 16.1.0 / Ghostscript 10.08.0).
+
+The Python conversion/extraction/merge/hash workflow produces 12 files matching
+the pristine Linux helpers byte-for-byte, including sample order, genotype
+headers/hashes, SNP bytes and LF text files. Windows tests force a denied-symlink
+error to exercise the copy fallback and cover paths with spaces/metacharacters.
+The modified Linux C files compile, and the modified Python helpers on Linux
+produce the same 12 files. The user's installed WSL checkout at
+`/home/user/AdmixTools` has the same upstream HEAD and was left unchanged.
+
+These results are in `validation-results/{windows-next-final,linux-compatibility-verified,
+windows-compatibility-final,linux-script-helpers,windows-script-helpers,linux-port-script-helpers}`.
+The separate runners and reproduction commands are in `tests/windows/README.md`.
+
 ## Remaining release work
 
 - Extend scientific fixtures to the 11 build-only tools: `ascore`, `gcount`,
@@ -105,10 +147,20 @@ release parity.
 - Add repeatable Windows/Linux/macOS CI and decide a supported compiler and
   dependency matrix. A match on these fixtures does not establish identical
   results for every input or library combination.
-- Exercise optional external helpers (Graphviz/Ghostscript, Perl, R, Python),
-  Unicode paths, long paths, and fatal-error termination behavior. Windows' native
+- Finish auditing interpreter helpers beyond the tested Python workflow,
+  including Perl/R, shell pipelines, samtools and file-linking utilities.
+  Obsolete BAM/SLURM shell helpers in `nicksrc` are not called by supported tools
+  and were not rewritten. Exercise Unicode/long paths and fatal-error behavior.
+  Windows' native
   fatal termination codes need not equal Unix signal-derived shell codes.
-- Review and commit the source and filename changes, then publish the branch.
+- Extend compressed-input failure tests: cleanup after a fatal genotype-reader
+  error, temporary-name collisions, disk-full behavior, and very large expanded
+  files. Valid gzip parity is tested; arbitrary malformed-input diagnostics are
+  not certified. zlib ignores trailing non-gzip bytes where GNU gzip may warn;
+  pristine upstream also ignores positive `gunzip` exit statuses and invokes it
+  twice. Neither behavior is a scientific calculation to copy into the port.
+- Review and commit the remaining fixes, then publish the branch. The initial
+  port and filename changes are already committed locally.
   Keep `master` as the upstream tracking line; update `UPSTREAM_BASELINE` and
   rerun comparisons for each upstream synchronization.
 - After the compatibility baseline is release-ready, implement the MSI milestone:

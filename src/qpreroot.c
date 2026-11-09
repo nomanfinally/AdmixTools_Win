@@ -173,10 +173,14 @@ main (int argc, char **argv)
     t = substring (&psname, ".dot", ".ps");
   }
   if (t > 0) {
+#ifdef _WIN32
+    if (admix_render_graph(graphdotname, psname)) perror("graph rendering");
+#else
     sprintf (sss, "dot -T ps < %s  > %s", graphdotname, psname);
     system (sss);
     sprintf(sss, "ps2pdf %s", psname) ;
     system(sss) ;
+#endif
     remove(psname) ;
   }
   printf ("## end of qpreroot\n");

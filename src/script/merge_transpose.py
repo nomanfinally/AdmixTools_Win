@@ -9,6 +9,7 @@ from collections import OrderedDict
 from nick_hash_file import ind_hash, snp_hash
 from pathlib import Path
 from geno_header import geno_header
+from platform_compat import native_executable
 
 # return true if snp files are the same
 # return false otherwise
@@ -57,7 +58,7 @@ def merge_ind_files_list(output_filename, input_stems, max_overlap=1):
 	ind_counts = [] # individual counts for each individual file
 	individuals_geno_offsets_dict = OrderedDict() # mapping of geno sets to individuals by geno offset, treating geno data as one array
 	VALID_SEX = frozenset('MFU')
-	with open(output_filename, 'w') as out:
+	with open(output_filename, 'w', newline='\n') as out:
 		overall_line_count = 0
 		for input_stem in input_stems:
 			ind_filename = input_stem.strip() + '.ind'
@@ -87,7 +88,7 @@ def merge_ind_files_list(output_filename, input_stems, max_overlap=1):
 	return ind_counts, individuals_geno_offsets
 
 def transpose_packed_merge(merge_transpose, input_stem_file, output_stem, ind_file_hash_str = None, snp_file_hash_str = None, **kwargs):
-	command_args = [merge_transpose, '--input', input_stem_file, '--output', output_stem + '.geno']
+	command_args = [native_executable(merge_transpose), '--input', input_stem_file, '--output', output_stem + '.geno']
 	if ind_file_hash_str is not None:
 		command_args.append('--ind_hash')
 		command_args.append(ind_file_hash_str)
@@ -109,7 +110,7 @@ def copy_snp_file(input_stem, output_stem):
 def merge_geno_snp_ind(merge_transpose, input_stems, output_stem):
 	with tempfile.TemporaryDirectory() as temp_directory:
 		input_stem_filename = str(Path(temp_directory) / "input_stems")
-		with open(input_stem_filename, 'w') as f:
+		with open(input_stem_filename, 'w', newline='\n') as f:
 			for input_stem in input_stems:
 				print(str(Path(input_stem.strip()).resolve()), file=f)
 		merge_geno_snp_ind_file(merge_transpose, input_stem_filename, output_stem)

@@ -1,12 +1,13 @@
 import argparse
 import subprocess
 from pathlib import Path
+from platform_compat import native_executable
 
 inferred_executable = Path(__file__).resolve().parent.parent / 'nickhash'
 
 # Nick's implementation hashes the first column and ignores everything else
 def hash_single_file(filename, executable=inferred_executable):
-	result = subprocess.run([executable, '-i', filename], check=True, stdout=subprocess.PIPE, universal_newlines=True)
+	result = subprocess.run([native_executable(executable), '-i', filename], check=True, stdout=subprocess.PIPE, universal_newlines=True)
 	hash_str = result.stdout.strip()
 	hash_value = int(hash_str, 16)
 	return f'{hash_value:x}'

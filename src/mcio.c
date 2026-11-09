@@ -1451,7 +1451,25 @@ getgenos (char *genoname, SNP ** snpmarkers, Indiv ** indivmarkers,
   gnlen = strlen (genoname);
 
   // Unzip file if necessary
-  if (strcmp (genoname + gnlen - 3, ".gz") == 0) {
+  if (gnlen >= 3 && strcmp (genoname + gnlen - 3, ".gz") == 0) {
+#ifdef _WIN32
+    /* Re-enter the unchanged format readers with decompressed bytes. This
+     * keeps cleanup common to their early returns (packed and text alike).
+     */
+    admix_long count;
+    genotmp = mytemp("genotmp");
+    printf("unzip cmd: gunzip -c \"%s\" > \"%s\"\n", genoname, genotmp);
+    if (admix_gunzip(genoname, genotmp)) {
+      free(genotmp);
+      perror("gunzip failed\n");
+      fatalx("gunzip failed... probably out of disk space\n");
+    }
+    printf("geno file unzipped\n");
+    count = getgenos(genotmp, snpmarkers, indivmarkers, numsnps, numindivs, nignore);
+    unlink(genotmp);
+    free(genotmp);
+    return count;
+#else
     makedir (trashdir);
     sprintf (line, "%s/genotmp:%d", trashdir, getpid ());
     genotmp = strdup (line);
@@ -1465,6 +1483,7 @@ getgenos (char *genoname, SNP ** snpmarkers, Indiv ** indivmarkers,
     }
     printf ("geno file unzipped\n");
     gname = genotmp;
+#endif
   }
 
   // Enforce data size limits

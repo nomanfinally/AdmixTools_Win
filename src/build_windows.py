@@ -74,6 +74,10 @@ def main():
     flags = ["-std=gnu11", "-fno-common", "-ffp-contract=off", "-fno-fast-math",
              "-D__USE_MINGW_ANSI_STDIO=1", "-D_FILE_OFFSET_BITS=64",
              "-I.", "-Inicksrc", f"-I{argp / 'include'}", "-include", "win32/compat.h"]
+    # Match the 8 MiB main-thread allowance of the pinned Linux reference.
+    # MinGW's default 2 MiB reserve can fail earlier on recursive/stack-heavy
+    # inputs. This reserves address space; it does not precommit 8 MiB of RAM.
+    link_flags = ["-Wl,--stack,8388608"]
     compiler_version = subprocess.check_output([str(compiler), "--version"], text=True).splitlines()[0]
     headers = sorted(SRC.glob("*.h")) + sorted((SRC / "nicksrc").glob("*.h")) + sorted((SRC / "win32").glob("*.h"))
     signature = hashlib.sha256((compiler_version + str(compiler) + repr(flags)).encode())
@@ -108,10 +112,10 @@ def main():
     run([archiver, "rcs", nick, *(obj(f"nicksrc/{name}.c") for name in NICK)])
     for program in selected:
         print(f"Linking {program}.exe", flush=True)
-        libraries = ["-lgsl", "-lopenblas", "-lm"]
+        libraries = ["-lgsl", "-lopenblas", "-lz", "-lm"]
         if program in ("transpose", "merge_transpose"):
             libraries.extend([f"-L{argp / 'lib'}", "-largp"])
-        run([compiler, *(obj(s) for s in rules[program]), obj("win32/compat.c"),
+        run([compiler, *link_flags, *(obj(s) for s in rules[program]), obj("win32/compat.c"),
              nick, *libraries, "-o", BIN / f"{program}.exe"])
     # Copy the dependency closure, including Fortran/OpenMP runtime DLLs. Refuse
     # missing non-system DLLs instead of producing binaries that will not launch.
@@ -137,9 +141,10 @@ def main():
     for helper in (ROOT / "perlsrc").iterdir():
         if helper.is_file():
             shutil.copy2(helper, BIN / helper.name)
-    shutil.copytree(SRC / "script", BIN / "script", dirs_exist_ok=True)
+    shutil.copytree(SRC / "script", BIN / "script", dirs_exist_ok=True,
+                    ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
     license_root = args.toolchain.parent / "share/licenses"
-    for package in ("gsl", "openblas", "libgcc", "libgfortran", "libgomp", "libquadmath", "libwinpthread"):
+    for package in ("gsl", "openblas", "zlib", "libgcc", "libgfortran", "libgomp", "libquadmath", "libwinpthread"):
         if (license_root / package).is_dir():
             shutil.copytree(license_root / package, BIN / "licenses" / package, dirs_exist_ok=True)
     argp_source = OBJECTS / "argp-source"
@@ -151,11 +156,16 @@ def main():
         "upstream_commit": (ROOT / "UPSTREAM_BASELINE").read_text().strip(),
         "working_head": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
         "compiler": compiler_version,
-        "flags": flags, "optimization": {"nicksrc": "-O3", "other": "-O2"},
+        "zlib_header_version": re.search(r'^#define ZLIB_VERSION "([^"]+)"',
+            (args.toolchain.parent / "include/zlib.h").read_text(), re.M)[1],
+        "flags": flags, "link_flags": link_flags,
+        "optimization": {"nicksrc": "-O3", "other": "-O2"},
         "executables": selected, "runtime_dlls": sorted(copied),
         "runtime_sha256": {name: hashlib.sha256((BIN / name).read_bytes()).hexdigest() for name in sorted(copied)},
         "source_sha256": {source: hashlib.sha256((SRC / source).read_bytes()).hexdigest() for source in sorted(sources)},
         "header_signature": signature.hexdigest(),
+        "script_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
+                          for p in sorted((SRC / "script").glob("*.py"))},
         "parity_validated": False,
     }
     (BIN / "windows-build.json").write_text(json.dumps(metadata, indent=2) + "\n")

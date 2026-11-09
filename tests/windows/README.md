@@ -71,8 +71,8 @@ After building on Windows, compile using UCRT64 GCC (adjust the toolchain path):
 ```powershell
 $toolchain = 'C:\msys64\ucrt64\bin'
 $env:PATH = "$toolchain;$env:PATH"
-& "$toolchain\gcc.exe" -std=gnu11 -Isrc -Isrc/nicksrc -include src/win32/compat.h tests/windows/platform_probe.c src/.windows/win32_compat.o src/.windows/libnick.a -lgsl -lopenblas -lm -o bin/platform_probe.exe
-& "$toolchain\gcc.exe" -std=gnu11 -Isrc -include src/win32/compat.h tests/windows/largefile_probe.c src/.windows/win32_compat.o -o bin/largefile_probe.exe
+& "$toolchain\gcc.exe" -std=gnu11 -Isrc -Isrc/nicksrc -include src/win32/compat.h tests/windows/platform_probe.c src/.windows/win32_compat.o src/.windows/libnick.a -lgsl -lopenblas -lz -lm -o bin/platform_probe.exe
+& "$toolchain\gcc.exe" -std=gnu11 -Isrc -include src/win32/compat.h tests/windows/largefile_probe.c src/.windows/win32_compat.o -lz -o bin/largefile_probe.exe
 .\bin\platform_probe.exe
 .\bin\largefile_probe.exe validation-results/largefile.bin
 ```
@@ -89,3 +89,78 @@ python -c "import subprocess,hashlib; r=subprocess.run(['bin/platform_probe.exe'
 The expected length is 3,200,000 bytes and the reference SHA-256 is recorded in
 `WINDOWS_PORT_STATUS.md`. These checks cover the platform layer; they do not
 replace scientific integration tests for each executable.
+
+## Main-thread stack
+
+All Windows tool links use `-Wl,--stack,8388608` to match the tested Linux
+reference's `ulimit -s` of 8192 KiB. The reserve is address space, committed as
+needed. `stack_probe.c` touches 4 MiB of automatic storage, exceeding MinGW's
+default 2 MiB reserve while remaining within that allowance:
+
+```powershell
+& "$toolchain\gcc.exe" -O2 '-Wl,--stack,8388608' tests/windows/stack_probe.c -o bin/stack_probe.exe
+.\bin\stack_probe.exe
+```
+
+PowerShell interprets commas in unquoted arguments; if invoking GCC directly,
+quote `'-Wl,--stack,8388608'`. The Python build runner passes it directly as one
+argument. On Linux, use `gcc -O2 tests/windows/stack_probe.c -o stack_probe`.
+Both should print `stack bytes: 4194304 checksum: 130560` and exit zero. Inspect
+each installed executable with `objdump -p` to verify `SizeOfStackReserve` is
+`0000000000800000`; testing the probe alone does not check the build links.
+
+## Compressed input and native graph rendering
+
+Build first, then use a fresh output directory. Add native Graphviz/Ghostscript
+to the process PATH as described in `README.WINDOWS.md` for `--render`:
+
+```powershell
+python tests/windows/compatibility.py --bin bin --output validation-results/windows-compatibility --render
+```
+
+On Linux/WSL, point the same runner at the pristine pinned reference. Install
+`graphviz ghostscript` for rendering, or omit `--render` on both platforms:
+
+```bash
+python3 /path/to/AdmixTools_Win/tests/windows/compatibility.py \
+  --bin ~/admixtools-reference/src --output /path/to/AdmixTools_Win/validation-results/linux-compatibility --render
+```
+
+Compare on Windows:
+
+```powershell
+python tests/windows/compatibility.py --compare validation-results/linux-compatibility validation-results/windows-compatibility
+```
+
+This adds 11 shared cases when rendering is enabled. Compare all shared streams
+and 14 genotype/graph/DOT files exactly. Only the documented metadata and the
+generated gzip temporary pathname/command-operand quotation are normalized.
+PDFs must be valid PDF 1.4 and parse successfully in Ghostscript; their bytes are
+not compared across renderer versions/fonts. Both sides must run the same cases.
+Raw files, output, dependency versions and comparison results are retained.
+The runner removes only its verified decompressed Linux fixture files that
+pristine upstream leaves under `/var/tmp/genotmp:PID` after early returns.
+
+Windows additionally checks failed CRC/truncated/non-gzip/empty inputs, temporary
+cleanup and paths with spaces/metacharacters. Fatal termination status is
+required to be nonzero; no Unix signal-code equivalence is claimed.
+
+## Installed Python helpers
+
+```powershell
+python tests/windows/script_helpers.py --bin bin --scripts bin/script --output validation-results/windows-script-helpers
+```
+
+On Linux, run that test file with `--bin ~/admixtools-reference/src` and
+`--scripts ~/admixtools-reference/src/script`, using a separate Linux output
+directory. Then compare:
+
+```powershell
+python tests/windows/script_helpers.py --compare validation-results/linux-script-helpers validation-results/windows-script-helpers
+```
+
+Twelve generated files must match byte-for-byte. The workflow checks conversion,
+extraction, merge, sample ordering, hashes and temporary cleanup. Windows also
+exercises parameter paths with spaces/metacharacters and forces the specific
+denied-symlink error to verify the SNP copy fallback. This does not certify every
+Perl/R/Python helper or byte-identical terminal output from all wrappers.

@@ -9,8 +9,13 @@ a standard MSI installer are later milestones.
 **Development status:** 37 executables build; 35 integration cases across 26
 tools have been compared with a pinned Linux reference. Full-suite parity has
 not yet been established. See [WINDOWS_PORT_STATUS.md](WINDOWS_PORT_STATUS.md)
-for exact coverage and remaining work. The branch and source changes currently
-exist locally and have not been committed or published.
+for exact coverage and remaining work. The initial port and filename fixes are
+committed on the local `windows-port` branch; subsequent fixes are still being
+reviewed. The branch has not been published.
+
+For the sequential per-tool/module bug and compatibility review, see
+[COMPATIBILITY_AUDIT.md](COMPATIBILITY_AUDIT.md). Existing fixture coverage does
+not count as a completed hard audit.
 
 ## 1. Prerequisites
 
@@ -36,7 +41,7 @@ If the updater closes the terminal or asks you to restart it, reopen UCRT64 and
 run that command again. Install the native compiler and scientific libraries:
 
 ```bash
-pacman -S --needed mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-gsl mingw-w64-ucrt-x86_64-openblas
+pacman -S --needed mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-gsl mingw-w64-ucrt-x86_64-openblas mingw-w64-ucrt-x86_64-zlib
 ```
 
 Use the UCRT64 packages together. Do not substitute the MSYS `/usr/bin/gcc`
@@ -118,6 +123,10 @@ installed locations. Those scripts still need their respective interpreters;
 they are not native executable conversions. `bin/windows-build.json` records
 the baseline, compiler, flags, source hashes and runtime DLL hashes.
 
+Each tool reserves an 8 MiB main-thread stack, matching the tested Linux
+reference's allowance. The compatibility-method review and its exclusions are
+recorded in [WINDOWS_PORT_REVIEW.md](WINDOWS_PORT_REVIEW.md).
+
 To rebuild, run the same command. Objects are reused only when the source,
 shared headers, compiler and flags match. Linux/macOS objects are kept separate
 from `src/.windows/`. Use the existing `src/Makefile` or `src/Makefile.mac` for
@@ -136,6 +145,25 @@ Use each program's upstream help and parameter documentation. Some older tools
 have different options and do not implement `-h`. Version codes retain their
 upstream number and add `.w` on Windows; this baseline's `qpAdm` is `2206.w`.
 There is no extra banner or automatic log file.
+
+Compressed genotype inputs ending in `.gz` are supported through native
+[zlib](https://zlib.net/manual.html) decompression. No Unix `gunzip` installation
+is needed. The build includes the native zlib DLL (`libz-1.dll` in the tested
+toolchain) and its license with the other runtime
+files. Text EIGENSTRAT, packed, transposed packed and ANCESTRYMAP gzip inputs
+have been compared against Linux. Concatenated gzip members are supported;
+damaged or truncated streams are rejected before analysis.
+
+The upstream `unzip cmd: gunzip -c ...` terminal line is retained for output
+compatibility; Windows performs that decompression internally. Generated paths
+use native backslashes. Temporary decompressed files are removed after a
+successful read or decompression failure. Cleanup after a fatal error inside a
+genotype reader remains unverified. For large inputs, ensure the temporary
+directory has space for the uncompressed file. To select an existing directory:
+
+```powershell
+$env:STMP = 'D:\AdmixToolsTemp'
+```
 
 For an analysis, put your data and parameter files in an analysis directory:
 
@@ -176,6 +204,10 @@ unquoted parser reads the first whitespace-separated token. Forward slashes
 work in native Windows paths. Full Unicode and extended-length paths have not
 yet been validated. `allsnps: YES` precomputation locates `qpfstats.exe` beside
 the parent program; keep the suite together when copying it.
+
+Generated temporary paths use native Windows backslashes, for example
+`tmp: C:\Users\USERNAME\AppData\Local\Temp\fsx.12345`, including when a temporary
+directory override was supplied with forward slashes.
 
 Ordinary text log redirection:
 
@@ -244,6 +276,8 @@ are release work, not implied by the initial passing cases.
   `-Msys2Root` argument. Install the UCRT64 GCC package in the MSYS2 terminal.
 - **Missing GSL/OpenBLAS headers or libraries:** install both matching UCRT64
   packages. Do not mix toolchains or copy arbitrary DLLs from another port.
+- **Missing zlib header/library or its DLL:** install the UCRT64 zlib package
+  listed above and rebuild. Keep the copied DLL beside the executables.
 - **GNU argp missing:** run `prepare-windows.ps1` before the full build.
 - **A missing-DLL message when starting a program:** rebuild and keep the copied
   DLLs beside the `.exe` files. Adding just the source directory to PATH is not
@@ -257,8 +291,56 @@ are release work, not implied by the initial passing cases.
   versions, flags, inputs and thread settings. Use the comparison runner and
   inspect its diff before changing any computation or tolerance.
 - **Graph rendering or interpreter helper fails:** install the requested
-  external tool separately. Graphviz/Ghostscript and the upstream shell/Perl/R
-  helper workflows are not bundled or fully validated yet.
+  external tool separately. Native `qpreroot` rendering and the Python
+  conversion/extraction/merge/hash workflow are tested as described below.
+  Other shell/Perl/R helper workflows still need validation.
+
+### Optional graph rendering
+
+`qpreroot -d graph.dot` can generate the DOT source and a PDF using native
+Graphviz and Ghostscript. These optional programs are separate installations;
+they are not copied into AdmixTools' `bin/`. For the tested MSYS2 UCRT64 setup,
+install from the **UCRT64 terminal**:
+
+```bash
+pacman -S --needed mingw-w64-ucrt-x86_64-graphviz
+```
+
+That package pulls native Ghostscript and its runtime dependencies. In the
+PowerShell session used for rendering, add their directory to the process PATH:
+
+```powershell
+$env:PATH = "C:\msys64\ucrt64\bin;$env:PATH"
+& 'C:\work\AdmixTools_Win\bin\qpreroot.exe' -g .\graph -d .\graph.dot
+```
+
+Adjust the MSYS2 directory if necessary. Separate Windows installations also
+work when `dot.exe` and `gswin64c.exe` (or `gs.exe`) are on PATH. The port invokes
+these executables directly, without a Unix shell or `ps2pdf` batch script. Like
+upstream `ps2pdf` with one input, the PDF is written in the working directory
+using the input basename. The intermediate `.ps` file is removed. The original
+graph and DOT bytes match Linux in the fixture; PDF bytes/layout can differ with
+renderer versions, timestamps and fonts. Upstream does not propagate rendering
+failure as an analysis exit failure, so check stderr and the PDF's existence.
+
+### Python conversion and extraction helpers
+
+Invoke installed scripts explicitly with Python, for example:
+
+```powershell
+python .\bin\script\convertf.py -i 'C:\data\cohort' -o 'C:\results\cohort' -f transpose_packed
+python .\bin\script\extract_individuals.py -i 'C:\results\cohort' -o 'C:\results\subset' Sample1 Sample2
+python .\bin\script\hash_checks.py 'C:\results\subset.geno'
+```
+
+Use these script locations so they find this build's sibling executables.
+The tested workflow converts, extracts, merges and checks hashes, with 12 output
+files matching Linux byte-for-byte. Quoted Windows parameter paths and LF data
+files are retained. If Windows denies SNP symlink creation specifically because
+the required privilege is absent, extraction copies the same SNP bytes instead.
+Other filesystem errors are still reported. Perl/R helpers and additional
+external-tool workflows remain separate work; copying them does not establish
+that every script is Windows-compatible.
 
 ## 9. Updates and removal
 
@@ -308,10 +390,8 @@ Four files are qpGraph parameters and seven are reference logs. The existing
 `runit`, `runqpgf`, and `runqpgf2` scripts use the underscore names, including
 Windows-compatible generated graph/log names. They remain shell/Perl scripts.
 
-The original colon paths are now represented as **unstaged worktree deletions**;
-the corresponding underscore paths are new files. Include both sides when
-reviewing and committing the renames. No commit was made automatically. Until
-that commit is published, the original names remain in `HEAD`, and this clone's
-local `.git/info/sparse-checkout` exclusions are still useful. Once the renames
-are committed, fresh checkouts of the port branch can use the ordinary Windows
-layout without those exclusions.
+The replacements and removal of the original colon paths are committed in
+`5c27c7e` on the local port branch. Publish that commit with the port branch so
+fresh Windows checkouts can use the ordinary layout. This clone's local
+`.git/info/sparse-checkout` exclusions remain useful when switching to the
+upstream tracking branch, which retains the original names.

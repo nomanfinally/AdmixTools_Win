@@ -1,0 +1,4159 @@
+{
+  "schema": 1,
+  "snapshot_date": "2026-11-10",
+  "upstream_commit": "67bc219174a109951a9434e0a383ec464fb140ee",
+  "working_head": "5c27c7ea29a23bd9832cbf07d3c66cca826721e7",
+  "snapshot_includes_uncommitted_changes": true,
+  "first_queued_item": "T01",
+  "scope_note": "All hard checks start pending. Prior fixtures are not hard-audit completion. Link inputs are not a verified function call graph. Assign new IDs by appending; never renumber existing items.",
+  "counts": {
+    "build_or_maintenance": 9,
+    "example_workflow": 7,
+    "header_contract": 40,
+    "historical_rule": 10,
+    "installed_script_or_python_module": 28,
+    "native_tool": 38,
+    "shared_c_module": 28,
+    "source_only_program": 5,
+    "unbuilt_c_module": 7,
+    "validation_harness": 6
+  },
+  "c_sources": 78,
+  "headers": 40,
+  "entries": [
+    {
+      "id": "E01",
+      "category": "example_workflow",
+      "name": "example.perl",
+      "paths": [
+        "convertf/example.perl"
+      ],
+      "hard_check": "pending",
+      "role": "Example/helper workflow; interpreter, external commands, paths and data dependencies",
+      "sha256": {
+        "convertf/example.perl": "21b67a63a79e2d7ad33a2aa6f19d3de24eb0a23ae79f310debc441d50644d5ab"
+      }
+    },
+    {
+      "id": "E02",
+      "category": "example_workflow",
+      "name": "ind2pheno.perl",
+      "paths": [
+        "convertf/ind2pheno.perl"
+      ],
+      "hard_check": "pending",
+      "role": "Example/helper workflow; interpreter, external commands, paths and data dependencies",
+      "sha256": {
+        "convertf/ind2pheno.perl": "f57692cc2a15b5820a1aedfcb1d6547f677e5ea318c7e6a1b5c0c2317e4846d6"
+      }
+    },
+    {
+      "id": "E03",
+      "category": "example_workflow",
+      "name": "mklog",
+      "paths": [
+        "examples/mklog"
+      ],
+      "hard_check": "pending",
+      "role": "Example/helper workflow; interpreter, external commands, paths and data dependencies",
+      "sha256": {
+        "examples/mklog": "cf2ff597e574ad8b3e167fcec3761e711c97009e383a24f97a576cf7302596e8"
+      }
+    },
+    {
+      "id": "E04",
+      "category": "example_workflow",
+      "name": "runit",
+      "paths": [
+        "examples.qpGraph/runit"
+      ],
+      "hard_check": "pending",
+      "role": "Example/helper workflow; interpreter, external commands, paths and data dependencies",
+      "sha256": {
+        "examples.qpGraph/runit": "1e6a10cae1c20b203e3043335cc43f77fba6485173dba17c092b6b459d8b6dd9"
+      }
+    },
+    {
+      "id": "E05",
+      "category": "example_workflow",
+      "name": "runqpgf",
+      "paths": [
+        "examples.qpGraph/runqpgf"
+      ],
+      "hard_check": "pending",
+      "role": "Example/helper workflow; interpreter, external commands, paths and data dependencies",
+      "sha256": {
+        "examples.qpGraph/runqpgf": "bfc19debcdc6fea5502275b3095d5b8c2345968e9ccf347f0cd7dfb7e81092d1"
+      }
+    },
+    {
+      "id": "E06",
+      "category": "example_workflow",
+      "name": "runqpgf2",
+      "paths": [
+        "examples.qpGraph/runqpgf2"
+      ],
+      "hard_check": "pending",
+      "role": "Example/helper workflow; interpreter, external commands, paths and data dependencies",
+      "sha256": {
+        "examples.qpGraph/runqpgf2": "0b47b1fb35f7968a7673c3bca6fe35d919c699878b9b85e209a3c57bd6da1e50"
+      }
+    },
+    {
+      "id": "E07",
+      "category": "example_workflow",
+      "name": "runqpreroot",
+      "paths": [
+        "examples.qpGraph/runqpreroot"
+      ],
+      "hard_check": "pending",
+      "role": "Example/helper workflow; interpreter, external commands, paths and data dependencies",
+      "sha256": {
+        "examples.qpGraph/runqpreroot": "e55743451f972d0aada7c8043020d572de78d223f91239b1e4b80cb4958ab5d8"
+      }
+    },
+    {
+      "id": "H01",
+      "category": "header_contract",
+      "name": "admutils.h",
+      "paths": [
+        "src/admutils.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/admutils.h": "6986f27211e2025a7998bff1b88627c82fe97704e844331061c3206926e98b45"
+      }
+    },
+    {
+      "id": "H02",
+      "category": "header_contract",
+      "name": "badpairs.h",
+      "paths": [
+        "src/badpairs.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/badpairs.h": "093cd9c3d88f73446f75a2d9bc6985785909801442363f0e4a5beb74092a0697"
+      }
+    },
+    {
+      "id": "H03",
+      "category": "header_contract",
+      "name": "egsubs.h",
+      "paths": [
+        "src/egsubs.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/egsubs.h": "180dca84eba49bc1f771595d0f092b78bdc7a13a15c4e3bf5b629fb1ff8f3669"
+      }
+    },
+    {
+      "id": "H04",
+      "category": "header_contract",
+      "name": "eigsubs.h",
+      "paths": [
+        "src/eigsubs.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/eigsubs.h": "dca25a1b79e6627ccd3de343e30bfe2f3c05256421ceb0e9465bc01629307db9"
+      }
+    },
+    {
+      "id": "H05",
+      "category": "header_contract",
+      "name": "exclude.h",
+      "paths": [
+        "src/exclude.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/exclude.h": "4c97aa9bc68d14b9e16d8c49729e342754a6d6679715689cb4621be6500a2dc1"
+      }
+    },
+    {
+      "id": "H06",
+      "category": "header_contract",
+      "name": "f4rank.h",
+      "paths": [
+        "src/f4rank.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/f4rank.h": "d6b6b9f393d7ec615a787669835956b14ba50651522cad5fc2774134e4b562e5"
+      }
+    },
+    {
+      "id": "H07",
+      "category": "header_contract",
+      "name": "faidx.h",
+      "paths": [
+        "src/faidx.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/faidx.h": "674989a3392e696ffa02ae0018050296778e375357aa96953a0ad8537780c82c"
+      }
+    },
+    {
+      "id": "H08",
+      "category": "header_contract",
+      "name": "fitsubs.h",
+      "paths": [
+        "src/fitsubs.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/fitsubs.h": "c52d3b396f0de3e9b031b0e51eb55536f0ef50950da7a6dd25d91a4959c6ff2b"
+      }
+    },
+    {
+      "id": "H09",
+      "category": "header_contract",
+      "name": "geno.h",
+      "paths": [
+        "src/geno.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/geno.h": "f43f15c0d290dfd1bbe32ee08441863b47c7a09268e49fb7ac36f5a473fe8c25"
+      }
+    },
+    {
+      "id": "H10",
+      "category": "header_contract",
+      "name": "globals.h",
+      "paths": [
+        "src/globals.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/globals.h": "27183657b91d0374f774be35816e667d32a5153855b9b86f8176d221ad7525bf"
+      }
+    },
+    {
+      "id": "H11",
+      "category": "header_contract",
+      "name": "h2d.h",
+      "paths": [
+        "src/h2d.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/h2d.h": "9e3ddbb1128f257d3888db5d3301ac116bb5d75e7712dcfc4b02ea522eea3a34"
+      }
+    },
+    {
+      "id": "H12",
+      "category": "header_contract",
+      "name": "ldsubs.h",
+      "paths": [
+        "src/ldsubs.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/ldsubs.h": "1856386361c79b95c699063a497ab81e4c426ecdf1c29dff18ed81c196d158e9"
+      }
+    },
+    {
+      "id": "H13",
+      "category": "header_contract",
+      "name": "mapfile.h",
+      "paths": [
+        "src/mapfile.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/mapfile.h": "a9b9c904b9fabd1975da4f316ae600f5088b6a599b15c95ae289ae2d4b2e5f77"
+      }
+    },
+    {
+      "id": "H14",
+      "category": "header_contract",
+      "name": "mcio.h",
+      "paths": [
+        "src/mcio.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/mcio.h": "95a0292f0db101f5084ad86c07b49df865da12fe3a0acddf3d014f6f4fca7cf2"
+      }
+    },
+    {
+      "id": "H15",
+      "category": "header_contract",
+      "name": "mcmcpars.h",
+      "paths": [
+        "src/mcmcpars.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/mcmcpars.h": "be6627b88ce2502479e8dfd124deb60baff7e32a5b76f71a1c9936554c1cd93a"
+      }
+    },
+    {
+      "id": "H16",
+      "category": "header_contract",
+      "name": "nicklib.h",
+      "paths": [
+        "src/nicklib.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/nicklib.h": "bf32ae4d5e15bc8f3729938b89011018b9c5bce24faf00f202c4c1e66bf6f6c2"
+      }
+    },
+    {
+      "id": "H17",
+      "category": "header_contract",
+      "name": "nicksam.h",
+      "paths": [
+        "src/nicksam.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/nicksam.h": "0a0db80576afd30c593cdbb7ad0e763abc2ef0bc1aeb7b2215cac31d67a5df3c"
+      }
+    },
+    {
+      "id": "H18",
+      "category": "header_contract",
+      "name": "admix_platform.h",
+      "paths": [
+        "src/nicksrc/admix_platform.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/nicksrc/admix_platform.h": "04ee846ff81409e908d82fecf2280b59506bc5b7b6de6579acaec8d5feb413f5"
+      }
+    },
+    {
+      "id": "H19",
+      "category": "header_contract",
+      "name": "admix_types.h",
+      "paths": [
+        "src/nicksrc/admix_types.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/nicksrc/admix_types.h": "c42b320c848bb98fbff352b2df1d4246e435cb49e340efc3c3fa6385c65c6a05"
+      }
+    },
+    {
+      "id": "H20",
+      "category": "header_contract",
+      "name": "getpars.h",
+      "paths": [
+        "src/nicksrc/getpars.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/nicksrc/getpars.h": "a90d147f93f62ddd90832e15ed09b2ea78b710981ee12af33703eb278506bf3f"
+      }
+    },
+    {
+      "id": "H21",
+      "category": "header_contract",
+      "name": "linsubs.h",
+      "paths": [
+        "src/nicksrc/linsubs.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/nicksrc/linsubs.h": "6c5a822515049995a1ac90858eef9ea0328aa30117fbb65fd1f615b8aa587eba"
+      }
+    },
+    {
+      "id": "H22",
+      "category": "header_contract",
+      "name": "mptable.h",
+      "paths": [
+        "src/nicksrc/mptable.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/nicksrc/mptable.h": "04834a9526179d4cdc92dc280b5a84dd70c0c05127b63c763b1df52872d10375"
+      }
+    },
+    {
+      "id": "H23",
+      "category": "header_contract",
+      "name": "nicklib.h",
+      "paths": [
+        "src/nicksrc/nicklib.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/nicksrc/nicklib.h": "4f8a2ae1c4e2c02cf7bfabe995db3ce144488df32b98c664a12d86103e57cb1a"
+      }
+    },
+    {
+      "id": "H24",
+      "category": "header_contract",
+      "name": "ranmath.h",
+      "paths": [
+        "src/nicksrc/ranmath.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/nicksrc/ranmath.h": "243a7ff80a294c29ae3c7f7875d31a89a3208f6a4cb8f03c643ba67e3c0ccfa4"
+      }
+    },
+    {
+      "id": "H25",
+      "category": "header_contract",
+      "name": "sortit.h",
+      "paths": [
+        "src/nicksrc/sortit.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/nicksrc/sortit.h": "dcdfdf3f8151b797935fb070187d01cc83e8fea537574d6bf0e1383b1bdf67b5"
+      }
+    },
+    {
+      "id": "H26",
+      "category": "header_contract",
+      "name": "statsubs.h",
+      "paths": [
+        "src/nicksrc/statsubs.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/nicksrc/statsubs.h": "3031707f9331f52f7ddd702865048e27f338e96644884ff254b02ab8d9538581"
+      }
+    },
+    {
+      "id": "H27",
+      "category": "header_contract",
+      "name": "strsubs.h",
+      "paths": [
+        "src/nicksrc/strsubs.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/nicksrc/strsubs.h": "1a781a09301c8045d540a0c4cabc9b85a5d7ec0f9e8a8fdb7dd6ffa7faecdc88"
+      }
+    },
+    {
+      "id": "H28",
+      "category": "header_contract",
+      "name": "twtable.h",
+      "paths": [
+        "src/nicksrc/twtable.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/nicksrc/twtable.h": "3069a2ef5a9feae426cbd584ef7009b0d65d248f5640bea488b62f53e021b0bb"
+      }
+    },
+    {
+      "id": "H29",
+      "category": "header_contract",
+      "name": "vsubs.h",
+      "paths": [
+        "src/nicksrc/vsubs.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/nicksrc/vsubs.h": "dc1108cdb1b31b096a87dd6a2310f884211556971fbf833742d5b5b483401e46"
+      }
+    },
+    {
+      "id": "H30",
+      "category": "header_contract",
+      "name": "xsearch.h",
+      "paths": [
+        "src/nicksrc/xsearch.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/nicksrc/xsearch.h": "6cbbb92e854ec12bd56df2645ab4d9649ac857cf16a4e45457ecff3df258d820"
+      }
+    },
+    {
+      "id": "H31",
+      "category": "header_contract",
+      "name": "packit.h",
+      "paths": [
+        "src/packit.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/packit.h": "89dcaa1fb7c35eb2655a2f9f1961e1863047f9ad37c50a78c47e4cb5fbf8f8a9"
+      }
+    },
+    {
+      "id": "H32",
+      "category": "header_contract",
+      "name": "qpgsubs.h",
+      "paths": [
+        "src/qpgsubs.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/qpgsubs.h": "7e8c057df18904fe96cf29dcb4fbbe703a2c1bd54ec5594824dea52ef2b46efa"
+      }
+    },
+    {
+      "id": "H33",
+      "category": "header_contract",
+      "name": "qpsubs.h",
+      "paths": [
+        "src/qpsubs.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/qpsubs.h": "430f0be7f0410c7c92ed79f3c133e65fe8d900e23cb23ed2696234fb6839b06d"
+      }
+    },
+    {
+      "id": "H34",
+      "category": "header_contract",
+      "name": "qsubs.h",
+      "paths": [
+        "src/qsubs.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/qsubs.h": "b06e54f053e31309fdd611667aa1a7146e38e20538590593433e740590529d2d"
+      }
+    },
+    {
+      "id": "H35",
+      "category": "header_contract",
+      "name": "regsubs.h",
+      "paths": [
+        "src/regsubs.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/regsubs.h": "3b186a2a31dee8b794e0aebebeb55ac8d3c10dfc478b8df82b4feaba4b392f0a"
+      }
+    },
+    {
+      "id": "H36",
+      "category": "header_contract",
+      "name": "tmcio.h",
+      "paths": [
+        "src/tmcio.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/tmcio.h": "a4e4ca13b57a8baa95f16ce541d1c9ddffb701010cf8c03c1f65d69ea77f2746"
+      }
+    },
+    {
+      "id": "H37",
+      "category": "header_contract",
+      "name": "argp.h",
+      "paths": [
+        "src/win32/argp.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/win32/argp.h": "f06486cbbbad9f0f84ef2a2d5cc90d2f63ee07aa7125953bd936f3e455d87b2a"
+      }
+    },
+    {
+      "id": "H38",
+      "category": "header_contract",
+      "name": "compat.h",
+      "paths": [
+        "src/win32/compat.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/win32/compat.h": "79b42bbc4d4b92ca99506bcce3ab362afab684e54a71dfa2469e13a4cd8a33c9"
+      }
+    },
+    {
+      "id": "H39",
+      "category": "header_contract",
+      "name": "mman.h",
+      "paths": [
+        "src/win32/mman.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/win32/mman.h": "eaef6bf4bc5b9c6a75841907bb671d1113f4cb767df95c569f0fb875b1ccf8ec"
+      }
+    },
+    {
+      "id": "H40",
+      "category": "header_contract",
+      "name": "xpsubs.h",
+      "paths": [
+        "src/xpsubs.h"
+      ],
+      "hard_check": "pending",
+      "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
+      "sha256": {
+        "src/xpsubs.h": "548ed87ee542db9ac8f0cf85ec556bc2ab5fecba5ea1bd3e4de521d33451c15c"
+      }
+    },
+    {
+      "id": "I01",
+      "category": "build_or_maintenance",
+      "name": "Windows build entry point",
+      "paths": [
+        "build-windows.ps1"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "build-windows.ps1": "53ce535e1fcd3f921434c7e5247fda43ceb7c3e685c7827eb55923d9189c7d20"
+      }
+    },
+    {
+      "id": "I02",
+      "category": "build_or_maintenance",
+      "name": "GNU argp/dependency preparation",
+      "paths": [
+        "prepare-windows.ps1"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "prepare-windows.ps1": "9e40256f0bfa8b7e350321bf45c752fd3823d5a9cffc9b1e4ed203c2d63706fd"
+      }
+    },
+    {
+      "id": "I03",
+      "category": "build_or_maintenance",
+      "name": "Windows target/link/install/manifest logic",
+      "paths": [
+        "src/build_windows.py"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "src/build_windows.py": "94efc6da2655da98856f874a8677fa41e361b034efaf2e5079e367d6d7ab258d"
+      }
+    },
+    {
+      "id": "I04",
+      "category": "build_or_maintenance",
+      "name": "Linux build/install rules",
+      "paths": [
+        "src/Makefile"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "src/Makefile": "52e4fd4def2aabf3a3f5e2997e348222a50529f7c412ab72e5fa324f754df895"
+      }
+    },
+    {
+      "id": "I05",
+      "category": "build_or_maintenance",
+      "name": "macOS build/install rules",
+      "paths": [
+        "src/Makefile.mac"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "src/Makefile.mac": "f0e9e0078c04e493475725d5581e548eeec2542c9767d9963dc7e2cce5b4d900"
+      }
+    },
+    {
+      "id": "I06",
+      "category": "build_or_maintenance",
+      "name": "nick library build",
+      "paths": [
+        "src/nicksrc/Makefile"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "src/nicksrc/Makefile": "4cc0ccaec13e2e372a7a4b513bae1ff74f452689b8202624bdd3272ffccdb3e5"
+      }
+    },
+    {
+      "id": "I07",
+      "category": "build_or_maintenance",
+      "name": "C++ header-editing helper",
+      "paths": [
+        "src/add_extern_C.sh"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "src/add_extern_C.sh": "bd74108292685309d200b46057a2fbf1c79802fd11992ae66cfb1f9442fe9830"
+      }
+    },
+    {
+      "id": "I08",
+      "category": "build_or_maintenance",
+      "name": "Historical exponential-fit shell template",
+      "paths": [
+        "src/expfit.templ"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "src/expfit.templ": "d23cfa9fb453262273e9981f0de68de39b99d1ff21e61d04d279273490f46eb2"
+      }
+    },
+    {
+      "id": "I09",
+      "category": "build_or_maintenance",
+      "name": "Checkout, encoding and baseline policy",
+      "paths": [
+        ".gitattributes",
+        ".gitignore",
+        "UPSTREAM_BASELINE",
+        "AGENTS.md"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        ".gitattributes": "9369c7cd923083114f167ac08e236121d4482caad1975ae5f972c06a8576f0ed",
+        ".gitignore": "dd89453907df45a66d3cefc78b66b2e5a0f964898d2767ffd08acda4012c551a",
+        "UPSTREAM_BASELINE": "0f4f36c061fae02d1a815d4c8b70dd59d8f3d1b4856822ddfb96df6ce28b6f90",
+        "AGENTS.md": "9b012dded2da61080f18da39ff0e2e8f0b385c6410b88f1bf440207f027a7707"
+      }
+    },
+    {
+      "id": "L01",
+      "category": "source_only_program",
+      "name": "src/kimqpr.c",
+      "paths": [
+        "src/kimqpr.c"
+      ],
+      "hard_check": "pending",
+      "build": "not in supported inventory; characterize before deciding support",
+      "sha256": {
+        "src/kimqpr.c": "35ee484e43cbc984f0b0802b7f0769504bc8c3065e8d52b2ef2d5e5a28cc712b"
+      }
+    },
+    {
+      "id": "L02",
+      "category": "source_only_program",
+      "name": "src/testr1.c",
+      "paths": [
+        "src/testr1.c"
+      ],
+      "hard_check": "pending",
+      "build": "not in supported inventory; characterize before deciding support",
+      "sha256": {
+        "src/testr1.c": "2f2e58d9b6fd91a142e7abaf64ef64e356022fbddee2f1cc4832664aa18d01be"
+      }
+    },
+    {
+      "id": "L03",
+      "category": "source_only_program",
+      "name": "src/nicksrc/esttime2.c",
+      "paths": [
+        "src/nicksrc/esttime2.c"
+      ],
+      "hard_check": "pending",
+      "build": "not in supported inventory; characterize before deciding support",
+      "sha256": {
+        "src/nicksrc/esttime2.c": "dabe86211945c071c7cfa351fd516878b4486af2196bbba9dfe416448347a251"
+      }
+    },
+    {
+      "id": "L04",
+      "category": "source_only_program",
+      "name": "src/nicksrc/kimf.c",
+      "paths": [
+        "src/nicksrc/kimf.c"
+      ],
+      "hard_check": "pending",
+      "build": "not in supported inventory; characterize before deciding support",
+      "sha256": {
+        "src/nicksrc/kimf.c": "f6214072260aef25b72c24bdd6cf1d29eefc6f9ab45d27980465f8f78cbdd6f5"
+      }
+    },
+    {
+      "id": "L05",
+      "category": "source_only_program",
+      "name": "src/nicksrc/linsolve.c",
+      "paths": [
+        "src/nicksrc/linsolve.c"
+      ],
+      "hard_check": "pending",
+      "build": "not in supported inventory; characterize before deciding support",
+      "sha256": {
+        "src/nicksrc/linsolve.c": "224b2a2ee5e7aec70646bb450a8072bc97964abc51f051d49e69e438ad86b4fe"
+      }
+    },
+    {
+      "id": "M01",
+      "category": "shared_c_module",
+      "name": "compat",
+      "paths": [
+        "src/win32/compat.c"
+      ],
+      "hard_check": "pending",
+      "role": "Win32 I/O, environment, PRNG, temp paths, gzip and process helpers",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpfstats",
+        "qpWave",
+        "qpDstat",
+        "qp3Pop",
+        "qpF4ratio",
+        "qp4diff",
+        "qpGraph",
+        "qpreroot",
+        "convertf",
+        "transpose",
+        "geno_single",
+        "merge_transpose",
+        "mergeit",
+        "snpunion",
+        "multimerge",
+        "qpff3base",
+        "qpfmv",
+        "qpmix",
+        "qpfit",
+        "qpBound",
+        "qpDpart",
+        "qpdslow",
+        "rolloff",
+        "rolloffp",
+        "mkweights",
+        "kimf",
+        "gcount",
+        "ascore",
+        "easystats",
+        "easylite",
+        "easycheck",
+        "nickhash",
+        "grabpars",
+        "simpjack2",
+        "dowtjack",
+        "diffmean"
+      ],
+      "link_kind": "direct object",
+      "sha256": {
+        "src/win32/compat.c": "3f19c8678c2cd859f06163269a1dc4f53865f663a2686a74d0aa70ae550c019b"
+      }
+    },
+    {
+      "id": "M02",
+      "category": "shared_c_module",
+      "name": "strsubs",
+      "paths": [
+        "src/nicksrc/strsubs.c"
+      ],
+      "hard_check": "pending",
+      "role": "Strings, files, temporary names, errors and legacy shell helpers",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpfstats",
+        "qpWave",
+        "qpDstat",
+        "qp3Pop",
+        "qpF4ratio",
+        "qp4diff",
+        "qpGraph",
+        "qpreroot",
+        "convertf",
+        "transpose",
+        "geno_single",
+        "merge_transpose",
+        "mergeit",
+        "snpunion",
+        "multimerge",
+        "qpff3base",
+        "qpfmv",
+        "qpmix",
+        "qpfit",
+        "qpBound",
+        "qpDpart",
+        "qpdslow",
+        "rolloff",
+        "rolloffp",
+        "mkweights",
+        "kimf",
+        "gcount",
+        "ascore",
+        "easystats",
+        "easylite",
+        "easycheck",
+        "nickhash",
+        "grabpars",
+        "simpjack2",
+        "dowtjack",
+        "diffmean"
+      ],
+      "link_kind": "archive input; member selection varies",
+      "sha256": {
+        "src/nicksrc/strsubs.c": "af6641d0a33c87546ed35caf9f286605e0a87d347f5342c09ff651ddb84a8409"
+      }
+    },
+    {
+      "id": "M03",
+      "category": "shared_c_module",
+      "name": "getpars",
+      "paths": [
+        "src/nicksrc/getpars.c"
+      ],
+      "hard_check": "pending",
+      "role": "Parameter parsing/substitution and Windows quoting",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpfstats",
+        "qpWave",
+        "qpDstat",
+        "qp3Pop",
+        "qpF4ratio",
+        "qp4diff",
+        "qpGraph",
+        "qpreroot",
+        "convertf",
+        "transpose",
+        "geno_single",
+        "merge_transpose",
+        "mergeit",
+        "snpunion",
+        "multimerge",
+        "qpff3base",
+        "qpfmv",
+        "qpmix",
+        "qpfit",
+        "qpBound",
+        "qpDpart",
+        "qpdslow",
+        "rolloff",
+        "rolloffp",
+        "mkweights",
+        "kimf",
+        "gcount",
+        "ascore",
+        "easystats",
+        "easylite",
+        "easycheck",
+        "nickhash",
+        "grabpars",
+        "simpjack2",
+        "dowtjack",
+        "diffmean"
+      ],
+      "link_kind": "archive input; member selection varies",
+      "sha256": {
+        "src/nicksrc/getpars.c": "fcebcc2153506183dd04b9dfa0ab8c233f24dc4c5cfe900e4c7fbe9456907167"
+      }
+    },
+    {
+      "id": "M04",
+      "category": "shared_c_module",
+      "name": "gauss",
+      "paths": [
+        "src/nicksrc/gauss.c"
+      ],
+      "hard_check": "pending",
+      "role": "Gaussian sampling and random-dependent routines",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpfstats",
+        "qpWave",
+        "qpDstat",
+        "qp3Pop",
+        "qpF4ratio",
+        "qp4diff",
+        "qpGraph",
+        "qpreroot",
+        "convertf",
+        "transpose",
+        "geno_single",
+        "merge_transpose",
+        "mergeit",
+        "snpunion",
+        "multimerge",
+        "qpff3base",
+        "qpfmv",
+        "qpmix",
+        "qpfit",
+        "qpBound",
+        "qpDpart",
+        "qpdslow",
+        "rolloff",
+        "rolloffp",
+        "mkweights",
+        "kimf",
+        "gcount",
+        "ascore",
+        "easystats",
+        "easylite",
+        "easycheck",
+        "nickhash",
+        "grabpars",
+        "simpjack2",
+        "dowtjack",
+        "diffmean"
+      ],
+      "link_kind": "archive input; member selection varies",
+      "sha256": {
+        "src/nicksrc/gauss.c": "9a63a6b728441ae536a7a069d3b4e8573982285128a8f13dd96761aa51805527"
+      }
+    },
+    {
+      "id": "M05",
+      "category": "shared_c_module",
+      "name": "gds",
+      "paths": [
+        "src/nicksrc/gds.c"
+      ],
+      "hard_check": "pending",
+      "role": "General distribution/sampling helpers",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpfstats",
+        "qpWave",
+        "qpDstat",
+        "qp3Pop",
+        "qpF4ratio",
+        "qp4diff",
+        "qpGraph",
+        "qpreroot",
+        "convertf",
+        "transpose",
+        "geno_single",
+        "merge_transpose",
+        "mergeit",
+        "snpunion",
+        "multimerge",
+        "qpff3base",
+        "qpfmv",
+        "qpmix",
+        "qpfit",
+        "qpBound",
+        "qpDpart",
+        "qpdslow",
+        "rolloff",
+        "rolloffp",
+        "mkweights",
+        "kimf",
+        "gcount",
+        "ascore",
+        "easystats",
+        "easylite",
+        "easycheck",
+        "nickhash",
+        "grabpars",
+        "simpjack2",
+        "dowtjack",
+        "diffmean"
+      ],
+      "link_kind": "archive input; member selection varies",
+      "sha256": {
+        "src/nicksrc/gds.c": "329f54fa44b37ac5d662629c5aade9e5392b0a981fdd246a1d9ccbec1fc8fda3"
+      }
+    },
+    {
+      "id": "M06",
+      "category": "shared_c_module",
+      "name": "sortit",
+      "paths": [
+        "src/nicksrc/sortit.c"
+      ],
+      "hard_check": "pending",
+      "role": "Sorting and equal-key ordering",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpfstats",
+        "qpWave",
+        "qpDstat",
+        "qp3Pop",
+        "qpF4ratio",
+        "qp4diff",
+        "qpGraph",
+        "qpreroot",
+        "convertf",
+        "transpose",
+        "geno_single",
+        "merge_transpose",
+        "mergeit",
+        "snpunion",
+        "multimerge",
+        "qpff3base",
+        "qpfmv",
+        "qpmix",
+        "qpfit",
+        "qpBound",
+        "qpDpart",
+        "qpdslow",
+        "rolloff",
+        "rolloffp",
+        "mkweights",
+        "kimf",
+        "gcount",
+        "ascore",
+        "easystats",
+        "easylite",
+        "easycheck",
+        "nickhash",
+        "grabpars",
+        "simpjack2",
+        "dowtjack",
+        "diffmean"
+      ],
+      "link_kind": "archive input; member selection varies",
+      "sha256": {
+        "src/nicksrc/sortit.c": "fbdb91aa7dc850bb9d1d87809ce4dd75fa047ab7f9096c1278fab1188ab4062a"
+      }
+    },
+    {
+      "id": "M07",
+      "category": "shared_c_module",
+      "name": "xsearch",
+      "paths": [
+        "src/nicksrc/xsearch.c"
+      ],
+      "hard_check": "pending",
+      "role": "Hashes, search tables and integer shifts",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpfstats",
+        "qpWave",
+        "qpDstat",
+        "qp3Pop",
+        "qpF4ratio",
+        "qp4diff",
+        "qpGraph",
+        "qpreroot",
+        "convertf",
+        "transpose",
+        "geno_single",
+        "merge_transpose",
+        "mergeit",
+        "snpunion",
+        "multimerge",
+        "qpff3base",
+        "qpfmv",
+        "qpmix",
+        "qpfit",
+        "qpBound",
+        "qpDpart",
+        "qpdslow",
+        "rolloff",
+        "rolloffp",
+        "mkweights",
+        "kimf",
+        "gcount",
+        "ascore",
+        "easystats",
+        "easylite",
+        "easycheck",
+        "nickhash",
+        "grabpars",
+        "simpjack2",
+        "dowtjack",
+        "diffmean"
+      ],
+      "link_kind": "archive input; member selection varies",
+      "sha256": {
+        "src/nicksrc/xsearch.c": "41461b26705304c4c43c46a0d0c974bf3ce3713cde2e2a758932c6f945ecb6ae"
+      }
+    },
+    {
+      "id": "M08",
+      "category": "shared_c_module",
+      "name": "vsubs",
+      "paths": [
+        "src/nicksrc/vsubs.c"
+      ],
+      "hard_check": "pending",
+      "role": "Vector/integer operations, rounding, memory/timing diagnostics",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpfstats",
+        "qpWave",
+        "qpDstat",
+        "qp3Pop",
+        "qpF4ratio",
+        "qp4diff",
+        "qpGraph",
+        "qpreroot",
+        "convertf",
+        "transpose",
+        "geno_single",
+        "merge_transpose",
+        "mergeit",
+        "snpunion",
+        "multimerge",
+        "qpff3base",
+        "qpfmv",
+        "qpmix",
+        "qpfit",
+        "qpBound",
+        "qpDpart",
+        "qpdslow",
+        "rolloff",
+        "rolloffp",
+        "mkweights",
+        "kimf",
+        "gcount",
+        "ascore",
+        "easystats",
+        "easylite",
+        "easycheck",
+        "nickhash",
+        "grabpars",
+        "simpjack2",
+        "dowtjack",
+        "diffmean"
+      ],
+      "link_kind": "archive input; member selection varies",
+      "sha256": {
+        "src/nicksrc/vsubs.c": "63be25e4209f80ede8516a78133a1a88ee7c2fd93f260ce27b46e35d88995d78"
+      }
+    },
+    {
+      "id": "M09",
+      "category": "shared_c_module",
+      "name": "statsubs",
+      "paths": [
+        "src/nicksrc/statsubs.c"
+      ],
+      "hard_check": "pending",
+      "role": "Statistical distributions, tails and jackknife routines",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpfstats",
+        "qpWave",
+        "qpDstat",
+        "qp3Pop",
+        "qpF4ratio",
+        "qp4diff",
+        "qpGraph",
+        "qpreroot",
+        "convertf",
+        "transpose",
+        "geno_single",
+        "merge_transpose",
+        "mergeit",
+        "snpunion",
+        "multimerge",
+        "qpff3base",
+        "qpfmv",
+        "qpmix",
+        "qpfit",
+        "qpBound",
+        "qpDpart",
+        "qpdslow",
+        "rolloff",
+        "rolloffp",
+        "mkweights",
+        "kimf",
+        "gcount",
+        "ascore",
+        "easystats",
+        "easylite",
+        "easycheck",
+        "nickhash",
+        "grabpars",
+        "simpjack2",
+        "dowtjack",
+        "diffmean"
+      ],
+      "link_kind": "archive input; member selection varies",
+      "sha256": {
+        "src/nicksrc/statsubs.c": "592a5000521cb33e3aa51fabb1bba5f7a800bd8b23d726851d686eafc3f8c8cf"
+      }
+    },
+    {
+      "id": "M10",
+      "category": "shared_c_module",
+      "name": "linsubs",
+      "paths": [
+        "src/nicksrc/linsubs.c"
+      ],
+      "hard_check": "pending",
+      "role": "Linear algebra helpers",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpfstats",
+        "qpWave",
+        "qpDstat",
+        "qp3Pop",
+        "qpF4ratio",
+        "qp4diff",
+        "qpGraph",
+        "qpreroot",
+        "convertf",
+        "transpose",
+        "geno_single",
+        "merge_transpose",
+        "mergeit",
+        "snpunion",
+        "multimerge",
+        "qpff3base",
+        "qpfmv",
+        "qpmix",
+        "qpfit",
+        "qpBound",
+        "qpDpart",
+        "qpdslow",
+        "rolloff",
+        "rolloffp",
+        "mkweights",
+        "kimf",
+        "gcount",
+        "ascore",
+        "easystats",
+        "easylite",
+        "easycheck",
+        "nickhash",
+        "grabpars",
+        "simpjack2",
+        "dowtjack",
+        "diffmean"
+      ],
+      "link_kind": "archive input; member selection varies",
+      "sha256": {
+        "src/nicksrc/linsubs.c": "a8f6fd1143673caf79e1e1b4050dbbb4eda93fd9ca0b966a5c72d9653d35bf6c"
+      }
+    },
+    {
+      "id": "M11",
+      "category": "shared_c_module",
+      "name": "mcio",
+      "paths": [
+        "src/mcio.c"
+      ],
+      "hard_check": "pending",
+      "role": "Genotype formats, filters, sizes, gzip dispatch and readers/writers",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpfstats",
+        "qpWave",
+        "qpDstat",
+        "qp3Pop",
+        "qpF4ratio",
+        "qp4diff",
+        "qpGraph",
+        "qpreroot",
+        "convertf",
+        "mergeit",
+        "snpunion",
+        "multimerge",
+        "qpff3base",
+        "qpfmv",
+        "qpmix",
+        "qpfit",
+        "qpBound",
+        "qpDpart",
+        "qpdslow",
+        "rolloff",
+        "rolloffp",
+        "mkweights",
+        "kimf",
+        "gcount",
+        "ascore",
+        "easystats",
+        "easylite",
+        "easycheck"
+      ],
+      "link_kind": "direct object",
+      "sha256": {
+        "src/mcio.c": "4bc3de3a7e81a73b6d76d75db21de1175c4695ebdbd858fd3e26ed408b511244"
+      }
+    },
+    {
+      "id": "M12",
+      "category": "shared_c_module",
+      "name": "geno",
+      "paths": [
+        "src/geno.c"
+      ],
+      "hard_check": "pending",
+      "role": "Packed genotype matrices and byte operations",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpfstats",
+        "qpWave",
+        "qpDstat",
+        "qp3Pop",
+        "qpF4ratio",
+        "qp4diff",
+        "qpGraph",
+        "qpreroot",
+        "convertf",
+        "transpose",
+        "geno_single",
+        "merge_transpose",
+        "mergeit",
+        "snpunion",
+        "multimerge",
+        "qpff3base",
+        "qpfmv",
+        "qpmix",
+        "qpfit",
+        "qpBound",
+        "qpDpart",
+        "qpdslow",
+        "rolloff",
+        "rolloffp",
+        "mkweights",
+        "kimf",
+        "gcount",
+        "ascore",
+        "easystats",
+        "easylite",
+        "easycheck"
+      ],
+      "link_kind": "direct object",
+      "sha256": {
+        "src/geno.c": "6cf8c816393fe8a36d2328b85bb169ba0c176698feee2fee3072b5fddfb9558a"
+      }
+    },
+    {
+      "id": "M13",
+      "category": "shared_c_module",
+      "name": "mapfile",
+      "paths": [
+        "src/mapfile.c"
+      ],
+      "hard_check": "pending",
+      "role": "Memory-mapped file lifecycle and offsets",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpfstats",
+        "qpWave",
+        "qpDstat",
+        "qp3Pop",
+        "qpF4ratio",
+        "qp4diff",
+        "qpGraph",
+        "qpreroot",
+        "convertf",
+        "mergeit",
+        "snpunion",
+        "qpff3base",
+        "qpfmv",
+        "qpmix",
+        "qpfit",
+        "qpBound",
+        "qpDpart",
+        "qpdslow",
+        "rolloff",
+        "rolloffp",
+        "mkweights",
+        "kimf",
+        "gcount",
+        "ascore",
+        "easystats",
+        "easylite",
+        "easycheck"
+      ],
+      "link_kind": "direct object",
+      "sha256": {
+        "src/mapfile.c": "596ac12d487603aa08f6120a8b5992a19bb4fee960c582e6059e3a8504945226"
+      }
+    },
+    {
+      "id": "M14",
+      "category": "shared_c_module",
+      "name": "admutils",
+      "paths": [
+        "src/admutils.c"
+      ],
+      "hard_check": "pending",
+      "role": "Population/SNP/individual records and genotype access",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpfstats",
+        "qpWave",
+        "qpDstat",
+        "qp3Pop",
+        "qpF4ratio",
+        "qp4diff",
+        "qpGraph",
+        "qpreroot",
+        "convertf",
+        "mergeit",
+        "snpunion",
+        "multimerge",
+        "qpff3base",
+        "qpfmv",
+        "qpmix",
+        "qpfit",
+        "qpBound",
+        "qpDpart",
+        "qpdslow",
+        "rolloff",
+        "rolloffp",
+        "mkweights",
+        "kimf",
+        "gcount",
+        "ascore",
+        "easystats",
+        "easylite",
+        "easycheck",
+        "nickhash"
+      ],
+      "link_kind": "direct object",
+      "sha256": {
+        "src/admutils.c": "a45283ec0160dd1d21647fc9e66d9c560c810ac2621da54adc0fb120ca24f818"
+      }
+    },
+    {
+      "id": "M15",
+      "category": "shared_c_module",
+      "name": "h2d",
+      "paths": [
+        "src/h2d.c"
+      ],
+      "hard_check": "pending",
+      "role": "Diploid/haploid conversion helpers",
+      "native_link_input_tools": [
+        "convertf",
+        "mergeit",
+        "snpunion",
+        "ascore"
+      ],
+      "link_kind": "direct object",
+      "sha256": {
+        "src/h2d.c": "b09a3a8a6f590e1aa4fc7a32b4e34278a6e0df5285e5f70e99d8c9212539345c"
+      }
+    },
+    {
+      "id": "M16",
+      "category": "shared_c_module",
+      "name": "exclude",
+      "paths": [
+        "src/exclude.c"
+      ],
+      "hard_check": "pending",
+      "role": "Exclusion/filter support",
+      "native_link_input_tools": [
+        "convertf",
+        "mergeit",
+        "snpunion",
+        "ascore"
+      ],
+      "link_kind": "direct object",
+      "sha256": {
+        "src/exclude.c": "046e0dc0c988813d96b61aa40fb2d222f66778ed40348bc6df41bfaf4b27ce11"
+      }
+    },
+    {
+      "id": "M17",
+      "category": "shared_c_module",
+      "name": "qpsubs",
+      "paths": [
+        "src/qpsubs.c"
+      ],
+      "hard_check": "pending",
+      "role": "Shared population/f-statistic computations",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpfstats",
+        "qpWave",
+        "qpDstat",
+        "qp3Pop",
+        "qpF4ratio",
+        "qp4diff",
+        "qpGraph",
+        "qpreroot",
+        "qpff3base",
+        "qpfmv",
+        "qpmix",
+        "qpfit",
+        "qpBound",
+        "qpDpart",
+        "qpdslow",
+        "rolloff",
+        "rolloffp",
+        "mkweights",
+        "kimf",
+        "gcount",
+        "easystats",
+        "easylite",
+        "easycheck"
+      ],
+      "link_kind": "direct object",
+      "sha256": {
+        "src/qpsubs.c": "cca149c813af9faa6e08a382e190cb62d6feb6a293ea5a24448161e6442af22c"
+      }
+    },
+    {
+      "id": "M18",
+      "category": "shared_c_module",
+      "name": "egsubs",
+      "paths": [
+        "src/egsubs.c"
+      ],
+      "hard_check": "pending",
+      "role": "Population and genotype analysis helpers",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpfstats",
+        "qpWave",
+        "qpDstat",
+        "qp3Pop",
+        "qpF4ratio",
+        "qp4diff",
+        "qpGraph",
+        "qpreroot",
+        "convertf",
+        "mergeit",
+        "snpunion",
+        "multimerge",
+        "qpff3base",
+        "qpfmv",
+        "qpmix",
+        "qpfit",
+        "qpBound",
+        "qpDpart",
+        "qpdslow",
+        "rolloff",
+        "rolloffp",
+        "mkweights",
+        "kimf",
+        "gcount",
+        "ascore",
+        "easystats",
+        "easylite",
+        "easycheck"
+      ],
+      "link_kind": "direct object",
+      "sha256": {
+        "src/egsubs.c": "fbe45d185d42680c781d998c0ceddc29589354398ce169c5cf47fda36f54edb2"
+      }
+    },
+    {
+      "id": "M19",
+      "category": "shared_c_module",
+      "name": "ldsubs",
+      "paths": [
+        "src/ldsubs.c"
+      ],
+      "hard_check": "pending",
+      "role": "LD/block calculations",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpfstats",
+        "qpWave",
+        "qpDstat",
+        "qp3Pop",
+        "qpF4ratio",
+        "qp4diff",
+        "qpGraph",
+        "qpreroot",
+        "qpff3base",
+        "qpfmv",
+        "qpmix",
+        "qpfit",
+        "qpBound",
+        "qpDpart",
+        "qpdslow",
+        "rolloff",
+        "rolloffp",
+        "mkweights",
+        "kimf",
+        "gcount",
+        "easystats",
+        "easylite",
+        "easycheck"
+      ],
+      "link_kind": "direct object",
+      "sha256": {
+        "src/ldsubs.c": "0b024b63c75b2e4988d3d90e48582baf5aa6f5cc3ec9d8e5fdd83539d08c790c"
+      }
+    },
+    {
+      "id": "M20",
+      "category": "shared_c_module",
+      "name": "regsubs",
+      "paths": [
+        "src/regsubs.c"
+      ],
+      "hard_check": "pending",
+      "role": "Regression helpers",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpfstats",
+        "qpWave",
+        "qpDstat",
+        "qp3Pop",
+        "qpF4ratio",
+        "qp4diff",
+        "qpGraph",
+        "qpreroot",
+        "qpff3base",
+        "qpfmv",
+        "qpmix",
+        "qpfit",
+        "qpBound",
+        "qpDpart",
+        "qpdslow",
+        "rolloff",
+        "rolloffp",
+        "mkweights",
+        "kimf",
+        "gcount",
+        "easystats",
+        "easylite",
+        "easycheck"
+      ],
+      "link_kind": "direct object",
+      "sha256": {
+        "src/regsubs.c": "8d84b669c637d4f0aca5c05178847994a1716d026aef6785b764345ff13f61a9"
+      }
+    },
+    {
+      "id": "M21",
+      "category": "shared_c_module",
+      "name": "f4rank",
+      "paths": [
+        "src/f4rank.c"
+      ],
+      "hard_check": "pending",
+      "role": "Rank fitting and covariance operations",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpWave",
+        "qpfit"
+      ],
+      "link_kind": "direct object",
+      "sha256": {
+        "src/f4rank.c": "4f9111aa95f6f4059a9e6b58e8376e05e0edfaca7947357c3537c327ca1cb574"
+      }
+    },
+    {
+      "id": "M22",
+      "category": "shared_c_module",
+      "name": "eigsubs",
+      "paths": [
+        "src/eigsubs.c"
+      ],
+      "hard_check": "pending",
+      "role": "Eigenvalue/eigenvector helpers",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpWave",
+        "qpfmv",
+        "qpmix",
+        "qpfit"
+      ],
+      "link_kind": "direct object",
+      "sha256": {
+        "src/eigsubs.c": "8a43d6dd4b7e77ba03cfa8e14b50174ba53899a569e210e6e716837573d663d1"
+      }
+    },
+    {
+      "id": "M23",
+      "category": "shared_c_module",
+      "name": "eigx",
+      "paths": [
+        "src/eigx.c"
+      ],
+      "hard_check": "pending",
+      "role": "LAPACK/BLAS declarations and ABI",
+      "native_link_input_tools": [
+        "qpAdm",
+        "qpWave",
+        "qpfmv",
+        "qpmix",
+        "qpfit"
+      ],
+      "link_kind": "direct object",
+      "sha256": {
+        "src/eigx.c": "299a9f72999e46469a70eb4a94f9530b579c470f4e86cdf1e4ddc4a0770349aa"
+      }
+    },
+    {
+      "id": "M24",
+      "category": "shared_c_module",
+      "name": "qpgsubs",
+      "paths": [
+        "src/qpgsubs.c"
+      ],
+      "hard_check": "pending",
+      "role": "Graph representation, traversal, serialization and DOT output",
+      "native_link_input_tools": [
+        "qpfstats",
+        "qpGraph",
+        "qpreroot",
+        "qpff3base",
+        "kimf"
+      ],
+      "link_kind": "direct object",
+      "sha256": {
+        "src/qpgsubs.c": "8215da1d472a8fef661c2f7ae753ef10c3853f47d93c6f3359b258c669306de0"
+      }
+    },
+    {
+      "id": "M25",
+      "category": "shared_c_module",
+      "name": "gslqp",
+      "paths": [
+        "src/gslqp.c"
+      ],
+      "hard_check": "pending",
+      "role": "Graph optimization bridge",
+      "native_link_input_tools": [
+        "qpGraph"
+      ],
+      "link_kind": "direct object",
+      "sha256": {
+        "src/gslqp.c": "a5548452784b1613935df1e505923b34a6b46be2ea39d59aa3f237637250867f"
+      }
+    },
+    {
+      "id": "M26",
+      "category": "shared_c_module",
+      "name": "gslrank1",
+      "paths": [
+        "src/gslrank1.c"
+      ],
+      "hard_check": "pending",
+      "role": "Rank-one optimization bridge",
+      "native_link_input_tools": [
+        "qpmix"
+      ],
+      "link_kind": "direct object",
+      "sha256": {
+        "src/gslrank1.c": "67a5cec623ec368cc2933531a10dc2e7af69b9b2be0be570f1cfdf32b4911c5f"
+      }
+    },
+    {
+      "id": "M27",
+      "category": "shared_c_module",
+      "name": "qpfitr1",
+      "paths": [
+        "src/qpfitr1.c"
+      ],
+      "hard_check": "pending",
+      "role": "Rank-one fit helper",
+      "native_link_input_tools": [
+        "qpmix"
+      ],
+      "link_kind": "direct object",
+      "sha256": {
+        "src/qpfitr1.c": "522d3225dedbd2595290d3f40ffa72a09a4bdfbbdffc7426e247abbb9b4edb5c"
+      }
+    },
+    {
+      "id": "M28",
+      "category": "shared_c_module",
+      "name": "gslkim",
+      "paths": [
+        "src/gslkim.c"
+      ],
+      "hard_check": "pending",
+      "role": "Spectrum/graph optimization bridge",
+      "native_link_input_tools": [
+        "kimf"
+      ],
+      "link_kind": "direct object",
+      "sha256": {
+        "src/gslkim.c": "10598e009ea15149dcfe9748c690a4b173186e74e1dd681a84d93fc70029a924"
+      }
+    },
+    {
+      "id": "Q01",
+      "category": "validation_harness",
+      "name": "parity.py",
+      "paths": [
+        "tests/windows/parity.py"
+      ],
+      "hard_check": "pending",
+      "role": "Check oracle, coverage, normalizations, exit handling and reproducibility",
+      "sha256": {
+        "tests/windows/parity.py": "0a6592ab05dc86eb530e769d4c0b6f21dce4d2b72853bb384e5221acd4871c88"
+      }
+    },
+    {
+      "id": "Q02",
+      "category": "validation_harness",
+      "name": "compatibility.py",
+      "paths": [
+        "tests/windows/compatibility.py"
+      ],
+      "hard_check": "pending",
+      "role": "Check oracle, coverage, normalizations, exit handling and reproducibility",
+      "sha256": {
+        "tests/windows/compatibility.py": "66ce628a3b1ee9cc8caecbc9416e3e3fe4299263244d1f413ba3c2829825ae34"
+      }
+    },
+    {
+      "id": "Q03",
+      "category": "validation_harness",
+      "name": "script_helpers.py",
+      "paths": [
+        "tests/windows/script_helpers.py"
+      ],
+      "hard_check": "pending",
+      "role": "Check oracle, coverage, normalizations, exit handling and reproducibility",
+      "sha256": {
+        "tests/windows/script_helpers.py": "f3444903120f8b9ef62a63b0a9d9e129cdc71676235fe59753c50a4a01091b5c"
+      }
+    },
+    {
+      "id": "Q04",
+      "category": "validation_harness",
+      "name": "platform_probe.c",
+      "paths": [
+        "tests/windows/platform_probe.c"
+      ],
+      "hard_check": "pending",
+      "role": "Check oracle, coverage, normalizations, exit handling and reproducibility",
+      "sha256": {
+        "tests/windows/platform_probe.c": "b3bfb83ea1b8564fd9651af03909d3584596c597466456f99f8cdc751388447a"
+      }
+    },
+    {
+      "id": "Q05",
+      "category": "validation_harness",
+      "name": "largefile_probe.c",
+      "paths": [
+        "tests/windows/largefile_probe.c"
+      ],
+      "hard_check": "pending",
+      "role": "Check oracle, coverage, normalizations, exit handling and reproducibility",
+      "sha256": {
+        "tests/windows/largefile_probe.c": "4179e3320a49c979e5ff8f7789177fbec76a4a6d93c4e8d48df3bd7e9d398c59"
+      }
+    },
+    {
+      "id": "Q06",
+      "category": "validation_harness",
+      "name": "stack_probe.c",
+      "paths": [
+        "tests/windows/stack_probe.c"
+      ],
+      "hard_check": "pending",
+      "role": "Check oracle, coverage, normalizations, exit handling and reproducibility",
+      "sha256": {
+        "tests/windows/stack_probe.c": "db0781cb954aa1aca61861a4806a6385d5ad4492d94623de149a3c970a23206e"
+      }
+    },
+    {
+      "id": "R01",
+      "category": "historical_rule",
+      "name": "oldqpmix",
+      "paths": [
+        "src/Makefile",
+        "src/Makefile.mac"
+      ],
+      "hard_check": "pending",
+      "missing_sources": [
+        "src/oldqpmix.c"
+      ],
+      "build": "source absent; not a buildable executable at this baseline",
+      "sha256": {
+        "src/Makefile": "52e4fd4def2aabf3a3f5e2997e348222a50529f7c412ab72e5fa324f754df895",
+        "src/Makefile.mac": "f0e9e0078c04e493475725d5581e548eeec2542c9767d9963dc7e2cce5b4d900"
+      }
+    },
+    {
+      "id": "R02",
+      "category": "historical_rule",
+      "name": "qpf4diff",
+      "paths": [
+        "src/Makefile",
+        "src/Makefile.mac"
+      ],
+      "hard_check": "pending",
+      "missing_sources": [
+        "src/f4diff.c"
+      ],
+      "build": "source absent; not a buildable executable at this baseline",
+      "sha256": {
+        "src/Makefile": "52e4fd4def2aabf3a3f5e2997e348222a50529f7c412ab72e5fa324f754df895",
+        "src/Makefile.mac": "f0e9e0078c04e493475725d5581e548eeec2542c9767d9963dc7e2cce5b4d900"
+      }
+    },
+    {
+      "id": "R03",
+      "category": "historical_rule",
+      "name": "qptestr1",
+      "paths": [
+        "src/Makefile",
+        "src/Makefile.mac"
+      ],
+      "hard_check": "pending",
+      "missing_sources": [
+        "src/qptestr1.c"
+      ],
+      "build": "source absent; not a buildable executable at this baseline",
+      "sha256": {
+        "src/Makefile": "52e4fd4def2aabf3a3f5e2997e348222a50529f7c412ab72e5fa324f754df895",
+        "src/Makefile.mac": "f0e9e0078c04e493475725d5581e548eeec2542c9767d9963dc7e2cce5b4d900"
+      }
+    },
+    {
+      "id": "R04",
+      "category": "historical_rule",
+      "name": "qqAdm",
+      "paths": [
+        "src/Makefile",
+        "src/Makefile.mac"
+      ],
+      "hard_check": "pending",
+      "missing_sources": [
+        "src/qqAdm.c"
+      ],
+      "build": "source absent; not a buildable executable at this baseline",
+      "sha256": {
+        "src/Makefile": "52e4fd4def2aabf3a3f5e2997e348222a50529f7c412ab72e5fa324f754df895",
+        "src/Makefile.mac": "f0e9e0078c04e493475725d5581e548eeec2542c9767d9963dc7e2cce5b4d900"
+      }
+    },
+    {
+      "id": "R05",
+      "category": "historical_rule",
+      "name": "qqpAdm",
+      "paths": [
+        "src/Makefile",
+        "src/Makefile.mac"
+      ],
+      "hard_check": "pending",
+      "missing_sources": [
+        "src/qqpAdm.c"
+      ],
+      "build": "source absent; not a buildable executable at this baseline",
+      "sha256": {
+        "src/Makefile": "52e4fd4def2aabf3a3f5e2997e348222a50529f7c412ab72e5fa324f754df895",
+        "src/Makefile.mac": "f0e9e0078c04e493475725d5581e548eeec2542c9767d9963dc7e2cce5b4d900"
+      }
+    },
+    {
+      "id": "R06",
+      "category": "historical_rule",
+      "name": "qqpGraph",
+      "paths": [
+        "src/Makefile",
+        "src/Makefile.mac"
+      ],
+      "hard_check": "pending",
+      "missing_sources": [
+        "src/qqpGraph.c"
+      ],
+      "build": "source absent; not a buildable executable at this baseline",
+      "sha256": {
+        "src/Makefile": "52e4fd4def2aabf3a3f5e2997e348222a50529f7c412ab72e5fa324f754df895",
+        "src/Makefile.mac": "f0e9e0078c04e493475725d5581e548eeec2542c9767d9963dc7e2cce5b4d900"
+      }
+    },
+    {
+      "id": "R07",
+      "category": "historical_rule",
+      "name": "qqpfmv",
+      "paths": [
+        "src/Makefile",
+        "src/Makefile.mac"
+      ],
+      "hard_check": "pending",
+      "missing_sources": [
+        "src/qqpfmv.c"
+      ],
+      "build": "source absent; not a buildable executable at this baseline",
+      "sha256": {
+        "src/Makefile": "52e4fd4def2aabf3a3f5e2997e348222a50529f7c412ab72e5fa324f754df895",
+        "src/Makefile.mac": "f0e9e0078c04e493475725d5581e548eeec2542c9767d9963dc7e2cce5b4d900"
+      }
+    },
+    {
+      "id": "R08",
+      "category": "historical_rule",
+      "name": "qqpfstats",
+      "paths": [
+        "src/Makefile",
+        "src/Makefile.mac"
+      ],
+      "hard_check": "pending",
+      "missing_sources": [
+        "src/qqpfstats.c"
+      ],
+      "build": "source absent; not a buildable executable at this baseline",
+      "sha256": {
+        "src/Makefile": "52e4fd4def2aabf3a3f5e2997e348222a50529f7c412ab72e5fa324f754df895",
+        "src/Makefile.mac": "f0e9e0078c04e493475725d5581e548eeec2542c9767d9963dc7e2cce5b4d900"
+      }
+    },
+    {
+      "id": "R09",
+      "category": "historical_rule",
+      "name": "qqpmix",
+      "paths": [
+        "src/Makefile",
+        "src/Makefile.mac"
+      ],
+      "hard_check": "pending",
+      "missing_sources": [
+        "src/qqpmix.c"
+      ],
+      "build": "source absent; not a buildable executable at this baseline",
+      "sha256": {
+        "src/Makefile": "52e4fd4def2aabf3a3f5e2997e348222a50529f7c412ab72e5fa324f754df895",
+        "src/Makefile.mac": "f0e9e0078c04e493475725d5581e548eeec2542c9767d9963dc7e2cce5b4d900"
+      }
+    },
+    {
+      "id": "R10",
+      "category": "historical_rule",
+      "name": "w2p",
+      "paths": [
+        "src/Makefile",
+        "src/Makefile.mac"
+      ],
+      "hard_check": "pending",
+      "missing_sources": [
+        "src/w2p.c"
+      ],
+      "build": "source absent; not a buildable executable at this baseline",
+      "sha256": {
+        "src/Makefile": "52e4fd4def2aabf3a3f5e2997e348222a50529f7c412ab72e5fa324f754df895",
+        "src/Makefile.mac": "f0e9e0078c04e493475725d5581e548eeec2542c9767d9963dc7e2cce5b4d900"
+      }
+    },
+    {
+      "id": "S01",
+      "category": "installed_script_or_python_module",
+      "name": "dof4",
+      "paths": [
+        "perlsrc/dof4"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/dof4",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "perlsrc/dof4": "7295bb9a2ca31dddbfe095bd2febb563bcfe757072c26220171282ea7873df16"
+      }
+    },
+    {
+      "id": "S02",
+      "category": "installed_script_or_python_module",
+      "name": "dof4a",
+      "paths": [
+        "perlsrc/dof4a"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/dof4a",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "perlsrc/dof4a": "2a63433a6bde7fd32e2fbe28a86df774e376aa9fd6485a0f8bed62c7ea651e2f"
+      }
+    },
+    {
+      "id": "S03",
+      "category": "installed_script_or_python_module",
+      "name": "fxtract",
+      "paths": [
+        "perlsrc/fxtract"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/fxtract",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "perlsrc/fxtract": "b53dfad23fd7f426078b23b40c036bc5426c49a9b8095a7ee700a10cfb9cfeaf"
+      }
+    },
+    {
+      "id": "S04",
+      "category": "installed_script_or_python_module",
+      "name": "getresult",
+      "paths": [
+        "perlsrc/getresult"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/getresult",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "perlsrc/getresult": "e536a2e9c2116fea9d260ffa971250f2aa8e1c59dde24a6362f4c237a57a1b15"
+      }
+    },
+    {
+      "id": "S05",
+      "category": "installed_script_or_python_module",
+      "name": "jackdiff",
+      "paths": [
+        "perlsrc/jackdiff"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/jackdiff",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "perlsrc/jackdiff": "5dda5ecad1ba78a307499d52c492e5d51d36574f024569c1c30be8dfbccc532f"
+      }
+    },
+    {
+      "id": "S06",
+      "category": "installed_script_or_python_module",
+      "name": "mkpretty",
+      "paths": [
+        "perlsrc/mkpretty"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/mkpretty",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "perlsrc/mkpretty": "ed125a6e2488b235cfb82e9e725af44ca1d66595b2373a74ba4b65f03797c8b3"
+      }
+    },
+    {
+      "id": "S07",
+      "category": "installed_script_or_python_module",
+      "name": "numlines",
+      "paths": [
+        "perlsrc/numlines"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/numlines",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "perlsrc/numlines": "7dd890c87d03656c544e0374895211da0b459e262586f63d323390d6afee555b"
+      }
+    },
+    {
+      "id": "S08",
+      "category": "installed_script_or_python_module",
+      "name": "xtractcol",
+      "paths": [
+        "perlsrc/xtractcol"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/xtractcol",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "perlsrc/xtractcol": "26fbc190a6b3f6a5040416f6fbae76c46a19b1a3b0f09538c8e2aec4aa159c55"
+      }
+    },
+    {
+      "id": "S09",
+      "category": "installed_script_or_python_module",
+      "name": "xtractcoltab",
+      "paths": [
+        "perlsrc/xtractcoltab"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/xtractcoltab",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "perlsrc/xtractcoltab": "31a8b54aee5079521f5192db335bda7c9df00d1a17f1d8757fc40eac49cde711"
+      }
+    },
+    {
+      "id": "S10",
+      "category": "installed_script_or_python_module",
+      "name": "xtractcolv",
+      "paths": [
+        "perlsrc/xtractcolv"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/xtractcolv",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "perlsrc/xtractcolv": "cc9ba7ab251bcbef89e99b98211af9764aabdc1b5ee1c3379b9132b5627418ca"
+      }
+    },
+    {
+      "id": "S11",
+      "category": "installed_script_or_python_module",
+      "name": "xtractcolx",
+      "paths": [
+        "perlsrc/xtractcolx"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/xtractcolx",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "perlsrc/xtractcolx": "c7de77a857380001b4dc279d62db1c7350545b6af1c7fb39f1f2235b73f20d33"
+      }
+    },
+    {
+      "id": "S12",
+      "category": "installed_script_or_python_module",
+      "name": "fxtract",
+      "paths": [
+        "src/fxtract"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/fxtract (currently overwritten; F001)",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "src/fxtract": "0aaece665dd08afa57ff57f158ec415b404bea3f74b5793e5546910c2baa1a16"
+      }
+    },
+    {
+      "id": "S13",
+      "category": "installed_script_or_python_module",
+      "name": "rexpfit.r",
+      "paths": [
+        "src/rexpfit.r"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/rexpfit.r",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "src/rexpfit.r": "baae86ccbe845a947e6ba392ee5b2fcaa874bb5678db7ebf218d17591fe03fff"
+      }
+    },
+    {
+      "id": "S14",
+      "category": "installed_script_or_python_module",
+      "name": "convertf.py",
+      "paths": [
+        "src/script/convertf.py"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/script/convertf.py",
+      "prior_evidence": "12-file Python workflow; hard check pending",
+      "role": "Interpreter helper",
+      "sha256": {
+        "src/script/convertf.py": "bb11ad4f3f859812358646f0704794e9f9da9d74c8dbb06cf52ef24c1b410d88"
+      }
+    },
+    {
+      "id": "S15",
+      "category": "installed_script_or_python_module",
+      "name": "extract_individuals.py",
+      "paths": [
+        "src/script/extract_individuals.py"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/script/extract_individuals.py",
+      "prior_evidence": "12-file Python workflow; hard check pending",
+      "role": "Interpreter helper",
+      "sha256": {
+        "src/script/extract_individuals.py": "101036e00e377c9c46bc497bb86679ef78db4c643f6ef6c9a2e2543477a80a80"
+      }
+    },
+    {
+      "id": "S16",
+      "category": "installed_script_or_python_module",
+      "name": "geno_header.py",
+      "paths": [
+        "src/script/geno_header.py"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/script/geno_header.py",
+      "prior_evidence": "12-file Python workflow; hard check pending",
+      "role": "Interpreter helper",
+      "sha256": {
+        "src/script/geno_header.py": "cdd66e6b29c6a8762d9b8c52d5917f45ae7bee0a21ab5683a87b7182e0074ecb"
+      }
+    },
+    {
+      "id": "S17",
+      "category": "installed_script_or_python_module",
+      "name": "grepcol",
+      "paths": [
+        "src/script/grepcol"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/script/grepcol",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "src/script/grepcol": "34c63847b92103945de7fc6a9a5aa0ff1450621d4c0c1efe34cf19d0cbdb7893"
+      }
+    },
+    {
+      "id": "S18",
+      "category": "installed_script_or_python_module",
+      "name": "grepcolf",
+      "paths": [
+        "src/script/grepcolf"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/script/grepcolf",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "src/script/grepcolf": "b65c47f22509f1af9324962df331b9ec54e2a82c7411a4dc9c758aa93c69dbea"
+      }
+    },
+    {
+      "id": "S19",
+      "category": "installed_script_or_python_module",
+      "name": "hash_checks.py",
+      "paths": [
+        "src/script/hash_checks.py"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/script/hash_checks.py",
+      "prior_evidence": "12-file Python workflow; hard check pending",
+      "role": "Interpreter helper",
+      "sha256": {
+        "src/script/hash_checks.py": "5be6a7591109e7ea35b0c2b02690d635f04a6d521501d05bf95ab7a6ab71c546"
+      }
+    },
+    {
+      "id": "S20",
+      "category": "installed_script_or_python_module",
+      "name": "link_identical_files.py",
+      "paths": [
+        "src/script/link_identical_files.py"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/script/link_identical_files.py",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "src/script/link_identical_files.py": "a883ecba8287bea153e58e8d3356b696cca528196b1c3f970ba29710301f2911"
+      }
+    },
+    {
+      "id": "S21",
+      "category": "installed_script_or_python_module",
+      "name": "merge_transpose.py",
+      "paths": [
+        "src/script/merge_transpose.py"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/script/merge_transpose.py",
+      "prior_evidence": "12-file Python workflow; hard check pending",
+      "role": "Interpreter helper",
+      "sha256": {
+        "src/script/merge_transpose.py": "bd07677e2a938faa8618909aa7a086c44e73bbfb5c60ea005edce5444c7172f4"
+      }
+    },
+    {
+      "id": "S22",
+      "category": "installed_script_or_python_module",
+      "name": "mktmp",
+      "paths": [
+        "src/script/mktmp"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/script/mktmp",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "src/script/mktmp": "b10ae308f59741ed5c631f0761a31358915eab124b2600bbfa80dd892f3a1963"
+      }
+    },
+    {
+      "id": "S23",
+      "category": "installed_script_or_python_module",
+      "name": "nick_hash_file.py",
+      "paths": [
+        "src/script/nick_hash_file.py"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/script/nick_hash_file.py",
+      "prior_evidence": "12-file Python workflow; hard check pending",
+      "role": "Interpreter helper",
+      "sha256": {
+        "src/script/nick_hash_file.py": "0549c9726dd2bf7f6aa42fabfe906a651e28ba40bb5e532a89d7d09263d74937"
+      }
+    },
+    {
+      "id": "S24",
+      "category": "installed_script_or_python_module",
+      "name": "platform_compat.py",
+      "paths": [
+        "src/script/platform_compat.py"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/script/platform_compat.py",
+      "prior_evidence": "12-file Python workflow; hard check pending",
+      "role": "Shared Python module",
+      "sha256": {
+        "src/script/platform_compat.py": "d6073b81eed0cd6164fe8eb47d3966d6dd48e48843d8faf36eeba551ae4b45ce"
+      }
+    },
+    {
+      "id": "S25",
+      "category": "installed_script_or_python_module",
+      "name": "read_group_categories.py",
+      "paths": [
+        "src/script/read_group_categories.py"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/script/read_group_categories.py",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "src/script/read_group_categories.py": "f73cd95404c127910cd700f410cc0907e6772d940aa8a8b69adb4bfbab9c3659"
+      }
+    },
+    {
+      "id": "S26",
+      "category": "installed_script_or_python_module",
+      "name": "test_hash_merge.py",
+      "paths": [
+        "src/script/test_hash_merge.py"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/script/test_hash_merge.py",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Test harness",
+      "sha256": {
+        "src/script/test_hash_merge.py": "af5d9a8deef87dde66edeef2feacfdd3384370d924a91b270d465a4d4de840dd"
+      }
+    },
+    {
+      "id": "S27",
+      "category": "installed_script_or_python_module",
+      "name": "xtractcol",
+      "paths": [
+        "src/script/xtractcol"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/script/xtractcol",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "src/script/xtractcol": "26fbc190a6b3f6a5040416f6fbae76c46a19b1a3b0f09538c8e2aec4aa159c55"
+      }
+    },
+    {
+      "id": "S28",
+      "category": "installed_script_or_python_module",
+      "name": "wtjack.pl",
+      "paths": [
+        "src/wtjack.pl"
+      ],
+      "hard_check": "pending",
+      "installed_location": "bin/wtjack.pl",
+      "prior_evidence": "no dedicated parity fixture recorded",
+      "role": "Interpreter helper",
+      "sha256": {
+        "src/wtjack.pl": "d6a088e512fc850e37ae70a2d3d44075a792d5664d65b0c11c3390bd4be5a992"
+      }
+    },
+    {
+      "id": "T01",
+      "category": "native_tool",
+      "name": "qpAdm",
+      "paths": [
+        "src/qpAdm.c"
+      ],
+      "hard_check": "pending",
+      "role": "Admixture model fitting",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "2206",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/qpAdm.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/ldsubs.c",
+        "src/mapfile.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/f4rank.c",
+        "src/eigsubs.c",
+        "src/eigx.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M19",
+        "M13",
+        "M14",
+        "M18",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/qpAdm.c": "329b32b98adf668ba9e7a5c0d54b9a2b85a1257c1d35e8eff77715a6cee5a0ce"
+      }
+    },
+    {
+      "id": "T02",
+      "category": "native_tool",
+      "name": "qpfstats",
+      "paths": [
+        "src/qpfstats.c"
+      ],
+      "hard_check": "pending",
+      "role": "F-statistic precomputation and helper process",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "1101",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/qpfstats.c",
+        "src/qpgsubs.c",
+        "src/mapfile.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/ldsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M24",
+        "M13",
+        "M17",
+        "M11",
+        "M14",
+        "M18",
+        "M20",
+        "M19",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/qpfstats.c": "076e058dfc6cd90601f54acdd642187e27bb2c3a4e7bd17af08c7d4927724eec"
+      }
+    },
+    {
+      "id": "T03",
+      "category": "native_tool",
+      "name": "qpWave",
+      "paths": [
+        "src/qpWave.c"
+      ],
+      "hard_check": "pending",
+      "role": "Rank/ancestry-stream tests",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "2201",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/qpWave.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/f4rank.c",
+        "src/eigsubs.c",
+        "src/eigx.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/qpWave.c": "ee11a2951648ded044117ec46a2ed32b69f575c475b1f517e6364bef15f09baa"
+      }
+    },
+    {
+      "id": "T04",
+      "category": "native_tool",
+      "name": "qpDstat",
+      "paths": [
+        "src/qpDstat.c"
+      ],
+      "hard_check": "pending",
+      "role": "D/f4 statistics",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "1160",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/qpDstat.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/qpDstat.c": "d0becd369742ca6b7e274ccece4acdf8495378f0662245a943e89238a86b292b"
+      }
+    },
+    {
+      "id": "T05",
+      "category": "native_tool",
+      "name": "qp3Pop",
+      "paths": [
+        "src/qp3Pop.c"
+      ],
+      "hard_check": "pending",
+      "role": "Three-population statistics",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "710",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/qp3Pop.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/qp3Pop.c": "f64af5a2b49af229bc3e8952649f871d31d69e6b2ef7b4c3f385bbfecc11ffe1"
+      }
+    },
+    {
+      "id": "T06",
+      "category": "native_tool",
+      "name": "qpF4ratio",
+      "paths": [
+        "src/qpF4ratio.c"
+      ],
+      "hard_check": "pending",
+      "role": "F4-ratio estimation",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "2010",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/qpF4ratio.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/qpF4ratio.c": "bce262ab2ac20cbcccc98a537102e9eb65aec5bf6ed96e9d9716cd09d748e971"
+      }
+    },
+    {
+      "id": "T07",
+      "category": "native_tool",
+      "name": "qp4diff",
+      "paths": [
+        "src/qp4diff.c"
+      ],
+      "hard_check": "pending",
+      "role": "Differences between four-population statistics",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "470",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/qp4diff.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/qp4diff.c": "a13ae22d2e91a6ce76a41db388c95414a09b98afc7045794b74cc587e8ab0a41"
+      }
+    },
+    {
+      "id": "T08",
+      "category": "native_tool",
+      "name": "qpGraph",
+      "paths": [
+        "src/qpGraph.c"
+      ],
+      "hard_check": "pending",
+      "role": "Admixture graph fitting",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "7960",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/qpGraph.c",
+        "src/gslqp.c",
+        "src/qpgsubs.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M25",
+        "M24",
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/qpGraph.c": "43854e08fcfd28bf800bab84d3c2d7db24a1b781224ca09212f60d35d3ee30b3"
+      }
+    },
+    {
+      "id": "T09",
+      "category": "native_tool",
+      "name": "qpreroot",
+      "paths": [
+        "src/qpreroot.c"
+      ],
+      "hard_check": "pending",
+      "role": "Graph rerooting, scripts and optional rendering",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "870",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/qpreroot.c",
+        "src/qpgsubs.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M24",
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/qpreroot.c": "924b41b63c41c22383a126c08eb2cbd2f62b01c8d509943fbabb3b1a28b8295c"
+      }
+    },
+    {
+      "id": "T10",
+      "category": "native_tool",
+      "name": "convertf",
+      "paths": [
+        "src/convertf.c"
+      ],
+      "hard_check": "pending",
+      "role": "Genotype format conversion",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "8640",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/convertf.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/h2d.c",
+        "src/exclude.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M11",
+        "M13",
+        "M14",
+        "M18",
+        "M15",
+        "M16",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/convertf.c": "7fa538461d8cbf4716fe5cc5bc75ae8d3fd6e24b460bddfbc1a713584443e81f"
+      }
+    },
+    {
+      "id": "T11",
+      "category": "native_tool",
+      "name": "transpose",
+      "paths": [
+        "src/transpose.c"
+      ],
+      "hard_check": "pending",
+      "role": "Packed genotype transpose",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": null,
+      "windows_version_suffix": false,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/transpose.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/transpose.c": "efac29468a635a290054f4d55419214d0c19b043da6c54e0f10faa57ca6864a8"
+      }
+    },
+    {
+      "id": "T12",
+      "category": "native_tool",
+      "name": "geno_single",
+      "paths": [
+        "src/geno_single.c"
+      ],
+      "hard_check": "pending",
+      "role": "Single-individual packed extraction",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": null,
+      "windows_version_suffix": false,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/geno_single.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/geno_single.c": "0913ab8b6e2a025ad44cc31470336f66b5cca59766271cef8e5b2b7b5bbc7ed1"
+      }
+    },
+    {
+      "id": "T13",
+      "category": "native_tool",
+      "name": "merge_transpose",
+      "paths": [
+        "src/merge_transpose.c"
+      ],
+      "hard_check": "pending",
+      "role": "Transposed genotype merge",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "100",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/merge_transpose.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/merge_transpose.c": "2f3bcec8e9563379310d35f6776ddee8d760d67fcff16992b9e817ed9404a306"
+      }
+    },
+    {
+      "id": "T14",
+      "category": "native_tool",
+      "name": "mergeit",
+      "paths": [
+        "src/mergeit.c"
+      ],
+      "hard_check": "pending",
+      "role": "Two-dataset genotype merge",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "3170",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/mergeit.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/h2d.c",
+        "src/exclude.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M11",
+        "M13",
+        "M14",
+        "M18",
+        "M15",
+        "M16",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/mergeit.c": "734bae002b533e07fc3296df748992d825d5661a0073672413a6640a6fb33c65"
+      }
+    },
+    {
+      "id": "T15",
+      "category": "native_tool",
+      "name": "snpunion",
+      "paths": [
+        "src/snpunion.c"
+      ],
+      "hard_check": "pending",
+      "role": "SNP union/intersection workflow",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "2501",
+      "windows_version_suffix": true,
+      "prior_evidence": "build only; scientific fixture missing",
+      "direct_sources": [
+        "src/snpunion.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/h2d.c",
+        "src/exclude.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M11",
+        "M13",
+        "M14",
+        "M18",
+        "M15",
+        "M16",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/snpunion.c": "131d9511000c157afe578e35d0073b44c8fac370304f5ab245d6da873afe98a3"
+      }
+    },
+    {
+      "id": "T16",
+      "category": "native_tool",
+      "name": "multimerge",
+      "paths": [
+        "src/multimerge.c"
+      ],
+      "hard_check": "pending",
+      "role": "Multiple-dataset merge",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "400",
+      "windows_version_suffix": true,
+      "prior_evidence": "build only; scientific fixture missing",
+      "direct_sources": [
+        "src/multimerge.c",
+        "src/mcio.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M11",
+        "M14",
+        "M18",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/multimerge.c": "4eea21e30db6e6a0ad178c8c11e1a6c1513296d3fad58eea4adf0172e510594f"
+      }
+    },
+    {
+      "id": "T17",
+      "category": "native_tool",
+      "name": "qpff3base",
+      "paths": [
+        "src/qpff3base.c"
+      ],
+      "hard_check": "pending",
+      "role": "F3-basis statistics",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "350",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/qpff3base.c",
+        "src/qpgsubs.c",
+        "src/mapfile.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/ldsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M24",
+        "M13",
+        "M17",
+        "M11",
+        "M14",
+        "M18",
+        "M20",
+        "M19",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/qpff3base.c": "df89c49cfdd445a81a903c97eeb715d1c80bd7d05206e4aa4736f17dc75d5f9f"
+      }
+    },
+    {
+      "id": "T18",
+      "category": "native_tool",
+      "name": "qpfmv",
+      "paths": [
+        "src/qpfmv.c"
+      ],
+      "hard_check": "pending",
+      "role": "F-statistic mean/variance utility",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "210",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/qpfmv.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/eigsubs.c",
+        "src/eigx.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M22",
+        "M23",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/qpfmv.c": "d699e06c832fa2a87cf5d39a678c4321cda93df586b70dbd93fba0cca8a0db7b"
+      }
+    },
+    {
+      "id": "T19",
+      "category": "native_tool",
+      "name": "qpmix",
+      "paths": [
+        "src/qpmix.c"
+      ],
+      "hard_check": "pending",
+      "role": "Mixture fitting",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "960",
+      "windows_version_suffix": true,
+      "prior_evidence": "build only; scientific fixture missing",
+      "direct_sources": [
+        "src/qpmix.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/eigsubs.c",
+        "src/eigx.c",
+        "src/regsubs.c",
+        "src/qpfitr1.c",
+        "src/gslrank1.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M22",
+        "M23",
+        "M20",
+        "M27",
+        "M26",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/qpmix.c": "a4a860b3ca66f11fefdd36c72581ae258ba01e306682cf581103714e237f10be"
+      }
+    },
+    {
+      "id": "T20",
+      "category": "native_tool",
+      "name": "qpfit",
+      "paths": [
+        "src/qpfit.c"
+      ],
+      "hard_check": "pending",
+      "role": "Legacy rank/admixture fitting",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": false,
+      "version_literal": "1670",
+      "windows_version_suffix": true,
+      "prior_evidence": "build only; scientific fixture missing",
+      "direct_sources": [
+        "src/qpfit.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/ldsubs.c",
+        "src/mapfile.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/f4rank.c",
+        "src/eigsubs.c",
+        "src/eigx.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M19",
+        "M13",
+        "M14",
+        "M18",
+        "M20",
+        "M21",
+        "M22",
+        "M23",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/qpfit.c": "f2a9ce3ac01fb5c053f1b7340ea6640c89fd12e0dbab2a8820c62e3f3baf3816"
+      }
+    },
+    {
+      "id": "T21",
+      "category": "native_tool",
+      "name": "qpBound",
+      "paths": [
+        "src/qpBound.c"
+      ],
+      "hard_check": "pending",
+      "role": "F-statistic bounds",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "130",
+      "windows_version_suffix": true,
+      "prior_evidence": "build only; scientific fixture missing",
+      "direct_sources": [
+        "src/qpBound.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/qpBound.c": "f717d53cf60744f0e0e986a34fe6b894f7325019c4ca156d22f1ed9f6f0e444c"
+      }
+    },
+    {
+      "id": "T22",
+      "category": "native_tool",
+      "name": "qpDpart",
+      "paths": [
+        "src/qpDpart.c"
+      ],
+      "hard_check": "pending",
+      "role": "Partitioned D-statistic implementation",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "210",
+      "windows_version_suffix": true,
+      "prior_evidence": "build only; scientific fixture missing",
+      "direct_sources": [
+        "src/qpDpart.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/qpDpart.c": "613c5b3b990ea5e99349288b6c98f0e971fd460d8cfc1ad657612400252801c9"
+      }
+    },
+    {
+      "id": "T23",
+      "category": "native_tool",
+      "name": "qpdslow",
+      "paths": [
+        "src/qpdslow.c"
+      ],
+      "hard_check": "pending",
+      "role": "Alternative D-statistic implementation",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": false,
+      "version_literal": "410",
+      "windows_version_suffix": true,
+      "prior_evidence": "build only; scientific fixture missing",
+      "direct_sources": [
+        "src/qpdslow.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/qpdslow.c": "ddbb6e36b121a81daa86192341f4c3c80d420b6add991f4ba97f7b128ec5c5b1"
+      }
+    },
+    {
+      "id": "T24",
+      "category": "native_tool",
+      "name": "rolloff",
+      "paths": [
+        "src/rolloff.c"
+      ],
+      "hard_check": "pending",
+      "role": "LD-decay dating",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": false,
+      "version_literal": "1110",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/rolloff.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/rolloff.c": "083c8cab6cebd7f6e793143c72c15f9ab1007ef24e9928f1e1c495f07d8d1ea1"
+      }
+    },
+    {
+      "id": "T25",
+      "category": "native_tool",
+      "name": "rolloffp",
+      "paths": [
+        "src/rolloffp.c"
+      ],
+      "hard_check": "pending",
+      "role": "Alternative rolloff implementation",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": false,
+      "version_literal": "361",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/rolloffp.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/rolloffp.c": "bfbe9f2599ee36f5caadc7a52d712f583211f42f6d7d129b2c0c5acd0e8315d7"
+      }
+    },
+    {
+      "id": "T26",
+      "category": "native_tool",
+      "name": "mkweights",
+      "paths": [
+        "src/mkweights.c"
+      ],
+      "hard_check": "pending",
+      "role": "SNP-weight generation",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": false,
+      "version_literal": "100",
+      "windows_version_suffix": true,
+      "prior_evidence": "build only; scientific fixture missing",
+      "direct_sources": [
+        "src/mkweights.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/mkweights.c": "42a977560ff26cff17a07095da47c91f7fd2ce718e133603a4c7838948796e7a"
+      }
+    },
+    {
+      "id": "T27",
+      "category": "native_tool",
+      "name": "kimf",
+      "paths": [
+        "src/kimf.c"
+      ],
+      "hard_check": "pending",
+      "role": "Graph/spectrum fitting",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": false,
+      "version_literal": "950",
+      "windows_version_suffix": true,
+      "prior_evidence": "build only; scientific fixture missing",
+      "direct_sources": [
+        "src/kimf.c",
+        "src/gslkim.c",
+        "src/qpgsubs.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M28",
+        "M24",
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/kimf.c": "c86e0d901f68ac195d97375111982fad61b3c71199ec5749ebb052d63aba4c3d"
+      }
+    },
+    {
+      "id": "T28",
+      "category": "native_tool",
+      "name": "gcount",
+      "paths": [
+        "src/gcount.c"
+      ],
+      "hard_check": "pending",
+      "role": "Allele-count/site-pattern spectra",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": false,
+      "version_literal": "1500",
+      "windows_version_suffix": true,
+      "prior_evidence": "build only; scientific fixture missing",
+      "direct_sources": [
+        "src/gcount.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/gcount.c": "09fcf6c313a57b387590867a46605efec07880745703077efccd667c02f67c4e"
+      }
+    },
+    {
+      "id": "T29",
+      "category": "native_tool",
+      "name": "ascore",
+      "paths": [
+        "src/ascore.c"
+      ],
+      "hard_check": "pending",
+      "role": "Ancestry-score utility; characterize upstream behavior",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": false,
+      "version_literal": "420",
+      "windows_version_suffix": true,
+      "prior_evidence": "build only; scientific fixture missing",
+      "direct_sources": [
+        "src/ascore.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/h2d.c",
+        "src/exclude.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M11",
+        "M13",
+        "M14",
+        "M18",
+        "M15",
+        "M16",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/ascore.c": "f77147a4e3696a6637727482fb8a8e182e69cb41d4b1344e1c8e7e0d00ebbb8a"
+      }
+    },
+    {
+      "id": "T30",
+      "category": "native_tool",
+      "name": "easystats",
+      "paths": [
+        "src/easystats.c"
+      ],
+      "hard_check": "pending",
+      "role": "Dataset summary statistics",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "570",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/easystats.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/easystats.c": "e7ddfa8901431184608a301c863716547e5cf1b5a3883f9c7ec066bc1aa8cb38"
+      }
+    },
+    {
+      "id": "T31",
+      "category": "native_tool",
+      "name": "easylite",
+      "paths": [
+        "src/easylite.c"
+      ],
+      "hard_check": "pending",
+      "role": "Lightweight dataset statistics",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "585",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/easylite.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/easylite.c": "8bf4d99469089a4afe0b0c6d06624828f6d8eec9e4430de18681751bacb8a601"
+      }
+    },
+    {
+      "id": "T32",
+      "category": "native_tool",
+      "name": "easycheck",
+      "paths": [
+        "src/easycheck.c"
+      ],
+      "hard_check": "pending",
+      "role": "Dataset integrity/duplicate checks",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "165",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/easycheck.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M12",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/easycheck.c": "8d6b1b58a3f8653ce04a9cdce99bdc1a97f1321698aec071adb19d080b792c59"
+      }
+    },
+    {
+      "id": "T33",
+      "category": "native_tool",
+      "name": "nickhash",
+      "paths": [
+        "src/nickhash.c"
+      ],
+      "hard_check": "pending",
+      "role": "Individual/SNP name hashing",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": "100",
+      "windows_version_suffix": true,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/nickhash.c",
+        "src/admutils.c"
+      ],
+      "shared_module_ids": [
+        "M14",
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/nickhash.c": "2e9c397b620f1ca7c322f9b6437ee75f58e0ab99745844f7b8011319752db818"
+      }
+    },
+    {
+      "id": "T34",
+      "category": "native_tool",
+      "name": "grabpars",
+      "paths": [
+        "src/grabpars.c"
+      ],
+      "hard_check": "pending",
+      "role": "Parameter extraction",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": null,
+      "windows_version_suffix": false,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/grabpars.c"
+      ],
+      "shared_module_ids": [
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/grabpars.c": "995e62a78fe9f98462332575796e86fa98fe6b24f4955845e9cd1eef888e4ff6"
+      }
+    },
+    {
+      "id": "T35",
+      "category": "native_tool",
+      "name": "simpjack2",
+      "paths": [
+        "src/simpjack2.c"
+      ],
+      "hard_check": "pending",
+      "role": "Jackknife summary utility",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": null,
+      "windows_version_suffix": false,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/simpjack2.c"
+      ],
+      "shared_module_ids": [
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/simpjack2.c": "1fca67603d4cd0e05a10f9232728e3e6ace46cc42e83ff89f63a585427fd292d"
+      }
+    },
+    {
+      "id": "T36",
+      "category": "native_tool",
+      "name": "dowtjack",
+      "paths": [
+        "src/dowtjack.c"
+      ],
+      "hard_check": "pending",
+      "role": "Weighted jackknife summary utility",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": true,
+      "version_literal": null,
+      "windows_version_suffix": false,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/dowtjack.c"
+      ],
+      "shared_module_ids": [
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/dowtjack.c": "bcbd88c81ae2f697ff0df5541b94c9d5a949b13fc859294be87b891ed2ce6ec9"
+      }
+    },
+    {
+      "id": "T37",
+      "category": "native_tool",
+      "name": "diffmean",
+      "paths": [
+        "src/diffmean.c"
+      ],
+      "hard_check": "pending",
+      "role": "Paired summary comparison",
+      "build": "built",
+      "blocked_reason": null,
+      "upstream_default": false,
+      "version_literal": null,
+      "windows_version_suffix": false,
+      "prior_evidence": "fixture parity; hard check pending",
+      "direct_sources": [
+        "src/diffmean.c"
+      ],
+      "shared_module_ids": [
+        "M01"
+      ],
+      "links_nick_archive": true,
+      "sha256": {
+        "src/diffmean.c": "be5eadb4feab45af6e8c50af0b2b500e62acac252a0a7f6781cfa8bd126b4374"
+      }
+    },
+    {
+      "id": "T38",
+      "category": "native_tool",
+      "name": "qpfmvmix",
+      "paths": [
+        "src/qpfmvmix.c"
+      ],
+      "hard_check": "pending",
+      "role": "Blocked f-statistic mixture utility",
+      "build": "blocked_upstream",
+      "blocked_reason": "upstream contains undeclared q/ab and an incomplete pops[ab expression; no buildable Linux reference",
+      "upstream_default": false,
+      "version_literal": "180",
+      "windows_version_suffix": true,
+      "prior_evidence": "blocked upstream",
+      "direct_sources": [
+        "src/qpfmvmix.c",
+        "src/qpsubs.c",
+        "src/mcio.c",
+        "src/mapfile.c",
+        "src/ldsubs.c",
+        "src/admutils.c",
+        "src/egsubs.c",
+        "src/regsubs.c",
+        "src/eigsubs.c",
+        "src/eigx.c",
+        "src/geno.c"
+      ],
+      "shared_module_ids": [
+        "M17",
+        "M11",
+        "M13",
+        "M19",
+        "M14",
+        "M18",
+        "M20",
+        "M22",
+        "M23",
+        "M12"
+      ],
+      "links_nick_archive": false,
+      "sha256": {
+        "src/qpfmvmix.c": "a9a69949c451ddf2e32211e98f0f7e39fb45cc99cd80ae23acec9543fba9e0ce"
+      }
+    },
+    {
+      "id": "U01",
+      "category": "unbuilt_c_module",
+      "name": "empr",
+      "paths": [
+        "src/empr.c"
+      ],
+      "hard_check": "pending",
+      "role": "No link into the supported Windows targets; characterize dependencies and purpose",
+      "sha256": {
+        "src/empr.c": "7f440763f6cd0cb7923cc2fdc6c782adb92e9098f2bf1a04c4e2bb0a85d32702"
+      }
+    },
+    {
+      "id": "U02",
+      "category": "unbuilt_c_module",
+      "name": "fourier",
+      "paths": [
+        "src/fourier.c"
+      ],
+      "hard_check": "pending",
+      "role": "No link into the supported Windows targets; characterize dependencies and purpose",
+      "sha256": {
+        "src/fourier.c": "cb19fa1c869439b78edd2e074b1b16607b5d7ef8c1ef9aee97b910cadf62631e"
+      }
+    },
+    {
+      "id": "U03",
+      "category": "unbuilt_c_module",
+      "name": "fstats",
+      "paths": [
+        "src/fstats.c"
+      ],
+      "hard_check": "pending",
+      "role": "No link into the supported Windows targets; characterize dependencies and purpose",
+      "sha256": {
+        "src/fstats.c": "08bd290c30028a0951e009446d5d382c1a3b2501760bc7fd92f95c00b0e6648d"
+      }
+    },
+    {
+      "id": "U04",
+      "category": "unbuilt_c_module",
+      "name": "kimqpg",
+      "paths": [
+        "src/kimqpg.c"
+      ],
+      "hard_check": "pending",
+      "role": "No link into the supported Windows targets; characterize dependencies and purpose",
+      "sha256": {
+        "src/kimqpg.c": "0d9a320c707766958713796bb59e864231a39c55e633ff7b403271acf5b365f4"
+      }
+    },
+    {
+      "id": "U05",
+      "category": "unbuilt_c_module",
+      "name": "gcd",
+      "paths": [
+        "src/nicksrc/gcd.c"
+      ],
+      "hard_check": "pending",
+      "role": "No link into the supported Windows targets; characterize dependencies and purpose",
+      "sha256": {
+        "src/nicksrc/gcd.c": "c5a10209fdb85ee20586b85668c7ea855623cb3e395da8a33880e2b0b9beef87"
+      }
+    },
+    {
+      "id": "U06",
+      "category": "unbuilt_c_module",
+      "name": "qpsubsarti",
+      "paths": [
+        "src/qpsubsarti.c"
+      ],
+      "hard_check": "pending",
+      "role": "No link into the supported Windows targets; characterize dependencies and purpose",
+      "sha256": {
+        "src/qpsubsarti.c": "bfb4bb3849e6074ca985a1012f99c2570d802acd1478595f82859ef2c548a5e4"
+      }
+    },
+    {
+      "id": "U07",
+      "category": "unbuilt_c_module",
+      "name": "xqpsubs",
+      "paths": [
+        "src/xqpsubs.c"
+      ],
+      "hard_check": "pending",
+      "role": "No link into the supported Windows targets; characterize dependencies and purpose",
+      "sha256": {
+        "src/xqpsubs.c": "990a51f7732e396aa7b254db7283235c590defb4f5e2290d88d0713e43b85fdd"
+      }
+    }
+  ]
+}

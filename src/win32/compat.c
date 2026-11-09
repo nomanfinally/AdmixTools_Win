@@ -6,6 +6,7 @@
 #include <string.h>
 #include <windows.h>
 #include <psapi.h>
+#include <zlib.h>
 
 /* BSD additive generator, degree 31 and separation 3, as used by Linux glibc
  * random() with its default state. Unsigned arithmetic defines wraparound.
@@ -146,6 +147,46 @@ int admix_copy_file(const char *input, const char *output)
     return CopyFileA(input, output, FALSE) ? 0 : -1;
 }
 
+/* Replace gunzip -c without a shell or an MSYS runtime. Leave the original
+ * compressed input untouched and never overwrite an existing temporary file.
+ * gzread validates gzip checksums and reads concatenated gzip members.
+ */
+int admix_gunzip(const char *input, const char *output)
+{
+    gzFile compressed = gzopen(input, "rb");
+    FILE *plain;
+    unsigned char buffer[32768];
+    int fd, length, error, result = 0;
+    if (!compressed) return -1;
+    if (gzdirect(compressed)) {
+        gzclose(compressed);
+        errno = EINVAL;
+        return -1;
+    }
+    fd = _open(output, _O_WRONLY | _O_CREAT | _O_EXCL | _O_BINARY,
+               _S_IREAD | _S_IWRITE);
+    if (fd < 0) { gzclose(compressed); return -1; }
+    plain = _fdopen(fd, "wb");
+    if (!plain) {
+        _close(fd);
+        remove(output);
+        gzclose(compressed);
+        return -1;
+    }
+    while ((length = gzread(compressed, buffer, sizeof(buffer))) > 0) {
+        if (fwrite(buffer, 1, (size_t)length, plain) != (size_t)length) {
+            result = -1;
+            break;
+        }
+    }
+    gzerror(compressed, &error);
+    if (length < 0 || error != Z_OK) result = -1;
+    if (gzclose(compressed) != Z_OK) result = -1;
+    if (fclose(plain)) result = -1;
+    if (result) { remove(output); errno = EIO; }
+    return result;
+}
+
 /* Quote one argument according to the Windows CRT command-line rules. */
 static int append_argument(char *command, size_t capacity, size_t *used, const char *arg)
 {
@@ -170,27 +211,16 @@ static int append_argument(char *command, size_t capacity, size_t *used, const c
     return 0;
 }
 
-/* Resolve the exact sibling rather than a potentially different tool on PATH.
- * Launch directly without a shell; paths may contain spaces or metacharacters.
- */
-int admix_run_sibling(const char *name, const char *const arguments[], const char *logfile)
+static int run_program(const char *executable, const char *const arguments[], const char *logfile)
 {
-    char executable[32768], command[32768], *separator;
+    char command[32768];
     STARTUPINFOA si;
     PROCESS_INFORMATION pi;
     SECURITY_ATTRIBUTES sa = {sizeof(sa), NULL, TRUE};
     HANDLE log;
-    DWORD exitcode, length;
+    DWORD exitcode;
     size_t used = 0, i;
     int result = -1;
-    if (strpbrk(name, "/\\:\"")) { errno = EINVAL; return -1; }
-    length = GetModuleFileNameA(NULL, executable, sizeof(executable));
-    if (!length || length >= sizeof(executable)) return -1;
-    separator = strrchr(executable, '\\');
-    if (!separator) return -1;
-    if ((size_t)(separator - executable) + strlen(name) + 6 > sizeof(executable))
-        return -1;
-    sprintf(separator + 1, "%s.exe", name);
     if (append_argument(command, sizeof(command), &used, executable)) return -1;
     for (i = 0; arguments[i]; ++i)
         if (append_argument(command, sizeof(command), &used, arguments[i])) return -1;
@@ -211,6 +241,70 @@ int admix_run_sibling(const char *name, const char *const arguments[], const cha
     }
     if (logfile) CloseHandle(log);
     return result;
+}
+
+/* Resolve the exact sibling rather than a potentially different tool on PATH.
+ * Launch directly without a shell; paths may contain spaces or metacharacters.
+ */
+int admix_run_sibling(const char *name, const char *const arguments[], const char *logfile)
+{
+    char executable[32768], *separator;
+    DWORD length;
+    if (strpbrk(name, "/\\:\"")) { errno = EINVAL; return -1; }
+    length = GetModuleFileNameA(NULL, executable, sizeof(executable));
+    if (!length || length >= sizeof(executable)) return -1;
+    separator = strrchr(executable, '\\');
+    if (!separator) return -1;
+    if ((size_t)(separator - executable) + strlen(name) + 6 > sizeof(executable))
+        return -1;
+    sprintf(separator + 1, "%s.exe", name);
+    return run_program(executable, arguments, logfile);
+}
+
+static int find_program(const char *name, char *path, size_t capacity)
+{
+    const char *search = getenv("PATH");
+    DWORD length;
+    if (!search || !*search) { errno = ENOENT; return -1; }
+    length = SearchPathA(search, name, ".exe", (DWORD)capacity, path, NULL);
+    if (!length || length >= capacity) { errno = ENOENT; return -1; }
+    return 0;
+}
+
+/* Equivalent to dot -T ps and ps2pdf (PDF 1.4). Call native executables
+ * directly; ps2pdf is a shell/batch wrapper on common installations.
+ */
+int admix_render_graph(const char *dotfile, const char *psfile)
+{
+    char executable[32768], output[32768], *extension;
+    const char *base = psfile, *cursor;
+    const char *dot_args[] = {"-T", "ps", dotfile, NULL};
+    const char *gs_names[] = {"gswin64c", "gswin32c", "gs", NULL};
+    const char *gs_args[] = {"-P-", "-dSAFER", "-dCompatibilityLevel=1.4",
+        "-dWriteXRefStm=false", "-dWriteObjStms=false", "-q", "-P-",
+        "-dNOPAUSE", "-dBATCH", "-sDEVICE=pdfwrite", "-sstdout=%stderr",
+        output, "-P-", "-dSAFER", "-dCompatibilityLevel=1.4",
+        "-dWriteXRefStm=false", "-dWriteObjStms=false", "-f", psfile, NULL};
+    int i, result;
+    if (find_program("dot", executable, sizeof(executable))) return -1;
+    result = run_program(executable, dot_args, psfile);
+    if (result) return result;
+    /* ps2pdf with one input writes basename.pdf in the working directory. */
+    for (cursor = psfile; *cursor; ++cursor)
+        if (*cursor == '/' || *cursor == '\\') base = cursor + 1;
+    if (snprintf(output, sizeof(output), "-sOutputFile=%s", base) >= sizeof(output) - 4) {
+        errno = ENAMETOOLONG;
+        return -1;
+    }
+    extension = strrchr(output, '.');
+    if (extension && (!strcmp(extension, ".ps") || !strcmp(extension, ".eps")))
+        strcpy(extension, ".pdf");
+    else strcat(output, ".pdf");
+    for (i = 0; gs_names[i]; ++i)
+        if (!find_program(gs_names[i], executable, sizeof(executable)))
+            return run_program(executable, gs_args, NULL);
+    errno = ENOENT;
+    return -1;
 }
 
 int admix_run_qpfstats(const char *parameters, const char *logfile)
