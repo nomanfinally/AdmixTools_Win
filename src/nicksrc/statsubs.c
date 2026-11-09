@@ -1,3 +1,4 @@
+#include <admix_types.h>
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
@@ -1291,7 +1292,7 @@ xlgamma (double x)
     fatalx ("xlgamma: x <= 0  %9.3f\n", x);
 // return lgamma(x) ;
 
-  t = (int) sizeof (long);
+  t = (int) sizeof (admix_long);
   if (t >= 8)
     return lgamma (x);		// 64 bit machines 
   if (l2pi < 0.0)

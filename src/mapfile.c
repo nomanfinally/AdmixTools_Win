@@ -1,3 +1,4 @@
+#include <admix_types.h>
 /*
  * MapFile.c
  *
@@ -7,7 +8,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#ifdef _WIN32
+#include "win32/mman.h"
+#else
 #include <sys/mman.h>
+#endif
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -26,8 +31,8 @@
 int getgtypemap(genFile *data, int snpRow, int snpCol) 
 {
 	char* snps = data->snps;
-        static long ncall = 0 ; 
-        long rowsize, offset ; 
+        static admix_long ncall = 0 ;
+        admix_long rowsize, offset ;
         char *buff ;  
 
         ++ncall ;
@@ -41,9 +46,9 @@ int getgtypemap(genFile *data, int snpRow, int snpCol)
 
 //memory maps file with given filename, returns
 //genFile struct containing pointer representing file
-genFile* constructMap(char* filename, long numrows, long rowSize, long hdrSize) {
+genFile* constructMap(char* filename, admix_long numrows, admix_long rowSize, admix_long hdrSize) {
 	genFile* geno;
-        long siz ; 
+        admix_long siz ;
 
 	//open file to be mapped
 	int mmfd = open(filename, O_RDWR);
@@ -53,7 +58,7 @@ genFile* constructMap(char* filename, long numrows, long rowSize, long hdrSize) 
 	//get file length
 	struct stat status;
 	if (fstat(mmfd, &status) != 0) fatalx("fstat fails\n") ;
-	long fileLength = status.st_size;
+	admix_long fileLength = status.st_size;
 
 	siz = numrows * rowSize + hdrSize ; 
 	if (siz != fileLength) fatalx("(constructMqp) file size mismatch\n") ;
@@ -74,7 +79,7 @@ genFile* constructMap(char* filename, long numrows, long rowSize, long hdrSize) 
         geno -> hdrSize = hdrSize ;
 	geno->snps = (char*) mmfaddr;
 
-        printf("mmfaddr: %p  fileLength: %ld\n", geno -> snps, fileLength) ;;
+        printf("mmfaddr: %p  fileLength: %" ADMIX_PRIdLONG "\n", geno -> snps, fileLength) ;;
         fflush(stdout) ;
 
 	return geno;
@@ -84,7 +89,7 @@ genFile* constructMap(char* filename, long numrows, long rowSize, long hdrSize) 
 //frees dynamically allocated struct container
 void destroyMap(genFile* data) {
 	void* mmfaddr = (void*) data->snps;
-	int fileLength = data->colSize * data->rowSize + data -> hdrSize;
+	size_t fileLength = (size_t)data->colSize * data->rowSize + data -> hdrSize;
 	munmap(mmfaddr, fileLength);
 	free(data);
 }

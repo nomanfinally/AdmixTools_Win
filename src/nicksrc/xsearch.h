@@ -1,3 +1,4 @@
+#include <admix_types.h>
 #include <search.h>  
 
 int xfindit(char *ss)   ; 
@@ -21,7 +22,7 @@ int xcshift(int x, int shft)  ;
 int stringhash(char *key) ;
 void setfancyhash(int val) ;
 int  getfancyhash() ;
-long xlhash (long x) ;  
+admix_long xlhash (admix_long x) ;
 int xshash (int x) ;  
 int fnv_hash(char *strng) ;
 void dumpxs() ;

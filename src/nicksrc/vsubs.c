@@ -1,3 +1,4 @@
+#include <admix_types.h>
 #include  <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -153,20 +154,20 @@ cpzero (char **a, int n)
 }
 
 void
-cclear (unsigned char *a, unsigned char c, long n)
+cclear (unsigned char *a, unsigned char c, admix_long n)
 
 /** 
  be careful nothing done about NULL at end
 */
 {
-  long i;
+  admix_long i;
   for (i = 0; i < n; i++) {
     a[i] = c;
   }
 }
 
 void
-charclear (char *a, unsigned char c, long n)
+charclear (char *a, unsigned char c, admix_long n)
 // fussy compiler warnigns about unsigned char conversions avoided
 {
 
@@ -216,17 +217,17 @@ ivvt (int *a, int *b, int *c, int n)
 
 
 void
-ivclear (int *a, int c, long n)
+ivclear (int *a, int c, admix_long n)
 {
-  long i;
+  admix_long i;
   for (i = 0; i < n; i++)
     a[i] = c;
 }
 
 void
-lvclear (long *a, long c, long n)
+lvclear (admix_long *a, admix_long c, admix_long n)
 {
-  long i;
+  admix_long i;
   for (i = 0; i < n; i++)
     a[i] = c;
 }
@@ -238,7 +239,7 @@ ivzero (int *a, int n)
 }
 
 void
-lvzero (long *a, long n)
+lvzero (admix_long *a, admix_long n)
 {
   lvclear (a, 0, n);
 }
@@ -399,7 +400,7 @@ maxivec (int *a, int n)
 }
 
 void
-lvlmaxmin (long *a, int n, int *pmax, int *pmin)
+lvlmaxmin (admix_long *a, int n, int *pmax, int *pmin)
 
 /** 
  return location 
@@ -407,7 +408,7 @@ lvlmaxmin (long *a, int n, int *pmax, int *pmin)
 {
 
   int i;
-  long tmax, tmin;
+  admix_long tmax, tmin;
   int lmax, lmin;
 
   tmax = tmin = a[0];
@@ -644,11 +645,11 @@ revarr (double *b, double *a, int n)
 }
 
 void
-revlarr (long *b, long *a, int n)
+revlarr (admix_long *b, admix_long *a, int n)
 {
   int i;
-  long *x;
-  ZALLOC (x, n, long);
+  admix_long *x;
+  ZALLOC (x, n, admix_long);
   for (i = 0; i < n; i++) {
     x[n - i - 1] = a[i];
   }
@@ -696,7 +697,7 @@ copyiarr (int *a, int *b, int n)
 }
 
 void
-copylarr (long *a, long *b, int n)
+copylarr (admix_long *a, admix_long *b, int n)
 {
   int i;
   for (i = 0; i < n; i++) {
@@ -835,11 +836,11 @@ intsum (int *a, int n)
   return ans;
 }
 
-long
-longsum (long *a, int n)
+admix_long
+longsum (admix_long *a, int n)
 {
   int i;
-  long ans = 0;
+  admix_long ans = 0;
   for (i = 0; i < n; i++)
     ans += a[i];
 
@@ -1650,11 +1651,15 @@ fixit (int *a, double *b, int n)
   }
 }
 void
-fixitl (long *a, double *b, int n)
+fixitl (admix_long *a, double *b, int n)
 {
   int i;
   for (i = 0; i < n; i++) {
+    #ifdef _WIN32
+    a[i] = llrint (b[i]);
+#else
     a[i] = lrint (b[i]);
+#endif
   }
 }
 
@@ -1683,7 +1688,7 @@ findfirst (int *a, int n, int val)
 }
 
 int
-findfirstl (long *a, int n, long val)
+findfirstl (admix_long *a, int n, admix_long val)
 {
   int i;
   for (i = 0; i < n; i++) {
@@ -2064,16 +2069,16 @@ initarray_2Dint (int numrows, int numcolumns, int initval)
   return array;
 }
 
-long **
-initarray_2Dlong (int numrows, int numcolumns, long initval)
+admix_long **
+initarray_2Dlong (int numrows, int numcolumns, admix_long initval)
 {
   int i, j;
-  long **array;
+  admix_long **array;
 
 
-  ZALLOC (array, numrows, long *);
+  ZALLOC (array, numrows, admix_long *);
   for (i = 0; i < numrows; i++) {
-    ZALLOC (array[i], numcolumns, long);
+    ZALLOC (array[i], numcolumns, admix_long);
     if (initval != 0)
       lvclear (array[i], initval, numcolumns);
   }
@@ -2082,14 +2087,14 @@ initarray_2Dlong (int numrows, int numcolumns, long initval)
 
 
 
-long ***
-initarray_3Dlong (int n1, int n2, int n3, long initval)
+admix_long ***
+initarray_3Dlong (int n1, int n2, int n3, admix_long initval)
 {
   int i;
-  long ***array;
+  admix_long ***array;
 
 
-  ZALLOC (array, n1, long **);
+  ZALLOC (array, n1, admix_long **);
   for (i = 0; i < n1; i++) {
     array[i] = initarray_2Dlong( n2, n3, initval) ;
   }
@@ -2112,9 +2117,9 @@ free2Dint (int ***xx, int numrows)
 }
 
 void
-free2Dlong (long ***xx, int numrows)
+free2Dlong (admix_long ***xx, int numrows)
 {
-  long **array;
+  admix_long **array;
   int i;
   array = *xx;
 
@@ -2128,9 +2133,9 @@ free2Dlong (long ***xx, int numrows)
 
 
 void
-free3Dlong (long ****xx, int n1, int n2) 
+free3Dlong (admix_long ****xx, int n1, int n2)
 {
-  long ***array;
+  admix_long ***array;
   int i;
 
   array = *xx;
@@ -2222,9 +2227,9 @@ iclear2D (int ***xx, int numrows, int numcols, int val)
 }
 
 void
-lclear2D (long ***xx, int numrows, int numcols, long val)
+lclear2D (admix_long ***xx, int numrows, int numcols, admix_long val)
 {
-  long **array;
+  admix_long **array;
   int i;
 
   array = *xx;
@@ -2535,7 +2540,11 @@ topheap ()
 // find top of heap (address).  Useful for finding memory leaks 
 {
 
+#ifdef _WIN32
+  return (void *)(uintptr_t)admix_memory_bytes();
+#else
   return sbrk (0);
+#endif
 }
 
 void
@@ -2744,11 +2753,11 @@ total2Dint (int **a, int nrows, int ncols)
 /** 
  mixed modulus coding (see .../popgen/kimfitdir     
 */
-long
+admix_long
 lkodeitbb (int *xx, int len, int *baselist)
 {
   int i, base;
-  long t = 0;
+  admix_long t = 0;
 
   for (i = 0; i < len; ++i) {
     base = baselist[i];
@@ -2761,12 +2770,12 @@ lkodeitbb (int *xx, int len, int *baselist)
 }
 
 int
-ldekodeitbb (int *xx, long kode, int len, int *baselist)
+ldekodeitbb (int *xx, admix_long kode, int len, int *baselist)
 {
 // return weight
 
   int i, base;
-  long t;
+  admix_long t;
 
   t = kode;
   for (i = len - 1; i >= 0; --i) {
@@ -2811,11 +2820,11 @@ dekodeitbb (int *xx, int kode, int len, int *baselist)
 }
 
 
-long expmod(long a, long b, long n) 
+admix_long expmod(admix_long a, admix_long b, admix_long n)
 // a^b mod n 
 { 
  int t ; 
- long ax=1, bx, z, z2 ; 
+ admix_long ax=1, bx, z, z2 ;
  t = b % 2 ;  
  if (t==1) ax = a ; 
  bx = b/2; 
@@ -2828,11 +2837,11 @@ long expmod(long a, long b, long n)
 
 }
 
-long
-nextprime (long num)
+admix_long
+nextprime (admix_long num)
 // return nextprime >= num
 {
-  long x, q;
+  admix_long x, q;
   int t;
 
   for (x = num;; ++x) {
@@ -2845,7 +2854,7 @@ nextprime (long num)
 }
 
 int
-isprime (long num)
+isprime (admix_long num)
 // naive algorithm.  Implement Pollard rho at some time
 {
   int top, x, t;
@@ -2891,13 +2900,13 @@ irevcomp (int xx, int stringlen)
   return xxx;
 }
 
-long
-lrevcomp (long xx, int stringlen)
+admix_long
+lrevcomp (admix_long xx, int stringlen)
 // consists of stringlen "mininibbles" (2 bits) 
 // could be rewritten to avoid array aa + 1 loop.
 {
   int aa[32], k, t;
-  long xxx;
+  admix_long xxx;
 
   if (stringlen > 32)
     fatalx ("stringlen > 32\n");
@@ -3021,22 +3030,22 @@ void vswap(double *a, double *b, int n)
   free(w) ;
 }
 
-void setlong(long *pplen, long a, long b)  
+void setlong(admix_long *pplen, admix_long a, admix_long b)
 // *pplen is a*b with check for overflow
 {
   long long int xx ; 
 
   xx = a*b ;  
-  if (xx > LONG_MAX) fatalx("overflow:   Are you on a 32 bit machine?\n") ;
+  if (xx > ADMIX_LONG_MAX) fatalx("overflow:   Are you on a 32 bit machine?\n") ;
   *pplen = xx ;
 
 
 }
 
-long lmod (long x, long base) 
+admix_long lmod (admix_long x, admix_long base)
 // like % but handles - numbers better
 {
-  long t ; 
+  admix_long t ;
 
   t = x % base ; 
   if (t < 0) return lmod(t+base, base) ; 
@@ -3048,7 +3057,7 @@ long lmod (long x, long base)
 
 
 void
-printlmatx (long *a, int m, int n)
+printlmatx (admix_long *a, int m, int n)
 
 /**
  print a matrix n wide m rows no final nl 
@@ -3057,7 +3066,7 @@ printlmatx (long *a, int m, int n)
   int i, j, jmod;
   for (i = 0; i < m; i++) {
     for (j = 0; j < n; j++) {
-      printf ("%10ld ", a[i * n + j]);
+      printf ("%10" ADMIX_PRIdLONG " ", a[i * n + j]);
       jmod = (j + 1) % 5;
       if ((jmod == 0) && (j < (n - 1))) {
         printf ("  ...\n");
@@ -3068,7 +3077,7 @@ printlmatx (long *a, int m, int n)
 
 
 void
-printlmat (long *a, int m, int n)
+printlmat (admix_long *a, int m, int n)
 
 /**
  print a matrix n wide m rows
@@ -3077,7 +3086,7 @@ printlmat (long *a, int m, int n)
   int i, j, jmod;
   for (i = 0; i < m; i++) {
     for (j = 0; j < n; j++) {
-      printf ("%10ld ", a[i * n + j]);
+      printf ("%10" ADMIX_PRIdLONG " ", a[i * n + j]);
       jmod = (j + 1) % 5;
       if ((jmod == 0) && (j < (n - 1))) {
         printf ("  ...\n");
@@ -3088,7 +3097,7 @@ printlmat (long *a, int m, int n)
 }
 
 void
-printlmatw (long *a, int m, int n, int w) 
+printlmatw (admix_long *a, int m, int n, int w)
 
 /** 
  print a matrix n wide m rows  w to a row
@@ -3097,7 +3106,7 @@ printlmatw (long *a, int m, int n, int w)
   int i, j, jmod;
   for (i = 0; i < m; i++) {
     for (j = 0; j < n; j++) {
-      printf ( "%10ld ", a[i * n + j]);
+      printf ( "%10" ADMIX_PRIdLONG " ", a[i * n + j]);
       jmod = (j + 1) % w;
       if ((jmod == 0) && (j < (n - 1))) {
         printf ( "  ...\n");
@@ -3109,7 +3118,7 @@ printlmatw (long *a, int m, int n, int w)
 
 
 void
-printlmatwfile (long *a, int m, int n, int w, FILE * fff)
+printlmatwfile (admix_long *a, int m, int n, int w, FILE * fff)
 
 /** 
  print a matrix n wide m rows  w to a row
@@ -3118,7 +3127,7 @@ printlmatwfile (long *a, int m, int n, int w, FILE * fff)
   int i, j, jmod;
   for (i = 0; i < m; i++) {
     for (j = 0; j < n; j++) {
-      fprintf (fff, "%10ld ", a[i * n + j]);
+      fprintf (fff, "%10" ADMIX_PRIdLONG " ", a[i * n + j]);
       jmod = (j + 1) % w;
       if ((jmod == 0) && (j < (n - 1))) {
         fprintf (fff, "  ...\n");
@@ -3132,7 +3141,7 @@ printlmatwfile (long *a, int m, int n, int w, FILE * fff)
 
 
 void
-floatitl (double *a, long *b, int n)
+floatitl (double *a, admix_long *b, int n)
 {
   int i;
   for (i = 0; i < n; i++) {
@@ -3141,7 +3150,7 @@ floatitl (double *a, long *b, int n)
 }
 
 void
-lvsp (long *a, long *b, long c, int n)
+lvsp (admix_long *a, admix_long *b, admix_long c, int n)
 {
   int i;
   for (i = 0; i < n; i++)
@@ -3150,7 +3159,7 @@ lvsp (long *a, long *b, long c, int n)
 
 
 void
-lvvp (long *a, long *b, long *c, int n)
+lvvp (admix_long *a, admix_long *b, admix_long *c, int n)
 {
   int i;
   for (i = 0; i < n; i++)
@@ -3158,16 +3167,16 @@ lvvp (long *a, long *b, long *c, int n)
 }
 
 void
-lvvm (long *a, long *b, long *c, int n)
+lvvm (admix_long *a, admix_long *b, admix_long *c, int n)
 {
   int i;
   for (i = 0; i < n; i++)
     a[i] = b[i] - c[i];
 }
 
-long gcdx(long a, long b, long *x, long *y)
+admix_long gcdx(admix_long a, admix_long b, admix_long *x, admix_long *y)
 {
-    long t, x1, y1; // To store results of recursive call
+    admix_long t, x1, y1; // To store results of recursive call
     if (a == 0)
     {
         *x = 0;
@@ -3191,23 +3200,23 @@ long gcdx(long a, long b, long *x, long *y)
 
 // gcd = a*x + b*y 
 
-long modinv(long a, long base) 
+admix_long modinv(admix_long a, admix_long base)
 {
-  long t, x, y, aa ; 
+  admix_long t, x, y, aa ;
 
   aa = lmod(a, base) ; 
   if (aa==0) return 0 ;  // special case 
   t = gcdx(a, base, &x, &y) ; 
-  if (t != 1) fatalx("(modinv) %ld %ld\n", a, base) ; 
+  if (t != 1) fatalx("(modinv) %" ADMIX_PRIdLONG " %" ADMIX_PRIdLONG "\n", a, base) ;
 
   return x ; 
 
 
 }
 
-long lpow2(int n) 
+admix_long lpow2(int n)
 {
- long x = 1 ; 
+ admix_long x = 1 ;
 
  return x << n ; 
 
@@ -3245,6 +3254,14 @@ double cputime (int mode)
 
 double calcmem (int mode) 
 {
+#ifdef _WIN32
+  static double initial = 0.0;
+  if (mode == 0) {
+    initial = admix_memory_bytes();
+    return 0.0;
+  }
+  return admix_memory_bytes() - initial;
+#else
   static void *ttt = 0 ; 
 
  if (mode==0) {  
@@ -3253,6 +3270,7 @@ double calcmem (int mode)
  }
 
  return (double) (topheap()  - ttt) ; 
+#endif
 
 }
 
@@ -3402,12 +3420,12 @@ int nips2bytes(int nips)
 
 }
 
-void splitlong(unsigned long x, int *pa, int *pb) 
+void splitlong(admix_ulong x, int *pa, int *pb)
 // split into high and low 32 bits
 {
 
-  long mask = 0XFFFFFFFF ; 
-  unsigned long la, lb, lx ; 
+  admix_long mask = 0XFFFFFFFF ;
+  admix_ulong la, lb, lx ;
   unsigned int u, v ; 
 
   *pa = u = x >> 32 ; 
@@ -3420,7 +3438,7 @@ void splitlong(unsigned long x, int *pa, int *pb)
 
   lx = (la << 32) | lb ; 
   if (lx != x) { 
-   printf("%016lX  %016lX %08lX %08lX\n", x, lx, la, lb) ;
+   printf("%016" ADMIX_PRIXLONG "  %016" ADMIX_PRIXLONG " %08" ADMIX_PRIXLONG " %08" ADMIX_PRIXLONG "\n", x, lx, la, lb) ;
    fatalx("bad split\n") ;
   }
 

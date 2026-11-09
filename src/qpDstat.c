@@ -1,3 +1,4 @@
+#include <admix_platform.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -26,7 +27,7 @@
 */
 
 
-#define WVERSION   "1160"
+#define WVERSION   "1160" ADMIX_VERSION_SUFFIX
 // clade hits and misses (migrations?)
 // forcclade added
 // outpop NONE forced 

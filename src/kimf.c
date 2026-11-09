@@ -1,3 +1,5 @@
+#include <admix_types.h>
+#include <admix_platform.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -108,7 +110,7 @@ typedef struct {
 
 
 
-#define WVERSION   "950"
+#define WVERSION   "950" ADMIX_VERSION_SUFFIX
 
 // timescore, timegmul added  but not tested
 // minsig addes
@@ -374,13 +376,25 @@ main (int argc, char **argv)
    stmp = mytemp("qqspectra") ; 
    scriptname = strdup(stmp) ; 
    sprintf(sss, "qpreroot -g %s -s %s > /dev/null", graphname, scriptname) ; 
+#ifdef _WIN32
+   {
+     const char *arguments[] = {"-g", graphname, "-s", scriptname, NULL};
+     if (admix_run_sibling("qpreroot", arguments, "NUL"))
+       fatalx("qpreroot failed\n");
+   }
+#else
    system(sss) ; 
+#endif
   }
 
   printnl() ; 
   printf("scriptname: %s\n", scriptname) ; 
   sprintf(sss, "cat %s", scriptname) ;
+#ifdef _WIN32
+  copyfs(scriptname, stdout);
+#else
   system(sss) ;               
+#endif
   fflush(stdout) ; 
   
   nlconf = loadspec(scriptname, lconf, vnames, numvertex) ;  // load menu 
@@ -1804,7 +1818,7 @@ int hashiarr(char *str, int *a, int n)
   static char **spt  ; 
   char ss[10] ; 
   int k, t ; 
-  static long ncall = 0 ;
+  static admix_long ncall = 0 ;
 
   ++ncall ;  
   if (ncall==1) { 

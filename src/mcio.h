@@ -1,3 +1,4 @@
+#include <admix_types.h>
 #ifndef _MCIO_
 
 #define _MCIO_
@@ -82,7 +83,7 @@ int setstatusv(Indiv **indm, int numindivs, char *smatch, int val)  ;
 int setstatuslist(Indiv **indm, int numindivs, char **smatchlist, int slen)   ;
 void setdupcheck(int mode) ;
 
-long getgenos(char *genoname, SNP **snpmarkers, Indiv **indivmarkers, 
+admix_long getgenos(char *genoname, SNP **snpmarkers, Indiv **indivmarkers,
  int numsnps, int numindivs, int nignore)  ;
 void getgenos_list(char *genotypelist, SNP **snpmarkers, Indiv **indivmarkers, 
  int  numsnps, int numindivs, int nignore) ; 
@@ -109,7 +110,7 @@ int inpack2(char *genooutfilename, SNP **snpm, Indiv **indiv, int numsnps, int n
 int ineigenstrat(char *genooutfilename, SNP **snpm, Indiv **indiv, int numsnps, int numind)  ;
 void setepath(SNP **snpm, int n) ;
 void clearepath(char *xpack) ;
-long bigread(int fdes, char *packg, long numbytes) ;
+admix_long bigread(int fdes, char *packg, admix_long numbytes) ;
 
 // pedfile support
 int getpedgenos(char *genoname, SNP **snpmarkers, Indiv **indivmarkers, 
@@ -197,8 +198,8 @@ void putsnpordered(int mode) ;
 int getsnpordered() ; 
 void ckdup(char **eglist, int n) ;
 
-long inprob (char *pname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind) ;
-long inprobx (char *pname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind, char *packprobs) ;
+admix_long inprob (char *pname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind) ;
+admix_long inprobx (char *pname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind, char *packprobs) ;
 void outprob(char *oname, SNP **snpm, Indiv **indiv, int numsnps) ; 
 void outprobx(char *oname, SNP **snpm, Indiv **indiv, int numsnps, int numindivs, char *packprobs) ; 
 void sethiressnp() ;

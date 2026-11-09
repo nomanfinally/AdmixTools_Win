@@ -1,3 +1,5 @@
+#include <admix_types.h>
+#include <admix_platform.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -18,7 +20,7 @@
 #include "egsubs.h" 
 #include "qpsubs.h" 
 
-#define WVERSION   "165" 
+#define WVERSION   "165" ADMIX_VERSION_SUFFIX
 
 /** 
  reads data, basic checks ; hashnode hashes genotypes for each sample 
@@ -100,7 +102,7 @@ void printshort(char *ss, int len) ;
 int qisdg(Indz *indz) ;
 int ckdrop(Indz *indz) ;
 void printdropdetails(Indz *indz) ;
-int hashlongarr(long *a, int len)  ;
+int hashlongarr(admix_long *a, int len)  ;
 int hashintarr(int *a, int len)  ;
 
 
@@ -108,7 +110,7 @@ int hashintarr(int *a, int len)  ;
 char **eglist ;;
 int numeg = 0 ;
 void checkduppos(SNP **snpm, int nsnps) ;
-void splitlong(unsigned long x, int *pa, int *pb) ;
+void splitlong(admix_ulong x, int *pa, int *pb) ;
 
 int main(int argc, char **argv)
 {
@@ -120,7 +122,7 @@ int main(int argc, char **argv)
   Indiv *indx ;
   int numvind  ;
   int *hasharr, hashlen ,  zhash, zlen, maxhashlen  ;
-  long *lhasharr, zlhash ; 
+  admix_long *lhasharr, zlhash ;
 
 
   int nindiv = 0 ;
@@ -205,7 +207,7 @@ int main(int argc, char **argv)
   t = numsnps/32 ; t += 32 ; 
   maxhashlen = t ; 
   ZALLOC(hasharr, t, int) ;
-  ZALLOC(lhasharr, t, long) ;
+  ZALLOC(lhasharr, t, admix_long) ;
   for (i=0; i<numindivs; i++) { 
    ZALLOC(indzarr[i], 1, Indz) ;
    ivzero(c1, 2) ; 
@@ -524,7 +526,7 @@ void printdropdetails(Indz *indz)
 } 
 
 
-int hashlongarr(long *a, int len) 
+int hashlongarr(admix_long *a, int len)
 {
  int thash, k ;  
  int *xx, u, v ; 
@@ -532,7 +534,7 @@ int hashlongarr(long *a, int len)
  ZALLOC(xx, 2*len, int) ;
 
  for (k=0; k<len; ++k) { 
-  splitlong((unsigned long) a[k], &u, &v) ;  
+  splitlong((admix_ulong) a[k], &u, &v) ;
   xx[k] = u ; 
   xx[k+len] = v ;
  }

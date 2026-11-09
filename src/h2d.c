@@ -1,3 +1,4 @@
+#include <admix_types.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -7,7 +8,7 @@
 #include <admutils.h>
 
 extern int verbose;
-extern long rlen, packlen ; 
+extern admix_long rlen, packlen ;
 extern char *packgenos ; 
 
 static char *pack2 ;   
@@ -146,7 +147,7 @@ remapd2h (SNP ** snpmarkers, int numsnps, Indiv ** indivmarkers,
   Indiv *indx;
   SNP *cupt;
   char s1[50], s2[50];
-  long rlen2, packlen2 ; 
+  admix_long rlen2, packlen2 ;
   char *pbuff ;
 
   rlen2 = rlen  * 2 ; 

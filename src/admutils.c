@@ -1,3 +1,4 @@
+#include <admix_types.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -763,7 +764,7 @@ fastdupcheck(SNP **snpmarkers, Indiv **indivmarkers, int numsnps, int numindivs)
 
 void slowdupcheck(SNP **snpm, Indiv **indm, int nsnp, int k1, int k2) 
 { 
- static long ncall = 0 ;
+ static admix_long ncall = 0 ;
  SNP * cupt ;
  Indiv *inda, *indb ;
  double ytot, yhit ;

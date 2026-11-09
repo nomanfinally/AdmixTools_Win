@@ -1,3 +1,4 @@
+#include <admix_types.h>
 #include <fcntl.h>
 #include <ctype.h>
 #include  <mcio.h>
@@ -29,8 +30,8 @@ extern double a1, b1;
 extern int packmode;		//!< flag - input {is not,is} in packed mode
 extern char *packgenos;		//!< packed genotype data (packit.h)
 extern char *packepath;
-extern long packlen;		//!< allocated size of packgenos data space
-extern long rlen;		//!< number of bytes in packgenos space that each SNP's data occupies
+extern admix_long packlen;		//!< allocated size of packgenos data space
+extern admix_long rlen;		//!< number of bytes in packgenos space that each SNP's data occupies
 extern int malexhet;		//!< user parameter (retain het genotype data on male X chromosome)
 extern int hashcheck;		//!< user parameter (check input file hashes against input data)
 extern int outputall;
@@ -120,14 +121,14 @@ clearsnpord ()
 void
 snpsortit (int **spos, int *indx, int n)
 {
-  long *lkode;
+  admix_long *lkode;
   int i, base[3];
 
   base[0] = 1;
   base[1] = pow(10.0, 8) ;
   base[2] = pow(10.0, 9) ;
 
-  ZALLOC (lkode, n, long);
+  ZALLOC (lkode, n, admix_long);
   for (i = 0; i < n; i++) {
     lkode[i] = lkodeitbb (spos[i], 3, base);
   }
@@ -1408,7 +1409,7 @@ setstatusv (Indiv ** indm, int numindivs, char *smatch, int val)
 
 
 /* ---------------------------------------------------------------------------------------------------- */
-long
+admix_long
 getgenos (char *genoname, SNP ** snpmarkers, Indiv ** indivmarkers,
 	  int numsnps, int numindivs, int nignore)
 {
@@ -2872,13 +2873,13 @@ calcishash (SNP ** snpm, Indiv ** indiv, int numsnps, int numind, unsigned int *
 }
 
 
-long
-bigread (int fdes, char *packg, long numbytes)
+admix_long
+bigread (int fdes, char *packg, admix_long numbytes)
 {
-  long x;
+  admix_long x;
   int xx;
   char *pt;
-  long nb, t, nr = 0;
+  admix_long nb, t, nr = 0;
   int pswitch = NO;
 
 
@@ -2899,12 +2900,12 @@ bigread (int fdes, char *packg, long numbytes)
     }
     if (t != xx) {
       perror ("read failure (length mismatch)");
-      fatalx ("(bigread) bad data read (length mismatch) %ld %ld\n", t, xx);
+      fatalx ("(bigread) bad data read (length mismatch) %" ADMIX_PRIdLONG " %" ADMIX_PRIdLONG "\n", t, xx);
     }
     nb -= xx;
     nr += xx;
     if (pswitch)
-      printf ("read %ld bytes\n", nr);
+      printf ("read %" ADMIX_PRIdLONG " bytes\n", nr);
     if (nb == 0)
       break;
     pt += xx;
@@ -2944,7 +2945,7 @@ inpackt (char *gname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind)
 
   char **arrx, junk[10];
   int n, num, jnum, ihash, shash, i, g, j, k;
-  long t;
+  admix_long t;
   int xihash, xshash, xnsnp, xnind;
   int nind, nsnp, irec;
   Indiv *indx;
@@ -2954,7 +2955,7 @@ inpackt (char *gname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind)
   int fdes, ret;
   char *packit, *pbuff;
   int trlen ; // length of input record
-  long offset ;
+  admix_long offset ;
   int *indmap, x, numoutind ; 
   int numread = 0 ;
   
@@ -3031,7 +3032,7 @@ inpackt (char *gname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind)
 // this is key main program must set Indiv array appropriately 
 // jnum = indmap[j] ;    
    jnum = j ; 
-   offset = ((long) j) * trlen + GENO_HEADER_SIZE ; 
+   offset = ((admix_long) j) * trlen + GENO_HEADER_SIZE ;
    lseek(fdes, offset,  SEEK_SET);
    t = read (fdes, buff, trlen);
    if (t != trlen) {
@@ -3060,7 +3061,7 @@ inpack (char *gname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind)
 
   char **arrx, junk[10];
   int n, num, ihash, shash, i, g, j, k;
-  long t;
+  admix_long t;
   int xihash, xshash, xnsnp, xnind;
   int nind, nsnp, irec;
   Indiv *indx;
@@ -3125,7 +3126,7 @@ inpack (char *gname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind)
   if (t != packlen) {
     perror ("read failure (length mismatch)");
     printf ("numsnps: %d  nsnp (from geno file): %d\n", numsnps, nsnp);
-    fatalx ("(inpack) bad data read (length mismatch) %ld %ld\n", t, packlen);
+    fatalx ("(inpack) bad data read (length mismatch) %" ADMIX_PRIdLONG " %" ADMIX_PRIdLONG "\n", t, packlen);
   }
   else
     printf ("packed geno read OK\n");
@@ -3228,7 +3229,7 @@ setepath (SNP ** snpm, int nsnps)
   if (packlen == 0)
     fatalx ("(setepath) packlen unset\n");
   ZALLOC (packepath, packlen, char);
-  printf ("setepath. packlen: %ld  rlen: %ld\n", packlen, rlen);
+  printf ("setepath. packlen: %" ADMIX_PRIdLONG "  rlen: %" ADMIX_PRIdLONG "\n", packlen, rlen);
   pbuff = packepath;
   for (i = 0; i < nsnps; i++) {
     cupt = snpm[i];
@@ -5024,7 +5025,7 @@ checksize (int numindivs, int numsnps, enum outputmodetype outputmode)
   // -1 try packed format
 
   double y;
-  long z;
+  admix_long z;
 
   if (sizeof (z) == 8)
     checksizemode = NO;
@@ -6093,7 +6094,7 @@ ckdup (char **eglist, int n)
   }
 }
 
-long
+admix_long
 inprob (char *pname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind)
 {
  int rl2 = 4 ;
@@ -6104,13 +6105,13 @@ inprob (char *pname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind)
  return  inprobx (pname, snpm, indiv, numsnps, numind, packgenos) ;
 
 }
-long
+admix_long
 inprobx (char *pname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind, char *packp)
 {
 
   char **arrx, junk[10];
   int n, num, ihash, shash, i, g, j, k;
-  long t;
+  admix_long t;
   int xihash, xshash, xnsnp, xnind;
   int nind, nsnp, irec;
   Indiv *indx;
@@ -6120,7 +6121,7 @@ inprobx (char *pname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind, char
   int fdes, ret;
   char *packit, *pbuff;
   int rl1, rl2, rlen ; 
-  long plen ; 
+  admix_long plen ;
 
   nind = n = numind;
   nsnp = calcishash (snpm, indiv, numsnps, numind, &ihash, &shash);
@@ -6177,7 +6178,7 @@ inprobx (char *pname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind, char
   if (t != plen) {
     perror ("read failure (length mismatch)");
     printf ("numsnps: %d  nsnp (from geno file): %d\n", numsnps, nsnp);
-    fatalx ("(inprob) bad data read (length mismatch) %ld %ld\n", t, plen);
+    fatalx ("(inprob) bad data read (length mismatch) %" ADMIX_PRIdLONG " %" ADMIX_PRIdLONG "\n", t, plen);
   }
   else
     printf ("packed PROB file: %s read OK\n", pname);

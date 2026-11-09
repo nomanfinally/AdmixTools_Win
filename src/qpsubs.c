@@ -1,3 +1,4 @@
+#include <admix_types.h>
 #include "qpsubs.h"
   double weight ; 
 #include "mcio.h" 
@@ -4075,7 +4076,7 @@ loadaa (SNP * cupt, int *xindex, int *xtypes, int nrows, int numeg)
   double *cc, *dd;
   double x0, x1, x2, w0, w1, h1, s, yt, yf, ym, yy;
   char *sx ; 
-  static long ncall = 0 ; 
+  static admix_long ncall = 0 ;
   static int nbad  = 0 ; 
 
   ++ncall ; 

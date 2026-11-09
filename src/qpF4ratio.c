@@ -1,3 +1,4 @@
+#include <admix_platform.h>
 #include <stdio.h>
 
 #include <string.h>
@@ -29,7 +30,7 @@
 */
 
 
-#define WVERSION   "2010"
+#define WVERSION   "2010" ADMIX_VERSION_SUFFIX
 // diffmode added
 // xdata supported
 // code cleeanup 10/2/19

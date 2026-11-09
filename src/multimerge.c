@@ -1,3 +1,4 @@
+#include <admix_platform.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -20,7 +21,7 @@ int maxsnpnum = 1000 ;
 int maxindnum = 500 ; 
 
 
-#define WVERSION   "400"
+#define WVERSION   "400" ADMIX_VERSION_SUFFIX
 
 
 char *target = "rs3094315" ;

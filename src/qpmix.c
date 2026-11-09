@@ -1,3 +1,5 @@
+#include <admix_types.h>
+#include <admix_platform.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -32,7 +34,7 @@
 #define A  4
 #define O  5
 
-#define WVERSION   "960"
+#define WVERSION   "960" ADMIX_VERSION_SUFFIX
 // was qpadmlin
 // inbreed added
 // mvname, weightname added
@@ -128,7 +130,7 @@ int calcmat(double *ccc, double **vccc, SNP **xsnplist, int *xindex, int *xtypes
 void printmm(double *mmm, int dim) ;  // debug
 int calccoeffs(double *coeffs, double *cvar, double *cmat, 
  double **vcmat, int dim, int nblocks)  ;
-int writemv(char *mvname, long *kmean, long *kvar, int n) ; 
+int writemv(char *mvname, admix_long *kmean, admix_long *kvar, int n) ;
 void dof2bug (double *f2score,  double *f2sig, SNP ** xsnplist, int *xindex,
 	   int *xtypes, int nrows, int ncols, int numeg, int nblocks) ;
 void calcx(double *zmean, double *zvar, double *cmat, double **vcmat, int dim, int nblocks)  ;
@@ -218,7 +220,7 @@ int main(int argc, char **argv)
   double *qpscore ;
   double jest, jsig, *wvar, *www ;
   double *coeffs, *cvar ; 
-  long *jmean, *jvar ;
+  admix_long *jmean, *jvar ;
   double *zmean, *zvar ;
   double *rhs ;
 
@@ -537,8 +539,8 @@ int main(int argc, char **argv)
   printnl() ;
   fflush(stdout) ; 
 
-  ZALLOC(jmean, d, long) ;
-  ZALLOC(jvar, d*d, long) ;
+  ZALLOC(jmean, d, admix_long) ;
+  ZALLOC(jvar, d*d, admix_long) ;
 
   vst(ww, qcoeffs, 1000, d) ; 
   fixitl(jmean, ww, d) ; 
@@ -907,7 +909,7 @@ void printmm(double *mmm, int dim)
 
 }
 int
-writemv(char *mvname, long *kmean, long *kvar, int n)
+writemv(char *mvname, admix_long *kmean, admix_long *kvar, int n)
 {
  FILE *fff ;
  int trap ; 
@@ -1309,11 +1311,11 @@ int mkfstats(char *parname)
 // modified from qpAdm
 {
  char sss[530] ; 
- char fsx[256] ; 
- char ppp[256] ;  
- char pops[256] ;  
- char tpar[256] ; 
- char fslog[256] ; 
+ char fsx[10000] ;
+ char ppp[10000] ;
+ char pops[10000] ;
+ char tpar[10000] ;
+ char fslog[10000] ;
  char **poplist, **popx ; 
  int numpop ; 
 
@@ -1358,22 +1360,35 @@ int mkfstats(char *parname)
  sprintf(sss, "cat %s", ppp) ;
 // system(sss) ;
  sprintf(sss, "fgrep -v fstatsoutname: %s | fgrep -v poplistname: > %s", parname, tpar) ; 
- system(sss) ; 
+#ifdef _WIN32
+ if (admix_filter_fstats(parname, tpar)) fatalx("cannot prepare qpfstats parameters\n");
+#else
+ system(sss) ;
+#endif
 // printf("zz2 %s\n", sss) ; 
  fflush(stdout) ; 
  copyfs(tpar, fff) ; 
- fprintf(fff, "fstatsoutname: %s\n", fsx) ; 
+ fprintf(fff, "fstatsoutname: " ADMIX_PARAMETER_PATH "\n", fsx) ;
  writestrings(pops, poplist, numeg) ;
  
  
 // printf("cmd1: %s\n", sss) ; 
- fprintf(fff, "poplistname: %s\n", pops) ; 
+ fprintf(fff, "poplistname: " ADMIX_PARAMETER_PATH "\n", pops) ;
  fclose(fff) ; 
 
  sprintf(sss, "qpfstats -p %s > %s", ppp, fslog) ; 
- retkode =  system(sss) ; 
+#ifdef _WIN32
+ retkode = admix_run_qpfstats(ppp, fslog);
+ if (retkode != 0) retkode = -1;
+#else
+ retkode =  system(sss) ;
+#endif
  trap = openit_trap(fsx, &fff, "r") ;
- fclose(fff) ; 
+#ifdef _WIN32
+ if (trap) fclose(fff);
+#else
+ fclose(fff) ;
+#endif
  if (trap == NO) retkode = -88 ;
 //  printf("zz: %d\n", trap) ; 
 
@@ -1382,7 +1397,11 @@ int mkfstats(char *parname)
  fflush(stdout) ;
  if ((fstatsoutname != NULL) && (retkode >= 0)) { 
   sprintf(sss, "cp %s %s", fsx, fstatsoutname) ; 
+#ifdef _WIN32
+  if (admix_copy_file(fsx, fstatsoutname)) fatalx("cannot copy qpfstats output\n");
+#else
   system(sss) ;
+#endif
   printf("fstats file: %s made\n", fstatsoutname) ;
  } 
  if (retkode < 0) return -1 ;
@@ -1524,7 +1543,7 @@ double phi2(double *wts, double *mean, double *var, int n)
   double *wvec, y, yldet ;  
   int d2 = n*n ;
   int a, b, i, j, s, t ; 
-  static long ncall = 0 ;
+  static admix_long ncall = 0 ;
 
   ++ncall ;
    

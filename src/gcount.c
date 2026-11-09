@@ -1,3 +1,4 @@
+#include <admix_platform.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -696,7 +697,7 @@ void readcommands(int argc, char **argv)
 	break;
 
       case 'v':
-	printf("version: %d\n", WVERSION) ; 
+	printf("version: %d%s\n", WVERSION, ADMIX_VERSION_SUFFIX) ;
 	break; 
 
       case 'V':

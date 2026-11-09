@@ -1,3 +1,4 @@
+#include <admix_platform.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -12,7 +13,7 @@
 #include "qpsubs.h"
 #include "admutils.h"
 
-#define WVERSION "2000"
+#define WVERSION "2000" ADMIX_VERSION_SUFFIX
 #define MAXA  10
 
 extern int verbose;

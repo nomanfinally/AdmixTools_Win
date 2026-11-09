@@ -1,3 +1,4 @@
+#include <admix_platform.h>
 #  include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -15,7 +16,7 @@
 #include "admutils.h"
 #include "mcio.h"  
 
-#define WVERSION   "420" 
+#define WVERSION   "420" ADMIX_VERSION_SUFFIX
 
 // badpairsname added 
 

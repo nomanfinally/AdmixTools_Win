@@ -1,3 +1,5 @@
+#include <admix_types.h>
+#include <admix_platform.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -14,7 +16,7 @@
 #include "mcio.h"  
 #include "mcmcpars.h"  
 
-#define WVERSION   "2501" 
+#define WVERSION   "2501" ADMIX_VERSION_SUFFIX
 #define MAXFL  50   
 #define MAXSTR  512
 
@@ -64,7 +66,7 @@ int lopos = -999999999 ;
 int hipos = 999999999 ;
 int minchrom = 1 ; 
 int maxchrom = 97 ;
-extern long rlen, packlen ; 
+extern admix_long rlen, packlen ;
 
 /** 
  docheck  YES  allele flipping check

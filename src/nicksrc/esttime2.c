@@ -1,3 +1,4 @@
+#include <admix_types.h>
 #include <stdio.h>
 #include <limits.h>
 #include <math.h>  
@@ -397,7 +398,7 @@ void setlm(int *plo, int *phi, int lomax, int himin, double a, double *bb, doubl
   int k, tlo, thi,  t, x ; 
   double y,  p ; 
   double ww[1000], wend[1000] ;  
-  static long ncall = 0 ;
+  static admix_long ncall = 0 ;
 
   ++ncall ; 
   vclear(wend, -1, 1000) ; 

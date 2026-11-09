@@ -1,3 +1,4 @@
+#include <admix_types.h>
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -249,6 +250,21 @@ getstring (phandle * pp, char *parname, char **strng)
   kode = findpname (pp, parname);
   if (kode < 0)
     return kode;
+#ifdef _WIN32
+  /* Quoting accommodates native Windows paths with spaces. Unquoted values
+   * retain upstream's first-token semantics. */
+  if (pp->pdata[kode][0] == '"') {
+    char *end = strchr(pp->pdata[kode] + 1, '"');
+    if (end != NULL) {
+      size_t length = (size_t)(end - pp->pdata[kode] - 1);
+      *strng = malloc(length + 1);
+      if (*strng == NULL) fatalx("Unable to allocate parameter string\n");
+      memcpy(*strng, pp->pdata[kode] + 1, length);
+      (*strng)[length] = '\0';
+      return 1;
+    }
+  }
+#endif
   n = splitup (pp->pdata[kode], field, MAXFIELD);
   *strng = strdup (field[0]);
   freeup (field, n);
@@ -293,7 +309,7 @@ getint (phandle * pp, char *parname, int *kret)
 }
 
 int
-getlong (phandle * pp, char *parname, long *kret)
+getlong (phandle * pp, char *parname, admix_long *kret)
 {
 
   char *field[MAXFIELD];
@@ -315,7 +331,11 @@ getlong (phandle * pp, char *parname, long *kret)
     return 1;
   }
 
+  #ifdef _WIN32
+  *kret = strtoll(str, NULL, 10);
+#else
   *kret = atol (str);
+#endif
   return 1;
 }
 

@@ -1,3 +1,5 @@
+#include <admix_types.h>
+#include <admix_platform.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -17,7 +19,7 @@
 #include "exclude.h"
 #include "h2d.h"
 
-#define WVERSION   "8640"
+#define WVERSION   "8640" ADMIX_VERSION_SUFFIX
 /** 
  reformats files.             
  pedfile junk (6, 7 cols, ACGT added)
@@ -258,7 +260,7 @@ int setsamp (Indiv ** indivmarkers, int numindivs, char *usesamples);
 int testmisspop(SNP **snpmarkers, int numsnps, Indiv **indivmarkers, int numindivs, int minvalpops)   ;
 int fillmiss(SNP **snpmarkers, Indiv **indivmarkers, int numsnps, int numindivs, char **fpops, int nfpops)  ;
 int fixsnpdistance(SNP **snpm, int numsnps)  ; 
-long loadprobpack(SNP **snpmarkers, Indiv **indivmarkers, int numsnps, int numindivs, char *bigbuff) ;
+admix_long loadprobpack(SNP **snpmarkers, Indiv **indivmarkers, int numsnps, int numindivs, char *bigbuff) ;
 void doshuffle(SNP **snpm, int numsnps, int numindivs)   ; 
 
 
@@ -299,7 +301,7 @@ main (int argc, char **argv)
   int t1, t2, x;
 
   unsigned char *packp, *packp2 ; 
-  long plen, plen2, numx ;  
+  admix_long plen, plen2, numx ;
   int rl2 = 4 ; 
 
   int numout = -1 ;
@@ -678,7 +680,7 @@ main (int argc, char **argv)
    if (proboutfilename != NULL) {
     printf("calling outprob\n") ; fflush(stdout) ; 
     outprobx(proboutfilename, snpmarkers, indivmarkers, numsnps, numindivs, (char *) packp2) ; 
-    printf("PROB file %s written: %ld records\n", proboutfilename, numx) ;
+    printf("PROB file %s written: %" ADMIX_PRIdLONG " records\n", proboutfilename, numx) ;
    }
 
     printf ("##end of convertf run (outputall mode)\n");
@@ -844,7 +846,7 @@ main (int argc, char **argv)
     if (numprobindivs <= 0) fatalx("proboutfilename set but not probindivname\n") ; 
     numx = loadprobpack(snpmarkers, indivmarkers, numsnps, numindivs, (char *) packp2) ; 
     outprobx(proboutfilename, snpmarkers, indivmarkers, numsnps, numindivs, (char *) packp2) ; 
-    printf("PROB file %s written: %ld records\n", proboutfilename, numx) ;
+    printf("PROB file %s written: %" ADMIX_PRIdLONG " records\n", proboutfilename, numx) ;
     fflush(stdout) ;
    }
  if (probprintname != NULL)    {   
@@ -1652,7 +1654,7 @@ int fixsnpdistance(SNP **snpm, int numsnps)
   return n ; 
 }
 
-long loadprobpack(SNP **snpmarkers, Indiv **indivmarkers, int numsnps, int numindivs, char *bigbuff) 
+admix_long loadprobpack(SNP **snpmarkers, Indiv **indivmarkers, int numsnps, int numindivs, char *bigbuff)
 
 {
   SNP *cupt ;
@@ -1662,7 +1664,7 @@ long loadprobpack(SNP **snpmarkers, Indiv **indivmarkers, int numsnps, int numin
   double yy, ww[3] ;   
   unsigned char *buff ; 
   unsigned short bb[2] ; 
-  long numx = 0 ;
+  admix_long numx = 0 ;
 
   
   buff = (unsigned char *) bigbuff ;

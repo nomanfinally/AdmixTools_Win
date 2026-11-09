@@ -1,3 +1,4 @@
+#include <admix_platform.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -23,7 +24,7 @@
  Can't find .tex file for theory  ; but pdf in ccpaper
 */
 
-#define WVERSION   "100"
+#define WVERSION   "100" ADMIX_VERSION_SUFFIX
 // was qpadmlin
 // inbreed added
 

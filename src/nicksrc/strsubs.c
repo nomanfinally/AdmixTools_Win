@@ -1,3 +1,4 @@
+#include <admix_types.h>
 #include <fcntl.h>
 #include <ctype.h>
 #include <stdio.h>
@@ -5,12 +6,18 @@
 #include <ctype.h>
 #include <unistd.h>
 #include <stdarg.h>
+#ifndef _WIN32
 #include <sys/times.h>
+#else
+#include <windows.h>
+#endif
 #include <time.h>
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#ifdef __linux__
 #include <sys/prctl.h>
+#endif
 #include <xsearch.h>   
 
 
@@ -21,7 +28,7 @@
 #include "vsubs.h"
 #include "getpars.h"
 
-extern int errno;
+/* errno is supplied by <errno.h> (thread-local on Windows and Linux). */
 
 
 int
@@ -228,7 +235,11 @@ fatalx (char *fmt, ...)
 void setdump(int cdump) 
 {
 
-  prctl(PR_SET_DUMPABLE, cdump) ; 
+#ifdef __linux__
+  prctl(PR_SET_DUMPABLE, cdump) ;
+#else
+  (void)cdump;
+#endif
 
 
 }
@@ -290,15 +301,22 @@ isnumword (char *str)
 
 }
 
-long
+admix_long
 seednum ()
 {
-  long a, b, c, d;
+  admix_long a, b, c, d;
+#ifndef _WIN32
   struct tms tbuff;
+#endif
 
-  a = (long) getpid ();
-  b = (long) getuid ();
+  a = (admix_long) getpid ();
+#ifdef _WIN32
+  b = 0;
+  d = (admix_long)GetTickCount64();
+#else
+  b = (admix_long) getuid ();
   d = times (&tbuff);
+#endif
 
   c = d ^ ((a + b) << 15);
 
@@ -963,6 +981,9 @@ clocktime ()
   double xtime;
   double y;
 
+#ifdef _WIN32
+  return admix_cpu_seconds();
+#endif
   xtime = (double) clock ();
   y = xtime / (double) CLOCKS_PER_SEC;
   return y;
@@ -2122,8 +2143,19 @@ char *mytemp (char *qqq)
 
   t = (int) getpid() ; 
   tmpdir = getenv("STMP") ;  
+#ifdef _WIN32
+  if (tmpdir == NULL) tmpdir = (char *)admix_tempdir();
+#else
   if (tmpdir == NULL) tmpdir = strdup("/tmp") ;
-  sprintf(ss, "%s/%s.%d", tmpdir, qqq, t) ; 
+#endif
+  if (snprintf(ss, sizeof(ss), "%s/%s.%d", tmpdir, qqq, t) >= sizeof(ss))
+    fatalx("temporary path too long\n");
+#ifdef _WIN32
+  {
+    char *component = strrchr(ss, '/');
+    if (component) while (*++component) if (*component == ':') *component = '_';
+  }
+#endif
   return strdup(ss) ;
 }
 
@@ -2135,7 +2167,11 @@ void randomname(char **ans)
 
   ++ncall ;
   pid = getpid() ; 
+#ifdef _WIN32
+  sprintf(name, "rrr_%d_%d", pid, ncall);
+#else
   sprintf(name, "rrr:%d:%d", pid, ncall) ;
+#endif
 
   *ans = strdup(name) ; 
 
@@ -2327,7 +2363,7 @@ getxxq (double **xx, int maxrow, int numcol, char *fname)
 }
 
 
-long copyfs(char *infile, FILE *fff) 
+admix_long copyfs(char *infile, FILE *fff)
 // copy file  to stream
 {
   char line[MAXSTR];
@@ -2505,9 +2541,9 @@ int canwrite(char *fname)
 }
 
 
-int isdata(char *buff, long bufflen) 
+int isdata(char *buff, admix_long bufflen)
 {
- long k ; 
+ admix_long k ;
  char c, *x ; 
 
  for (k=0; k<bufflen; ++k) { 
@@ -2522,13 +2558,13 @@ int isdata(char *buff, long bufflen)
 
 }
 
-long numlinesx(char *name)  
+admix_long numlinesx(char *name)
 {
  FILE *fff ; 
  char *line = NULL;
  size_t linecap = 0;
  ssize_t linelen;
- long num = 0 ; 
+ admix_long num = 0 ;
 
  openit(name, &fff, "r") ;
 

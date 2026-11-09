@@ -1,3 +1,4 @@
+#include <admix_platform.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -12,7 +13,7 @@
 #include "globals.h"
 #include "admutils.h"
 
-#define WVERSION   "100" 
+#define WVERSION   "100" ADMIX_VERSION_SUFFIX
 
 extern int verbose  ;
 int qtmode = NO ;

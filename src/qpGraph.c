@@ -1,3 +1,5 @@
+#include <admix_types.h>
+#include <admix_platform.h>
 
 #include <unistd.h>
 #include <math.h>
@@ -26,7 +28,7 @@
 
 int debug = NO ; 
 
-#define WVERSION   "7960"   
+#define WVERSION   "7960" ADMIX_VERSION_SUFFIX
 // lsqmode 
 // ff3fit added
 // reroot added
@@ -1854,7 +1856,7 @@ calcxx (double *xxans, double *qmat, double *ppwts, double *rhs,
   double ttans[100];
   double *q1, *q2;
   int *constraint, *cpt ; 
-  static long ncall = 0 ; 
+  static admix_long ncall = 0 ;
 
   ++ncall ;
   na2 = nanc*(nanc-1)/2 ;
@@ -2596,7 +2598,7 @@ double calcf3 (double *ff3, double *xxans, double *qmat, double *ppwts, double *
   int a, b, i, j, kret, u, x, c, f=0;
   int ncol, na2 ;
   double y;
-  static long ncall = 0 ; 
+  static admix_long ncall = 0 ;
 
   ++ncall ;
   na2 = nanc*(nanc-1)/2 ;
@@ -2928,12 +2930,12 @@ int usage (char *prog, int exval)
 
 void mkfstats(char *parname)  
 {
- char sss[512] ; 
- char fsx[128] ; 
- char ppp[128] ;  
- char pops[128] ;  
- char tpar[128] ; 
- char fslog[256] ; 
+ char sss[30032] ;
+ char fsx[10000] ;
+ char ppp[10000] ;
+ char pops[10000] ;
+ char tpar[10000] ;
+ char fslog[10000] ;
 
  int pid ; 
  int k ; 
@@ -2953,10 +2955,14 @@ void mkfstats(char *parname)
 
  openit(ppp, &fff, "w") ; 
  sprintf(sss, "fgrep -v fstatsoutname: %s | fgrep -v poplistname: > %s", parname, tpar) ; 
- system(sss) ; 
+#ifdef _WIN32
+ if (admix_filter_fstats(parname, tpar)) fatalx("cannot prepare qpfstats parameters\n");
+#else
+ system(sss) ;
+#endif
  copyfs(tpar, fff) ; 
 
- fprintf(fff, "fstatsoutname: %s\n", fsx) ; 
+ fprintf(fff, "fstatsoutname: " ADMIX_PARAMETER_PATH "\n", fsx) ;
  if (graphname == NULL) fatalx("(mkfstats) no graphname!\n") ;
 /**
  sprintf(sss, "grepcol_silent 0 label < %s | xtractcol 2 > %s\n", graphname, pops) ; 
@@ -2966,7 +2972,7 @@ void mkfstats(char *parname)
  writestrings(pops, eglist, numeg) ;
  
 // printf("cmd1: %s\n", sss) ; 
- fprintf(fff, "poplistname: %s\n", pops) ; 
+ fprintf(fff, "poplistname: " ADMIX_PARAMETER_PATH "\n", pops) ;
  fclose(fff) ; 
 // sprintf(sss, "cat %s\n", ppp) ; 
 // system(sss) ; 
@@ -2974,15 +2980,27 @@ void mkfstats(char *parname)
  printf("qpfstatscall:: %s\n", sss) ; 
  fflush(stdout) ;
 
- system(sss) ; 
+#ifdef _WIN32
+ if (admix_run_qpfstats(ppp, fslog) != 0) fatalx("qpfstats failed\n");
+#else
+ system(sss) ;
+#endif
  if (fstatslog != NULL) { 
   sprintf(sss, "cp %s %s", fslog, fstatslog) ; 
+#ifdef _WIN32
+  if (admix_copy_file(fslog, fstatslog)) fatalx("cannot copy qpfstats output\n");
+#else
   system(sss) ;
+#endif
  }
  // printf("exiting mkfstats\n") ; 
  if (fstatsoutname != NULL) { 
   sprintf(sss, "cp %s %s", fsx, fstatsoutname) ; 
+#ifdef _WIN32
+  if (admix_copy_file(fsx, fstatsoutname)) fatalx("cannot copy qpfstats output\n");
+#else
   system(sss) ;
+#endif
   printf("fstats file: %s made\n", fstatsoutname) ;
   fstatsname = strdup(fstatsoutname) ;
  } 

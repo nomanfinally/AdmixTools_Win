@@ -1,3 +1,4 @@
+#include <admix_platform.h>
 
 #include <unistd.h>
 #include <math.h>
@@ -27,7 +28,7 @@
 */
 
 
-#define WVERSION   "470" 
+#define WVERSION   "470" ADMIX_VERSION_SUFFIX
 
 // overlap NO added
 // allsnps: YES and instem: added

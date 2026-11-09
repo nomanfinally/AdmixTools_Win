@@ -1,3 +1,4 @@
+#include <admix_platform.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -25,7 +26,7 @@
 //  (YRI, CEU, Papua, .... )               
 
 
-#define WVERSION   "870"
+#define WVERSION   "870" ADMIX_VERSION_SUFFIX
 
 // gsimplify option added
 // calctime added  

@@ -31,6 +31,9 @@ CC = cc
 
 all: $(NLIB) $(PROGS) $(PROGS3)  $(PROGS4) 
 
+# Every link command uses -lnick, including the small genotype utilities.
+$(PROGS) $(PROGS3) $(PROGS4): $(NLIB)
+
 
 $(NLIB):
 	$(MAKE) -C $(ND)
@@ -109,7 +112,7 @@ qptestr1:  $(NLIB)  qptestr1.o  gslrank1.o
 
 oldqpmix:  $(NLIB)  oldqpmix.o qpsubs.o mcio.o mapfile.o ldsubs.o admutils.o  egsubs.o regsubs.o
 qqpmix:  $(NLIB)  qqpmix.o qpsubs.o mcio.o mapfile.o ldsubs.o admutils.o  egsubs.o regsubs.o
-mkweights:  $(NLIB)  mkweights.o qpsubs.o mcio.o mapfile.o ldsubs.o admutils.o  egsubs.o regsubs.o
+mkweights:  $(NLIB)  mkweights.o qpsubs.o mcio.o mapfile.o ldsubs.o admutils.o  egsubs.o regsubs.o geno.o
  
 w2p:  $(NLIB)  w2p.o qpsubs.o mcio.o mapfile.o ldsubs.o admutils.o  egsubs.o regsubs.o
 
@@ -159,9 +162,9 @@ qqpGraph: $(NLIB) qqpGraph.o gslqp.o qpgsubs.o qpsubs.o mcio.o ldsubs.o admutils
 
 qpreroot: qpreroot.o qpgsubs.o qpsubs.o mcio.o mapfile.o ldsubs.o admutils.o egsubs.o regsubs.o geno.o
 
-diffmean: diffmean.o 
+diffmean: diffmean.o $(NLIB)
 
 gcount: gcount.o qpsubs.o mcio.o mapfile.o ldsubs.o admutils.o egsubs.o regsubs.o  geno.o 
 
-kimf: kimf.o gslkim.o qpgsubs.o qpsubs.o mcio.o mapfile.o ldsubs.o admutils.o egsubs.o regsubs.o
+kimf: $(NLIB) kimf.o gslkim.o qpgsubs.o qpsubs.o mcio.o mapfile.o ldsubs.o admutils.o egsubs.o regsubs.o geno.o
 

@@ -1,3 +1,4 @@
+#include <admix_platform.h>
 #include <stdio.h>
 
 #include <string.h>
@@ -34,7 +35,7 @@
 */
 
 
-#define WVERSION   "2201" 
+#define WVERSION   "2201" ADMIX_VERSION_SUFFIX
 
 #define MAXFL  50
 #define MAXSTR  512
@@ -884,11 +885,11 @@ void loadymv(double *ymean, double *yvar,  char *fstatsname, char **popllist, ch
 int mkfstats(char *parname)  
 {
  char sss[530] ; 
- char fsx[256] ; 
- char ppp[256] ;  
- char pops[256] ;  
- char tpar[256] ; 
- char fslog[256] ; 
+ char fsx[10000] ;
+ char ppp[10000] ;
+ char pops[10000] ;
+ char tpar[10000] ;
+ char fslog[10000] ;
  char **poplist, **popx ; 
  int numeg ; 
 
@@ -935,22 +936,35 @@ int mkfstats(char *parname)
  sprintf(sss, "cat %s", ppp) ;
 // system(sss) ;
  sprintf(sss, "fgrep -v fstatsoutname: %s | fgrep -v poplistname: > %s", parname, tpar) ; 
- system(sss) ; 
+#ifdef _WIN32
+ if (admix_filter_fstats(parname, tpar)) fatalx("cannot prepare qpfstats parameters\n");
+#else
+ system(sss) ;
+#endif
 // printf("zz2 %s\n", sss) ; 
  fflush(stdout) ; 
  copyfs(tpar, fff) ; 
- fprintf(fff, "fstatsoutname: %s\n", fsx) ; 
+ fprintf(fff, "fstatsoutname: " ADMIX_PARAMETER_PATH "\n", fsx) ;
  writestrings(pops, poplist, numeg) ;
  
  
 // printf("cmd1: %s\n", sss) ; 
- fprintf(fff, "poplistname: %s\n", pops) ; 
+ fprintf(fff, "poplistname: " ADMIX_PARAMETER_PATH "\n", pops) ;
  fclose(fff) ; 
 
  sprintf(sss, "qpfstats -p %s > %s", ppp, fslog) ; 
- retkode =  system(sss) ; 
+#ifdef _WIN32
+ retkode = admix_run_qpfstats(ppp, fslog);
+ if (retkode != 0) retkode = -1;
+#else
+ retkode =  system(sss) ;
+#endif
  trap = openit_trap(fsx, &fff, "r") ;
- fclose(fff) ; 
+#ifdef _WIN32
+ if (trap) fclose(fff);
+#else
+ fclose(fff) ;
+#endif
  if (trap == NO) retkode = -88 ;
 //  printf("zz: %d\n", trap) ; 
 
@@ -959,7 +973,11 @@ int mkfstats(char *parname)
  fflush(stdout) ;
  if ((fstatsoutname != NULL) && (retkode >= 0)) { 
   sprintf(sss, "cp %s %s", fsx, fstatsoutname) ; 
+#ifdef _WIN32
+  if (admix_copy_file(fsx, fstatsoutname)) fatalx("cannot copy qpfstats output\n");
+#else
   system(sss) ;
+#endif
   printf("fstats file: %s made\n", fstatsoutname) ;
  } 
  if (retkode < 0) return -1 ;

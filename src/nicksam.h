@@ -1,3 +1,4 @@
+#include <admix_types.h>
 #include <nicklib.h>
 #include "faidx.h" 
 
@@ -169,7 +170,7 @@ typedef struct  {
 
 typedef struct { 
  int kodeindex ; 
- long hist ; 
+ admix_long hist ;
  char *string ; 
 } KINFO  ;
 

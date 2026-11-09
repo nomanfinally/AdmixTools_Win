@@ -2,6 +2,9 @@
 *~
 *.o
 *.bak
+src/.windows/
+validation-results/
+__pycache__/
 
 #Data - download example data from Reight lab website
 data/*
@@ -24,6 +27,7 @@ pdoc.ps
 
 #Examples
 examples.qpGraph/*:log
+examples.qpGraph/*_log
 examples.qpGraph/*.ggg
 examples.qpGraph/*.dot
 examples.qpGraph/*.ps

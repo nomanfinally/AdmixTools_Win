@@ -1,3 +1,4 @@
+#include <admix_platform.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -18,7 +19,7 @@
 #include "egsubs.h" 
 #include "qpsubs.h" 
 
-#define WVERSION   "570" 
+#define WVERSION   "570" ADMIX_VERSION_SUFFIX
 
 /** 
  reads data, basic stats

@@ -1,3 +1,5 @@
+#include <admix_types.h>
+#include <admix_platform.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -15,7 +17,7 @@
 #include "mcio.h"
 #include "nicksam.h"
 
-#define WVERSION   "3170"
+#define WVERSION   "3170" ADMIX_VERSION_SUFFIX
 #define MAXFL  50
 
 // phasedmode added
@@ -65,7 +67,7 @@ extern enum outputmodetype outputmode;
 extern int checksizemode;
 char *omode = "packedancestrymap";
 extern int packmode;
-extern long packlen;
+extern admix_long packlen;
 
 int ogmode = NO;
 int docheck = YES;
@@ -505,7 +507,7 @@ mergeit (SNP ** snpm1, SNP ** snpm2, Indiv *** pindm1, Indiv ** indm2,
   SNP *cupt1, *cupt2;
   int k, x, g, t, tt;
   double y;
-  long rlen;
+  admix_long rlen;
   static unsigned char *packg;
   unsigned char *buff;
   Indiv **indm1;
@@ -605,7 +607,7 @@ void printkinfo(KINFO **kh, int len)
 {
    KINFO *kpt ; 
    int x, kode ; 
-   long tot = 0, z ; 
+   admix_long tot = 0, z ;
 
   for (x=0; x<len; ++x) { 
    kpt = kh[x] ; 
@@ -613,19 +615,19 @@ void printkinfo(KINFO **kh, int len)
    if (z <= 0) continue ;
    kode = kpt -> kodeindex ; 
    printf("kode: %4d ", kode) ; 
-   printf("%6ld", z) ; 
+   printf("%6" ADMIX_PRIdLONG "", z) ;
    printf("  %s", kpt -> string) ; 
    printnl() ;
    tot += z ;
   }
    printf("total:%4s ","") ; 
-   printf("%10ld", tot) ; 
+   printf("%10" ADMIX_PRIdLONG "", tot) ;
    printnl() ; 
 } 
 
 void addmhist(int kode, int val) 
 {
-  static long ncall = 0 ; 
+  static admix_long ncall = 0 ;
   static int *index, *windex ; 
   int offset = 5, ilen = 10  ; 
   int tkode, x ; 

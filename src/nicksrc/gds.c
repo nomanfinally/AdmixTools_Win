@@ -1,3 +1,4 @@
+#include <admix_types.h>
 #include <stdio.h>
 #include "strsubs.h"
 #include "vsubs.h"
@@ -269,7 +270,7 @@ ransamp (int *samp, int nsamp, double *p, int plen)
 void
 pick2 (int n, int *k1, int *k2)
 {
-  long l1, l2;
+  admix_long l1, l2;
   /* pick 2 distinct integers < n  */ ;
   if (n < 2)
     fatalx ("bad pick2 call\n");
@@ -330,7 +331,7 @@ ranperm (int *a, int n)
 */
 {
   int l, k, tmp;
-  long r;
+  admix_long r;
   for (l = n; l > 1; l--) {
 
     r = LRAND ();
@@ -350,7 +351,7 @@ ranmod (int n)
 /* random number 0,...n-1 */
 {
 
-  long r, big;
+  admix_long r, big;
 
   if (n <= 0)
     fatalx ("ranmod called; bad arg %d\n", n);

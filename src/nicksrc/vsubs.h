@@ -1,3 +1,4 @@
+#include <admix_types.h>
 #include  <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -24,15 +25,15 @@ void ivvm(int *a, int *b, int *c, int n);
 void ivsp(int *a, int *b, int c, int n);
 void ivst(int *a, int *b, int c, int n);
 void ivvt (int *a, int *b, int *c, int n) ;
-void ivclear(int *a,  int c, long n) ;
-void lvclear(long *a,  long c, long n) ;
+void ivclear(int *a,  int c, admix_long n) ;
+void lvclear(admix_long *a,  admix_long c, admix_long n) ;
 void ivzero(int *a, int n) ;
-void lvzero(long *a, long n) ;
-void lvsp (long *a, long *b, long c, int n) ;
-void lvvp (long *a, long *b, long *c, int n) ;  
-void lvvm (long *a, long *b, long *c, int n) ;  
-void cclear(unsigned char *a,  unsigned char c, long n) ;
-void charclear(char *a,  unsigned char c, long n) ;
+void lvzero(admix_long *a, admix_long n) ;
+void lvsp (admix_long *a, admix_long *b, admix_long c, int n) ;
+void lvvp (admix_long *a, admix_long *b, admix_long *c, int n) ;
+void lvvm (admix_long *a, admix_long *b, admix_long *c, int n) ;
+void cclear(unsigned char *a,  unsigned char c, admix_long n) ;
+void charclear(char *a,  unsigned char c, admix_long n) ;
 
 double unclip(double x, double lo, double hi)  ;
 double clip(double x, double lo, double hi)  ;
@@ -45,7 +46,7 @@ void vlmaxmin(double *a, int n, int *max, int *min)  ;
 void ivmaxmin(int *a, int n, int *max, int *min)  ;
 int minivec(int *a, int n) ;
 int maxivec(int *a, int n) ;
-void lvlmaxmin(long *a, int n, int *max, int *min)  ;
+void lvlmaxmin(admix_long *a, int n, int *max, int *min)  ;
 void ivlmaxmin(int *a, int n, int *max, int *min)  ;
 void getdiag(double *diag, double *b, int n)  ;
 void setdiag(double *a, double *diag, int n)  ;
@@ -59,10 +60,10 @@ void copyarrp (double **a, double **b, int n) ;
 void copyarr(double *a,double *b,int n) ;
 void revarr(double *a, double *b,int n) ;
 void reviarr(int *a,int *b,int n) ;
-void revlarr(long *a,long *b,int n) ;
+void revlarr(admix_long *a,admix_long *b,int n) ;
 void revuiarr(unsigned int *a, unsigned int *b,int n) ;
 void copyiarr(int *a,int *b,int n) ;
-void copylarr(long *a, long *b, int n) ;
+void copylarr(admix_long *a, admix_long *b, int n) ;
 void copyiparr(int **a,int **b,int n) ;
 
 void dpermute(double *a, int *ind, int len)  ;
@@ -76,7 +77,7 @@ void ippermute(int **a, int *ind, int len)  ;
 double  asum(double *a, int n) ;
 double  asum2(double *a, int n) ;
 int     intsum(int *a, int n) ;
-long  longsum(long *a, int n) ;
+admix_long  longsum(admix_long *a, int n) ;
 int     idot(int *a, int *b, int n)  ;
 int     iprod(int *a, int n) ;
 double  aprod(double *a, int n) ;
@@ -109,9 +110,9 @@ void printmatwlx(double *a, int m, int n, int w) ;
 void printmatwf(double *a, int m, int n, int w, char *format);
 void int2c(char *cc, int *b, int n) ;
 void floatit(double *a, int *b, int n) ;
-void floatitl (double *a, long *b, int n) ;
+void floatitl (double *a, admix_long *b, int n) ;
 void fixit(int *a, double *b, int n) ;
-void fixitl(long *a, double *b, int n) ;
+void fixitl(admix_long *a, double *b, int n) ;
 void rndit(double  *a, double *b, int n) ;
 void printimatw(int *a, int m, int n, int w) ;
 void printmatwlfile (double *a, int m, int n, int w, FILE *fff) ;
@@ -129,10 +130,10 @@ void printimatfile(int *a, int m, int n, FILE *fff) ;
 void printimatwfile(int *a, int m, int n, int w, FILE *fff) ;
 void printimat2D(int  **a, int m, int n)  ;
 void printimatl2D(int  **a, int m, int n)  ;
-void printlmatx (long *a, int m, int n) ;
-void printlmat (long *a, int m, int n) ;
-void printlmatw (long *a, int m, int n, int w) ;
-void printlmatwfile (long *a, int m, int n, int w, FILE *fff) ;
+void printlmatx (admix_long *a, int m, int n) ;
+void printlmat (admix_long *a, int m, int n) ;
+void printlmatw (admix_long *a, int m, int n, int w) ;
+void printlmatwfile (admix_long *a, int m, int n, int w, FILE *fff) ;
 void printmatw2D(double **a, int m, int n, int w)  ;
 void printmat2D(double **a, int m, int n)  ;
 void printstring(char *ss, int width) ;
@@ -140,7 +141,7 @@ void printstringbasepos(char *ss, int w, int basepos) ;
 void printstringf(char *ss, int width, FILE *fff) ;
 
 int  findfirst(int *a, int n, int val) ;
-int  findfirstl(long *a, int n, long val) ;
+int  findfirstl(admix_long *a, int n, admix_long val) ;
 int  findfirstu(unsigned int *a, int n, unsigned int val) ;
 int  findlastu(unsigned int *a, int n, unsigned int val) ;
 
@@ -179,14 +180,14 @@ int mkfull(double *out, double *in, int n) ;
 
 /* storage allocation */
 int **initarray_2Dint(int numrows, int numcolumns, int initval);
-long **initarray_2Dlong(int numrows, int numcolumns, long initval);
+admix_long **initarray_2Dlong(int numrows, int numcolumns, admix_long initval);
 void free2Dint(int ***xx, int numrows) ;
-void free2Dlong(long ***xx, int numrows) ;
+void free2Dlong(admix_long ***xx, int numrows) ;
 double **initarray_2Ddouble(int numrows, int numcolumns, double initval);
 long double **initarray_2Dlongdouble(int numrows, int numcolumns, long double initval);
 void clear2D(double ***xx, int numrows, int numcols, double val)   ;
 void iclear2D(int ***xx, int numrows, int numcols, int val)  ;
-void lclear2D(long ***xx, int numrows, int numcols, long val)  ;
+void lclear2D(admix_long ***xx, int numrows, int numcols, admix_long val)  ;
 void free2D(double ***xx, int numrows) ;
 void free2Dlongdouble(long double ***xx, int numrows) ;
 void free_darray (double  **xx) ; 
@@ -227,28 +228,28 @@ int total2Dint(int **a, int nrows, int ncols) ;
 
 int kodeitb(int *xx, int len, int base) ;
 int dekodeitb(int *xx, int kode, int len, int base) ;
-long lkodeitbb(int *xx, int len, int *baselist)  ;
-int ldekodeitbb(int *xx, long kode, int len, int *baselist) ;
+admix_long lkodeitbb(int *xx, int len, int *baselist)  ;
+int ldekodeitbb(int *xx, admix_long kode, int len, int *baselist) ;
 int kodeitbb(int *xx, int len, int *baselist)  ;
 int dekodeitbb(int *xx, int kode, int len, int *baselist) ;
 
-long expmod(long a, long b, long n) ;
-int isprime(long num) ;
-long nextprime(long num) ;
+admix_long expmod(admix_long a, admix_long b, admix_long n) ;
+int isprime(admix_long num) ;
+admix_long nextprime(admix_long num) ;
 
 int irevcomp (int xx, int stringlen) ;
-long lrevcomp (long xx, int stringlen) ;
+admix_long lrevcomp (admix_long xx, int stringlen) ;
 void ismatch(int *a, int *b, int n, int val) ;
 int pmult(double *a, double *b, double *c, int na, int nb) ;
 void pdiff(double *a, double *b, int deg) ;
 void ivswap(int *a, int *b, int n) ;
 void vswap(double *a, double *b, int n)  ;
-void setlong(long *pplen, long a, long b)   ;
+void setlong(admix_long *pplen, admix_long a, admix_long b)   ;
 
-long lmod (long x, long base)  ;
-long gcdx(long b, long a, long *x, long *y) ; 
-long modinv(long a, long base) ;  
-long lpow2(int n) ; 
+admix_long lmod (admix_long x, admix_long base)  ;
+admix_long gcdx(admix_long b, admix_long a, admix_long *x, admix_long *y) ;
+admix_long modinv(admix_long a, admix_long base) ;
+admix_long lpow2(int n) ;
 double exp1minus(double x) ;
 
 double cputimes (int mode, int clock) ;
@@ -265,7 +266,7 @@ int addscaldiag(double *mat, double scal, int n)  ;
 int visnan(double *a, int n) ; 
 int numintmatch (int *a, int len, int val) ;
 int nips2bytes(int nips)    ;  
-void splitlong(unsigned long x, int *pa, int *pb) ;
+void splitlong(admix_ulong x, int *pa, int *pb) ;
 int visfinite(double *a, int n)  ;
 void squish(double *xmat, double *mat, int nrow, int oldc, int newc) ;
 int lcshift (int x, int shft) ;
@@ -285,5 +286,5 @@ void copyarr5D (double *****za, double *****zb, int n1, int n2, int n3, int n4, 
 void free3D (double ****xx, int n1, int n2)  ;
 void free4D (double *****xx, int n1, int n2, int n3)  ;
 void free5D (double ******xx, int n1, int n2, int n3, int n4)  ; 
-long *** initarray_3Dlong (int n1, int n2, int n3, long initval) ;
-void free3Dlong (long ****xx, int n1, int n2)  ;
+admix_long *** initarray_3Dlong (int n1, int n2, int n3, admix_long initval) ;
+void free3Dlong (admix_long ****xx, int n1, int n2)  ;

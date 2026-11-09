@@ -1,3 +1,4 @@
+#include <admix_types.h>
 #include <assert.h>
 #include <fcntl.h>
 #include <math.h>
@@ -5,7 +6,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#ifdef _WIN32
+#include "win32/mman.h"
+#else
 #include <sys/mman.h>
+#endif
 #include <sys/stat.h>
 #include <unistd.h>
 
@@ -136,7 +141,7 @@ int genotype_matrix_read_file(genotype_matrix *this, const char * const genotype
 	// verify size
 	size_t expected_size = header_size + genotype_matrix_byte_size(this);
 	if (this->memory_map_length != expected_size){
-		fprintf(stderr, "Unexpected %s size. Expected %ld was %ld\n", matrix_type, expected_size, this->memory_map_length);
+		fprintf(stderr, "Unexpected %s size. Expected %zu was %zu\n", matrix_type, expected_size, this->memory_map_length);
 		return -4;
 	}
 
@@ -171,7 +176,7 @@ void genotype_matrix_header(const genotype_matrix *this, bool transpose, char *d
 	char *matrix_type = transpose ? "TGENO" : "GENO";
 	size_t num_samples = this->transpose ? this->num_rows : this->num_columns;
 	size_t num_snps = this->transpose ? this->num_columns : this->num_rows;
-	sprintf(dest, "%s %7ld %7ld %x %x", matrix_type, num_samples, num_snps, this->individual_file_hash, this->snp_file_hash);
+	sprintf(dest, "%s %7zu %7zu %x %x", matrix_type, num_samples, num_snps, this->individual_file_hash, this->snp_file_hash);
 }
 
 int genotype_matrix_write_packed_file(const genotype_matrix *this, const char *filename, bool transpose){

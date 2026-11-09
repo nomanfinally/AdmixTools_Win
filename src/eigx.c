@@ -8,7 +8,7 @@
 #include <Accelerate/Accelerate.h>
 #else
 
-#ifdef _WIN32
+#if defined(_WIN32) && !defined(__MINGW32__)
 
 #define HAVE_LAPACK_CONFIG_H
 #define LAPACK_COMPLEX_STRUCTURE
@@ -18,7 +18,7 @@ typedef int __CLPK_integer;
 typedef double __CLPK_doublereal;
 
 #else // begin !_WIN32
-#if __LP64__
+#if __LP64__ || defined(__MINGW32__)
 typedef int __CLPK_integer;
 #else
 typedef long int __CLPK_integer;

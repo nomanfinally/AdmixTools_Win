@@ -1,3 +1,5 @@
+#include <admix_types.h>
+#include <admix_platform.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -100,7 +102,7 @@ typedef struct {
 
 
 
-#define WVERSION   "811"
+#define WVERSION   "811" ADMIX_VERSION_SUFFIX
 // timescore, timegmul added  but not tested
 // minsig addes
 // iterate.  pass scale to gslsetup 
@@ -1717,7 +1719,7 @@ int hashiarr(char *str, int *a, int n)
   static char **spt  ; 
   char ss[10] ; 
   int k, t ; 
-  static long ncall = 0 ;
+  static admix_long ncall = 0 ;
 
   ++ncall ;  
   if (ncall==1) { 

@@ -1,3 +1,4 @@
+#include <admix_platform.h>
 #include <stdio.h>
 
 #include <string.h>
@@ -20,7 +21,7 @@
 #include "qpsubs.h"
 
 
-#define WVERSION   "410"
+#define WVERSION   "410" ADMIX_VERSION_SUFFIX
 
 #define MAXFL  50
 #define MAXSTR  512

@@ -1,3 +1,4 @@
+#include <admix_types.h>
 typedef struct {
  int numpars ;
  FILE *fx ;
@@ -13,7 +14,7 @@ int getlongstring(phandle *pp, char *parname, char **kret)  ;
 // whole of line
 int getstring(phandle *pp, char *parname, char **kret)  ;
 int getint(phandle *pp, char *parname, int *kret)  ;
-int getlong(phandle *pp, char *parname, long *kret)  ;
+int getlong(phandle *pp, char *parname, admix_long *kret)  ;
 int getints(phandle *pp, char *parname, int *aint, int nint) ;
 int getintss(phandle *pp, char *parname, int *aint, int *xint) ;
 

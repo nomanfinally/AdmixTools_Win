@@ -1,3 +1,4 @@
+#include <admix_platform.h>
 #include <string.h>
 #include <unistd.h>
 #include <math.h>
@@ -17,7 +18,7 @@
 #include "eigsubs.h"
 #include "globals.h"
 
-#define WVERSION   "210"
+#define WVERSION   "210" ADMIX_VERSION_SUFFIX
 
 // printsd added 
 // clinetest added (as in qpdslow) Makes most sense for 2 f4 stats

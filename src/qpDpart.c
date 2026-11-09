@@ -1,3 +1,4 @@
+#include <admix_platform.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -20,7 +21,7 @@
 #include "qpsubs.h"
 
 
-#define WVERSION   "210"
+#define WVERSION   "210" ADMIX_VERSION_SUFFIX
 // outpop NONE forced 
 // print number of samples / pop
 // popfilename added 

@@ -1,3 +1,5 @@
+#include <admix_types.h>
+#include <admix_platform.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -18,7 +20,7 @@
 #include "egsubs.h"
 #include "ldsubs.h"
 
-#define WVERSION   "1110"
+#define WVERSION   "1110" ADMIX_VERSION_SUFFIX
 /** an attempt to 
  1) threshold for LD in parentals 
  2) Use a weighted Z-score
@@ -185,7 +187,7 @@ main (int argc, char **argv)
   int nsnp1 = 0, nsnp2 = 0;
   int numchrom = 22;
   double **jwt;
-  long snpdo1, snpdo2;
+  admix_long snpdo1, snpdo2;
 
 
   snpdo1 = snpdo2 = 0;
@@ -697,7 +699,7 @@ main (int argc, char **argv)
     dumpit (s1, ww, corrjbins[k], numbins - 5, binsize, s2);
   }
 
-  printf ("## snps processes (outer + inner loop) %ld %ld\n", snpdo1, snpdo2);
+  printf ("## snps processes (outer + inner loop) %" ADMIX_PRIdLONG " %" ADMIX_PRIdLONG "\n", snpdo1, snpdo2);
   printf ("##end of run\n");
   return 0;
 }

@@ -1,4 +1,7 @@
 #include <argp.h>
+#ifdef _WIN32
+#include "win32/argp.h"
+#endif
 #include <stdio.h>
 
 #include "geno.h"

@@ -1,3 +1,4 @@
+#include <admix_types.h>
 #include <stdio.h>
 #include <limits.h>
 #include <math.h>
@@ -397,7 +398,7 @@ int xshash(int x)
 // slow but good 32 bit hash
 {
 
- long w ; 
+ admix_long w ;
  int a, b ; 
 
  w = xlhash(x) ; 
@@ -409,17 +410,17 @@ int xshash(int x)
 
 }
 
-long xlhash (long x) 
+admix_long xlhash (admix_long x)
 // slow but good hash.  
 {
- static long bigp = 0 ;
+ static admix_long bigp = 0 ;
  int k, nround = 7 ; 
- long a1, b1, a2, b2, w ; 
- static long *addpat ; 
+ admix_long a1, b1, a2, b2, w ;
+ static admix_long *addpat ;
 
  if (bigp == 0) {
    bigp = lpow2(61) - 1 ; 
-   ZALLOC(addpat, nround+1, long) ; 
+   ZALLOC(addpat, nround+1, admix_long) ;
    for (k=1; k<=nround; ++k) { 
     w = lpow2(41) + 89 + k ; 
     addpat[k] = modinv(w, bigp) ; 

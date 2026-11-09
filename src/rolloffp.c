@@ -1,3 +1,4 @@
+#include <admix_platform.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -18,7 +19,7 @@
 #include "egsubs.h"  
 #include "ldsubs.h"  
 
-#define WVERSION   "361" 
+#define WVERSION   "361" ADMIX_VERSION_SUFFIX
 
 // mincount stripped 
 // basic idea: Model each admixed sample as a linear fit 

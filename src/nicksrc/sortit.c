@@ -1,3 +1,4 @@
+#include <admix_types.h>
 #include  <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -12,7 +13,7 @@
 
 static char **sttt ;
 static double *ttt;
-static long *lttt;
+static admix_long *lttt;
 static int *ittt;
 static int **pttt;
 static int plen = 0;
@@ -113,18 +114,23 @@ compit (int *a1, int *a2)
     return -1;
   if (ttt[*a1] > ttt[*a2])
     return 1;
+#ifdef _WIN32
+  /* glibc qsort preserves input order for equal keys; the Windows CRT does not. */
+  return (*a1 > *a2) - (*a1 < *a2);
+#else
   return 0;
+#endif
 }
 
 void
-lsortit (long *a, int *ind, int len)
+lsortit (admix_long *a, int *ind, int len)
 {
   int i, k;
   int *inda;
 
   if (len == 0)
     fatalx ("(lsortit) len = 0\n");
-  ZALLOC (lttt, len, long);
+  ZALLOC (lttt, len, admix_long);
   ZALLOC (inda, len, int);
 
   for (i = 0; i < len; i++) {
@@ -181,7 +187,12 @@ lcompit (int *a1, int *a2)
     return -1;
   if (lttt[*a1] > lttt[*a2])
     return 1;
+#ifdef _WIN32
+  /* glibc qsort preserves input order for equal keys; the Windows CRT does not. */
+  return (*a1 > *a2) - (*a1 < *a2);
+#else
   return 0;
+#endif
 }
 
 int
@@ -191,7 +202,12 @@ icompit (int *a1, int *a2)
     return -1;
   if (ittt[*a1] > ittt[*a2])
     return 1;
+#ifdef _WIN32
+  /* glibc qsort preserves input order for equal keys; the Windows CRT does not. */
+  return (*a1 > *a2) - (*a1 < *a2);
+#else
   return 0;
+#endif
 }
 
 void
@@ -271,6 +287,9 @@ ipcompit (int *a1, int *a2)
 {
   int l;
   l = compiarr (pttt[*a1], pttt[*a2], plen);
+#ifdef _WIN32
+  if (l == 0) return (*a1 > *a2) - (*a1 < *a2);
+#endif
   return l;
 }
 
@@ -386,7 +405,11 @@ scompit (int *a1, int *a2)
   t = strcmp(sttt[*a1], sttt[*a2]) ; 
   if (t<0)   return -1;
   if (t>0)   return 1;
+#ifdef _WIN32
+  return (*a1 > *a2) - (*a1 < *a2);
+#else
   return 0;
+#endif
 }
 
 

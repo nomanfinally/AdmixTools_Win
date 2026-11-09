@@ -1,3 +1,4 @@
+#include <admix_types.h>
 /*
  * MapFile.h
  *
@@ -17,10 +18,10 @@ typedef struct {	//struct containing pointer to genome data file
         int hdrSize ;
 } genFile;
 
-genFile* constructMap(char* fileName, long rowSize, long colSize, long hdrSize);
+genFile* constructMap(char* fileName, admix_long rowSize, admix_long colSize, admix_long hdrSize);
 
 //helper function for checking correctness of array, not currently used in main
-bool checkArray(long rowSize, long colSize, char* array);
+bool checkArray(admix_long rowSize, admix_long colSize, char* array);
 int getgtypemap(genFile *data, int row, int col) ; 
 
 void destroyMap(genFile* data);

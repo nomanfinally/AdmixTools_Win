@@ -1,9 +1,9 @@
 #!/bin/sh
- ../bin/qpGraph -p par:sim1:gr1x -g gr1x -o sim1:gr1x.ggg -d sim1:gr1x.dot > gr1x:log
+ ../bin/qpGraph -p par_sim1_gr1x -g gr1x -o sim1_gr1x.ggg -d sim1_gr1x.dot > gr1x_log
 ## lsqmode YES
- ../bin/qpGraph -p par:sim1:gr1triv -g gr1triv -o sim1:gr1triv.ggg -d sim1:gr1triv.dot > gr1triv:log 
+ ../bin/qpGraph -p par_sim1_gr1triv -g gr1triv -o sim1_gr1triv.ggg -d sim1_gr1triv.dot > gr1triv_log
 ## graph that doesn't fit
- ../bin/qpGraph -p par:sim1:gr1x:2 -g gr1x -o sim1:gr1x:2.ggg -d sim1:gr1x:2.dot > gr1x:2:log 
+ ../bin/qpGraph -p par_sim1_gr1x_2 -g gr1x -o sim1_gr1x_2.ggg -d sim1_gr1x_2.dot > gr1x_2_log
 ## lsqmode NO  Little difference on such a small problem
- ../bin/qpGraph -p par:sim1:gr1x:nullout -g gr1x  > gr1x:nullout:log
+ ../bin/qpGraph -p par_sim1_gr1x_nullout -g gr1x  > gr1x_nullout_log
 ## outpop set to NULL

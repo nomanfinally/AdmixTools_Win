@@ -1,3 +1,4 @@
+#include <admix_platform.h>
 #include <string.h>
 #include <unistd.h>
 #include <math.h>
@@ -26,7 +27,7 @@
 //  (YRI, CEU, Papua, .... )               
 
 
-#define WVERSION   "1101"
+#define WVERSION   "1101" ADMIX_VERSION_SUFFIX
 
 
 // useweight added  

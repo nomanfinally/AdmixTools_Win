@@ -1,11 +1,15 @@
+#include <admix_platform.h>
 #include <argp.h>
+#ifdef _WIN32
+#include "win32/argp.h"
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "geno.h"
 
-#define WVERSION "100" 
+#define WVERSION "100" ADMIX_VERSION_SUFFIX
 
 static const char usage_documentation[] = "Merge tranpose bit-packed genotype files. SNPs for one sample are stored continuously in one row, instead of samples for one SNP being stored in one row as in the packed ancestry format. This is fast because the bytes are already stored in order for each component.";
 
@@ -79,8 +83,17 @@ int add_geno(const char filename[], FILE *merged, genotype_matrix *combined_geno
 	int expanded_filename_size = strlen(filename) + 5;
 	char *file_to_open = malloc(expanded_filename_size);
 	strncpy(file_to_open, filename, expanded_filename_size);
+#ifdef _WIN32
+	/* getline is byte-preserving; accept native CRLF file lists as text. */
+	{
+		size_t end = strlen(file_to_open);
+		while (end && (file_to_open[end-1] == '\r' || file_to_open[end-1] == '\n'))
+			file_to_open[--end] = '\0';
+	}
+#else
 	if (file_to_open[strlen(filename)-1] == '\n')
 		file_to_open[strlen(filename)-1] = '\0';
+#endif
 
 	if (!file_exists(file_to_open)){
 		strcat(file_to_open, ".geno");

@@ -1,3 +1,4 @@
+#include <admix_platform.h>
 #include <string.h>
 #include <unistd.h>
 #include <math.h>
@@ -26,7 +27,7 @@
 //  (YRI, CEU, Papua, .... )               
 
 
-#define WVERSION   "130"
+#define WVERSION   "130" ADMIX_VERSION_SUFFIX
 // popsizelimit
 // dzeromode.  But this is a bad idea.  Must include monomorphic snps if we are to get unbiasedness
 // snpdetailsname added

@@ -1,3 +1,4 @@
+#include <admix_types.h>
 #include <stdlib.h>
 
 int splitup (char *strin,  char *strpt[],int maxpt) ;
@@ -18,7 +19,7 @@ void enuf( char *fmt, ...) ;
 void fatalx( char *fmt, ...) __attribute__((noreturn)) ;
 void setdump(int cdump) ; 
 int docommand( char *fmt, ...) ;
-long seednum() ;
+admix_long seednum() ;
 void printbl(int n) ;
 void printnl() ;
 void striplead(char *sss, char c) ;
@@ -98,7 +99,7 @@ int getchromlist(char **list, char *bamname) ;
 int getreglist (char ***preglist, char *bamname)  ;
 void printslurmenv ()  ; 
 int getfline(char *ss, char *fname, int maxstr) ;
-long copyfs(char *infile, FILE *fff)  ;
+admix_long copyfs(char *infile, FILE *fff)  ;
 int getxxq(double **xx, int maxrow, int numcol, char *fname) ; 
 int numcolsq (char *name) ;
 int getdata(char *buff, int nbytes, char *fname)  ;
@@ -110,13 +111,13 @@ char *runcmd(char *cmd)  ;
 void printcmdline(int argc, char **argv)  ;
 char *strstrr(char *stack, char *needle) ;
 int canwrite(char *fname)  ;
-long numlinesx(char *name)  ;
-int isdata(char *buff, long bufflen) ;
+admix_long numlinesx(char *name)  ;
+int isdata(char *buff, admix_long bufflen) ;
 void mkcmdline(char *ss, char *argv0, char *version) ; 
 
 
 #define ZALLOC(item,n,type)      if ((item = (type *)calloc((n),sizeof(type))) == NULL) \
-                                        fatalx("Unable to allocate %ld unit(s) for item \n", (long) n)
+                                        fatalx("Unable to allocate %" ADMIX_PRIdLONG " unit(s) for item \n", (admix_long) n)
 
 #undef MAX
 #undef MIN

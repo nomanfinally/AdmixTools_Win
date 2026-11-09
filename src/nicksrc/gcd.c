@@ -1,6 +1,7 @@
-long gcdx(long a, long b, long *x, long *y)
+#include <admix_types.h>
+admix_long gcdx(admix_long a, admix_long b, admix_long *x, admix_long *y)
 {
-    long x1, y1; // To store results of recursive call
+    admix_long x1, y1; // To store results of recursive call
     if (a == 0)
     {
         *x = 0;
