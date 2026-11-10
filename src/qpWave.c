@@ -8,6 +8,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <libgen.h>
+#include <limits.h>
+#include <stdint.h>
 
 #include <nicklib.h>
 #include <getpars.h>
@@ -98,9 +100,7 @@ int numboot = 1000 ;
 char *fstatsname = NULL ; 
 char *fstatsoutname = NULL ; 
 
-char *outputname = NULL;
 char *weightname = NULL;
-FILE *ofile;
 
 double **btop, **bbot, *gtop, *gbot;
 int bnblocks, bdim = 0;
@@ -110,6 +110,7 @@ int eigenanalysis = NO ;
 
 
 void readcommands (int argc, char **argv);
+static void checkdimensions(int left, int right);
 
 double
 doq4vecb (double *ymean, double *yvar, int ***counts, int *bcols,
@@ -185,6 +186,8 @@ main (int argc, char **argv)
   if (parname == NULL)
     return 0;
   setdump(coredump) ;
+  /* Zero preserves the implicit default stream, as in qpfstats. */
+  SRAND((unsigned int) seed);
 
   if (tmpdir != NULL) setenv("STMP", tmpdir, 1) ;
 
@@ -212,6 +215,7 @@ main (int argc, char **argv)
 
   if (nleft==0) fatalx("no pops in left!\n") ;
   if (nright==0) fatalx("no pops in right!\n") ;
+  checkdimensions(nleft, nright);
 
   if (allsnps == -99) { 
    allsnps = NO ; 
@@ -239,9 +243,6 @@ main (int argc, char **argv)
    printf("oldallsnpsmode deprecated!\n") ;
   }
 
-  if (outputname != NULL)
-    openit (outputname, &ofile, "w");
-
   if (fstatsname == NULL) { 
 
   if (instem != NULL) { 
@@ -253,6 +254,7 @@ main (int argc, char **argv)
     getsnps (snpname, &snpmarkers, 0.0, badsnpname, &nignore, numrisks);
 
   numindivs = getindivs (indivname, &indivmarkers);
+  inddupcheck(indivmarkers, numindivs);
   setindm (indivmarkers);
   setfancyf4(fancyf4) ; 
 
@@ -366,6 +368,8 @@ main (int argc, char **argv)
   ZALLOC (xindex, numindivs, int);
   ZALLOC (xindlist, numindivs, Indiv *);
   ZALLOC (rawcol, numindivs, int);
+  if (popsizelimit > 0)
+    setplimit (indivmarkers, numindivs, eglist, numeg, popsizelimit);
   nrows = loadindx (xindlist, xindex, indivmarkers, numindivs);
   if (nrows == 0)
     fatalx ("badbug: no data\n");
@@ -392,10 +396,6 @@ main (int argc, char **argv)
 
   ZALLOC (xsnplist, numsnps, SNP *);
   ZALLOC (tagnums, numsnps, int);
-
-  if (popsizelimit > 0) {
-    setplimit (indivmarkers, numindivs, eglist, numeg, popsizelimit);
-  }
 
   ncols = loadsnpxx (xsnplist, snpmarkers, numsnps, xindlist, nrows);
 
@@ -533,7 +533,7 @@ main (int argc, char **argv)
 
   for (x = 0; x <= maxrank; ++x) {
     f4pt = f4info[x];
-    f4pt->dofjack = y;
+    f4pt->dofjack = effblocks;
     doranktest (ymean, yvar, nl, nr, x, f4pt);
     if (x > 0) {
       f4pt2 = f4info[x - 1];
@@ -570,7 +570,11 @@ readcommands (int argc, char **argv)
 
   if (argc == 1) { usage(basename(argv[0]), 1); }
 
+#ifdef _WIN32
+  while ((i = admix_getopt (argc, argv, "p:vVh")) != -1) {
+#else
   while ((i = getopt (argc, argv, "p:vVh")) != -1) {
+#endif
 
     switch (i) {
 
@@ -584,7 +588,7 @@ readcommands (int argc, char **argv)
 
     case 'v':
       printf ("version: %s\n", WVERSION);
-      break;
+      exit(0);
 
     case 'V':
       verbose = YES;
@@ -614,13 +618,12 @@ readcommands (int argc, char **argv)
   getstring (ph, "popleft:", &popleft);
   getstring (ph, "popright:", &popright);
 
-  getstring (ph, "output:", &outputname);
-  getstring (ph, "outputname:", &outputname);
   getstring (ph, "badsnpname:", &badsnpname);
   getdbl (ph, "blgsize:", &blgsize);
   getint (ph, "numchrom:", &numchrom);
 
   getint (ph, "popsizelimit:", &popsizelimit);
+  getint (ph, "seed:", &seed);
   getint (ph, "gfromp:", &gfromp);	// gen dis from phys
   getint (ph, "chrom:", &xchrom);
   getint (ph, "maxrank:", &maxrank);
@@ -643,11 +646,41 @@ readcommands (int argc, char **argv)
   getint (ph, "oasmode:", &oasmode);
   getint (ph, "oracle:", &oasmode);
 
+  if (!isfinite(blgsize) || blgsize <= 0)
+    fatalx("blgsize must be finite and positive\n");
+  if (!isfinite(yscale) || !isfinite(diagvarplus))
+    fatalx("covariance diagonal settings must be finite\n");
+  if (numchrom < 1 || numchrom == INT_MAX)
+    fatalx("invalid numchrom\n");
+
 
   printf ("### THE INPUT PARAMETERS\n");
   printf ("##PARAMETER NAME: VALUE\n");
   writepars (ph);
+  for (i = 0; i < ph->numpars; ++i)
+    if (!strcmp(ph->ppars[i], "output:") || !strcmp(ph->ppars[i], "outputname:") ||
+        !strcmp(ph->ppars[i], "oldallsnpsmode:") || !strcmp(ph->ppars[i], "numboot:") ||
+        !strcmp(ph->ppars[i], "details:"))
+      fatalx("parameter %s is not supported by qpWave\n", ph->ppars[i]);
+  closepars(ph);
 
+}
+
+/* All downstream matrix lengths/indices are int, on LP64 and LLP64 alike. */
+static void checkdimensions(int left, int right)
+{
+  int64_t dim, entries;
+  if (left < 2 || right < 2)
+    fatalx("qpWave requires at least two left and two right populations\n");
+  if (left > right) fatalx("nleft not less than or equal to nright\n");
+  dim = (int64_t)(left - 1) * (right - 1);
+  /* Check before squaring, adding padding or allocating any matrix. */
+  if (dim > INT_MAX - 10 || dim > INT_MAX / dim ||
+      (int64_t)left * right > INT_MAX || (int64_t)left + right >= INT_MAX)
+    fatalx("too many populations for qpWave integer dimensions\n");
+  entries = dim * dim;
+  if ((uint64_t)entries > SIZE_MAX / sizeof(double))
+    fatalx("qpWave covariance size exceeds addressable memory\n");
 }
 
 double
@@ -785,7 +818,7 @@ return (y1 * y1) / y2;	// a natural estimate for degrees of freedom in F-test.
 int usage (char *prog, int exval)
 {
 
-  (void)fprintf(stderr, "Usage: %s [options] <file>\n", prog);
+  (void)fprintf(stderr, "Usage: %s -p <file> [options]\n", prog);
   (void)fprintf(stderr, "   -h          ... Print this message and exit.\n");
   (void)fprintf(stderr, "   -p <file>   ... use parameters from <file> .\n");
   (void)fprintf(stderr, "   -v          ... print version and exit.\n");

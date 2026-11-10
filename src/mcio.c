@@ -1,6 +1,8 @@
 #include <admix_types.h>
 #include <fcntl.h>
 #include <ctype.h>
+#include <errno.h>
+#include <limits.h>
 #include  <mcio.h>
 #include  <xsearch.h>
 #include  <ranmath.h>
@@ -1472,7 +1474,10 @@ getgenos (char *genoname, SNP ** snpmarkers, Indiv ** indivmarkers,
     printf("unzip cmd: gunzip -c \"%s\" > \"%s\"\n", genoname, genotmp);
     if (admix_gunzip(genoname, genotmp)) {
       free(genotmp);
-      perror("gunzip failed\n");
+      /* A child-format failure has no errno in the parent. MinGW calls zero
+       * "No error", whereas the upstream Linux perror text is "Success". */
+      if (errno == 0) fprintf(stderr, "gunzip failed\n: Success\n");
+      else perror("gunzip failed\n");
       fatalx("gunzip failed... probably out of disk space\n");
     }
     printf("geno file unzipped\n");
@@ -2464,7 +2469,16 @@ getblocks (char *fname, SNP ** snpm, int numsnps)
     if (skipit == NO) {
       if (nsplit > 1) {
 	sx = spt[1];
-	block = atoi(sx);
+        {
+          char *end;
+          long label;
+          errno = 0;
+          label = strtol(sx, &end, 10);
+          if (errno == ERANGE || end == sx || *end || label < INT_MIN ||
+              label >= numsnps)
+            fatalx("invalid block ID for SNP %s: %s\n", spt[0], sx);
+          block = (int)label;
+        }
         tmax = MAX(tmax, block) ;
 	snpm[k]->tagnumber = block;
 	++num;

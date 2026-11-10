@@ -16,7 +16,7 @@
     "shared_c_module": 28,
     "source_only_program": 5,
     "unbuilt_c_module": 7,
-    "validation_harness": 10
+    "validation_harness": 13
   },
   "c_sources": 78,
   "headers": 40,
@@ -893,8 +893,16 @@
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
         "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
-        "T02 corrections: Windows native helper execution and temporary ownership exercised through callers; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged"
-      ]
+        "T02 corrections: Windows native helper execution and temporary ownership exercised through callers; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged",
+        "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
+        "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending."
+      ],
+      "t03_corrected_findings": [
+        "F053"
+      ],
+      "t03_correction_sha256": {
+        "src/win32/compat.c": "947e0b3025918efc4363e8362f9af9f9daa0d81e14ed2b11845b08a8acebc69a"
+      }
     },
     {
       "id": "M02",
@@ -951,8 +959,16 @@
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
         "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
-        "T02 corrections: exclusive temporary reservation, fatal/normal cleanup and keep behavior; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged"
-      ]
+        "T02 corrections: exclusive temporary reservation, fatal/normal cleanup and keep behavior; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged",
+        "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
+        "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending."
+      ],
+      "t03_corrected_findings": [
+        "F051"
+      ],
+      "t03_correction_sha256": {
+        "src/nicksrc/strsubs.c": "746d14d1df91b31027de17e1bdb1488de3c0471d09891874f026d8bde8b65dc7"
+      }
     },
     {
       "id": "M03",
@@ -1008,8 +1024,16 @@
       },
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
-        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
-      ]
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
+        "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
+        "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending."
+      ],
+      "t03_corrected_findings": [
+        "F051"
+      ],
+      "t03_correction_sha256": {
+        "src/nicksrc/getpars.c": "ac069efbcb2a7a81d4d9b46b2b332a44288594e687b155ffce6cbe65d0aaeafb"
+      }
     },
     {
       "id": "M04",
@@ -1347,8 +1371,16 @@
       },
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
-        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
-      ]
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
+        "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
+        "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending."
+      ],
+      "t03_corrected_findings": [
+        "F048"
+      ],
+      "t03_correction_sha256": {
+        "src/nicksrc/statsubs.c": "592a5000521cb33e3aa51fabb1bba5f7a800bd8b23d726851d686eafc3f8c8cf"
+      }
     },
     {
       "id": "M10",
@@ -1453,8 +1485,19 @@
       },
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
-        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
-      ]
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
+        "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
+        "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending."
+      ],
+      "t03_corrected_findings": [
+        "F046",
+        "F049",
+        "F050",
+        "F053"
+      ],
+      "t03_correction_sha256": {
+        "src/mcio.c": "b53acd8e93d332c7c6d4b07ca378556fe9f9a398d05a06c9e6fd19a617cdb432"
+      }
     },
     {
       "id": "M12",
@@ -1553,8 +1596,16 @@
       },
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
-        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
-      ]
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
+        "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
+        "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending."
+      ],
+      "t03_corrected_findings": [
+        "F054"
+      ],
+      "t03_correction_sha256": {
+        "src/mapfile.c": "33c375527be3fabb80fcb1e55db8f3b69af1b27e002e4e8547aee87835c5af95"
+      }
     },
     {
       "id": "M14",
@@ -1603,8 +1654,17 @@
       },
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
-        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
-      ]
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
+        "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
+        "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending."
+      ],
+      "t03_corrected_findings": [
+        "F045",
+        "F050"
+      ],
+      "t03_correction_sha256": {
+        "src/admutils.c": "a45283ec0160dd1d21647fc9e66d9c560c810ac2621da54adc0fb120ca24f818"
+      }
     },
     {
       "id": "M15",
@@ -1688,8 +1748,17 @@
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
         "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
-        "T02 corrections: shared qpfstats helper preparation/execution/copy/ownership and inactive-key filtering; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged"
-      ]
+        "T02 corrections: shared qpfstats helper preparation/execution/copy/ownership and inactive-key filtering; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged",
+        "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
+        "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending."
+      ],
+      "t03_corrected_findings": [
+        "F046",
+        "F049"
+      ],
+      "t03_correction_sha256": {
+        "src/qpsubs.c": "4a3ea1f309c0dc0274fa051002246b76bc7232efe60383b99d999894b7568b20"
+      }
     },
     {
       "id": "M18",
@@ -1737,8 +1806,16 @@
       },
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
-        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
-      ]
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
+        "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
+        "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending."
+      ],
+      "t03_corrected_findings": [
+        "F047"
+      ],
+      "t03_correction_sha256": {
+        "src/egsubs.c": "fbe45d185d42680c781d998c0ceddc29589354398ce169c5cf47fda36f54edb2"
+      }
     },
     {
       "id": "M19",
@@ -1847,8 +1924,17 @@
         "src/f4rank.c": "4f9111aa95f6f4059a9e6b58e8376e05e0edfaca7947357c3537c327ca1cb574"
       },
       "partial_audit_evidence": [
-        "T01: see report for scope; this does not close this item"
-      ]
+        "T01: see report for scope; this does not close this item",
+        "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
+        "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending."
+      ],
+      "t03_corrected_findings": [
+        "F047",
+        "F052"
+      ],
+      "t03_correction_sha256": {
+        "src/f4rank.c": "4f9111aa95f6f4059a9e6b58e8376e05e0edfaca7947357c3537c327ca1cb574"
+      }
     },
     {
       "id": "M22",
@@ -1895,8 +1981,13 @@
         "src/eigx.c": "299a9f72999e46469a70eb4a94f9530b579c470f4e86cdf1e4ddc4a0770349aa"
       },
       "partial_audit_evidence": [
-        "T01: see report for scope; this does not close this item"
-      ]
+        "T01: see report for scope; this does not close this item",
+        "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
+        "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending."
+      ],
+      "t03_correction_sha256": {
+        "src/eigx.c": "299a9f72999e46469a70eb4a94f9530b579c470f4e86cdf1e4ddc4a0770349aa"
+      }
     },
     {
       "id": "M24",
@@ -2723,7 +2814,9 @@
         "src/qpAdm.c": "4d5ba76dbf53e0a75071ce70de8923f30faae5d07414b7d47c8978c0fd5abc87"
       },
       "partial_audit_evidence": [
-        "T02 corrections: automatic helper success/failure, output/log, Unicode and long-path regressions; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged"
+        "T02 corrections: automatic helper success/failure, output/log, Unicode and long-path regressions; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged",
+        "T03 found shared block-index, cached-data integrity and failed-mapping defects in paths also used by qpAdm. Historical T01 pass-with-limitations does not cover these new findings.",
+        "T03 corrections: actual qpAdm malformed block/cache and transposed-input regressions pass on Windows/Linux/sanitizers; real/injected shared mapping failure is rejected. See tests/windows/audits/T03_qpWave.corrections.md."
       ],
       "correction_report": "tests/windows/audits/T01_qpAdm.corrections.md",
       "correction_evidence": "tests/windows/audits/T01_qpAdm.corrections.evidence.json",
@@ -2732,7 +2825,12 @@
         "F025",
         "F043"
       ],
-      "open_or_retained_findings": []
+      "open_or_retained_findings": [],
+      "t03_rechecked_findings": [
+        "F046",
+        "F049",
+        "F054"
+      ]
     },
     {
       "id": "T02",
@@ -2805,7 +2903,7 @@
       "paths": [
         "src/qpWave.c"
       ],
-      "hard_check": "pending",
+      "hard_check": "passed with limitations",
       "role": "Rank/ancestry-stream tests",
       "build": "built",
       "blocked_reason": null,
@@ -2848,7 +2946,33 @@
       "partial_audit_evidence": [
         "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
         "T02 corrections: automatic helper success/failure, output/log and keep behavior; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged"
-      ]
+      ],
+      "audit_date": "2026-11-10",
+      "audit_report": "tests/windows/audits/T03_qpWave.corrections.md",
+      "audit_evidence": "tests/windows/audits/T03_qpWave.corrections.evidence.json",
+      "audited_sha256": {
+        "src/qpWave.c": "f91a3019da1351e64efaef85b3381841b9ac94e59e1f065f0e041c33edaa2d71"
+      },
+      "corrected_findings": [
+        "F044",
+        "F045",
+        "F046",
+        "F047",
+        "F048",
+        "F049",
+        "F050",
+        "F051",
+        "F052",
+        "F053",
+        "F054",
+        "F055"
+      ],
+      "open_or_retained_findings": [],
+      "closure_note": "145 Windows / corrected Linux / sanitizer behavior checks pass. All 73 jointly successful scientific results/files match exactly. Intentional broken-upstream repairs and platform/coverage limits are documented; independent modules remain pending.",
+      "initial_audited_sha256": {
+        "src/qpWave.c": "1e27246a0542e44131d8ca2e3c707e52032d952a8df4696bcb6586121753145f"
+      },
+      "initial_audit_report": "tests/windows/audits/T03_qpWave.md"
     },
     {
       "id": "T04",
@@ -4377,6 +4501,9 @@
       "prior_evidence": "Exercised under T02 corrections; independent audit remains pending; see tests/windows/audits/T02_qpfstats.corrections.md",
       "audited_sha256": {
         "tests/windows/audit_qpfstats.py": "be3bd3eb16a08316a2158901282f299de1e54e126de7dc92c832f62ac75298cb"
+      },
+      "t03_correction_sha256": {
+        "tests/windows/audit_qpfstats.py": "772e720e798398ea6a856d5236a6ab66de7d0c5364f064c50f02ae740a3150be"
       }
     },
     {
@@ -4394,12 +4521,57 @@
       "audited_sha256": {
         "tests/windows/qpfstats_probe.c": "48fe900577f9d52a7e9b16d3e57785281737b167418a0f2b243739a1287d96ff"
       }
+    },
+    {
+      "id": "Q11",
+      "category": "validation_harness",
+      "name": "qpWave hard-check runner",
+      "paths": [
+        "tests/windows/audit_qpwave.py"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/audit_qpwave.py": "0fc3d807e0fc6470c0804af731d779f600846345b6bdbb17a90cdd4212f09c33"
+      },
+      "prior_evidence": "Exercised under T03; independent harness audit remains pending; see tests/windows/audits/T03_qpWave.md",
+      "t03_correction_sha256": {
+        "tests/windows/audit_qpwave.py": "560f46dc066ffc2eda593d0d6f25880511b978b679e1afdd2247aa52088bc9a3"
+      }
+    },
+    {
+      "id": "Q12",
+      "category": "validation_harness",
+      "name": "qpWave mapping-failure probe",
+      "paths": [
+        "tests/windows/qpwave_map_probe.c"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/qpwave_map_probe.c": "37802d98d306696e91f2ac0bf36307ec4304ab4785b2c0c130daf779b80390ae"
+      },
+      "prior_evidence": "Exercised under T03; independent harness audit remains pending; see tests/windows/audits/T03_qpWave.md",
+      "t03_correction_sha256": {
+        "tests/windows/qpwave_map_probe.c": "88f94468af9b1d642026dd34c9048734b22438016c110093cf8dbcd769213d57"
+      }
+    },
+    {
+      "id": "Q13",
+      "category": "validation_harness",
+      "name": "qpWave real dimension guard probe",
+      "paths": [
+        "tests/windows/qpwave_probe.c"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/qpwave_probe.c": "8bd985f0955811d4ee1bc61512fdc89434e69af2c0acdad824cd858a765dfb29"
+      },
+      "prior_evidence": "Exercised under T03 corrections at exact int boundaries without huge allocations; independent harness audit remains pending."
     }
   ],
   "last_audit_date": "2026-11-10",
-  "last_audit_working_head": "ff2029dd4e961696b2973385f208f54c4f3f7802",
+  "last_audit_working_head": "9d764a2eef571dd1d2740ce6240246230150c30a",
   "active_audit": null,
-  "next_queued_item": "T03",
+  "next_queued_item": "T04",
   "completed_hard_audits": [
     {
       "id": "T01",
@@ -4407,6 +4579,10 @@
     },
     {
       "id": "T02",
+      "status": "passed with limitations"
+    },
+    {
+      "id": "T03",
       "status": "passed with limitations"
     }
   ]

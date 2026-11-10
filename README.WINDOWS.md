@@ -294,6 +294,26 @@ Version remains `1101.w`. See the [T02 corrections](tests/windows/audits/T02_qpf
 for the known inactive keys and switches now rejected explicitly, intentional
 differences from pristine upstream, and remaining validation limits.
 
+qpWave's [T03 corrections](tests/windows/audits/T03_qpWave.corrections.md) pass
+with the documented limits. `popsizelimit:` now limits the actual individuals
+analyzed; `seed:` controls selection using the existing RNG. Zero retains the
+default sequence, equivalent to 1. This repairs broken upstream limited runs;
+it does not make direct and all-SNP estimators interchangeable.
+
+Use finite positive `blgsize:`, unique individual IDs and complete fstats files
+from qpfstats. Malformed block labels, dimensions and cached statistics now fail
+explicitly. qpWave rejects inactive `output:`, `outputname:`, `oldallsnpsmode:`,
+`numboot:` and `details:` fields. Keep qpAdm/qpfit-only controls out of a qpWave
+parameter file. Send results to a log using PowerShell redirection:
+
+```powershell
+.\bin\qpWave.exe -p .\par.qpWave > .\qpWave.log 2> .\qpWave.err
+$LASTEXITCODE
+```
+
+`qpWave -v` now prints only its version and exits. Windows version remains
+`2201.w`; numerical defaults and ordinary valid result formatting are retained.
+
 ## 6. Add the suite to your user PATH
 
 From the repository root, these commands update your user PATH, retaining other

@@ -221,3 +221,46 @@ both systems; pass `--probe PATH` to the runner to check physical-subset oracles
 Source inclusion is a test technique; production layout/link rules are retained.
 The verbose case produces over three million lines; retain the complete streams
 for comparison or use `--select '^(?!verbose$)'` for focused nonverbose reruns.
+
+## T03 qpWave hard review
+
+```powershell
+python tests/windows/audit_qpwave.py --bin bin --output validation-results/T03-windows
+python tests/windows/audit_qpwave.py --verify validation-results/T03-windows
+python tests/windows/audit_qpwave.py --compare validation-results/T03-linux validation-results/T03-windows
+```
+
+Use separate new directories for pristine Linux, the Linux port and sanitizer
+builds. `--select REGEX` restricts cases; `--probe PATH` accepts the existing
+`qpfstats_probe` for independent physical-subset oracles. Without it, the two
+manual-subset cases are omitted. All child processes have timeouts; stdout,
+stderr, exit statuses, file hashes and temporary ownership are retained.
+`--verify` checks the repaired safety/integrity behavior, including rejection of
+inactive legacy controls and preservation of existing output files. Windows
+BOM/quoted-space-path extensions are not required to succeed on Linux.
+Comparisons return nonzero for any raw mismatch, including OS abort statuses;
+inspect the classification rather than interpreting a nonzero comparison as a
+floating-point mismatch. No scientific tolerances are used.
+
+`qpwave_map_probe.c` includes the actual mapping implementation. On Linux,
+compile with `-O2 -ffunction-sections -fdata-sections -Isrc -Isrc/nicksrc`, link
+the real libnick and `-lm -Wl,--gc-sections`, then pass a new sparse-file path.
+It limits only its own address space. Exit 10 detects the historical defect:
+`constructMap` returned a failed mapping as a live object. Exit 9 means the
+failure injection did not take effect; other statuses need inspection. It
+returns 77 on Windows because this probe uses Linux `RLIMIT_AS`.
+
+After correction, the real Linux mapping probe must terminate through the
+`memory mapping failed` fatal path rather than returning 10. Define
+`QPWAVE_FORCE_MAP_FAILURE` for a small Windows/Linux injected-failure probe.
+On Windows, link the ordinary qpWave dependency objects except `qpWave.o` and
+`mapfile.o`, plus libnick/compat/scientific libraries; the probe includes those
+two sources to exercise the actual failure branch. `qpwave_probe.c` includes
+the real dimension guard; link the ordinary dependency objects except
+`qpWave.o`. Pass left/right dimensions to test the last supported and first
+overflowing products without allocating their matrices.
+
+See [T03 qpWave](audits/T03_qpWave.md) for initial findings, corrected fixture
+definitions, exact comparison scope, architecture review and remaining limits.
+The [T03 corrections](audits/T03_qpWave.corrections.md) supersede that initial
+open status and document the fixed findings, current evidence and limits.

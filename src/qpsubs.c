@@ -1716,6 +1716,9 @@ setblocksf (int *block, int *bsize, int *nblock, SNP ** snpm, int numsnps,
    return ; 
   }
 
+  if (numsnps <= 0 || numsnps > INT_MAX - 9999)
+    fatalx("invalid SNP count for block tables\n");
+
   getblocks (fname, snpm, numsnps) ; 
 
   numbl = 0 ; 
@@ -1752,6 +1755,8 @@ setblocksz (int **pblock, int **pbsize, SNP ** snpm, int numsnps,
   int n ; 
   int *tblock, *tbsize, tnblock ;
 
+  if (numsnps <= 0 || numsnps > INT_MAX - 9999)
+    fatalx("invalid SNP count for block tables\n");
   ZALLOC(tblock, numsnps+20, int) ;
   ZALLOC(tbsize, numsnps+20, int) ;
 
@@ -1761,6 +1766,8 @@ setblocksz (int **pblock, int **pbsize, SNP ** snpm, int numsnps,
   if (fname == NULL) setblocks(tblock, tbsize, &tnblock, snpm, numsnps, blocklen) ; 
   else setblocksf(tblock, tbsize, &tnblock, snpm, numsnps, blocklen, fname) ; 
 
+  if (tnblock < 0 || tnblock > numsnps + 10)
+    fatalx("invalid block table dimensions\n");
   n = tnblock + 10; 
 
   ZALLOC(xblock, n, int) ; 
@@ -5511,111 +5518,101 @@ double geteffblocks(char *sss)
 
 }
 
-void   loadfstatsx(char *fstatsname, double *ff3, double *ff3var, char **eglist, int numeg, char *fbline)                           
+/* Both entry points consume the same complete symmetric f3 basis. Keep the
+ * arithmetic and record order unchanged; track presence separately from values
+ * so a legitimate zero cannot hide a missing or malformed statistic. */
+char *getbasepop(char **fields, int count);
+
+static void readfstats(char *name, double *ff3, double *ff3var,
+                      char **pops, int np, char *fbline)
 {
-   FILE *fff ;
-   int a, b, nh2, k, x, u, v, c, d, t ; 
-   int egnum[4] ; 
-   double y1, y2 ; 
-
-  char line[MAXSTR + 1] ;
-  char *spt[MAXFF], *sx;
-  int nsplit, num = 0;
-  int skipit;
-  int len;
-
-  fbline[0] = CNULL ;
-   if (fstatsname == NULL) return ; 
-
-  openit (fstatsname, &fff, "r");
-  line[MAXSTR] = '\0';
-  while (fgets (line, MAXSTR, fff) != NULL) {
-    nsplit = splitup (line, spt, MAXFF);
-    if (nsplit == 0)
+  FILE *file;
+  char line[MAXSTR + 1], *fields[MAXFF], *end, *base;
+  int *pairs;
+  unsigned char *means, *covars;
+  int a, b, c, d, i, j, count, nbasis = 0, ncovar, p, q, index, nheader = 0;
+  int egnum[4];
+  double value, scaled;
+  if (fbline != NULL) fbline[0] = CNULL;
+  if (name == NULL) return;
+  if (np < 2 || np > 100) fatalx("invalid fstats population dimensions\n");
+  ZALLOC(pairs, np * np, int);
+  ivclear(pairs, -1, np * np);
+  for (a = 1; a < np; ++a)
+    for (b = a; b < np; ++b)
+      pairs[a*np+b] = pairs[b*np+a] = nbasis++;
+  ncovar = nbasis * (nbasis + 1) / 2;
+  ZALLOC(means, nbasis, unsigned char);
+  ZALLOC(covars, ncovar, unsigned char);
+  openit(name, &file, "r");
+  while (fgets(line, MAXSTR, file) != NULL) {
+    count = splitup(line, fields, MAXFF);
+    if (count == 0) continue;
+    if (fields[0][0] == '#') {
+      if (strstr(line, "fbasis") != NULL) {
+        if (++nheader != 1) fatalx("duplicate fstats basis header\n");
+        base = getbasepop(fields, count);
+        if (base == NULL || strcmp(base, pops[0]))
+          fatalx("fstats base population does not match %s\n", pops[0]);
+        if (fbline != NULL) strcpy(fbline, line);
+      }
+      freeup(fields, count);
       continue;
-    sx = spt[0];
-    if (sx[0] == '#') { 
-     if (strstr(line, "fbasis") != NULL) strcpy(fbline, line) ;
-     freeup(spt, nsplit) ;
-     continue  ; 
     }
-    y1 = atof(spt[nsplit-1]) ; 
-    if (nsplit==3)  { 
-     t = getegnum(egnum, spt, eglist, numeg, 2) ;  
-     if (t<0) continue ; 
-     a = egnum[0] ; 
-     b = egnum[1] ; 
-     ff3[a*numeg+b] = ff3[b*numeg+a] = y1/1000.0 ; 
+    if (nheader != 1 || (count != 3 && count != 5))
+      fatalx("malformed fstats record in %s\n", name);
+    errno = 0;
+    value = strtod(fields[count-1], &end);
+    if (errno == ERANGE || end == fields[count-1] || *end || !isfinite(value))
+      fatalx("invalid numeric value in fstats: %s\n", fields[count-1]);
+    if (getegnum(egnum, fields, pops, np, count - 1) < 0) {
+      freeup(fields, count);
+      continue; /* A consumer may request a subset of the file's populations. */
     }
-    if (nsplit==5)  { 
-     t = getegnum(egnum, spt, eglist, numeg, 4) ;  
-     if (t<0) continue ; 
-     a = egnum[0] ; 
-     b = egnum[1] ; 
-     c = egnum[2] ; 
-     d = egnum[3] ; 
-     y2 = y1/(1000.0*1000.0) ; 
-//   printf("zzc %d %d %d %d %9.3f\n", a, b, c, d, y1) ; 
-     set4x(ff3var, a, b, c, d, numeg, y2) ; 
+    a = egnum[0]; b = egnum[1];
+    p = pairs[a*np+b];
+    if (count == 3) {
+      scaled = value / 1000.0;
+      if (p >= 0 && means[p] && ff3[a*np+b] != scaled)
+        fatalx("conflicting fstats mean record\n");
+      ff3[a*np+b] = ff3[b*np+a] = scaled;
+      if (p >= 0) means[p] = 1;
     }
-    freeup(spt, nsplit) ;
-    continue  ; 
-   }
-
-   fclose(fff) ; 
-
+    else {
+      c = egnum[2]; d = egnum[3];
+      q = pairs[c*np+d];
+      scaled = value / (1000.0 * 1000.0);
+      if (p >= 0 && q >= 0) {
+        i = MIN(p, q); j = MAX(p, q);
+        index = i * (2 * nbasis - i + 1) / 2 + j - i;
+        if (covars[index] && dump4(ff3var, a, b, c, d, np) != scaled)
+          fatalx("conflicting fstats covariance record\n");
+        covars[index] = 1;
+      }
+      set4x(ff3var, a, b, c, d, np, scaled);
+    }
+    freeup(fields, count);
+  }
+  if (ferror(file)) fatalx("read failure: %s\n", name);
+  fclose(file);
+  if (nheader != 1) fatalx("missing fstats basis header\n");
+  for (a = 1; a < np; ++a)
+    for (b = a; b < np; ++b)
+      if (!means[pairs[a*np+b]])
+        fatalx("missing fstats mean: %s %s\n", pops[a], pops[b]);
+  for (i = 0; i < ncovar; ++i)
+    if (!covars[i]) fatalx("missing fstats covariance record\n");
+  free(pairs); free(means); free(covars);
 }
 
-void   loadfstats(char *fstatsname, double *ff3, double *ff3var, char **eglist, int numeg)                           
+void loadfstatsx(char *name, double *ff3, double *ff3var, char **pops, int np, char *fbline)
 {
-   FILE *fff ;
-   int a, b, nh2, k, x, u, v, c, d, t ; 
-   int egnum[4] ; 
-   double y1, y2 ; 
+  readfstats(name, ff3, ff3var, pops, np, fbline);
+}
 
-  char line[MAXSTR + 1] ;
-  char *spt[MAXFF], *sx;
-  int nsplit, num = 0;
-  int skipit;
-  int len;
-   if (fstatsname == NULL) return ; 
-
-  openit (fstatsname, &fff, "r");
-  line[MAXSTR] = '\0';
-  while (fgets (line, MAXSTR, fff) != NULL) {
-    nsplit = splitup (line, spt, MAXFF);
-    if (nsplit == 0)
-      continue;
-    sx = spt[0];
-    if (sx[0] == '#') { 
-     freeup(spt, nsplit) ;
-     continue  ; 
-    }
-    y1 = atof(spt[nsplit-1]) ; 
-    if (nsplit==3)  { 
-     t = getegnum(egnum, spt, eglist, numeg, 2) ;  
-     if (t<0) continue ; 
-     a = egnum[0] ; 
-     b = egnum[1] ; 
-     ff3[a*numeg+b] = ff3[b*numeg+a] = y1/1000.0 ; 
-    }
-    if (nsplit==5)  { 
-     t = getegnum(egnum, spt, eglist, numeg, 4) ;  
-     if (t<0) continue ; 
-     a = egnum[0] ; 
-     b = egnum[1] ; 
-     c = egnum[2] ; 
-     d = egnum[3] ; 
-     y2 = y1/(1000.0*1000.0) ; 
-//   printf("zzc %d %d %d %d %9.3f\n", a, b, c, d, y1) ; 
-     set4x(ff3var, a, b, c, d, numeg, y2) ; 
-    }
-    freeup(spt, nsplit) ;
-    continue  ; 
-   }
-
-   fclose(fff) ; 
-
+void loadfstats(char *name, double *ff3, double *ff3var, char **pops, int np)
+{
+  readfstats(name, ff3, ff3var, pops, np, NULL);
 }
 
 void get4(int *dd, int *a, int *b, int *c, int *d) 
@@ -5786,7 +5783,7 @@ char * getbasepop(char **spt, int nsplit)
   char *sx = NULL ; 
   int k, t ; 
 
-  for (k=0; k<nsplit; ++k) { 
+  for (k=0; k+1<nsplit; ++k) {
    t = strcmp(spt[k], "basepop:") ; 
    if (t != 0) continue ; 
    sx = spt[k+1] ; 

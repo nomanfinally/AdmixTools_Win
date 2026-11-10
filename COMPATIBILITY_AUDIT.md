@@ -30,11 +30,12 @@ New items get new IDs; do not renumber the existing queue.
 | Shared C modules linked directly or available through libnick | 28 |
 | Additional C programs with main(), outside supported build | 5 |
 | Additional C modules outside supported links | 7 |
-| Validation runners/probes | 10 |
+| Validation runners/probes | 13 |
 
-Total: **183 audit items**, covering **78 C sources and 40 headers** plus scripts and build/test controls.
+Total: **186 audit items**, covering **78 C sources and 40 headers** plus scripts and build/test controls.
 I10 and Q07–Q08 were appended during T01; original snapshot hashes remain historical.
 Q09–Q10 were appended during T02; snapshot hashes remain historical.
+Q11–Q13 were appended during T03 and its corrections; snapshot hashes remain historical.
 
 Data files, parameter templates (including `parsimp.templ` and
 `parsimp2.templ`), reference logs, manuals and generated binaries are fixtures or
@@ -57,9 +58,19 @@ sooner; record that dependency and resume the current tool afterward. T38 is
 blocked pending an established upstream algorithm/reference, not permission to
 guess the intended statistical expressions.
 
-Current active hard audit: **none**. Next queued item: **T03 qpWave**.
-Completed hard reviews: **2**: T01 and T02 **passed with limitations**.
+Current active hard audit: **none**. Next queued item: **T04 qpDstat**.
+Completed hard reviews: **3**: T01, T02 and T03 **passed with limitations**.
 Clean/unqualified passes: **0**. This is not full-suite certification.
+
+[T03 qpWave corrections](tests/windows/audits/T03_qpWave.corrections.md) close
+F045–F054 and newly found header-boundary defect F055. Its 145-case Windows,
+corrected Linux and sanitizer matrices pass; all 73 jointly successful
+scientific results and generated files match exactly. The original review
+remains historical. Limited sampling and invalid-input/interface repairs
+intentionally differ from broken pristine behavior. Shared cached consumers,
+qpAdm block/transposed paths, native mapping failures, PowerShell/paths and the
+35-case integration suite pass their scoped regressions. Independent M/H/tool
+reviews remain pending.
 
 [T01 qpAdm report](tests/windows/audits/T01_qpAdm.md) records the mode/helper
 checks, findings F002–F025, changes and limits. Shared M/H items and qpfstats
@@ -88,7 +99,7 @@ and state its limits; it does not close related modules automatically.
 | --- | --- | --- | --- | --- | --- |
 | [x] | T01 | `qpAdm` | Admixture model fitting | Default | [Passed with limitations](tests/windows/audits/T01_qpAdm.md) |
 | [x] | T02 | `qpfstats` | F-statistic precomputation and helper process | Default | [Passed with limitations](tests/windows/audits/T02_qpfstats.corrections.md) |
-| [ ] | T03 | `qpWave` | Rank/ancestry-stream tests | Default | Fixture |
+| [x] | T03 | `qpWave` | Rank/ancestry-stream tests | Default | [Passed with limitations](tests/windows/audits/T03_qpWave.corrections.md) |
 | [ ] | T04 | `qpDstat` | D/f4 statistics | Default | Fixture |
 | [ ] | T05 | `qp3Pop` | Three-population statistics | Default | Fixture |
 | [ ] | T06 | `qpF4ratio` | F4-ratio estimation | Default | Fixture |
@@ -345,6 +356,9 @@ Audit the oracle and test runner too: expected failures, missing cases/files, ti
 | [ ] | Q08 | `qpadm_probe.c` | `tests/windows/qpadm_probe.c`; shared hash, blocks, temporary ownership and output errors |
 | [ ] | Q09 | `audit_qpfstats.py` | `tests/windows/audit_qpfstats.py`; direct modes, errors, formats and downstream consumers |
 | [ ] | Q10 | `qpfstats_probe.c` | `tests/windows/qpfstats_probe.c`; real dimension/capacity boundaries without huge allocations |
+| [ ] | Q11 | `audit_qpwave.py` | `tests/windows/audit_qpwave.py`; qpWave modes, exact comparisons, malformed inputs and physical-subset oracles |
+| [ ] | Q12 | `qpwave_map_probe.c` | `tests/windows/qpwave_map_probe.c`; real failed-mapping propagation under a process-local Linux address-space limit |
+| [ ] | Q13 | `qpwave_probe.c` | `tests/windows/qpwave_probe.c`; actual qpWave dimension guard at last-supported/first-overflowing boundaries |
 
 ## Hard-check procedure for each item
 
@@ -405,6 +419,18 @@ Keep a completed-with-open-limitations state distinct from a clean pass.
 | F039–F041 | T20/T08/T02 and helper lifecycle | Fixed; downstream full audits remain pending | Restore qpfit's existing fitting path and guard its dimensions; share owned helper lifecycle; reject inactive qpfstats controls, duplicate IDs and invalid block lengths; correct help. | See [corrections](tests/windows/audits/T02_qpfstats.corrections.md). No pristine qpfit fitting parity claim. |
 | F042 | M07/H30; duplicate-name callers | Fixed upstream diagnostic defect | `finddupalt` returned a sorted position instead of an input index, naming the wrong duplicate. | Regression `z,z,a` now identifies `z`; independent shared-module/header audits remain pending. |
 | F043 | T01; Bayesian rejection sampling | Fixed in requested follow-up | A per-sample positive rejection limit fails explicitly instead of looping without a bound; sample-array multiplication is checked before allocation and diagnostic counting uses 64 bits. | See [T01 follow-up](tests/windows/audits/T01_qpAdm.corrections.md). No partial Bayesian estimate or changed accepted-draw calculation. |
+| F044 | T03; M01 | Fixed Windows diagnostic regression | qpWave bypassed the shared getopt adapter; invalid options and missing arguments had different wording. | Guarded adapter call, native rebuild and regression matrix; see [T03](tests/windows/audits/T03_qpWave.md). |
+| F045 | T03; M14 | Fixed upstream scientific controls | Apply seeded sampling before the analysis index; seeds 77/123 match physical-subset oracles. | See [T03 corrections](tests/windows/audits/T03_qpWave.corrections.md); independent modules remain pending. |
+| F046 | T03; M17/M11; block callers | Fixed upstream memory safety | Validate complete block labels and table/count/padding bounds; qpAdm and qpWave reject malformed IDs. | See [T03 corrections](tests/windows/audits/T03_qpWave.corrections.md); independent modules remain pending. |
+| F047 | T03; matrix/index contracts | Fixed upstream dimension overflow | Wide product/int/addressability checks run before allocation; actual boundary probes pass. | See [T03 corrections](tests/windows/audits/T03_qpWave.corrections.md); independent modules remain pending. |
+| F048 | T03; input/OAS contracts | Fixed upstream invalid setting/boundary handling | Require finite positive block size, finite diagonal settings and nonzero model dimensions. | See [T03 corrections](tests/windows/audits/T03_qpWave.corrections.md); independent modules remain pending. |
+| F049 | T03; M17; cached consumers | Fixed upstream scientific input integrity | Complete finite tokens and required mean/covariance presence are checked; malformed cached data cannot imply zero. | See [T03 corrections](tests/windows/audits/T03_qpWave.corrections.md); independent modules remain pending. |
+| F050 | T03; M11/M14 | Fixed upstream duplicate-ID acceptance | Use existing ID validation before genotype loading; four genotype-format rejections pass. | See [T03 corrections](tests/windows/audits/T03_qpWave.corrections.md); independent modules remain pending. |
+| F051 | T03; CLI/parameter contracts | Fixed upstream misleading interface/output | Reject inactive output/legacy controls without truncating files; version-only exits and help is truthful. | See [T03 corrections](tests/windows/audits/T03_qpWave.corrections.md); independent modules remain pending. |
+| F052 | T03; rank metadata | Fixed upstream uninitialized value | Assign dofjack from effblocks; direct/cached/eigen output remains unchanged. | See [T03 corrections](tests/windows/audits/T03_qpWave.corrections.md); independent modules remain pending. |
+| F053 | T03; M01/M11 | Fixed tested Windows gzip diagnostics | Header/EOF/CRC/length failure text matches corrected Linux in six cases; raw OS exit codes remain documented. | See [T03 corrections](tests/windows/audits/T03_qpWave.corrections.md); independent modules remain pending. |
+| F054 | T03; M13; mapped callers | Fixed upstream mapping failure propagation | Close/reject failed maps before returning an object; real Linux and injected Windows/Linux failures pass. | See [T03 corrections](tests/windows/audits/T03_qpWave.corrections.md); independent modules remain pending. |
+| F055 | T03; M17; fstats header parsing | Fixed upstream token-boundary read | Require a following token after basepop; malformed bare-base headers now fail explicitly. | See [T03 corrections](tests/windows/audits/T03_qpWave.corrections.md). |
 
 F001 evidence before correction (historical):
 

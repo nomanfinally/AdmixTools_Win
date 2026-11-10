@@ -281,11 +281,15 @@ int admix_gunzip(const char *input, const char *output)
     gzFile compressed = gzopen(input, "rb");
     FILE *plain;
     unsigned char buffer[32768];
-    int fd, length, error, result = 0;
+    int fd, length, error, result = 0, close_error;
+    const char *detail, *diagnostic = NULL;
     if (!compressed) return -1;
     if (gzdirect(compressed)) {
+        length = gzread(compressed, buffer, 2);
         gzclose(compressed);
-        errno = EINVAL;
+        fprintf(stderr, "\ngzip: %s: %s\n", input,
+                length < 2 ? "unexpected end of file" : "not in gzip format");
+        errno = 0; /* Child format failures have no parent-process errno. */
         return -1;
     }
     fd = _open(output, _O_WRONLY | _O_CREAT | _O_EXCL | _O_BINARY,
@@ -304,11 +308,31 @@ int admix_gunzip(const char *input, const char *output)
             break;
         }
     }
-    gzerror(compressed, &error);
+    detail = gzerror(compressed, &error);
     if (length < 0 || error != Z_OK) result = -1;
-    if (gzclose(compressed) != Z_OK) result = -1;
+    if (error == Z_BUF_ERROR) diagnostic = "unexpected end of file";
+    else if (error == Z_DATA_ERROR) {
+        if (strstr(detail, "incorrect data check"))
+            diagnostic = "invalid compressed data--crc error";
+        else if (strstr(detail, "incorrect length check"))
+            diagnostic = "invalid compressed data--length error";
+        else diagnostic = "invalid compressed data--format violated";
+    }
+    close_error = gzclose(compressed);
+    if (close_error != Z_OK) {
+        result = -1;
+        if (close_error == Z_BUF_ERROR && diagnostic == NULL)
+            diagnostic = "unexpected end of file";
+    }
     if (fclose(plain)) result = -1;
-    if (result) { remove(output); errno = EIO; }
+    if (result) {
+        remove(output);
+        if (diagnostic != NULL) {
+            fprintf(stderr, "\ngzip: %s: %s\n", input, diagnostic);
+            errno = 0;
+        }
+        else errno = EIO;
+    }
     return result;
 }
 

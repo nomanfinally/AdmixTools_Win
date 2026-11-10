@@ -313,11 +313,13 @@ def run(bindir, output, selection, sample_probe=None):
         invoke('consumer-prepare', 'qpfstats', ['-p', 'par.qpfstats'], common)
         invoke('consumer-qpfmv', 'qpfmv', ['-p', 'par.qpfmv'], common)
         for tool in ('qpAdm', 'qpWave', 'qpfit'):
-            (common / 'par.consumer').write_text('fstatsname: output.fstats\npopleft: left\npopright: right\nseed: 77\nnumboot: 50\n')
+            (common / 'par.consumer').write_text('fstatsname: output.fstats\npopleft: left\npopright: right\nseed: 77\n' +
+                                               ('' if tool == 'qpWave' else 'numboot: 50\n'))
             invoke('consumer-' + tool, tool, ['-p', 'par.consumer'], common)
         (common / 'par.consumer-auto').write_text((common / 'par.qpAdm').read_text() + 'allsnps: YES\nnumboot: 50\n')
         invoke('consumer-auto-qpAdm', 'qpAdm', ['-p', 'par.consumer-auto'], common)
-        invoke('consumer-auto-qpWave', 'qpWave', ['-p', 'par.consumer-auto'], common)
+        (common / 'par.consumer-wave-auto').write_text((common / 'par.qpAdm').read_text() + 'allsnps: YES\n')
+        invoke('consumer-auto-qpWave', 'qpWave', ['-p', 'par.consumer-wave-auto'], common)
         invoke('consumer-auto-qpfit', 'qpfit', ['-p', 'par.consumer-auto'], common)
         (common / 'par.consumer-mix').write_text('fstatsname: output.fstats\npoplistname: mixpops\nseed: 77\nnumboot: 10\nmctrials: 10\ngslmaxiter: 20\n')
         (common / 'mixpops').write_text('X\nA\nB\n')
@@ -338,6 +340,7 @@ def run(bindir, output, selection, sample_probe=None):
                 shutil.copytree(common, work)
                 text = ((common / 'par.qpGraph').read_text() + 'graphname: graph\n') if tool == 'qpGraph' else (
                     (common / 'par.qpAdm').read_text() + 'allsnps: YES\nnumboot: 50\n')
+                if tool == 'qpWave': text = text.replace('numboot: 50\n', '')
                 if mode in ('fail','keep-fail'): text = text.replace('input.geno', 'absent.geno')
                 if mode.startswith('keep'): text += 'keeptmp: YES\n'
                 if mode == 'outputs': text += 'fstatsoutname: saved.fstats\nfstatslog: helper.log\n'

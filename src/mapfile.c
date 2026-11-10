@@ -18,6 +18,7 @@
 #include <unistd.h>
 #include <assert.h>
 #include <stdint.h>
+#include <limits.h>
 #include <errno.h>
 
 #include "mapfile.h"
@@ -51,22 +52,32 @@ genFile* constructMap(char* filename, admix_long numrows, admix_long rowSize, ad
         admix_long siz ;
 
 	//open file to be mapped
-	int mmfd = open(filename, O_RDWR);
+	int mmfd = open(filename, O_RDONLY);
 
 	if (mmfd <  0) fatalx("(constructMap) failure to open %s\n", filename) ;
 
 	//get file length
 	struct stat status;
-	if (fstat(mmfd, &status) != 0) fatalx("fstat fails\n") ;
+	if (fstat(mmfd, &status) != 0) { close(mmfd); fatalx("fstat fails\n"); }
 	admix_long fileLength = status.st_size;
 
-	siz = numrows * rowSize + hdrSize ; 
-	if (siz != fileLength) fatalx("(constructMqp) file size mismatch\n") ;
+        if (numrows < 0 || rowSize <= 0 || hdrSize < 0 ||
+            numrows > INT_MAX || rowSize > INT_MAX || hdrSize > INT_MAX ||
+            numrows > (ADMIX_LONG_MAX - hdrSize) / rowSize) {
+          close(mmfd);
+          fatalx("(constructMap) invalid genotype dimensions\n");
+        }
+	siz = numrows * rowSize + hdrSize ;
+	if (siz <= 0 || (uint64_t)siz > SIZE_MAX || siz != fileLength) {
+          close(mmfd);
+          fatalx("(constructMqp) file size mismatch\n");
+        }
 
 	//memory map file
 	void *mmfaddr = mmap(NULL, fileLength, PROT_READ, MAP_PRIVATE, mmfd, 0);
-	if (mmfaddr == (void*)-1) {
-		printf("error number: %d/n", errno);
+	if (mmfaddr == MAP_FAILED) {
+                close(mmfd);
+                fatalx("(constructMap) memory mapping failed: %s\n", filename);
 	}
 
 	//close file
@@ -74,9 +85,13 @@ genFile* constructMap(char* filename, admix_long numrows, admix_long rowSize, ad
 
 	//build genFile struct
 	geno = malloc(sizeof(genFile));
-	geno->colSize = numrows ;
-	geno->rowSize = rowSize;
-        geno -> hdrSize = hdrSize ;
+        if (geno == NULL) {
+          munmap(mmfaddr, (size_t)fileLength);
+          fatalx("(constructMap) cannot allocate genotype mapping\n");
+        }
+	geno->colSize = (int)numrows ;
+	geno->rowSize = (int)rowSize;
+        geno -> hdrSize = (int)hdrSize ;
 	geno->snps = (char*) mmfaddr;
 
         printf("mmfaddr: %p  fileLength: %" ADMIX_PRIdLONG "\n", geno -> snps, fileLength) ;;
