@@ -223,12 +223,15 @@ fatalx (char *fmt, ...)
   va_list args;
 
   va_start (args, fmt);
-  vsprintf (Estr, fmt, args);
+  vsnprintf (Estr, sizeof(Estr), fmt, args);
   va_end (args);
   fflush (stdout);
 
   fprintf (stderr, "fatalx:\n%s", Estr);
   fflush (stderr);
+#ifdef _WIN32
+  admix_cleanup_temps();
+#endif
   abort ();
 }
 
@@ -242,6 +245,15 @@ void setdump(int cdump)
 #endif
 
 
+}
+
+/* A buffered write may fail only when fclose flushes it. Also retain an
+ * earlier stream error even if closing that stream subsequently succeeds. */
+void closeit_write(FILE *fff, const char *name)
+{
+  int failed = ferror(fff);
+  if (fclose(fff) != 0) failed = 1;
+  if (failed) fatalx("write failure: %s\n", name);
 }
 
 

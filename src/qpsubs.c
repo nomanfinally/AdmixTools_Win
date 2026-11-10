@@ -1,4 +1,5 @@
 #include <admix_types.h>
+#include <limits.h>
 #include "qpsubs.h"
   double weight ; 
 #include "mcio.h" 
@@ -1669,10 +1670,12 @@ setblocks (int *block, int *bsize, int *nblock, SNP ** snpm, int numsnps,
   double fpos, dis, gpos;
   SNP *cupt;
   double *ybsize, yess ;
-  int maxb = 1000*1000 ; 
+ int maxb;
   
   
 
+  if (numsnps < 0 || numsnps == INT_MAX) fatalx("invalid SNP count for blocks\n");
+  maxb = numsnps + 1;
   ZALLOC(ybsize, maxb, double) ;
 
   lchrom = -1;
@@ -5077,7 +5080,7 @@ void   dumpfstatshr(char *fstatsname, double *ff3, double *ff3var, char **eglist
 
  }} 
 
-   fclose(fff) ; 
+   closeit_write(fff, fstatsname);
 
 /**
    for (u=0; u<nh2; ++u) { 
@@ -5144,7 +5147,7 @@ void   dumpfstats(char *fstatsname, double *ff3, double *ff3var, char **eglist, 
 
  }} 
 
-   fclose(fff) ; 
+   closeit_write(fff, fstatsname);
 
 }
 
@@ -5378,14 +5381,16 @@ double geteffblocks(char *sss)
  double y ; 
 
  t = strlen(sss) ; 
- if (t<10) { 
+ sx = strstr(sss, "effblocks:");
+ if (sx == NULL) {
   printf("*** warning. oracle mode set but oldstyle fstats file\n") ; 
   return 100.0 ;
  }
- sx = strstr(sss, "effblocks:") ; 
- sx += 12 ; 
+ sx += strlen("effblocks:");
 
- return strtod(sx, NULL) ;
+ y = strtod(sx, NULL);
+ if (!isfinite(y) || y <= 0) fatalx("invalid effblocks in fstats header\n");
+ return y;
 
 }
 
@@ -5737,12 +5742,14 @@ int fstats2popl(char *fstatsname, char **poplist)
      sx = spt[0] ; 
      t = indxstring(poplist, npops, sx) ; 
      if (t<0) { 
+      if (npops >= 100) fatalx("too many populations in fstats (maximum 100)\n");
       poplist[npops] = strdup(sx) ; 
       ++npops ;
      }
      sx = spt[1] ; 
      t = indxstring(poplist, npops, sx) ; 
      if (t<0) { 
+      if (npops >= 100) fatalx("too many populations in fstats (maximum 100)\n");
       poplist[npops] = strdup(sx) ; 
       ++npops ;
      }

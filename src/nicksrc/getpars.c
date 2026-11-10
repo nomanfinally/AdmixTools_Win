@@ -22,11 +22,9 @@ void stripcomment (char *str);
 int findpname (phandle * pp, char *parname);
 int indxstring (char **ppars, int npars, char *ww);
 
-static int plusloopcheck = 0 ;
-
 static int parchange = 0;
 static int debug = NO;
-static int readpars(phandle *pp, char *fname, char **ppars, char **pdata) ;
+static int readpars(phandle *pp, char *fname, char **ppars, char **pdata, int capacity, int depth);
 
 
 
@@ -72,10 +70,13 @@ int fixpars(phandle  *pp,  char *tag)
 }
 
 int
-readpars(phandle *pp, char *fname, char **ppars, char **pdata) 
+readpars(phandle *pp, char *fname, char **ppars, char **pdata, int capacity, int depth)
 {
 
-  char line[MAXSTR + 1];
+  char *line = NULL;
+  size_t linecap = 0;
+  ssize_t linelen;
+  int firstline = YES;
   char str[MAXSTR];
   char ww[MAXSTR];
   char rest[MAXSTR];
@@ -85,21 +86,34 @@ readpars(phandle *pp, char *fname, char **ppars, char **pdata)
 
   FILE *ff;
 
-  ++plusloopcheck ; 
-  if (plusloopcheck >= 100) fatalx("+++ include files looping\n") ;
+  if (depth >= 99) fatalx("+++ include files looping\n");
 
-  ff = pp->fx = fopen (fname, "r");
+  ff = fopen (fname, "r");
+  if (depth == 0) pp->fx = ff;
   if (ff == NULL) {
     perror ("(getpars) Can't open file \n");
     fatalx ("can't open %s\n", fname);
   }
 
-  line[MAXSTR] = '\0';          // defensive programmming
-  while (fgets (line, MAXSTR, ff) != NULL) {
+  while ((linelen = getline(&line, &linecap, ff)) >= 0) {
+    if (memchr(line, '\0', (size_t)linelen) != NULL)
+      fatalx("NUL byte in parameter file %s; save as UTF-8 text\n", fname);
+#ifdef _WIN32
+    if (firstline && linelen >= 2 &&
+        (((unsigned char)line[0] == 0xff && (unsigned char)line[1] == 0xfe) ||
+         ((unsigned char)line[0] == 0xfe && (unsigned char)line[1] == 0xff)))
+      fatalx("UTF-16 parameter file %s; save as UTF-8 text\n", fname);
+    if (firstline && linelen >= 3 && !memcmp(line, "\xef\xbb\xbf", 3)) {
+      memmove(line, line + 3, (size_t)linelen - 2);
+      linelen -= 3;
+    }
+#endif
+    firstline = NO;
+    if (linelen >= MAXSTR - 1) fatalx("parameter line too long in %s\n", fname);
 
     len = strlen (line);
 
-    if (isspace (line[len - 1]))
+    if (len > 0 && isspace ((unsigned char)line[len - 1]))
       line[len - 1] = '\0';
 
     if (first_word (line, ww, rest) > 0) {
@@ -111,7 +125,7 @@ readpars(phandle *pp, char *fname, char **ppars, char **pdata)
       if (t==0) { 
         stripcomment (rest);
         striptrail (rest, ' ');   /* no trailing blanks */
-        npars += readpars(pp, rest, ppars+npars, pdata + npars) ;
+        npars += readpars(pp, rest, ppars+npars, pdata+npars, capacity-npars, depth+1);
         continue ;
       }
       plen = strlen (ww);
@@ -122,6 +136,7 @@ readpars(phandle *pp, char *fname, char **ppars, char **pdata)
       t = indxstring (ppars, npars, ww);
       if (t >= 0)
         fatalx ("duplicate parameter: %s\n", ww);
+      if (npars >= capacity) fatalx("too many parameters (maximum %d)\n", MAXPARS);
       ppars[npars] = strdup (ww);
       stripcomment (rest);
       striptrail (rest, ' ');   /* no trailing blanks */
@@ -136,6 +151,9 @@ readpars(phandle *pp, char *fname, char **ppars, char **pdata)
   }
 
 
+  if (ferror(ff)) fatalx("error reading parameter file %s\n", fname);
+  free(line);
+  if (depth > 0) fclose(ff);
   return npars ;
 
 
@@ -155,7 +173,10 @@ openpars (char *fname)
 
   pp = (phandle *) malloc (sizeof (phandle));
 
-  npars = readpars(pp, fname, ppars, pdata) ;
+  npars = readpars(pp, fname, ppars, pdata, MAXPARS, 0);
+  for (i = 0; i < npars; ++i)
+    if (indxstring(ppars, i, ppars[i]) >= 0)
+      fatalx("duplicate parameter: %s\n", ppars[i]);
   pp->numpars = npars;
 
     if (npars>MAXPARS) fatalx("too many parameters: %d\n", npars) ;
@@ -211,10 +232,17 @@ void
 stripcomment (char *str)
 {
   int i, len;
+#ifdef _WIN32
+  int quoted = NO;
+#endif
 
   len = strlen (str);
 
   for (i = 0; i < len; i++) {
+#ifdef _WIN32
+    if (str[i] == '"') quoted = !quoted;
+    if (quoted) continue;
+#endif
     if (str[i] == '#') {
       str[i] = '\0';
       return;
@@ -255,7 +283,9 @@ getstring (phandle * pp, char *parname, char **strng)
    * retain upstream's first-token semantics. */
   if (pp->pdata[kode][0] == '"') {
     char *end = strchr(pp->pdata[kode] + 1, '"');
-    if (end != NULL) {
+    if (end == NULL) fatalx("unterminated quoted parameter: %s\n", parname);
+    if (end == pp->pdata[kode] + 1) fatalx("empty parameter: %s\n", parname);
+    {
       size_t length = (size_t)(end - pp->pdata[kode] - 1);
       *strng = malloc(length + 1);
       if (*strng == NULL) fatalx("Unable to allocate parameter string\n");
@@ -266,6 +296,7 @@ getstring (phandle * pp, char *parname, char **strng)
   }
 #endif
   n = splitup (pp->pdata[kode], field, MAXFIELD);
+  if (n == 0) fatalx("empty parameter: %s\n", parname);
   *strng = strdup (field[0]);
   freeup (field, n);
   return 1;
@@ -284,6 +315,7 @@ getint (phandle * pp, char *parname, int *kret)
   if (kode < 0)
     return kode;
   n = splitup (pp->pdata[kode], field, MAXFIELD);
+  if (n == 0) fatalx("empty parameter: %s\n", parname);
   strcpy (str, field[0]);
   freeup (field, n);
   if (strcmp (str, "YES") == 0) {
@@ -320,6 +352,7 @@ getlong (phandle * pp, char *parname, admix_long *kret)
   if (kode < 0)
     return kode;
   n = splitup (pp->pdata[kode], field, MAXFIELD);
+  if (n == 0) fatalx("empty parameter: %s\n", parname);
   strcpy (str, field[0]);
   freeup (field, n);
   if (strcmp (str, "YES") == 0) {
@@ -461,6 +494,7 @@ getdbl (phandle * pp, char *parname, double *dbl)
   if (kode < 0)
     return kode;
   n = splitup (pp->pdata[kode], field, MAXFIELD);
+  if (n == 0) fatalx("empty parameter: %s\n", parname);
   *dbl = atof (field[0]);
   freeup (field, n);
   return 1;

@@ -66,6 +66,7 @@ def main():
     compiler = args.toolchain.resolve() / "gcc.exe"
     archiver = args.toolchain.resolve() / "ar.exe"
     objdump = args.toolchain.resolve() / "objdump.exe"
+    windres = args.toolchain.resolve() / "windres.exe"
     OBJECTS.mkdir(exist_ok=True)
     BIN.mkdir(exist_ok=True)
     argp = OBJECTS / "argp"
@@ -110,13 +111,18 @@ def main():
     if nick.exists():
         nick.unlink()
     run([archiver, "rcs", nick, *(obj(f"nicksrc/{name}.c") for name in NICK)])
+    # UTF-8 paths/argv without changing the machine's code page. The manifest
+    # also opts into Windows' configured long-path support (Windows 10 1903+).
+    manifest = SRC / 'win32/admixtools.manifest'
+    resource = OBJECTS / 'admixtools-resource.o'
+    run([windres, '-I', SRC / 'win32', '-i', SRC / 'win32/admixtools.rc', '-o', resource])
     for program in selected:
         print(f"Linking {program}.exe", flush=True)
         libraries = ["-lgsl", "-lopenblas", "-lz", "-lm"]
         if program in ("transpose", "merge_transpose"):
             libraries.extend([f"-L{argp / 'lib'}", "-largp"])
         run([compiler, *link_flags, *(obj(s) for s in rules[program]), obj("win32/compat.c"),
-             nick, *libraries, "-o", BIN / f"{program}.exe"])
+             nick, resource, *libraries, "-o", BIN / f"{program}.exe"])
     # Copy the dependency closure, including Fortran/OpenMP runtime DLLs. Refuse
     # missing non-system DLLs instead of producing binaries that will not launch.
     pending = [BIN / f"{program}.exe" for program in selected]
@@ -164,6 +170,7 @@ def main():
         "runtime_sha256": {name: hashlib.sha256((BIN / name).read_bytes()).hexdigest() for name in sorted(copied)},
         "source_sha256": {source: hashlib.sha256((SRC / source).read_bytes()).hexdigest() for source in sorted(sources)},
         "header_signature": signature.hexdigest(),
+        "manifest_sha256": hashlib.sha256(manifest.read_bytes()).hexdigest(),
         "script_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
                           for p in sorted((SRC / "script").glob("*.py"))},
         "parity_validated": False,

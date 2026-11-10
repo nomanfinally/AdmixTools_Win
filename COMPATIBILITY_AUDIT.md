@@ -6,8 +6,9 @@ Snapshot base HEAD: `9bfd9ee`; the inventory captured the port worktree before
 its subsequent commit `145a0ca`. The recorded hashes describe that snapshot.
 
 This is the queue for a hard compatibility and bug check **one item at a time**.
-All items start **pending**. Previous passing fixtures are evidence to extend,
-not a completed hard audit. No tool/module has been certified by creating this list.
+Items start **pending**. Previous passing fixtures are evidence to extend,
+not a completed hard audit. Review results and their limitations are linked below;
+creating this inventory does not certify a tool/module.
 
 The machine-readable counterpart is
 [`tests/windows/audit_inventory.json`](tests/windows/audit_inventory.json).
@@ -20,7 +21,7 @@ New items get new IDs; do not renumber the existing queue.
 
 | Inventory group | Items |
 | --- | ---: |
-| Build/install/maintenance controls | 9 |
+| Build/install/maintenance controls | 10 |
 | Example scripts/workflows | 7 |
 | Header/ABI/default/table contracts | 40 |
 | Historical Makefile targets with missing source | 10 |
@@ -29,9 +30,10 @@ New items get new IDs; do not renumber the existing queue.
 | Shared C modules linked directly or available through libnick | 28 |
 | Additional C programs with main(), outside supported build | 5 |
 | Additional C modules outside supported links | 7 |
-| Existing validation runners/probes | 6 |
+| Validation runners/probes | 8 |
 
-Total: **178 audit items**, covering **78 C sources and 40 headers** plus scripts and build/test controls.
+Total: **181 audit items**, covering **78 C sources and 40 headers** plus scripts and build/test controls.
+I10 and Q07–Q08 were appended during T01; original snapshot hashes remain historical.
 
 Data files, parameter templates (including `parsimp.templ` and
 `parsimp2.templ`), reference logs, manuals and generated binaries are fixtures or
@@ -54,19 +56,25 @@ sooner; record that dependency and resume the current tool afterward. T38 is
 blocked pending an established upstream algorithm/reference, not permission to
 guess the intended statistical expressions.
 
-Current active hard audit: **none**. First queued: **T01**.
-Completed hard audits: **0**.
+Current active hard audit: **none**. Next queued: **T02 qpfstats**.
+Completed hard reviews: **1**, T01 **passed with limitations**. Clean/unqualified
+passes: **0**. This is not full-suite certification.
+
+[T01 qpAdm report](tests/windows/audits/T01_qpAdm.md) records the mode/helper
+checks, findings F002–F025, changes and limits. Shared M/H items and qpfstats
+retain their separate audit status.
 
 ## Native executable queue
 
 `Default` means an upstream default/install target; `Additional` means another
 supported upstream Makefile target. All supported binaries live under `bin/`.
 `Fixture` means previous selected numerical/output fixtures passed; `Build only`
-means no dedicated scientific fixture yet. Every checkbox remains unchecked.
+means no dedicated scientific fixture yet. A completed review must link its report
+and state its limits; it does not close related modules automatically.
 
 | Done | ID | Tool | Role | Target | Previous evidence |
 | --- | --- | --- | --- | --- | --- |
-| [ ] | T01 | `qpAdm` | Admixture model fitting | Default | Fixture |
+| [x] | T01 | `qpAdm` | Admixture model fitting | Default | [Passed with limitations](tests/windows/audits/T01_qpAdm.md) |
 | [ ] | T02 | `qpfstats` | F-statistic precomputation and helper process | Default | Fixture |
 | [ ] | T03 | `qpWave` | Rank/ancestry-stream tests | Default | Fixture |
 | [ ] | T04 | `qpDstat` | D/f4 statistics | Default | Fixture |
@@ -307,6 +315,7 @@ Audit reproducibility, archive/link ordering, platform guards, copied files/lice
 | [ ] | I07 | `C++ header-editing helper` | `src/add_extern_C.sh` |
 | [ ] | I08 | `Historical exponential-fit shell template` | `src/expfit.templ` |
 | [ ] | I09 | `Checkout, encoding and baseline policy` | `.gitattributes`, `.gitignore`, `UPSTREAM_BASELINE`, `AGENTS.md` |
+| [ ] | I10 | `Windows application manifest` | `src/win32/admixtools.manifest`, `src/win32/admixtools.rc`; T01 path evidence, independent audit pending |
 
 ## Validation runners and probes
 
@@ -320,6 +329,8 @@ Audit the oracle and test runner too: expected failures, missing cases/files, ti
 | [ ] | Q04 | `platform_probe.c` | `tests/windows/platform_probe.c` |
 | [ ] | Q05 | `largefile_probe.c` | `tests/windows/largefile_probe.c` |
 | [ ] | Q06 | `stack_probe.c` | `tests/windows/stack_probe.c` |
+| [ ] | Q07 | `audit_qpadm.py` | `tests/windows/audit_qpadm.py`; mode/error/format assertions and raw comparisons |
+| [ ] | Q08 | `qpadm_probe.c` | `tests/windows/qpadm_probe.c`; shared hash, blocks, temporary ownership and output errors |
 
 ## Hard-check procedure for each item
 
@@ -372,6 +383,8 @@ Keep a completed-with-open-limitations state distinct from a clean pass.
 | Finding | Item | State | Observation | Next action |
 | --- | --- | --- | --- | --- |
 | F001 | I03; installed fxtract variants | Confirmed installation divergence; runtime impact not yet audited | Windows copies `src/fxtract` and then overwrites it with `perlsrc/fxtract`. Upstream `make install` copies in the opposite order, leaving `src/fxtract`. Current `bin/fxtract` matches the other source. | Fix and validate installation order during I03/script audit; retain both source variants in inventory. No fix made by this inventory change. |
+| F002–F023 | T01; helper and shared runtime paths | Fixed; T01 passed with limitations | Upstream bounds/UB, single-source results, output errors, gzip PLINK dispatch, and Windows paths/temporary ownership. Each stable ID and reproducer is in the [T01 report](tests/windows/audits/T01_qpAdm.md). | Retain recorded broken-upstream differences; continue T02 and independent M/H/T reviews. |
+| F024–F025 | T01; M11 / inherited CLI | Documented limitations | CRT zero-errno wording differs on truncated input; inherited version/help/legacy parameter quirks are preserved. | Read the T01 report; no scientific difference is waived. |
 
 F001 evidence from the current files:
 
@@ -382,6 +395,6 @@ bin/fxtract      SHA256 b53dfad23fd7f426078b23b40c036bc5426c49a9b8095a7ee700a10c
 ```
 
 Other known gaps from `WINDOWS_PORT_STATUS.md` (11 scientific-fixture gaps,
-compressed-input fatal cleanup/collisions, Unicode/long paths, remaining
+compressed-input behavior beyond T01's coverage, remaining Unicode/path cases,
 interpreter pipelines and macOS validation) remain open inputs to this audit.
 They have not been converted into passing checks by listing them here.

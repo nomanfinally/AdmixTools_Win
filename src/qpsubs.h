@@ -326,7 +326,8 @@ counthets ( int *xhets, int *xvalids,
 
 
 int getegnum(int *egnum, char **spt, char **eglist, int numeg, int num)  ; 
-int fstats2popl(char *fstatsname, char **poplist)  ; 
+/* poplist must have capacity for 100 entries, as in the native callers. */
+int fstats2popl(char *fstatsname, char **poplist)  ;
 void  loadfstats(char *fstatsname, double *ff3, double *ff3var, char **eglist, int numeg) ; 
 void  loadfstatsx(char *fstatsname, double *ff3, double *ff3var, char **eglist, int numeg, char *fbline) ; 
 int mkcoeffs (double *yco, int **dd, int numpops, int numd)  ;

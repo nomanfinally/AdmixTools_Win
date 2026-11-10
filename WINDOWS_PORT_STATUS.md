@@ -11,6 +11,13 @@ in [COMPATIBILITY_AUDIT.md](COMPATIBILITY_AUDIT.md), with machine-readable sourc
 and dependencies in `tests/windows/audit_inventory.json`. No item is considered
 hard-audited solely because the earlier fixtures passed.
 
+The [T01 qpAdm report](tests/windows/audits/T01_qpAdm.md) now records the detailed
+mode/helper audit and source repairs. It covers upstream memory/UB defects,
+single-source results, output-write failures, compressed PLINK input, and
+Windows Unicode/path/temporary-file behavior. Its evidence distinguishes exact
+pristine parity from deliberate repairs to broken upstream cases. Other tools
+and complete shared-module audits remain in the queue.
+
 ## Scope
 
 The Windows build produces 37 separate executables in upstream's `bin/` layout:
@@ -155,9 +162,10 @@ The separate runners and reproduction commands are in `tests/windows/README.md`.
   and were not rewritten. Exercise Unicode/long paths and fatal-error behavior.
   Windows' native
   fatal termination codes need not equal Unix signal-derived shell codes.
-- Extend compressed-input failure tests: cleanup after a fatal genotype-reader
-  error, temporary-name collisions, disk-full behavior, and very large expanded
-  files. Valid gzip parity is tested; arbitrary malformed-input diagnostics are
+- Extend compressed-input failure tests beyond T01's fatal genotype-reader
+  cleanup, owned-name collisions, native stream errors and Linux `/dev/full`
+  checks to real full volumes, forced termination and very large expanded files.
+  Valid gzip parity is tested; arbitrary malformed-input diagnostics are
   not certified. zlib ignores trailing non-gzip bytes where GNU gzip may warn;
   pristine upstream also ignores positive `gunzip` exit statuses and invokes it
   twice. Neither behavior is a scientific calculation to copy into the port.

@@ -1,6 +1,7 @@
 #include <admix_types.h>
 #include <stdio.h>
 #include <limits.h>
+#include <stdint.h>
 #include <math.h>
 #include <nicklib.h>
 #include "xsearch.h"
@@ -162,7 +163,7 @@ stringhash (char *key)
   int xpack[MAXKEYLEN];
   int len, wlen, w;
   unsigned char t;
-  int thash = 7;
+  uint32_t thash = 7;
   int jmax, jmin;
   int i, j;
 
@@ -188,7 +189,7 @@ stringhash (char *key)
     w = 0;
     for (j = jmin; j <= jmax; ++j) {
       t = (unsigned char) key[j];
-      w = (w << 8) ^ t;
+      w = (int32_t)(((uint32_t)w << 8) ^ t);
     }
     xpack[i] = xcshift (w, i);
   }
@@ -200,7 +201,7 @@ stringhash (char *key)
     thash = xcshift (thash, 3);
   }
 
-  return thash ; 
+  return (int32_t)thash;
 
 }
 
@@ -222,10 +223,10 @@ xhash1 (int ww)
   int k, w, w1, w2;
   w = xcshift (ww, 17);
   if (fancyhash == NO)
-    return 17 * w;
+    return (int32_t)(17U * (uint32_t)w);
   for (k = 0; k < 3; ++k) {
     w1 = w >> 16;
-    w2 = w << 16;
+    w2 = (int32_t)((uint32_t)w << 16);
     w = w2 ^ xhash2 (w1) ^ (w2 >> 16);
   }
   return w;
@@ -251,14 +252,21 @@ xhash2 (int x)
 int
 xcshift (int x, int shft)
 {
-  int a, b;
+  uint32_t a;
+  int32_t b;
 
+  /* Keep upstream's arithmetic right shift and x86 masked shift count.
+   * Unsigned left shifts define its existing 32-bit wraparound. */
   if (shft == 0)
     return x;
-  a = x << shft;
-  b = x >> (32 - shft);
+  shft &= 31;
+  /* A nonzero multiple of 32 made both machine shifts return x, hence x^x.
+   * Keep that established hash value for keys longer than 128 bytes. */
+  if (shft == 0) return 0;
+  a = (uint32_t)x << shft;
+  b = (int32_t)x >> (32 - shft);
 
-  return a ^ b;
+  return (int32_t)(a ^ (uint32_t)b);
 
 }
 
@@ -445,7 +453,7 @@ admix_long xlhash (admix_long x)
 int fnv_hash(char *strng) 
 {
 // from fnv.c fnv.h on net.  Modified
-    int h ; 
+    uint32_t h;
     char *p  ; 
 
     h = FNV_OFFSET_BASIS;
@@ -458,6 +466,6 @@ int fnv_hash(char *strng)
         h ^= *p;
         ++p ; 
     }
-    return h ;
+    return (int32_t)h;
 }
 

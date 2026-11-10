@@ -11,7 +11,9 @@ tools have been compared with a pinned Linux reference. Full-suite parity has
 not yet been established. See [WINDOWS_PORT_STATUS.md](WINDOWS_PORT_STATUS.md)
 for exact coverage and remaining work. Development is published on the
 [`windows-port` branch](https://github.com/nomanfinally/AdmixTools_Win/tree/windows-port).
-The per-tool hard compatibility audit is still pending; this is a development
+The per-tool hard compatibility audit is underway. The
+[T01 qpAdm report](tests/windows/audits/T01_qpAdm.md) records its mode checks,
+Windows fixes, upstream bug fixes and remaining limits. This is a development
 source publication, with no release or MSI installer yet.
 
 For the sequential per-tool/module bug and compatibility review, see
@@ -20,7 +22,9 @@ not count as a completed hard audit.
 
 ## 1. Prerequisites
 
-Use 64-bit Windows 10/11, PowerShell, Git for Windows and Python 3.10 or later.
+Use 64-bit Windows 10 version 1903 or later, or Windows 11, PowerShell,
+Git for Windows and Python 3.10 or later. The current audit ran on Windows 11
+with Windows PowerShell 5.1; other Windows versions need their own validation.
 The initial development build was tested with Python 3.13 and MSYS2 UCRT64 GCC
 16.2.0. Check that the real Python interpreter is available:
 
@@ -201,8 +205,23 @@ genotypename: "C:/genomics/my data/cohort.geno"
 
 Quoted string parameters are a Windows compatibility extension; upstream's
 unquoted parser reads the first whitespace-separated token. Forward slashes
-work in native Windows paths. Full Unicode and extended-length paths have not
-yet been validated. `allsnps: YES` precomputation locates `qpfstats.exe` beside
+work in native Windows paths. T01 exercises Unicode genotype/parameter filenames,
+a Unicode executable/helper directory, spaces, `&` and quoted `#` paths.
+Every executable embeds a UTF-8 process manifest; save text inputs as UTF-8
+(preferably without a BOM for compatibility with all upstream readers).
+If an older PowerShell console displays Unicode names incorrectly, select UTF-8
+for that console before invoking the tools:
+
+```powershell
+[Console]::OutputEncoding = New-Object System.Text.UTF8Encoding $false
+```
+
+Windows qpAdm parameter files also accept an initial UTF-8 BOM; UTF-16/NUL
+parameter files are rejected with an instruction to save as UTF-8.
+Long-path cases pass on the audited machine with Windows long paths enabled.
+The manifest opts in but does not change that machine policy; network/UNC paths
+and every reader/tool are not certified by these tests.
+`allsnps: YES` precomputation locates `qpfstats.exe` beside
 the parent program; keep the suite together when copying it.
 
 Generated temporary paths use native Windows backslashes, for example
@@ -225,6 +244,18 @@ cmd.exe /d /c 'qpAdm -p par.qpAdm > qpAdm.log 2> qpAdm.err'
 
 Program-generated genotype files are written directly in binary mode. Do not
 pipe binary output through PowerShell text commands such as `Out-File`.
+
+For qpAdm helper diagnostics, set `fstatslog:` to a file and optionally
+`keeptmp: YES`. The latter retains the temporary fstats, parameter, population,
+filtered-parameter and default log files. Without it, owned files are removed
+on normal completion and detected fatal input/helper errors. Forced termination
+or power loss cannot be covered by ordinary process cleanup.
+
+The T01 repairs intentionally correct broken upstream cases: single-source
+coefficients, high-resolution/diagonal-only output, compressed PED/BED dispatch,
+and invalid input/output handling. Read the report before comparing such cases
+with an unpatched Linux binary. Ordinary supported fits retain upstream's
+calculations and printed precision; optimization work remains deferred.
 
 ## 6. Add the suite to your user PATH
 

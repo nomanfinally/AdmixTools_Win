@@ -1,5 +1,7 @@
 /* Windows platform services. Scientific calculations stay in upstream sources. */
 #include "compat.h"
+#undef fopen
+#undef open
 #include <errno.h>
 #include <fcntl.h>
 #include <io.h>
@@ -7,6 +9,26 @@
 #include <windows.h>
 #include <psapi.h>
 #include <zlib.h>
+#include <unistd.h>
+#include <stdarg.h>
+
+/* MinGW parses the same short options but its diagnostics differ from glibc.
+ * Keep error wording in the compatibility layer rather than in each tool. */
+int admix_getopt(int argc, char *const argv[], const char *options)
+{
+    int report = opterr, result;
+    const char *option;
+    opterr = 0;
+    result = getopt(argc, argv, options);
+    opterr = report;
+    if (result == '?' && report && options[0] != ':') {
+        option = optopt ? strchr(options, optopt) : NULL;
+        if (option && option[1] == ':')
+            fprintf(stderr, "%s: option requires an argument -- '%c'\n", argv[0], optopt);
+        else fprintf(stderr, "%s: invalid option -- '%c'\n", argv[0], optopt);
+    }
+    return result;
+}
 
 /* BSD additive generator, degree 31 and separation 3, as used by Linux glibc
  * random() with its default state. Unsigned arithmetic defines wraparound.
@@ -15,6 +37,108 @@
 static uint32_t state[31];
 static unsigned int front = 3, rear = 0;
 static int initialized;
+
+typedef struct admix_temp_entry {
+    char *path;
+    struct admix_temp_entry *next;
+} admix_temp_entry;
+static admix_temp_entry *temporary_files;
+
+static int owns_temp(const char *path)
+{
+    admix_temp_entry *entry;
+    for (entry = temporary_files; entry; entry = entry->next)
+        if (!strcmp(path, entry->path)) return 1;
+    return 0;
+}
+
+/* CRT read handles normally omit FILE_SHARE_DELETE. Our owned temporary
+ * inputs need it so a fatal parser error can delete them before abort closes
+ * their handles. Ordinary user input files retain the CRT's original policy. */
+int admix_open(const char *path, int flags, ...)
+{
+    int permissions = 0, fd;
+    HANDLE handle;
+    if (flags & _O_CREAT) {
+        va_list args;
+        va_start(args, flags); permissions = va_arg(args, int); va_end(args);
+    }
+    if (!owns_temp(path) || (flags & (_O_CREAT | _O_TRUNC | _O_APPEND | _O_WRONLY | _O_RDWR)))
+        return _open(path, flags, permissions);
+    handle = CreateFileA(path, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,
+                         NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+    if (handle == INVALID_HANDLE_VALUE) { errno = EIO; return -1; }
+    fd = _open_osfhandle((intptr_t)handle, flags);
+    if (fd < 0) CloseHandle(handle);
+    return fd;
+}
+
+FILE *admix_fopen(const char *path, const char *mode)
+{
+    int fd;
+    FILE *stream;
+    if (!owns_temp(path) || mode[0] != 'r' || strchr(mode, '+')) return fopen(path, mode);
+    fd = admix_open(path, _O_RDONLY | _O_BINARY);
+    if (fd < 0) return NULL;
+    stream = _fdopen(fd, mode);
+    if (!stream) _close(fd);
+    return stream;
+}
+
+int admix_track_temp(const char *path)
+{
+    admix_temp_entry *entry = malloc(sizeof(*entry));
+    if (!entry) return -1;
+    entry->path = strdup(path);
+    if (!entry->path) { free(entry); return -1; }
+    entry->next = temporary_files;
+    temporary_files = entry;
+    return 0;
+}
+
+void admix_release_temp(const char *path, int keep)
+{
+    admix_temp_entry **link = &temporary_files;
+    while (*link) {
+        admix_temp_entry *entry = *link;
+        if (!strcmp(path, entry->path)) {
+            if (!keep) remove(entry->path);
+            *link = entry->next;
+            free(entry->path); free(entry);
+            return;
+        }
+        link = &entry->next;
+    }
+}
+
+void admix_cleanup_temps(void)
+{
+    while (temporary_files) admix_release_temp(temporary_files->path, 0);
+}
+
+char *admix_reserve_temp(const char *candidate)
+{
+    size_t length = strlen(candidate);
+    char *path = malloc(length + 32);
+    unsigned int attempt;
+    int fd;
+    if (!path) return NULL;
+    for (attempt = 0; attempt < 1000; ++attempt) {
+        if (attempt) snprintf(path, length + 32, "%s.%u", candidate, attempt);
+        else memcpy(path, candidate, length + 1);
+        fd = _open(path, _O_CREAT | _O_EXCL | _O_RDWR | _O_BINARY, _S_IREAD | _S_IWRITE);
+        if (fd >= 0) {
+            _close(fd);
+            if (!admix_track_temp(path)) return path;
+            remove(path);
+            errno = ENOMEM;
+            break;
+        }
+        if (errno != EEXIST) break;
+    }
+    free(path);
+    return NULL;
+}
 
 int admix_setenv(const char *name, const char *value, int overwrite)
 {
@@ -65,6 +189,7 @@ static void __attribute__((constructor)) admix_initialize_io(void)
     _setmode(_fileno(stdin), _O_BINARY);
     _setmode(_fileno(stdout), _O_BINARY);
     _setmode(_fileno(stderr), _O_BINARY);
+    atexit(admix_cleanup_temps);
 }
 
 ssize_t admix_getline(char **line, size_t *capacity, FILE *stream)

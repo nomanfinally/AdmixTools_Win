@@ -1,5 +1,22 @@
 # Reproducing Linux/Windows comparisons
 
+The [T01 qpAdm hard-check report](audits/T01_qpAdm.md) and its machine-readable
+evidence record expand the original fixtures to qpAdm modes, all six genotype
+formats, gzip, qpfstats, Windows paths/encoding, malformed inputs and sanitizer
+reproductions. Run in a fresh directory:
+
+```powershell
+python tests/windows/audit_qpadm.py --bin bin --output validation-results/T01-windows
+python tests/windows/audit_qpadm.py --verify validation-results/T01-windows
+```
+
+Use the same runner on pristine pinned Linux and on an isolated repaired Linux
+build. `--select` takes a regex for focused checks; `--compare L W` retains raw
+diffs and exit codes for review. An upstream crash or wrong result is not an
+expected scientific result for a repaired case. Read the report's individual
+exceptions rather than suppressing mismatched result lines or applying a numeric
+tolerance. The native probes and their build instructions are also in that report.
+
 The integration runner requires Python 3.10 or later and no Python packages.
 It creates deterministic synthetic inputs; historical example logs are not used
 as a numerical reference. Use a new output directory for each run.

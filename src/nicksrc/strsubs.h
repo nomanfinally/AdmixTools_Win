@@ -36,6 +36,7 @@ int numlines(char *name) ;
 void openitntry (char *name, FILE ** fff, char *type, int ntry) ;
 int openit_trap (char *name, FILE ** fff, char *type); 
 void openit(char *name, FILE **fff, char *type)  ;
+void closeit_write(FILE *fff, const char *name);
 int  ftest(char *aname) ;
 void fcheckr(char *name) ;
 void fcheckw(char *name) ; 

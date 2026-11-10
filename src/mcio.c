@@ -1452,12 +1452,23 @@ getgenos (char *genoname, SNP ** snpmarkers, Indiv ** indivmarkers,
 
   // Unzip file if necessary
   if (gnlen >= 3 && strcmp (genoname + gnlen - 3, ".gz") == 0) {
+    /* PED/BED detection uses the suffix, so retain it on the plain file. */
+    const char *suffix = "";
+    if (gnlen >= 7 && !strcmp(genoname + gnlen - 7, ".ped.gz")) suffix = ".ped";
+    if (gnlen >= 7 && !strcmp(genoname + gnlen - 7, ".bed.gz")) suffix = ".bed";
+    if (gnlen >= 7 && !strcmp(genoname + gnlen - 7, ".fam.gz")) suffix = ".fam";
+    if (gnlen >= 10 && !strcmp(genoname + gnlen - 10, ".pedind.gz")) suffix = ".pedind";
 #ifdef _WIN32
     /* Re-enter the unchanged format readers with decompressed bytes. This
      * keeps cleanup common to their early returns (packed and text alike).
      */
     admix_long count;
+    char *with_suffix;
     genotmp = mytemp("genotmp");
+    with_suffix = realloc(genotmp, strlen(genotmp) + strlen(suffix) + 1);
+    if (with_suffix == NULL) { free(genotmp); fatalx("cannot allocate genotype temporary path\n"); }
+    genotmp = with_suffix;
+    strcat(genotmp, suffix);
     printf("unzip cmd: gunzip -c \"%s\" > \"%s\"\n", genoname, genotmp);
     if (admix_gunzip(genoname, genotmp)) {
       free(genotmp);
@@ -1465,13 +1476,17 @@ getgenos (char *genoname, SNP ** snpmarkers, Indiv ** indivmarkers,
       fatalx("gunzip failed... probably out of disk space\n");
     }
     printf("geno file unzipped\n");
+    if (admix_track_temp(genotmp)) {
+      unlink(genotmp);
+      fatalx("cannot track decompressed genotype file\n");
+    }
     count = getgenos(genotmp, snpmarkers, indivmarkers, numsnps, numindivs, nignore);
-    unlink(genotmp);
+    admix_release_temp(genotmp, 0);
     free(genotmp);
     return count;
 #else
     makedir (trashdir);
-    sprintf (line, "%s/genotmp:%d", trashdir, getpid ());
+    sprintf (line, "%s/genotmp:%d%s", trashdir, getpid (), suffix);
     genotmp = strdup (line);
     sprintf (cmd, "gunzip -c %s > %s", genoname, genotmp);
     printf ("unzip cmd: %s\n", cmd);
@@ -1500,16 +1515,19 @@ getgenos (char *genoname, SNP ** snpmarkers, Indiv ** indivmarkers,
 
     if (snpord == NULL)
       fatalx ("snpord not allocated (no map file ?)");
-    getpedgenos (genoname, snpmarkers, indivmarkers, numsnps, numindivs,
+    getpedgenos (gname, snpmarkers, indivmarkers, numsnps, numindivs,
 		 nignore);
     freeped ();
+    if (genotmp != NULL) { unlink(genotmp); free(genotmp); }
     return numsnps * numindivs;
   }
 
   // Call routine to read PLINK format packed genotype file
   if (isbedfile (gname)) {
-    return getbedgenos (genoname, snpmarkers, indivmarkers, numsnps,
-			numindivs, nignore);
+    admix_long count = getbedgenos (gname, snpmarkers, indivmarkers, numsnps,
+                                   numindivs, nignore);
+    if (genotmp != NULL) { unlink(genotmp); free(genotmp); }
+    return count;
   }
 
   // Check whether file is packed ANCESTRYMAP format (packed EIGENSTRAT does not exist)
