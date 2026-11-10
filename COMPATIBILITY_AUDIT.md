@@ -57,21 +57,24 @@ sooner; record that dependency and resume the current tool afterward. T38 is
 blocked pending an established upstream algorithm/reference, not permission to
 guess the intended statistical expressions.
 
-Current active hard audit: **none**. T02 remains queued for its open findings.
-Completed hard reviews: **2**: T01 **passed with limitations**, T02 **reviewed
-with open upstream defects** (not passed). Clean/unqualified
-passes: **0**. This is not full-suite certification.
+Current active hard audit: **none**. Next queued item: **T03 qpWave**.
+Completed hard reviews: **2**: T01 and T02 **passed with limitations**.
+Clean/unqualified passes: **0**. This is not full-suite certification.
 
 [T01 qpAdm report](tests/windows/audits/T01_qpAdm.md) records the mode/helper
 checks, findings F002–F025, changes and limits. Shared M/H items and qpfstats
 retain their separate audit status.
+The [T01 follow-up](tests/windows/audits/T01_qpAdm.corrections.md) closes retained
+F024/F025, bounds rejection sampling (F043), and fixes F001 installation order.
 
-[T02 qpfstats report](tests/windows/audits/T02_qpfstats.md) records 122 Windows
-and 120 repaired Linux/sanitizer cases, fixes F026–F033/F036–F038, and open or
-retained findings F034–F035/F039–F041. All 86 jointly successful shared cases
-match both streams exactly after the documented metadata substitutions. Its
-ineffective subsampling/seed behavior and downstream limitations keep T02
-unchecked; related tools/modules are not automatically closed.
+[T02 qpfstats report](tests/windows/audits/T02_qpfstats.md) preserves the initial
+review. Its [corrections](tests/windows/audits/T02_qpfstats.corrections.md) close
+F034–F035/F039–F041 and add fixed duplicate-diagnostic finding F042. The final
+185 Windows / 183 corrected Linux / 183 sanitizer cases pass their behavior
+checks. All 106 jointly successful shared cases match terminal/helper streams
+exactly after documented metadata substitutions. Subsampling/seed corrections
+and restored qpfit fitting intentionally differ from broken pristine behavior;
+related tools/modules are not automatically closed.
 
 ## Native executable queue
 
@@ -84,7 +87,7 @@ and state its limits; it does not close related modules automatically.
 | Done | ID | Tool | Role | Target | Previous evidence |
 | --- | --- | --- | --- | --- | --- |
 | [x] | T01 | `qpAdm` | Admixture model fitting | Default | [Passed with limitations](tests/windows/audits/T01_qpAdm.md) |
-| [ ] | T02 | `qpfstats` | F-statistic precomputation and helper process | Default | [Reviewed; open upstream defects](tests/windows/audits/T02_qpfstats.md) |
+| [x] | T02 | `qpfstats` | F-statistic precomputation and helper process | Default | [Passed with limitations](tests/windows/audits/T02_qpfstats.corrections.md) |
 | [ ] | T03 | `qpWave` | Rank/ancestry-stream tests | Default | Fixture |
 | [ ] | T04 | `qpDstat` | D/f4 statistics | Default | Fixture |
 | [ ] | T05 | `qp3Pop` | Three-population statistics | Default | Fixture |
@@ -234,7 +237,7 @@ upstream's directory-wide install and therefore remains visible here.
 | [ ] | S09 | `perlsrc/xtractcoltab` | `bin/xtractcoltab` | no dedicated parity fixture recorded |
 | [ ] | S10 | `perlsrc/xtractcolv` | `bin/xtractcolv` | no dedicated parity fixture recorded |
 | [ ] | S11 | `perlsrc/xtractcolx` | `bin/xtractcolx` | no dedicated parity fixture recorded |
-| [ ] | S12 | `src/fxtract` | `bin/fxtract (currently overwritten; F001)` | no dedicated parity fixture recorded |
+| [ ] | S12 | `src/fxtract` | `bin/fxtract` | F001 install selection fixed; interpreter workflow audit pending |
 | [ ] | S13 | `src/rexpfit.r` | `bin/rexpfit.r` | no dedicated parity fixture recorded |
 | [ ] | S14 | `src/script/convertf.py` | `bin/script/convertf.py` | 12-file Python workflow; hard check pending |
 | [ ] | S15 | `src/script/extract_individuals.py` | `bin/script/extract_individuals.py` | 12-file Python workflow; hard check pending |
@@ -393,21 +396,26 @@ Keep a completed-with-open-limitations state distinct from a clean pass.
 
 | Finding | Item | State | Observation | Next action |
 | --- | --- | --- | --- | --- |
-| F001 | I03; installed fxtract variants | Confirmed installation divergence; runtime impact not yet audited | Windows copies `src/fxtract` and then overwrites it with `perlsrc/fxtract`. Upstream `make install` copies in the opposite order, leaving `src/fxtract`. Current `bin/fxtract` matches the other source. | Fix and validate installation order during I03/script audit; retain both source variants in inventory. No fix made by this inventory change. |
+| F001 | I03; installed fxtract variants | Fixed; installed bytes verified | Windows now follows upstream install order: copy `perlsrc` helpers before `src/fxtract`. Installed `bin/fxtract` matches `src/fxtract` byte-for-byte. | See [T01 follow-up](tests/windows/audits/T01_qpAdm.corrections.md); independent I03/S12 workflow audits remain pending. |
 | F002–F023 | T01; helper and shared runtime paths | Fixed; T01 passed with limitations | Upstream bounds/UB, single-source results, output errors, gzip PLINK dispatch, and Windows paths/temporary ownership. Each stable ID and reproducer is in the [T01 report](tests/windows/audits/T01_qpAdm.md). | Retain recorded broken-upstream differences; continue T02 and independent M/H/T reviews. |
-| F024–F025 | T01; M11 / inherited CLI | Documented limitations | CRT zero-errno wording differs on truncated input; inherited version/help/legacy parameter quirks are preserved. | Read the T01 report; no scientific difference is waived. |
+| F024–F025 | T01; M11 / inherited CLI | Fixed in requested follow-up | Portable EOF diagnostic; version-only exit; correct help; inactive output/rank keys fail explicitly rather than misleading users. | See [T01 follow-up](tests/windows/audits/T01_qpAdm.corrections.md) for intentional interface changes and regression evidence. |
 | F026–F033 | T02; M02/M11/M17/H27 | Fixed; regression evidence recorded | Population-list overwrite, invalid/overflowing dimensions, writer stack overwrite, nonfinite scale, ignored POSIX gunzip failure, CLI wording and parameter handle. | Retain deliberate broken-upstream differences; see the [T02 report](tests/windows/audits/T02_qpfstats.md). |
-| F034–F035 | T02 | Open upstream scientific defects | qpfstats population limits alter displayed sizes but not the analysis index; parsed seeds never initialize its RNG. | Keep T02 unchecked; an explicit upstream scientific repair must not be presented as pristine parity. |
+| F034–F035 | T02 | Fixed upstream scientific defects | Seed the existing RNG and apply sampling before index/weight construction. | Limited outputs intentionally differ from pristine; physical-subset oracles and exact corrected Linux/Windows comparisons pass. See [corrections](tests/windows/audits/T02_qpfstats.corrections.md). |
 | F036–F038 | T19/T08/T20, exercised through T02 | Fixed narrow consumer defects | qpmix diagnostic over-read, qpGraph uninitialized diagnostic count, qpfit normal helper-fstats leak. | Consumer reruns pass on repaired Linux/Windows and sanitizers; these are not full downstream audits. |
-| F039–F041 | T20/T08/T02 and helper lifecycle | Open or retained upstream behavior | qpfit exits before fitting; qpGraph retains helper files; ineffective legacy options/help and duplicate-ID/block quirks remain. | See the T02 report and carry forward to each independent tool/module review. |
+| F039–F041 | T20/T08/T02 and helper lifecycle | Fixed; downstream full audits remain pending | Restore qpfit's existing fitting path and guard its dimensions; share owned helper lifecycle; reject inactive qpfstats controls, duplicate IDs and invalid block lengths; correct help. | See [corrections](tests/windows/audits/T02_qpfstats.corrections.md). No pristine qpfit fitting parity claim. |
+| F042 | M07/H30; duplicate-name callers | Fixed upstream diagnostic defect | `finddupalt` returned a sorted position instead of an input index, naming the wrong duplicate. | Regression `z,z,a` now identifies `z`; independent shared-module/header audits remain pending. |
+| F043 | T01; Bayesian rejection sampling | Fixed in requested follow-up | A per-sample positive rejection limit fails explicitly instead of looping without a bound; sample-array multiplication is checked before allocation and diagnostic counting uses 64 bits. | See [T01 follow-up](tests/windows/audits/T01_qpAdm.corrections.md). No partial Bayesian estimate or changed accepted-draw calculation. |
 
-F001 evidence from the current files:
+F001 evidence before correction (historical):
 
 ```text
 src/fxtract      SHA256 0aaece665dd08afa57ff57f158ec415b404bea3f74b5793e5546910c2baa1a16
 perlsrc/fxtract  SHA256 b53dfad23fd7f426078b23b40c036bc5426c49a9b8095a7ee700a10cfb9cfeaf
 bin/fxtract      SHA256 b53dfad23fd7f426078b23b40c036bc5426c49a9b8095a7ee700a10cfb9cfeaf
 ```
+
+After correction, `bin/fxtract` and `src/fxtract` both have SHA256
+`0aaece665dd08afa57ff57f158ec415b404bea3f74b5793e5546910c2baa1a16`.
 
 Other known gaps from `WINDOWS_PORT_STATUS.md` (11 scientific-fixture gaps,
 compressed-input behavior beyond T01's coverage, remaining Unicode/path cases,

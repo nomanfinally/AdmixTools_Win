@@ -182,6 +182,17 @@ exercises parameter paths with spaces/metacharacters and forces the specific
 denied-symlink error to verify the SNP copy fallback. This does not certify every
 Perl/R/Python helper or byte-identical terminal output from all wrappers.
 
+## T01 remaining-issue corrections
+
+The [follow-up report](audits/T01_qpAdm.corrections.md) supersedes retained T01
+CLI/EOF quirks and unbounded rejection sampling. `audit_qpadm.py` now verifies
+version-only exits, accurate help, rejection of inactive parameters without
+output creation, invalid limits, and the portable EOF diagnostic. Its full
+scientific matrix remains applicable on Windows and isolated repaired Linux.
+Compile `qpadm_probe.c` with `-DPROBE_SAMPLER` against qpAdm's dependencies to
+force the rejection boundary; the report/evidence record modes and link commands.
+Pristine Linux intentionally differs in these corrected cases.
+
 ## T02 qpfstats hard review
 
 ```powershell
@@ -195,11 +206,18 @@ build, using a new output directory each time. The runner retains raw streams,
 exits and scientific file hashes; `--select REGEX` limits diagnostic reruns.
 Missing executables/timeouts are explicit failures. Compare scientific bytes
 and printed precision exactly; examine the diff and raw exit statuses.
-`--verify` currently reports the known qpGraph automatic-helper temporary leak.
-It does not waive it or certify ineffective upstream options.
+`--verify` checks completion, expected exits, owned temporary cleanup and
+retention. The repaired helper lifecycle passes; pristine upstream is expected
+to fail the new behavior assertions. Comparison retains intentional upstream
+bug corrections rather than treating them as platform numerical differences.
 
-The [T02 report](audits/T02_qpfstats.md) lists source/build controls, deliberate
-upstream bug corrections, consumer coverage, sanitizer findings and open issues.
-`qpfstats_probe.c` exercises the actual integer dimension guard and bounded list
-loader without allocating enormous matrices. Its source inclusion is a test
-technique; production executables retain the upstream layout and link rules.
+The [initial T02 report](audits/T02_qpfstats.md) and
+[corrections](audits/T02_qpfstats.corrections.md) record source/build controls,
+consumer coverage and validation limits. `qpfstats_probe.c` exercises dimension
+and list boundaries, actual sample selection, duplicate-name indices, and owned
+temporary collision/cleanup/retention. Compile it against the real qpfstats
+dependency objects (excluding `qpfstats.o`), libnick and scientific libraries on
+both systems; pass `--probe PATH` to the runner to check physical-subset oracles.
+Source inclusion is a test technique; production layout/link rules are retained.
+The verbose case produces over three million lines; retain the complete streams
+for comparison or use `--select '^(?!verbose$)'` for focused nonverbose reruns.

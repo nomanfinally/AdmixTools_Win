@@ -23,7 +23,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def run(bindir, output, selection):
+def run(bindir, output, selection, sample_probe=None):
     output.mkdir(parents=True, exist_ok=False)
     common = output / 'fixtures'
     parity.fixtures(common)
@@ -32,13 +32,14 @@ def run(bindir, output, selection):
                ASAN_OPTIONS='detect_leaks=0:abort_on_error=1',
                UBSAN_OPTIONS='halt_on_error=1:print_stacktrace=1')
     env['PATH'] = str(bindir) + os.pathsep + env.get('PATH', '')
-    manifest = {'binary_dir': str(bindir), 'platform': sys.platform,
+    manifest = {'binary_dir': str(bindir), 'platform': sys.platform, 'completed': False,
+                'sample_probe': str(sample_probe) if sample_probe else None,
                 'environment': {k: env[k] for k in ('OPENBLAS_NUM_THREADS', 'OMP_NUM_THREADS',
                     'OPENBLAS_CORETYPE', 'LC_ALL', 'STMP', 'ASAN_OPTIONS', 'UBSAN_OPTIONS')},
                 'executables': {}, 'cases': {}}
 
-    def invoke(name, tool, args, work, expected='success', selected_env=None):
-        exe = bindir / (tool + ('.exe' if os.name == 'nt' else ''))
+    def invoke(name, tool, args, work, expected='success', selected_env=None, selected_exe=None):
+        exe = selected_exe or bindir / (tool + ('.exe' if os.name == 'nt' else ''))
         if not exe.is_file():
             manifest['cases'][name] = {'missing': True, 'arguments': args, 'expected': expected,
                                       'files': {}, 'temporaries': [], 'new_temporaries': []}
@@ -61,12 +62,16 @@ def run(bindir, output, selection):
             (output / f'{name}.{stream}').write_bytes(data)
         entry['files'] = {('output.fstats' if p.name.endswith('output.fstats') else p.name): sha(p)
                           for p in work.rglob('*') if p.is_file() and
-                          (p.name.endswith('output.fstats') or p.name in ('output.fmv', 'model.mv'))}
+                          (p.name.endswith('output.fstats') or p.name in ('output.fmv', 'model.mv', 'saved.fstats'))}
+        if (work / 'helper.log').is_file():
+            (output / f'{name}.helperlog').write_bytes((work / 'helper.log').read_bytes())
+            entry['helper_log'] = sha(work / 'helper.log')
         entry['temporaries'] = sorted(p.name for p in (work / 'tmp').glob('*'))
         entry['new_temporaries'] = sorted(set(entry['temporaries']) - set(before))
         manifest['cases'][name] = entry
         (output / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
         print(f'{name}: {entry.get("returncode", "TIMEOUT")}', flush=True)
+        return entry
 
     (common / 'tmp').mkdir()
     invoke('prepare-packed', 'convertf', ['-p', 'par.convertf'], common)
@@ -105,6 +110,10 @@ def run(bindir, output, selection):
         'xdata': 'xdata: YES\n', 'noxdata-no': 'noxdata: NO\n',
         'custom-numchrom': 'numchrom: 21\nxdata: YES\n',
         'popsizelimit': 'popsizelimit: 3\n', 'popsizelimit-seed': 'popsizelimit: 3\nseed: 123\n',
+        'popsizelimit-repeat': 'popsizelimit: 3\n',
+        'popsizelimit-zero-seed': 'popsizelimit: 3\nseed: 0\n',
+        'popsizelimit-one-seed': 'popsizelimit: 3\nseed: 1\n',
+        'popsizelimit-unlimited': 'popsizelimit: 100\n',
         'cli-seed': 'popsizelimit: 3\n', 'high-seed': 'popsizelimit: 3\nseed: -2147483648\n',
         'inbreed-list': 'inbreedlistname: inbreeds\n',
         'inbreed-list-override': 'inbreed: YES\ninbreedlistname: inbreeds\n',
@@ -142,12 +151,17 @@ def run(bindir, output, selection):
         modes.update({'win-space-hash-unicode': '', 'win-forward-temp': '', 'win-missing-temp': '', 'win-long-path': ''})
     else:
         modes.update({'unix-full-hires': '', 'unix-full-standard': 'hires: NO\n'})
+    for key, value in {'doanalysis':'NO', 'quartet':'YES', 'fstdmode':'YES', 'useweights':'NO',
+            'diag':'.123', 'minvar':'.5', 'nostatslim':'1', 'f3log':'unused.f3',
+            'root':'unused', 'output':'unused.out'}.items():
+        modes['unsupported-' + key] = key + ': ' + value + '\n'
     failures = {'pseudo-base', 'single-inbreed', 'empty-poplist', 'one-pop', 'many-pops',
                 'overflow-pops', 'duplicate-pops', 'unknown-pop', 'no-valid-snps', 'all-missing',
                 'constant', 'missing-par', 'missing-geno', 'truncated-packed', 'empty-scalar',
                 'utf16', 'embedded-nul', 'gzip-corrupt', 'gzip-truncated', 'gzip-reader-fatal',
                 'output-directory', 'win-missing-temp', 'nan-lambda', 'infinite-lambda', 'outpop-other',
-                'no-poplist', 'one-block', 'duplicate-snp', 'empty-ind', 'empty-snp'}
+                'no-poplist', 'one-block', 'duplicate-snp', 'duplicate-ind', 'empty-ind', 'empty-snp',
+                'zero-blocksize', 'negative-blocksize', 'nan-blocksize', 'legacy-keys'}
     for name, extra in modes.items():
         if not re.search(selection, name):
             continue
@@ -163,7 +177,9 @@ def run(bindir, output, selection):
         selected_env = dict(env)
         if name == 'verbose': args += ['-V']
         if name == 'cli-lambda': args += ['-l', '2']
-        if name == 'cli-seed': args += ['-s', '123']
+        if name == 'cli-seed':
+            args += ['-s', '123']
+            text = re.sub(r'^seed:.*\n', '', text, flags=re.M)
         if name.startswith('inbreed-list'):
             value = '' if name.endswith('empty') else ('A\n' if not name.endswith('extra') else 'A\nUnused\n')
             (work / 'inbreeds').write_text(value)
@@ -263,7 +279,7 @@ def run(bindir, output, selection):
         if name == 'embedded-nul': data += b'x\0y\n'
         (work / 'par').write_bytes(data)
         if name == 'missing-par': args[1] = 'absent.par'
-        expected = 'failure' if name in failures or name.startswith('unix-full') else 'success'
+        expected = 'failure' if name in failures or name.startswith(('unix-full', 'unsupported-')) else 'success'
         if name == 'bom' and os.name != 'nt': expected = 'failure'
         invoke(name, 'qpfstats', args, work, expected, selected_env)
 
@@ -271,8 +287,27 @@ def run(bindir, output, selection):
             ('cli-help', ['-h'], 'success'), ('cli-version', ['-v'], 'success'),
             ('cli-none', [], 'success'), ('cli-invalid', ['-?'], 'failure'),
             ('cli-missing-argument', ['-p'], 'failure'),
-            ('cli-unused', ['-g', 'ignored', '-o', 'ignored', '-x'], 'success')):
+            ('cli-unused', ['-g', 'ignored', '-o', 'ignored', '-x'], 'failure'),
+            ('cli-unused-o', ['-o', 'ignored'], 'failure'), ('cli-unused-x', ['-x'], 'failure'),
+            ('cli-unimplemented-b', ['-b', '1'], 'failure')):
         if re.search(selection, name): invoke(name, 'qpfstats', args, common, expected)
+    if sample_probe:
+        manifest['sample_probe_sha256'] = sha(sample_probe)
+        for seed in (77, 123):
+            name = f'manual-subset-{seed}'
+            if not re.search(selection, name): continue
+            work = output / name
+            shutil.copytree(common, work)
+            selection_result = subprocess.run([str(sample_probe), 'sample', 'input.ind', 'pops', '3', str(seed)],
+                cwd=work, env=env, capture_output=True, timeout=45, check=True)
+            (output / f'{name}.selection').write_bytes(selection_result.stdout)
+            indices = [int(x) for x in selection_result.stdout.split()]
+            assert len(indices) == len(set(indices)) == 27
+            original = (common / 'input.ind').read_text().splitlines()
+            (work / 'input.ind').write_text(''.join(original[i] + '\n' for i in indices))
+            (work / 'input.geno').write_text(''.join(''.join(row[i] for i in indices) + '\n' for row in rows))
+            (work / 'par').write_text(base)
+            invoke(name, 'qpfstats', ['-p', 'par'], work)
     # Real serialized data consumers and automatic helper launch.
     if re.search(selection, 'consumer'):
         invoke('consumer-prepare', 'qpfstats', ['-p', 'par.qpfstats'], common)
@@ -294,6 +329,53 @@ def run(bindir, output, selection):
         (common / 'mixed-quads').write_text('Out A Out A\nOut A Out B\nOut A B X\n')
         (common / 'par.consumer-fmv').write_text('fstatsname: output.fstats\npopfilename: mixed-quads\nfmvoutname: output.fmv\nprintsd: YES\n')
         invoke('consumer-mixed-qpfmv', 'qpfmv', ['-p', 'par.consumer-fmv'], common)
+    if re.search(selection, 'helper'):
+        for tool in ('qpAdm', 'qpWave', 'qpfit', 'qpGraph'):
+            for mode in ('fail', 'outputs', 'copy-fail', 'missing-temp', 'missing-helper', 'keep', 'keep-fail'):
+                if tool == 'qpGraph' and mode.startswith('keep'): continue
+                name = f'helper-{tool}-{mode}'
+                work = output / name
+                shutil.copytree(common, work)
+                text = ((common / 'par.qpGraph').read_text() + 'graphname: graph\n') if tool == 'qpGraph' else (
+                    (common / 'par.qpAdm').read_text() + 'allsnps: YES\nnumboot: 50\n')
+                if mode in ('fail','keep-fail'): text = text.replace('input.geno', 'absent.geno')
+                if mode.startswith('keep'): text += 'keeptmp: YES\n'
+                if mode == 'outputs': text += 'fstatsoutname: saved.fstats\nfstatslog: helper.log\n'
+                if mode == 'copy-fail': text += 'fstatsoutname: .\n'
+                (work / 'par').write_text(text)
+                selected_env, selected_exe = dict(env), None
+                if mode == 'missing-temp': selected_env['STMP'] = 'absent'
+                if mode == 'missing-helper':
+                    if os.name == 'nt':
+                        isolated = work / 'isolated'
+                        isolated.mkdir()
+                        selected_exe = isolated / (tool + '.exe')
+                        shutil.copyfile(bindir / (tool + '.exe'), selected_exe)
+                    else: selected_env['PATH'] = ''
+                expected = 'success' if mode in ('outputs', 'keep') else 'failure'
+                entry = invoke(name, tool, ['-p', 'par'], work, expected, selected_env, selected_exe)
+                if mode.startswith('keep'): entry['keep_temporaries'] = True
+    if re.search(selection, 'qpfit-boundary'):
+        for mode in ('single', 'three', 'hires', 'ratio', 'zero-boot', 'one-boot', 'negative-boot', 'empty-left', 'one-right'):
+            name = 'qpfit-boundary-' + mode
+            work = output / name
+            shutil.copytree(common, work)
+            (work / 'par.prepare').write_text(base)
+            invoke(name + '-prepare', 'qpfstats', ['-p', 'par.prepare'], work)
+            text = 'fstatsname: output.fstats\npopleft: left\npopright: right\nseed: 77\nnumboot: 50\n'
+            if mode == 'single': (work / 'left').write_text('X\nA\n')
+            if mode == 'three': (work / 'left').write_text('X\nA\nB\nC\n')
+            if mode == 'hires': text += 'hires: YES\n'
+            if mode == 'ratio': text += 'doratio: YES\n'
+            if mode in ('zero-boot','one-boot','negative-boot'):
+                text = text.replace('numboot: 50', 'numboot: ' + {'zero-boot':'0','one-boot':'1','negative-boot':'-1'}[mode])
+            if mode == 'empty-left': (work / 'left').write_bytes(b'')
+            if mode == 'one-right': (work / 'right').write_text('Out\n')
+            (work / 'par').write_text(text)
+            invoke(name, 'qpfit', ['-p','par'], work,
+                   'failure' if mode in ('zero-boot','one-boot','negative-boot','empty-left','one-right') else 'success')
+    manifest['completed'] = True
+    (output / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
 
 
 def normalized(data, bindir):
@@ -303,12 +385,17 @@ def normalized(data, bindir):
     text = re.sub(r'(mmfaddr: )0x[0-9a-f]+', r'\1<ADDRESS>', text)
     match = re.search(r'^tmp: (.+)$', text, re.M)
     if match: text = text.replace(match[1], '<FSX>')
+    # Windows must quote generated helper parameter paths. Only these two
+    # owned-path fields after PID normalization are eligible for unquoting.
+    text = re.sub(r'^(fstatsoutname:|poplistname:) "(tmp/(?:fsx|pops)\.<PID>(?:\.[0-9]+)?)"$',
+                  r'\1 \2', text, flags=re.M)
     return text
 
 
 def verify(directory):
     m = json.loads((directory / 'manifest.json').read_text())
     failures = []
+    if not m.get('completed'): failures.append('matrix did not finish')
     for name, case in m['cases'].items():
         code = case.get('returncode')
         if code is None or ((code != 0) != (case['expected'] == 'failure')): failures.append(name + ': exit')
@@ -320,21 +407,44 @@ def verify(directory):
             paths = list(work.glob('*output.fstats'))
             if paths and re.search(rb'(?i)(?<![a-z])(nan|[+-]?inf)(?![a-z])', paths[0].read_bytes()):
                 failures.append(name + ': nonfinite fstats')
-        if m['platform'] == 'win32' and case.get('new_temporaries', case['temporaries']):
+        if not case.get('keep_temporaries') and case.get('new_temporaries', case['temporaries']):
             failures.append(name + ': temporary leak')
+        if case.get('keep_temporaries') and len(case['new_temporaries']) != 5:
+            failures.append(name + ': keeptmp did not retain five files')
+        if name.startswith('helper-') and name.endswith('-outputs'):
+            if not case.get('helper_log') or 'saved.fstats' not in case['files']:
+                failures.append(name + ': requested output missing')
+            else:
+                log = (directory / f'{name}.helperlog').read_bytes()
+                if b'qpfstats version:' not in log or b'##end of qpfstats:' not in log:
+                    failures.append(name + ': helper log incomplete')
         if name == 'win-forward-temp':
             data = (directory / f'{name}.stdout').read_text()
             match = re.search(r'^unzip cmd:.* > "?([^"\n]+)', data, re.M)
             if not match or '/' in match[1]: failures.append(name + ': generated separators')
-    # These equivalences test effective behavior, including inherited ignored keys.
+    # Exact equivalences and inequalities test effective seed/subsampling behavior.
     for first, second in (('default', 'explicit-defaults'), ('unscaled', 'doscale-alias'),
-            ('default', 'poplist-alias'), ('default', 'instem'), ('default', 'legacy-keys'),
-            ('popsizelimit', 'popsizelimit-seed'), ('popsizelimit', 'cli-seed'),
-            ('popsizelimit', 'high-seed'), ('default', 'win-space-hash-unicode'),
+            ('default', 'poplist-alias'), ('default', 'instem'),
+            ('popsizelimit', 'popsizelimit-repeat'), ('popsizelimit-seed', 'cli-seed'),
+            ('popsizelimit-zero-seed', 'popsizelimit-one-seed'), ('default', 'popsizelimit-unlimited'),
+            ('popsizelimit', 'manual-subset-77'), ('popsizelimit-seed', 'manual-subset-123'),
+            ('default', 'win-space-hash-unicode'),
             ('allsnps-default-inbreed', 'useallsnps-alias')):
         if first in m['cases'] and second in m['cases']:
             x, y = [m['cases'][n]['files'].get('output.fstats') for n in (first, second)]
             if not x or x != y: failures.append(first + '/' + second + ': data differ')
+    for first, second in (('default','popsizelimit'), ('popsizelimit','popsizelimit-seed')):
+        if first in m['cases'] and second in m['cases']:
+            x, y = [m['cases'][n]['files'].get('output.fstats') for n in (first,second)]
+            if not x or x == y: failures.append(first + '/' + second + ': effect missing')
+    for name in ('popsizelimit', 'popsizelimit-repeat', 'popsizelimit-seed', 'cli-seed', 'high-seed'):
+        if name in m['cases'] and b'indivs: 27' not in (directory / f'{name}.stdout').read_bytes():
+            failures.append(name + ': incorrect analysis row count')
+    for name in ('consumer-qpfit', 'consumer-auto-qpfit'):
+        if name in m['cases']:
+            text = (directory / f'{name}.stdout').read_bytes()
+            for marker in (b'best coefficients:', b'std. errors:', b'summ:'):
+                if marker not in text: failures.append(name + ': fitting did not finish')
     (directory / 'verification.json').write_text(json.dumps({'failures': failures}, indent=2) + '\n')
     print(json.dumps(failures, indent=2))
     return bool(failures)
@@ -349,7 +459,7 @@ def compare(left, right):
         x, y = a['cases'][name], b['cases'][name]
         errors = []
         if x.get('returncode') != y.get('returncode'): errors.append('exit')
-        for stream in ('stdout', 'stderr'):
+        for stream in ('stdout', 'stderr', *(('helperlog',) if x.get('helper_log') or y.get('helper_log') else ())):
             first, second = [normalized((p / f'{name}.{stream}').read_bytes(), m['binary_dir'])
                              for p,m in ((left,a),(right,b))]
             if first != second:
@@ -369,10 +479,12 @@ if __name__ == '__main__':
     parser.add_argument('--bin', type=Path)
     parser.add_argument('--output', type=Path)
     parser.add_argument('--select', default='.')
+    parser.add_argument('--probe', type=Path, help='qpfstats_probe binary for independent manual-subset checks')
     parser.add_argument('--verify', type=Path)
     parser.add_argument('--compare', nargs=2, type=Path)
     args = parser.parse_args()
     if args.verify: sys.exit(verify(args.verify.resolve()))
     elif args.compare: compare(*[p.resolve() for p in args.compare])
-    elif args.bin and args.output: run(args.bin.resolve(), args.output.resolve(), args.select)
+    elif args.bin and args.output: run(args.bin.resolve(), args.output.resolve(), args.select,
+                                    args.probe.resolve() if args.probe else None)
     else: parser.error('use --bin DIR --output NEW_DIR, --verify DIR, or --compare DIR DIR')

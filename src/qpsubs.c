@@ -1,9 +1,130 @@
 #include <admix_types.h>
+#include <admix_platform.h>
 #include <limits.h>
 #include "qpsubs.h"
   double weight ; 
 #include "mcio.h" 
 #include <nicklib.h> 
+#include <getpars.h>
+#include <errno.h>
+#ifndef _WIN32
+#include <sys/wait.h>
+#endif
+
+static void fstats_copy(char *input, char *output)
+{
+#ifdef _WIN32
+  if (admix_copy_file(input, output)) fatalx("cannot copy qpfstats output\n");
+#else
+  char buffer[32768];
+  size_t n;
+  FILE *in, *out;
+  int failed = 0;
+  struct stat source, target;
+  if (stat(input, &source) == 0 && stat(output, &target) == 0 &&
+      source.st_dev == target.st_dev && source.st_ino == target.st_ino)
+    fatalx("cannot copy qpfstats output\n");
+  in = fopen(input, "rb");
+  if (in == NULL) fatalx("cannot copy qpfstats output\n");
+  out = fopen(output, "wb");
+  if (out == NULL) { fclose(in); fatalx("cannot copy qpfstats output\n"); }
+  while ((n = fread(buffer, 1, sizeof(buffer), in)) != 0)
+    if (fwrite(buffer, 1, n, out) != n) { failed = 1; break; }
+  if (ferror(in) || ferror(out)) failed = 1;
+  if (fclose(in) != 0) failed = 1;
+  if (fclose(out) != 0) failed = 1;
+  if (failed) fatalx("cannot copy qpfstats output\n");
+#endif
+}
+
+int qpfstats_inactive_parameter(const char *key)
+{
+  static const char *keys[] = {"doanalysis:", "quartet:", "fstdmode:", "useweights:",
+    "diag:", "minvar:", "nostatslim:", "f3log:", "root:", "output:"};
+  size_t i;
+  for (i = 0; i < sizeof(keys) / sizeof(keys[0]); ++i)
+    if (!strcmp(key, keys[i])) return 1;
+  return 0;
+}
+
+static int fstats_child(char *parameters, char *logname)
+{
+#ifdef _WIN32
+  return admix_run_qpfstats(parameters, logname);
+#else
+  int fd, status;
+  pid_t child, waited;
+  fd = open(logname, O_WRONLY | O_CREAT | O_TRUNC, 0600);
+  if (fd < 0) return -1;
+  fflush(stdout);
+  child = fork();
+  if (child == 0) {
+    if (dup2(fd, STDOUT_FILENO) < 0) _exit(127);
+    close(fd);
+    execlp("qpfstats", "qpfstats", "-p", parameters, (char *)NULL);
+    _exit(127);
+  }
+  close(fd);
+  if (child < 0) return -1;
+  do { waited = waitpid(child, &status, 0); } while (waited < 0 && errno == EINTR);
+  return waited == child && WIFEXITED(status) && WEXITSTATUS(status) == 0 ? 0 : -1;
+#endif
+}
+
+char *qpfstats_helper(char *parname, char **pops, int npops, char *output,
+                     char *logname, int keep, int graphcall)
+{
+  char *paths[5], *prefixes[5] = {"fsx", "ppp", "pops", "tpar", "fslog"};
+  int i, failed;
+  FILE *file;
+  phandle *pars;
+  if (graphcall) prefixes[3] = "fstpar";
+  for (i = 0; i < 5; ++i) {
+    if (i == 4 && logname != NULL && !graphcall) paths[i] = strdup(logname);
+    else {
+      paths[i] = reserve_temp(prefixes[i]);
+      if (paths[i] == NULL) fatalx("cannot create qpfstats temporary file\n");
+      if (keep) release_temp(paths[i], 1);
+    }
+    if (paths[i] == NULL) fatalx("cannot allocate qpfstats temporary path\n");
+  }
+  printf("tmp: %s\n", paths[0]);
+  /* Flatten includes but leave substitutions to the child's ordinary parser.
+   * Filtering parameter names avoids shell commands and fixed-size buffers. */
+  pars = openpars(parname);
+  openit(paths[3], &file, "w");
+  for (i = 0; i < pars->numpars; ++i)
+    if (strcmp(pars->ppars[i], "fstatsoutname:") && strcmp(pars->ppars[i], "poplistname:") &&
+        strcmp(pars->ppars[i], "poplist:") && !qpfstats_inactive_parameter(pars->ppars[i]))
+      fprintf(file, "%s %s\n", pars->ppars[i], pars->pdata[i]);
+  closepars(pars);
+  closeit_write(file, paths[3]);
+  openit(paths[1], &file, "w");
+  copyfs(paths[3], file);
+  fprintf(file, "fstatsoutname: " ADMIX_PARAMETER_PATH "\n", paths[0]);
+  fprintf(file, "poplistname: " ADMIX_PARAMETER_PATH "\n", paths[2]);
+  closeit_write(file, paths[1]);
+  openit(paths[2], &file, "w");
+  for (i = 0; i < npops; ++i) fprintf(file, "%s\n", pops[i]);
+  closeit_write(file, paths[2]);
+  if (graphcall) printf("qpfstatscall:: qpfstats -p %s > %s \n", paths[1], paths[4]);
+  failed = fstats_child(paths[1], paths[4]) != 0;
+  if (!failed && graphcall && logname != NULL) fstats_copy(paths[4], logname);
+  if (!failed && output != NULL) {
+    fstats_copy(paths[0], output);
+    printf("fstats file: %s made\n", output);
+  }
+  for (i = 1; i < 5; ++i) {
+    release_temp(paths[i], keep);
+    free(paths[i]);
+  }
+  if (failed) {
+    release_temp(paths[0], keep);
+    free(paths[0]);
+    return NULL;
+  }
+  return paths[0];
+}
 
 extern int fancynorm, verbose, plotmode, outnum;
 extern int numchrom ;

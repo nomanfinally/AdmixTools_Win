@@ -142,11 +142,12 @@ def main():
                 raise RuntimeError(f"Missing dependency {name} for {binary.name}")
     # Keep the helpers in their upstream installed locations. They still require
     # their respective interpreters; they are not converted to .exe programs.
-    for filename in ("rexpfit.r", "wtjack.pl", "fxtract"):
-        shutil.copy2(SRC / filename, BIN / filename)
     for helper in (ROOT / "perlsrc").iterdir():
         if helper.is_file():
             shutil.copy2(helper, BIN / helper.name)
+    # Match make install: the source-tree fxtract wins over perlsrc/fxtract.
+    for filename in ("rexpfit.r", "wtjack.pl", "fxtract"):
+        shutil.copy2(SRC / filename, BIN / filename)
     shutil.copytree(SRC / "script", BIN / "script", dirs_exist_ok=True,
                     ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
     license_root = args.toolchain.parent / "share/licenses"

@@ -21,6 +21,11 @@ extern "C" {
 
 
 int loadindx(Indiv **xindlist, int *xindex, Indiv **indivmarkers, int numindivs) ;
+/* Make an owned helper fstats file. Caller frees the returned path; its file
+ * lives through analysis and is removed at normal/fatal exit unless keep. */
+char *qpfstats_helper(char *parname, char **pops, int npops, char *output,
+                     char *logname, int keep, int graphcall);
+int qpfstats_inactive_parameter(const char *key);
 int loadsnpx(SNP **xsnplist, SNP **snpmarkers, int numsnps, Indiv **indivmarkers) ;
 int loadsnpxx(SNP **xsnplist, SNP **snpmarkers, int numsnps, Indiv **indivmarkers, int numind) ;
 void loadxdataind(double *xrow, SNP **snplist, int ind,  int ncols) ;           

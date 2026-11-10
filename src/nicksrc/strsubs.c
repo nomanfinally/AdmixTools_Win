@@ -229,9 +229,7 @@ fatalx (char *fmt, ...)
 
   fprintf (stderr, "fatalx:\n%s", Estr);
   fflush (stderr);
-#ifdef _WIN32
-  admix_cleanup_temps();
-#endif
+  cleanup_temps();
   abort ();
 }
 
@@ -2161,7 +2159,88 @@ int filehash(char *name)
   return abs(hash) ;
 }
 
-char *mytemp (char *qqq) 
+#ifndef _WIN32
+typedef struct owned_temp {
+  char *path;
+  struct owned_temp *next;
+} owned_temp;
+static owned_temp *owned_temps;
+static int temp_cleanup_registered;
+#endif
+
+void release_temp(const char *path, int keep)
+{
+#ifdef _WIN32
+  admix_release_temp(path, keep);
+#else
+  owned_temp **link = &owned_temps;
+  while (*link) {
+    owned_temp *entry = *link;
+    if (!strcmp(path, entry->path)) {
+      if (!keep) unlink(entry->path);
+      *link = entry->next;
+      free(entry->path);
+      free(entry);
+      return;
+    }
+    link = &entry->next;
+  }
+#endif
+}
+
+void cleanup_temps(void)
+{
+#ifdef _WIN32
+  admix_cleanup_temps();
+#else
+  while (owned_temps) release_temp(owned_temps->path, 0);
+#endif
+}
+
+char *reserve_temp(char *prefix)
+{
+  char *candidate = mytemp(prefix), *path;
+#ifdef _WIN32
+  path = admix_reserve_temp(candidate);
+#else
+  size_t length = strlen(candidate);
+  unsigned int attempt;
+  int fd;
+  owned_temp *entry;
+  path = malloc(length + 32);
+  if (path == NULL) { free(candidate); return NULL; }
+  for (attempt = 0; attempt < 1000; ++attempt) {
+    if (attempt) snprintf(path, length + 32, "%s.%u", candidate, attempt);
+    else memcpy(path, candidate, length + 1);
+    fd = open(path, O_CREAT | O_EXCL | O_RDWR, 0600);
+    if (fd < 0) {
+      if (errno == EEXIST) continue;
+      break;
+    }
+    close(fd);
+    entry = malloc(sizeof(*entry));
+    if (entry == NULL || (entry->path = strdup(path)) == NULL) {
+      free(entry); unlink(path); errno = ENOMEM; break;
+    }
+    if (!temp_cleanup_registered) {
+      if (atexit(cleanup_temps) != 0) {
+        free(entry->path); free(entry); unlink(path); errno = ENOMEM; break;
+      }
+      temp_cleanup_registered = 1;
+    }
+    entry->next = owned_temps;
+    owned_temps = entry;
+    free(candidate);
+    return path;
+  }
+  free(path);
+  path = NULL;
+#endif
+  free(candidate);
+  return path;
+}
+
+char *mytemp (char *qqq)
 // make temporary file name.   qqq is header string, eg "junk1" 
 {
   char ss[MAXSTR] ; 

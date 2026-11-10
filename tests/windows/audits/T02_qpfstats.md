@@ -1,13 +1,16 @@
 # T02 — qpfstats and its data/helper connections
 
-Status: **reviewed with open upstream defects**, 10 November 2026. **Not marked
-passed.** The tested Windows calculations agree with repaired Linux; this is
-not a certificate that every upstream option is scientifically functional.
-In particular, qpfstats population subsampling and seed selection are ineffective
-upstream, and legacy qpfit exits before fitting. Those behaviors were not silently
-redefined during a compatibility audit. Shared M/H items and downstream tools
-retain their own audit status.
+Status: **passed with limitations**, following the explicitly requested
+[corrections](T02_qpfstats.corrections.md) on 10 November 2026. Findings
+F034–F035/F039–F041 are fixed; F042 is a further fixed duplicate-name diagnostic
+defect. Current source hashes and validation are in the
+[correction evidence](T02_qpfstats.corrections.evidence.json).
 
+The remainder of this report preserves the **initial review at `ff2029d`**,
+which was reviewed with open upstream defects. Its tables, counts, source hashes,
+commands and descriptions of ineffective behavior are historical, superseded
+where indicated by the correction report. Shared M/H items and downstream tools
+retain their own audit status.
 Reference: `67bc219174a109951a9434e0a383ec464fb140ee`, qpfstats `1101`;
 Windows retains `qpfstats.exe`, version `1101.w`. Working base: `e99074c` plus
 the uncommitted source hashes in [the evidence record](T02_qpfstats.evidence.json).
@@ -57,7 +60,7 @@ not a request to change the first population in the basis. Naming a different
 listed population remaps it to index zero and fails the zero-population check;
 the behavior is recorded rather than inventing another base-population rule.
 
-## Builds and comparison rules
+## Initial review builds and comparison rules
 
 - Windows: x86-64 UCRT64 GCC 16.2.0, GSL 2.8, OpenBLAS 0.3.34, zlib 1.4.
   All 37 supported native targets rebuilt. Existing application `-O2` and
@@ -104,7 +107,11 @@ counts include preparation and CLI/error cases, not that many scientific models.
 | Native invocation | Windows PowerShell 5.1 direct redirection and Tee-Object exit 0; generated fstats hash matches the direct runner |
 | Known cleanup failure | qpGraph automatic helper retains four files on both systems; Windows `--verify` reports it rather than granting a pass |
 
-## Findings
+## Initial review findings (retained defects subsequently corrected)
+
+F034, F035, F039, F040 and F041 below describe their state at the initial review.
+They are now fixed as recorded in the [correction report](T02_qpfstats.corrections.md);
+F042 is recorded there as well.
 
 | ID | Classification / evidence | Action and compatibility consequence |
 | --- | --- | --- |
@@ -143,7 +150,7 @@ this is not a warning-free architecture claim. Removing the copied code or
 redesigning those matrices would enlarge upstream merges and belongs after the
 compatibility baseline. No optimization or scientific redesign was performed.
 
-## Reproduction and closure limits
+## Initial review reproduction and closure limits
 
 From PowerShell, using a new directory per run:
 
@@ -169,5 +176,5 @@ disk/power loss, exhaustive low-memory behavior and all finite parameter values
 are untested. The sparse >4 GiB probe tests actual shared native size/seek/mapping
 services, not an end-to-end multi-gigabyte qpfstats cohort. Long paths pass on this
 machine's enabled policy, not every Windows configuration. Other consumers retain
-their own complete mode/error audits. The open findings above keep T02 unchecked
-in the hard-audit queue despite the recorded cross-platform numerical matches.
+their own complete mode/error audits. The open findings kept T02 unchecked at this initial review. The subsequent
+[correction report](T02_qpfstats.corrections.md) records closure and current limits.

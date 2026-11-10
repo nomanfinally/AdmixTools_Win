@@ -1,5 +1,11 @@
 # T01 — qpAdm
 
+Follow-up: the requested [remaining-issue corrections](T01_qpAdm.corrections.md)
+supersede F024/F025 and the unbounded-sampler limitation below. The original
+report and evidence remain a record of the initial audit. Current follow-up
+source hashes and validation are recorded separately. Coverage limitations
+remain; the status is still **passed with limitations**.
+
 Status: **passed with limitations**, 10 November 2026, for the recorded
 Windows/Linux matrix. This report distinguishes the pinned upstream
 behavior from deliberate repairs to broken cases. It is not a full-suite parity

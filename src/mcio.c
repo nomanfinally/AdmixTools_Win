@@ -2936,8 +2936,9 @@ bigread (int fdes, char *packg, admix_long numbytes)
       fatalx ("(bigread) bad data read");
     }
     if (t != xx) {
-      perror ("read failure (length mismatch)");
-      fatalx ("(bigread) bad data read (length mismatch) %" ADMIX_PRIdLONG " %" ADMIX_PRIdLONG "\n", t, xx);
+      /* A short, successful read does not set errno. */
+      fputs("read failure (length mismatch): unexpected end of file\n", stderr);
+      fatalx ("(bigread) bad data read (length mismatch) %" ADMIX_PRIdLONG " %d\n", t, xx);
     }
     nb -= xx;
     nr += xx;
@@ -3161,7 +3162,7 @@ inpack (char *gname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind)
     fatalx ("(inpack) bad data read");
   }
   if (t != packlen) {
-    perror ("read failure (length mismatch)");
+    fputs("read failure (length mismatch): unexpected end of file\n", stderr);
     printf ("numsnps: %d  nsnp (from geno file): %d\n", numsnps, nsnp);
     fatalx ("(inpack) bad data read (length mismatch) %" ADMIX_PRIdLONG " %" ADMIX_PRIdLONG "\n", t, packlen);
   }
@@ -6213,7 +6214,7 @@ inprobx (char *pname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind, char
     fatalx ("(inprob) bad data read");
   }
   if (t != plen) {
-    perror ("read failure (length mismatch)");
+    fputs("read failure (length mismatch): unexpected end of file\n", stderr);
     printf ("numsnps: %d  nsnp (from geno file): %d\n", numsnps, nsnp);
     fatalx ("(inprob) bad data read (length mismatch) %" ADMIX_PRIdLONG " %" ADMIX_PRIdLONG "\n", t, plen);
   }

@@ -18,6 +18,12 @@ Windows Unicode/path/temporary-file behavior. Its evidence distinguishes exact
 pristine parity from deliberate repairs to broken upstream cases. Other tools
 and complete shared-module audits remain in the queue.
 
+The requested [T01 follow-up](tests/windows/audits/T01_qpAdm.corrections.md)
+also fixes the retained help/version and inactive-parameter issues, the EOF
+diagnostic, unbounded positive-coefficient rejection sampling and fxtract
+installation order. The sampler's finite failure limit is documented explicitly;
+accepted-draw calculations and RNG behavior are preserved.
+
 ## Scope
 
 The Windows build produces 37 separate executables in upstream's `bin/` layout:

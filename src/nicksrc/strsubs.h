@@ -97,6 +97,10 @@ char *fgetstrap(char *buff, int maxlen, FILE *fff, int *ret)  ;
 char readtonl(FILE *fff) ; 
 int  filehash(char *name) ;
 char *mytemp (char *qqq) ; 
+/* Caller owns the returned string; only registered files are cleaned up. */
+char *reserve_temp(char *prefix);
+void release_temp(const char *path, int keep);
+void cleanup_temps(void);
 void randomname(char **ans) ;
 int getchromlist(char **list, char *bamname) ;
 int getreglist (char ***preglist, char *bamname)  ;

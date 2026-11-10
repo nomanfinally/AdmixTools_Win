@@ -389,7 +389,7 @@ finddupalt (char **sss, int n)
    ttt = strcmp(s1, s2)  ;
 //  printf("zzz %d %d %d %s %s\n", t1, t2, ttt, s1, s2) ;
     if (ttt == 0) { 
-    t = k ; 
+    t = t1 ;
     break ;
    }
   }

@@ -2928,85 +2928,14 @@ int usage (char *prog, int exval)
 };
 
 
-void mkfstats(char *parname)  
+void mkfstats(char *parname)
 {
- char sss[30032] ;
- char fsx[10000] ;
- char ppp[10000] ;
- char pops[10000] ;
- char tpar[10000] ;
- char fslog[10000] ;
-
- int pid ; 
- int k ; 
-
- FILE *fff ; 
-
- pid = getpid() ; 
- strcpy(fsx, mytemp("fsx")) ; 
- strcpy(ppp, mytemp("ppp")) ; 
- strcpy(pops, mytemp("pops")) ; 
- strcpy(tpar, mytemp("fstpar")) ; 
- strcpy(fslog, mytemp("fslog")) ; 
-// if (fstatslog != NULL) strcpy(fslog, fstatslog) ;
-
- printf("tmp: %s\n", fsx) ;
- fstatsname = strdup(fsx) ; 
-
- openit(ppp, &fff, "w") ; 
- sprintf(sss, "fgrep -v fstatsoutname: %s | fgrep -v poplistname: > %s", parname, tpar) ; 
-#ifdef _WIN32
- if (admix_filter_fstats(parname, tpar)) fatalx("cannot prepare qpfstats parameters\n");
-#else
- system(sss) ;
-#endif
- copyfs(tpar, fff) ; 
-
- fprintf(fff, "fstatsoutname: " ADMIX_PARAMETER_PATH "\n", fsx) ;
- if (graphname == NULL) fatalx("(mkfstats) no graphname!\n") ;
-/**
- sprintf(sss, "grepcol_silent 0 label < %s | xtractcol 2 > %s\n", graphname, pops) ; 
- system (sss) ; 
-*/ 
-
- writestrings(pops, eglist, numeg) ;
- 
-// printf("cmd1: %s\n", sss) ; 
- fprintf(fff, "poplistname: " ADMIX_PARAMETER_PATH "\n", pops) ;
- fclose(fff) ; 
-// sprintf(sss, "cat %s\n", ppp) ; 
-// system(sss) ; 
- sprintf(sss, "qpfstats -p %s > %s ", ppp, fslog) ; 
- printf("qpfstatscall:: %s\n", sss) ; 
- fflush(stdout) ;
-
-#ifdef _WIN32
- if (admix_run_qpfstats(ppp, fslog) != 0) fatalx("qpfstats failed\n");
-#else
- system(sss) ;
-#endif
- if (fstatslog != NULL) { 
-  sprintf(sss, "cp %s %s", fslog, fstatslog) ; 
-#ifdef _WIN32
-  if (admix_copy_file(fslog, fstatslog)) fatalx("cannot copy qpfstats output\n");
-#else
-  system(sss) ;
-#endif
- }
- // printf("exiting mkfstats\n") ; 
- if (fstatsoutname != NULL) { 
-  sprintf(sss, "cp %s %s", fsx, fstatsoutname) ; 
-#ifdef _WIN32
-  if (admix_copy_file(fsx, fstatsoutname)) fatalx("cannot copy qpfstats output\n");
-#else
-  system(sss) ;
-#endif
-  printf("fstats file: %s made\n", fstatsoutname) ;
-  fstatsname = strdup(fstatsoutname) ;
- } 
- remove(fslog) ;
- return  ; 
-
+  char *path;
+  if (graphname == NULL) fatalx("(mkfstats) no graphname!\n");
+  path = qpfstats_helper(parname, eglist, numeg, fstatsoutname, fstatslog, NO, 1);
+  if (path == NULL) fatalx("qpfstats failed\n");
+  if (fstatsoutname != NULL) { fstatsname = strdup(fstatsoutname); free(path); }
+  else fstatsname = path;
 }
 double graph2ff3(double *ff3, double *qmat, double *rhs) 
 // makes f basis from graph .  returns score 

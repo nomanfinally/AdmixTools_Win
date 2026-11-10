@@ -115,6 +115,7 @@ double *jmean;
 admix_long *wkprint;
 int *zprint ; 
 int numboot = 1000 ; 
+double effblocks = 0;
 
 
 char *fstatsname = NULL ; 
@@ -242,6 +243,7 @@ main (int argc, char **argv)
   setdump(coredump) ;
   if (seed==0) seed = seednum() ; 
   printf("seed: %d\n", seed) ;
+  SRAND((unsigned int) seed);
 
   if (doratio) { 
    ratcoords[0] = 0 ;
@@ -284,6 +286,11 @@ main (int argc, char **argv)
 
   if (nleft==0) fatalx("no pops in left!\n") ;
   if (nright==0) fatalx("no pops in right!\n") ;
+  if (nleft < 2 || nright < 2 || nleft > 31)
+    fatalx("qpfit requires 1..30 sources and at least two right populations\n");
+  if (doratio && nleft < 3) fatalx("doratio requires at least two sources\n");
+  if (numboot < 2)
+    fatalx("invalid bootstrap count for qpfit\n");
 
   if ((allsnps == YES) && (oldallsnpsmode == NO) && (fstatsname == NULL)) {
    if (mkfstats(parname) < 0) { 
@@ -372,6 +379,9 @@ main (int argc, char **argv)
 
   nr = nright - 1;
   nl = nleft - 1;
+  if (nl < 1 || nr < 1 || (int64_t)nl * nr > 46340 ||
+      (int64_t)2 * numboot * nl * nr > INT_MAX)
+    fatalx("invalid matrix or bootstrap dimensions for qpfit\n");
 
   ZALLOC (ktable, nleft * nright + 100, int);
   setktable(ktable, nl,  nr) ; 
@@ -430,15 +440,14 @@ main (int argc, char **argv)
  if (retkode < 0) return -1 ;
 
  printf("all OK!\n") ;  
- if (deletefstats && !keeptmp) remove(fstatsname);
- exit(0) ;
 
 
   ZALLOC (vfix, nl, int);
 
   for (x = rank; x <= maxrank; ++x) {
     f4pt = f4info[x];
-    f4pt->dofjack = y;
+    /* The cached header supplies the effective delete-block count. */
+    f4pt->dofjack = effblocks;
     doranktest (ymean, yvar, nl, nr, x, f4pt);
     if (x > 0) {
       f4pt2 = f4info[x - 1];
@@ -792,6 +801,7 @@ calcadmfix (double *ans, double *A, int n, int *vf)
   double *coeff, *rhs,  y, ytrace, *ctran, *prod, *fvals, *rr ;
   int t, baditer = 0, *vfix, nfix, k ;
 
+  if (n==1) { ans[0] = 1; return; }
   if (A == NULL) {
     vzero (ans, n);
     return;
@@ -857,6 +867,7 @@ calcadm (double *ans, double *A, int n)
   double *coeff, *rhs,  y, ytrace ;
   int t, baditer = 0 ;
 
+  if (n==1) { ans[0] = 1; return; }
   if (A == NULL) {
     vzero (ans, n);
     return;
@@ -1306,7 +1317,7 @@ calcevarboot(double *bootmean, double *bootvar, double *ymean, double *yvar, int
 
  ka = ratcoords[0] ;
  kb = ratcoords[1] ;
- if (kb>=0)  {        
+ if (doratio && kb>=0)  {
   for (k=0; k< 2*numboot; ++k) { 
    ya = tmean[k][0] ;
    yb = tmean[k][1] ;
@@ -1715,7 +1726,7 @@ void load4(int *x, int a, int b, int c, int d)
 
 void loadymv(double *ymean, double *yvar,  char *fstatsname, char **popllist, char **poprlist, int nleft, int nright) 
 {
-
+  char fbline[10000];
   char **eglist ; 
   int numeg, np, numfs, nh2 ; 
   double *ff3, *ff3var, *vest, *vvar ; 
@@ -1728,7 +1739,8 @@ void loadymv(double *ymean, double *yvar,  char *fstatsname, char **popllist, ch
   numeg = np = fstats2popl(fstatsname, eglist) ; 
   ZALLOC(ff3, np*np, double) ; 
   ZALLOC(ff3var, np*np*np*np, double) ; 
-  loadfstats(fstatsname, ff3, ff3var, eglist, numeg) ; 
+  loadfstatsx(fstatsname, ff3, ff3var, eglist, numeg, fbline);
+  effblocks = geteffblocks(fbline);
 
   nl = nleft -1 ; 
   nr = nright -1 ; 
@@ -1790,116 +1802,22 @@ void loadymv(double *ymean, double *yvar,  char *fstatsname, char **popllist, ch
 
 }
 
-int mkfstats(char *parname)  
+int mkfstats(char *parname)
 {
- char sss[256] ; 
- char fsx[10000] ;
- char ppp[10000] ;
- char pops[10000] ;
- char tpar[10000] ;
- char fslog[10000] ;
- char **poplist, **popx ; 
- int numeg ; 
-
- int pid ; 
- int k ; 
-
- int retkode, trap ;
-
- FILE *fff ; 
-
- numeg = nleft + nright ; 
- ZALLOC(poplist, numeg+1, char *) ; 
-
- popx = poplist ; 
-
- if (basepop != NULL) {  
-   poplist[0] = strdup(basepop) ;
-   ++popx ; 
-   ++numeg ;
- }
- 
- copystrings(poprlist, popx, nright) ;
- popx += nright ; 
- copystrings(popllist, popx, nleft) ;
-
- pid = getpid() ; 
- strcpy(fsx, mytemp("fsx")) ; 
- strcpy(ppp, mytemp("ppp")) ; 
- strcpy(pops, mytemp("pops")) ; 
- strcpy(tpar, mytemp("tpar")) ; 
- strcpy(fslog, mytemp("fslog")) ; 
- if (fstatslog != NULL) strcpy(fslog, fstatslog) ;
-
-/**
- strcpy(pops, "tjunk") ; 
- strcpy(ppp, "tppp") ; 
-*/
-
- printf("tmp: %s\n", fsx) ;
- fstatsname = strdup(fsx) ; 
- deletefstats = YES ;  
-
- openitntry(ppp, &fff, "w", 10) ; 
- sprintf(sss, "cat %s", ppp) ;
-// system(sss) ;
- sprintf(sss, "fgrep -v fstatsoutname: %s | fgrep -v poplistname: > %s", parname, tpar) ; 
-#ifdef _WIN32
- if (admix_filter_fstats(parname, tpar)) fatalx("cannot prepare qpfstats parameters\n");
-#else
- system(sss) ;
-#endif
-// printf("zz2 %s\n", sss) ; 
- fflush(stdout) ; 
- copyfs(tpar, fff) ; 
- fprintf(fff, "fstatsoutname: " ADMIX_PARAMETER_PATH "\n", fsx) ;
- writestrings(pops, poplist, numeg) ;
- 
- 
-// printf("cmd1: %s\n", sss) ; 
- fprintf(fff, "poplistname: " ADMIX_PARAMETER_PATH "\n", pops) ;
- fclose(fff) ; 
-
- sprintf(sss, "qpfstats -p %s > %s", ppp, fslog) ; 
-#ifdef _WIN32
- retkode = admix_run_qpfstats(ppp, fslog);
- if (retkode != 0) retkode = -1;
-#else
- retkode =  system(sss) ;
-#endif
- trap = openit_trap(fsx, &fff, "r") ;
-#ifdef _WIN32
- if (trap) fclose(fff);
-#else
- fclose(fff) ;
-#endif
- if (trap == NO) retkode = -88 ;
-//  printf("zz: %d\n", trap) ; 
-
- 
-//  printf("exiting mkfstats\n") ; 
- fflush(stdout) ;
- if ((fstatsoutname != NULL) && (retkode >= 0)) { 
-  sprintf(sss, "cp %s %s", fsx, fstatsoutname) ; 
-#ifdef _WIN32
-  if (admix_copy_file(fsx, fstatsoutname)) fatalx("cannot copy qpfstats output\n");
-#else
-  system(sss) ;
-#endif
-  printf("fstats file: %s made\n", fstatsoutname) ;
- } 
- if (retkode < 0) return -1 ;
- freeup(poplist, nleft + nright + 1) ;
-
- if (keeptmp == YES) return 1  ; 
-
- remove(ppp) ;
- remove(pops) ;
- remove(tpar) ; 
-
- if (fstatslog == NULL) remove(fslog) ;
- return 1 ; 
-
+  char **poplist, **popx, *path;
+  int npops = nleft + nright;
+  ZALLOC(poplist, npops + 1, char *);
+  popx = poplist;
+  if (basepop != NULL) { poplist[0] = strdup(basepop); ++popx; ++npops; }
+  copystrings(poprlist, popx, nright);
+  copystrings(popllist, popx + nright, nleft);
+  path = qpfstats_helper(parname, poplist, npops, fstatsoutname, fstatslog, keeptmp, 0);
+  freeup(poplist, npops);
+  free(poplist);
+  if (path == NULL) return -1;
+  fstatsname = path;
+  deletefstats = !keeptmp;
+  return 1;
 }
 double f4mean(int a, int b, int nl, int nr, double *mean, double *var, int *ktable)  
 

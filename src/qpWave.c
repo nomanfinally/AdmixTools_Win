@@ -882,116 +882,22 @@ void loadymv(double *ymean, double *yvar,  char *fstatsname, char **popllist, ch
 }
 
 
-int mkfstats(char *parname)  
+int mkfstats(char *parname)
 {
- char sss[530] ; 
- char fsx[10000] ;
- char ppp[10000] ;
- char pops[10000] ;
- char tpar[10000] ;
- char fslog[10000] ;
- char **poplist, **popx ; 
- int numeg ; 
-
- int pid ; 
- int k ; 
-
- int retkode, trap ;
-
- FILE *fff ; 
-
- numeg = nleft + nright ; 
- ZALLOC(poplist, numeg+1, char *) ; 
-
- popx = poplist ; 
-
- if (basepop != NULL) {  
-   poplist[0] = strdup(basepop) ;
-   ++popx ; 
-   ++numeg ;
- }
- 
- copystrings(poprlist, popx, nright) ;
- popx += nright ; 
- copystrings(popllist, popx, nleft) ;
-
- pid = getpid() ; 
- strcpy(fsx, mytemp("fsx")) ; 
- strcpy(ppp, mytemp("ppp")) ; 
- strcpy(pops, mytemp("pops")) ; 
- strcpy(tpar, mytemp("tpar")) ; 
- strcpy(fslog, mytemp("fslog")) ; 
- if (fstatslog != NULL) strcpy(fslog, fstatslog) ;
-
-/**
- strcpy(pops, "tjunk") ; 
- strcpy(ppp, "tppp") ; 
-*/
-
- printf("tmp: %s\n", fsx) ;
- fstatsname = strdup(fsx) ; 
- deletefstats = YES ;  
-
- openitntry(ppp, &fff, "w", 10) ; 
- sprintf(sss, "cat %s", ppp) ;
-// system(sss) ;
- sprintf(sss, "fgrep -v fstatsoutname: %s | fgrep -v poplistname: > %s", parname, tpar) ; 
-#ifdef _WIN32
- if (admix_filter_fstats(parname, tpar)) fatalx("cannot prepare qpfstats parameters\n");
-#else
- system(sss) ;
-#endif
-// printf("zz2 %s\n", sss) ; 
- fflush(stdout) ; 
- copyfs(tpar, fff) ; 
- fprintf(fff, "fstatsoutname: " ADMIX_PARAMETER_PATH "\n", fsx) ;
- writestrings(pops, poplist, numeg) ;
- 
- 
-// printf("cmd1: %s\n", sss) ; 
- fprintf(fff, "poplistname: " ADMIX_PARAMETER_PATH "\n", pops) ;
- fclose(fff) ; 
-
- sprintf(sss, "qpfstats -p %s > %s", ppp, fslog) ; 
-#ifdef _WIN32
- retkode = admix_run_qpfstats(ppp, fslog);
- if (retkode != 0) retkode = -1;
-#else
- retkode =  system(sss) ;
-#endif
- trap = openit_trap(fsx, &fff, "r") ;
-#ifdef _WIN32
- if (trap) fclose(fff);
-#else
- fclose(fff) ;
-#endif
- if (trap == NO) retkode = -88 ;
-//  printf("zz: %d\n", trap) ; 
-
- 
-//  printf("exiting mkfstats\n") ; 
- fflush(stdout) ;
- if ((fstatsoutname != NULL) && (retkode >= 0)) { 
-  sprintf(sss, "cp %s %s", fsx, fstatsoutname) ; 
-#ifdef _WIN32
-  if (admix_copy_file(fsx, fstatsoutname)) fatalx("cannot copy qpfstats output\n");
-#else
-  system(sss) ;
-#endif
-  printf("fstats file: %s made\n", fstatsoutname) ;
- } 
- if (retkode < 0) return -1 ;
- freeup(poplist, nleft + nright + 1) ;
-
- if (keeptmp == YES) return 1  ; 
-
- remove(ppp) ;
- remove(pops) ;
- remove(tpar) ; 
-
- if (fstatslog == NULL) remove(fslog) ;
- return 1 ; 
-
+  char **poplist, **popx, *path;
+  int npops = nleft + nright;
+  ZALLOC(poplist, npops + 1, char *);
+  popx = poplist;
+  if (basepop != NULL) { poplist[0] = strdup(basepop); ++popx; ++npops; }
+  copystrings(poprlist, popx, nright);
+  copystrings(popllist, popx + nright, nleft);
+  path = qpfstats_helper(parname, poplist, npops, fstatsoutname, fstatslog, keeptmp, 0);
+  freeup(poplist, npops);
+  free(poplist);
+  if (path == NULL) return -1;
+  fstatsname = path;
+  deletefstats = !keeptmp;
+  return 1;
 }
 double f4mean(int a, int b, int nl, int nr, double *mean, double *var, int *ktable)  
 

@@ -515,7 +515,10 @@
       "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
       "sha256": {
         "src/nicksrc/xsearch.h": "6cbbb92e854ec12bd56df2645ab4d9649ac857cf16a4e45457ecff3df258d820"
-      }
+      },
+      "partial_audit_evidence": [
+        "T02 corrections: finddupalt returned-index contract regression; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged"
+      ]
     },
     {
       "id": "H31",
@@ -687,7 +690,10 @@
       "hard_check": "pending",
       "sha256": {
         "src/build_windows.py": "94efc6da2655da98856f874a8677fa41e361b034efaf2e5079e367d6d7ab258d"
-      }
+      },
+      "partial_audit_evidence": [
+        "F001 install order corrected and bytes checked; see tests/windows/audits/T01_qpAdm.corrections.md; full build-control audit pending"
+      ]
     },
     {
       "id": "I04",
@@ -886,7 +892,8 @@
       },
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
-        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
+        "T02 corrections: Windows native helper execution and temporary ownership exercised through callers; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged"
       ]
     },
     {
@@ -943,7 +950,8 @@
       },
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
-        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
+        "T02 corrections: exclusive temporary reservation, fatal/normal cleanup and keep behavior; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged"
       ]
     },
     {
@@ -1224,7 +1232,8 @@
         "src/nicksrc/xsearch.c": "41461b26705304c4c43c46a0d0c974bf3ce3713cde2e2a758932c6f945ecb6ae"
       },
       "partial_audit_evidence": [
-        "T01: see report for scope; this does not close this item"
+        "T01: see report for scope; this does not close this item",
+        "T02 corrections: finddupalt original-index diagnostic correction; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged"
       ]
     },
     {
@@ -1678,7 +1687,8 @@
       },
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
-        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
+        "T02 corrections: shared qpfstats helper preparation/execution/copy/ownership and inactive-key filtering; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged"
       ]
     },
     {
@@ -2412,8 +2422,8 @@
         "src/fxtract"
       ],
       "hard_check": "pending",
-      "installed_location": "bin/fxtract (currently overwritten; F001)",
-      "prior_evidence": "no dedicated parity fixture recorded",
+      "installed_location": "bin/fxtract",
+      "prior_evidence": "F001 installation order corrected; installed bytes match src/fxtract; interpreter workflow hard audit pending",
       "role": "Interpreter helper",
       "sha256": {
         "src/fxtract": "0aaece665dd08afa57ff57f158ec415b404bea3f74b5793e5546910c2baa1a16"
@@ -2710,8 +2720,19 @@
       "audit_report": "tests/windows/audits/T01_qpAdm.md",
       "audit_evidence": "tests/windows/audits/T01_qpAdm.evidence.json",
       "audited_sha256": {
-        "src/qpAdm.c": "83be8250fdd4b41516fd122f45f978febcaae35694fb2b8ae8364f38b553aed7"
-      }
+        "src/qpAdm.c": "4d5ba76dbf53e0a75071ce70de8923f30faae5d07414b7d47c8978c0fd5abc87"
+      },
+      "partial_audit_evidence": [
+        "T02 corrections: automatic helper success/failure, output/log, Unicode and long-path regressions; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged"
+      ],
+      "correction_report": "tests/windows/audits/T01_qpAdm.corrections.md",
+      "correction_evidence": "tests/windows/audits/T01_qpAdm.corrections.evidence.json",
+      "corrected_findings": [
+        "F024",
+        "F025",
+        "F043"
+      ],
+      "open_or_retained_findings": []
     },
     {
       "id": "T02",
@@ -2720,7 +2741,7 @@
       "paths": [
         "src/qpfstats.c"
       ],
-      "hard_check": "reviewed with open upstream defects",
+      "hard_check": "passed with limitations",
       "role": "F-statistic precomputation and helper process",
       "build": "built",
       "blocked_reason": null,
@@ -2763,14 +2784,18 @@
       "audit_report": "tests/windows/audits/T02_qpfstats.md",
       "audit_evidence": "tests/windows/audits/T02_qpfstats.evidence.json",
       "audited_sha256": {
-        "src/qpfstats.c": "7c52621012819258e4ed39776c02a8428eecbf0a4de938811d1f44fc3d572c48"
+        "src/qpfstats.c": "7d7672ae40e3e1a469405a9408f1f0c9ad92b64b08c57629677458ee8eb649ce"
       },
-      "open_or_retained_findings": [
+      "open_or_retained_findings": [],
+      "audit_corrections": "tests/windows/audits/T02_qpfstats.corrections.md",
+      "audit_corrections_evidence": "tests/windows/audits/T02_qpfstats.corrections.evidence.json",
+      "corrected_findings": [
         "F034",
         "F035",
         "F039",
         "F040",
-        "F041"
+        "F041",
+        "F042"
       ]
     },
     {
@@ -2821,7 +2846,8 @@
         "src/qpWave.c": "ee11a2951648ded044117ec46a2ed32b69f575c475b1f517e6364bef15f09baa"
       },
       "partial_audit_evidence": [
-        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
+        "T02 corrections: automatic helper success/failure, output/log and keep behavior; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged"
       ]
     },
     {
@@ -3038,7 +3064,8 @@
         "src/qpGraph.c": "43854e08fcfd28bf800bab84d3c2d7db24a1b781224ca09212f60d35d3ee30b3"
       },
       "partial_audit_evidence": [
-        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
+        "T02 corrections: automatic helper success/failure and explicit output/log cleanup; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged"
       ]
     },
     {
@@ -3517,7 +3544,8 @@
         "src/qpfit.c": "f2a9ce3ac01fb5c053f1b7340ea6640c89fd12e0dbab2a8820c62e3f3baf3816"
       },
       "partial_audit_evidence": [
-        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
+        "T02 corrections: restored cached/automatic fitting, single/three-source, ratio, hires, dimensions and helper lifecycle; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged"
       ]
     },
     {
@@ -4333,7 +4361,7 @@
       "sha256": {
         "tests/windows/qpadm_probe.c": "ea8e28580715f49cb0c884c3b4870fa380d47be44c823c7c35aca3f4a468f42f"
       },
-      "prior_evidence": "Exercised under T01; independent audit remains pending"
+      "prior_evidence": "T01 hash/block/ownership and PROBE_SAMPLER rejection/reset/allocation boundaries; independent audit pending"
     },
     {
       "id": "Q09",
@@ -4346,7 +4374,10 @@
       "sha256": {
         "tests/windows/audit_qpfstats.py": "1131958852f08f68543083e20b400a686b04328d114d24307109c2ed3668764b"
       },
-      "prior_evidence": "Exercised under T02; independent audit remains pending"
+      "prior_evidence": "Exercised under T02 corrections; independent audit remains pending; see tests/windows/audits/T02_qpfstats.corrections.md",
+      "audited_sha256": {
+        "tests/windows/audit_qpfstats.py": "be3bd3eb16a08316a2158901282f299de1e54e126de7dc92c832f62ac75298cb"
+      }
     },
     {
       "id": "Q10",
@@ -4359,13 +4390,16 @@
       "sha256": {
         "tests/windows/qpfstats_probe.c": "f79e02afbc654ef32c44b09789caf74b734d39aa3f16bb83549609f8431c5139"
       },
-      "prior_evidence": "Exercised under T02; independent audit remains pending"
+      "prior_evidence": "Exercised under T02 corrections; independent audit remains pending; see tests/windows/audits/T02_qpfstats.corrections.md",
+      "audited_sha256": {
+        "tests/windows/qpfstats_probe.c": "48fe900577f9d52a7e9b16d3e57785281737b167418a0f2b243739a1287d96ff"
+      }
     }
   ],
   "last_audit_date": "2026-11-10",
-  "last_audit_working_head": "e99074c8645590168f9552131854a146618d467d",
+  "last_audit_working_head": "ff2029dd4e961696b2973385f208f54c4f3f7802",
   "active_audit": null,
-  "next_queued_item": "T02",
+  "next_queued_item": "T03",
   "completed_hard_audits": [
     {
       "id": "T01",
@@ -4373,7 +4407,7 @@
     },
     {
       "id": "T02",
-      "status": "reviewed with open upstream defects"
+      "status": "passed with limitations"
     }
   ]
 }

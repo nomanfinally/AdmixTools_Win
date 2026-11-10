@@ -1,4 +1,57 @@
-/* T01 shared hash and Windows temporary-file ownership regression probe. */
+/* T01 shared hash, sampler bounds and temporary-file ownership probes. */
+#ifdef PROBE_SAMPLER
+/* Compile the real sampler; replace only proposal generation to force its
+ * otherwise rare rejection boundary deterministically. */
+#define main qpadm_program_main
+#define genmultgauss probe_genmultgauss
+#include "../../src/qpAdm.c"
+#undef genmultgauss
+#undef main
+
+static int draws, accept_after = INT_MAX, periodic_accept;
+
+void probe_genmultgauss(double *rvec, int num, int n, double *covar)
+{
+    int i;
+    ++draws;
+    if (draws > (periodic_accept ? 6 : maxreject)) fatalx("probe exceeded rejection bound\n");
+    if (draws == maxreject) printf("proposal draws: %d\n", draws);
+    for (i = 0; i < num * n; ++i)
+        rvec[i] = (periodic_accept ? draws % 3 == 0 : draws >= accept_after) ? 0.0 : -2.0;
+}
+
+static void report_draws(void) { printf("proposal draws: %d\n", draws); }
+
+int main(int argc, char **argv)
+{
+    double coeff[] = {.5, .5}, var[] = {.01, 0, 0, .01};
+    double mean[4] = {0}, covariance[16] = {0}, result[2], resultvar[4];
+    int i, trials = 1;
+    if (argc != 2) return 2;
+    for (i = 0; i < 4; ++i) covariance[i * 4 + i] = 1;
+    positive_coeffs = YES;
+    atexit(report_draws);
+    if (!strcmp(argv[1], "default-limit")) {
+        if (maxreject != 1000000) return 3;
+    } else {
+        maxreject = 3;
+        if (!strcmp(argv[1], "boundary")) accept_after = 3;
+        else if (!strcmp(argv[1], "reset")) {
+            periodic_accept = 1;
+            trials = 2;
+        }
+        else if (!strcmp(argv[1], "disabled")) positive_coeffs = NO;
+        else if (!strcmp(argv[1], "overflow")) {
+            trials = INT_MAX;
+            printf("proposal draws: 0\n");
+        }
+        else if (strcmp(argv[1], "reject")) return 4;
+    }
+    mcest(result, resultvar, coeff, var, mean, covariance, 2, 2, trials);
+    puts("sampler completed");
+    return 0;
+}
+#else
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -91,3 +144,4 @@ int main(int argc, char **argv)
 #endif
     return 9;
 }
+#endif

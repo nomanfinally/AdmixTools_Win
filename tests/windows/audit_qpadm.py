@@ -133,6 +133,11 @@ def run(binary_dir, output, selection):
         'cached-new': 'fstatsname: output.fstats\nnewmode: YES\nmctrials: 200\nnumboot: 50\n',
         'bayes': 'newmode: YES\nmctrials: 200\n',
         'bayes-positive': 'newmode: YES\npositive_coeffs: YES\nmctrials: 200\n',
+        'bayes-reject-limit': 'newmode: YES\npositive_coeffs: YES\nmctrials: 200\nmaxreject: 1000001\n',
+        'reject-zero': 'maxreject: 0\n', 'reject-negative': 'maxreject: -1\n',
+        'inactive-output': 'output: must-not-create.txt\n',
+        'inactive-outputname': 'outputname: must-not-create.txt\n',
+        'inactive-maxrank': 'maxrank: 1\n',
         'bayes-cached': 'fstatsname: signal.fstats\nnewmode: YES\nmctrials: 200\nnumboot: 50\n',
         'bayes-zero': 'newmode: YES\nmctrials: 0\n',
         'cached-ratio': 'fstatsname: output.fstats\ndoratio: YES\nnumboot: 50\n',
@@ -197,6 +202,7 @@ def run(binary_dir, output, selection):
             source = f'plink.{kind}' + ('.gz' if '-gzip' in name else '')
             text = text.replace('input.geno', source).replace('input.snp', f'plink-{kind}.pedsnp').replace('input.ind', f'plink-{kind}.pedind')
         if name.startswith('bayes'): text = text.replace('input.geno', 'signal.geno')
+        if name.startswith(('inactive-', 'reject-')): expected = 'failure'
         if name.startswith('xchrom'):
             snps = (work / 'input.snp').read_text().splitlines()
             (work / 'input.snp').write_text('\n'.join(
@@ -321,6 +327,8 @@ def run(binary_dir, output, selection):
 
     for name, arguments in [('cli-help', ['-h']), ('cli-noargs', []),
                             ('cli-version', ['-v']), ('cli-invalid', ['-?']),
+                            ('cli-version-params', ['-v', '-p', 'absent.par']),
+                            ('cli-params-version', ['-p', 'absent.par', '-v']),
                             ('cli-missing-argument', ['-p']),
                             ('cli-details', ['-d', '-p', 'par.qpAdm']),
                             ('cli-verbose', ['-V', '-p', 'par.qpAdm'])]:
@@ -395,8 +403,23 @@ def verify(directory):
                 (name.startswith('plink-') and not name.endswith('-auto'))):
             science = normalized(stdout, manifest['binary_dir']).split('\nleft pops:\n', 1)[-1]
             if science != baseline_science: failures.append(name + ': format changes scientific output')
-        if name in ('bayes', 'bayes-positive', 'bayes-cached') and b'mcest (Bayesian):' not in stdout:
+        if name in ('bayes', 'bayes-positive', 'bayes-cached', 'bayes-reject-limit') and b'mcest (Bayesian):' not in stdout:
             failures.append(name + ': sampler was not exercised')
+        if name.startswith('cli-version') or name == 'cli-params-version':
+            if not re.fullmatch(rb'version: 2206(?:\.w)?\r?\n', stdout) or stderr:
+                failures.append(name + ': version must exit without analysis')
+        if name == 'cli-help' and (b'-d          ... toggle details' not in stderr or
+                                   stderr.count(b'-V          ...') != 1):
+            failures.append(name + ': help switches')
+        if name.startswith('inactive-'):
+            if b'not supported by qpAdm' not in stderr:
+                failures.append(name + ': inactive option diagnostic')
+            if (directory / ('work ' + name) / 'must-not-create.txt').exists():
+                failures.append(name + ': inactive output created a file')
+        if name.startswith('reject-') and b'maxreject must be positive' not in stderr:
+            failures.append(name + ': invalid rejection limit diagnostic')
+        if name == 'packed-truncated' and b'unexpected end of file' not in stderr:
+            failures.append(name + ': truncated input diagnostic')
         if name in ('single-source', 'single-auto') and not re.search(rb'^summ:.* 1\.000 ', stdout, re.M):
             failures.append(name + ': single-source coefficient')
         temps = [path for path in case['files'] if re.match(

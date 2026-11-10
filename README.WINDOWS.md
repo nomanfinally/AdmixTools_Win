@@ -16,12 +16,13 @@ The per-tool hard compatibility audit is underway. The
 Windows fixes, upstream bug fixes and remaining limits. This is a development
 source publication, with no release or MSI installer yet.
 
-The [T02 qpfstats report](tests/windows/audits/T02_qpfstats.md) records direct
-modes, formats, helper/consumer checks and further repairs. T02 is **reviewed
-with open upstream defects**, not passed: qpfstats currently ignores its seed
-and does not apply `popsizelimit` to the analysis despite changing displayed
-sample counts. Do not rely on those settings to subsample data. Legacy qpfit
-also exits before fitting; qpGraph helper cleanup remains open.
+The [T02 qpfstats report](tests/windows/audits/T02_qpfstats.md) and its
+[corrections](tests/windows/audits/T02_qpfstats.corrections.md) record direct
+modes, formats and helper/consumer checks. T02 has **passed with limitations**:
+population limits and seeds now affect the selected analysis, qpfit reaches its
+existing fitting code, and shared helper files are cleaned up. These explicit
+upstream bug corrections intentionally change broken behavior; comparisons use
+both a pristine reference and a separately corrected Linux build.
 
 For the sequential per-tool/module bug and compatibility review, see
 [COMPATIBILITY_AUDIT.md](COMPATIBILITY_AUDIT.md). Existing fixture coverage does
@@ -264,6 +265,16 @@ and invalid input/output handling. Read the report before comparing such cases
 with an unpatched Linux binary. Ordinary supported fits retain upstream's
 calculations and printed precision; optimization work remains deferred.
 
+The [T01 follow-up corrections](tests/windows/audits/T01_qpAdm.corrections.md)
+make `qpAdm -v` print the version and exit. `-V` enables verbose mode and `-d`
+enables details. The inactive `output:`, `outputname:` and `maxrank:` parameters
+now fail with guidance; save results through stdout redirection or `Tee-Object`.
+For `newmode: YES` with `positive_coeffs: YES`, `maxreject:` limits consecutive
+rejected proposals per sample (default 1,000,000; must be positive). Reaching it
+fails the run explicitly without a partial Bayesian estimate. Always check
+`$LASTEXITCODE`; inspect the model before increasing this limit. Accepted samples
+retain the original calculations and RNG sequence.
+
 For standalone f-statistic precomputation, use the upstream executable directly:
 
 ```powershell
@@ -274,9 +285,14 @@ $LASTEXITCODE
 Set `poplistname:` to a file with one population per line (at least two); the
 first population is the basis. Set `fstatsoutname:` for the generated statistics,
 and specify `allsnps:`, `inbreed:` and `scale:` explicitly as recommended in
-`README.qpfstats`. `output:` does not redirect qpfstats results. Version is
-`1101.w` for this baseline. The T02 report explains deliberate corrections to
-broken diagnostics/error cases and the remaining upstream scientific limitations.
+`README.qpfstats`. `output:` is unsupported; use `fstatsoutname:` for the
+statistics and PowerShell redirection for terminal text. `popsizelimit:` now
+limits actual analysis individuals; `seed:` controls its selection. Seed 0 uses
+the default sequence (equivalent to 1); a parameter-file seed overrides `-s`.
+Individual IDs must be unique and `blgsize:` must be finite and positive.
+Version remains `1101.w`. See the [T02 corrections](tests/windows/audits/T02_qpfstats.corrections.md)
+for the known inactive keys and switches now rejected explicitly, intentional
+differences from pristine upstream, and remaining validation limits.
 
 ## 6. Add the suite to your user PATH
 
