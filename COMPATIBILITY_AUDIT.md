@@ -30,12 +30,14 @@ New items get new IDs; do not renumber the existing queue.
 | Shared C modules linked directly or available through libnick | 28 |
 | Additional C programs with main(), outside supported build | 5 |
 | Additional C modules outside supported links | 7 |
-| Validation runners/probes | 13 |
+| Validation runners/probes | 23 |
 
-Total: **186 audit items**, covering **78 C sources and 40 headers** plus scripts and build/test controls.
+Total: **196 audit items**, covering **78 production C sources and 40 headers** plus scripts and build/test controls.
 I10 and Q07–Q08 were appended during T01; original snapshot hashes remain historical.
 Q09–Q10 were appended during T02; snapshot hashes remain historical.
 Q11–Q13 were appended during T03 and its corrections; snapshot hashes remain historical.
+Q14–Q22 were appended during T04; original snapshot hashes remain historical.
+Q23 was appended during the requested T04 corrections.
 
 Data files, parameter templates (including `parsimp.templ` and
 `parsimp2.templ`), reference logs, manuals and generated binaries are fixtures or
@@ -58,9 +60,30 @@ sooner; record that dependency and resume the current tool afterward. T38 is
 blocked pending an established upstream algorithm/reference, not permission to
 guess the intended statistical expressions.
 
-Current active hard audit: **none**. Next queued item: **T04 qpDstat**.
-Completed hard reviews: **3**: T01, T02 and T03 **passed with limitations**.
+Current active hard audit: **T04 qpDstat — recorded defects corrected; independent coverage incomplete; not passed**.
+Hard tool reviews recorded: **4**: T01, T02 and T03 **passed with limitations**;
+T04 remains the coverage-closure item before T05.
 Clean/unqualified passes: **0**. This is not full-suite certification.
+
+[T04 qpDstat report](tests/windows/audits/T04_qpDstat.md) records 146-case
+Windows/pristine-Linux/Linux-port/sanitizer matrices, independent allele-count
+and jackknife oracles, 24 quartet permutations, focused haploid/tree and input
+checks, native PowerShell and shared-consumer probes. All 87 jointly successful
+full-matrix cases emitting scientific rows matched current Linux at printed precision
+before repairs. The [T04 corrections](tests/windows/audits/T04_qpDstat.corrections.md)
+close all 23 recorded findings and additional parser finding F073 in their tested
+scopes. Corrected Windows/Linux/ASan matrices have 147 cases each, and all 75
+jointly successful cases emitting scientific rows match at printed precision.
+The 91 Windows / 89 Linux module cases and 59 shared qpWave regressions on each
+platform pass their behavior checks. Original source/evidence hashes and the
+earlier F024/F044/F045/F048/F050/F051 repair scopes remain historical.
+
+The 18 independent module reports and their
+[1,096-function inventory](tests/windows/audits/T04_modules.inventory.json)
+record actual evidence and remaining contract/coverage gaps. Their M/H items
+remain pending; these are not complete independent module audits. The original
+T04 delivery changed no production behavior; the subsequently requested repairs
+identify and test their intentional upstream differences separately.
 
 [T03 qpWave corrections](tests/windows/audits/T03_qpWave.corrections.md) close
 F045–F054 and newly found header-boundary defect F055. Its 145-case Windows,
@@ -100,7 +123,7 @@ and state its limits; it does not close related modules automatically.
 | [x] | T01 | `qpAdm` | Admixture model fitting | Default | [Passed with limitations](tests/windows/audits/T01_qpAdm.md) |
 | [x] | T02 | `qpfstats` | F-statistic precomputation and helper process | Default | [Passed with limitations](tests/windows/audits/T02_qpfstats.corrections.md) |
 | [x] | T03 | `qpWave` | Rank/ancestry-stream tests | Default | [Passed with limitations](tests/windows/audits/T03_qpWave.corrections.md) |
-| [ ] | T04 | `qpDstat` | D/f4 statistics | Default | Fixture |
+| [ ] | T04 | `qpDstat` | D/f4 statistics | Default | [Defects corrected; coverage incomplete](tests/windows/audits/T04_qpDstat.corrections.md) |
 | [ ] | T05 | `qp3Pop` | Three-population statistics | Default | Fixture |
 | [ ] | T06 | `qpF4ratio` | F4-ratio estimation | Default | Fixture |
 | [ ] | T07 | `qp4diff` | Differences between four-population statistics | Default | Fixture |
@@ -359,6 +382,16 @@ Audit the oracle and test runner too: expected failures, missing cases/files, ti
 | [ ] | Q11 | `audit_qpwave.py` | `tests/windows/audit_qpwave.py`; qpWave modes, exact comparisons, malformed inputs and physical-subset oracles |
 | [ ] | Q12 | `qpwave_map_probe.c` | `tests/windows/qpwave_map_probe.c`; real failed-mapping propagation under a process-local Linux address-space limit |
 | [ ] | Q13 | `qpwave_probe.c` | `tests/windows/qpwave_probe.c`; actual qpWave dimension guard at last-supported/first-overflowing boundaries |
+| [ ] | Q14 | `audit_qpdstat.py` | `tests/windows/audit_qpdstat.py`; strict mode/input comparisons and independent allele/jackknife oracles |
+| [ ] | Q15 | `audit_t04_modules.py` | `tests/windows/audit_t04_modules.py`; direct module probes and targeted sibling regressions |
+| [ ] | Q16 | `build_t04_audit.py` | `tests/windows/build_t04_audit.py`; isolated Windows/pristine/port/sanitizer/coverage builds |
+| [ ] | Q17 | `build_t04_probes.py` | `tests/windows/build_t04_probes.py`; production-function probe links |
+| [ ] | Q18 | `inventory_t04_modules.py` | `tests/windows/inventory_t04_modules.py`; compiler-derived definitions, headers and warnings |
+| [ ] | Q19 | `qpdstat_module_probe.c` | `tests/windows/qpdstat_module_probe.c`; bounded API/lifetime/dimension probes |
+| [ ] | Q20 | `t04_argv_child.c` | `tests/windows/t04_argv_child.c`; native CRT argument-byte oracle |
+| [ ] | Q21 | `t04_native_checks.ps1` | `tests/windows/t04_native_checks.ps1`; direct PowerShell/redirection/Tee/gzip path checks |
+| [ ] | Q22 | `collect_t04_evidence.py` | `tests/windows/collect_t04_evidence.py`; retained-run summaries, sparse archive and independent module reports |
+| [ ] | Q23 | `verify_t04_repairs.py` | `tests/windows/verify_t04_repairs.py`; repair verifiers, exact comparisons, source hashes and scoped closure evidence |
 
 ## Hard-check procedure for each item
 
@@ -431,6 +464,12 @@ Keep a completed-with-open-limitations state distinct from a clean pass.
 | F053 | T03; M01/M11 | Fixed tested Windows gzip diagnostics | Header/EOF/CRC/length failure text matches corrected Linux in six cases; raw OS exit codes remain documented. | See [T03 corrections](tests/windows/audits/T03_qpWave.corrections.md); independent modules remain pending. |
 | F054 | T03; M13; mapped callers | Fixed upstream mapping failure propagation | Close/reject failed maps before returning an object; real Linux and injected Windows/Linux failures pass. | See [T03 corrections](tests/windows/audits/T03_qpWave.corrections.md); independent modules remain pending. |
 | F055 | T03; M17; fstats header parsing | Fixed upstream token-boundary read | Require a following token after basepop; malformed bare-base headers now fail explicitly. | See [T03 corrections](tests/windows/audits/T03_qpWave.corrections.md). |
+| F024/F044/F045/F048/F050/F051, T04 occurrences | T04 and related M/H items | Corrected in reproduced T04 scopes | Transposed EOF/CLI diagnostics, seeded sampling, setting checks, duplicate IDs and truthful output/version controls. | [T04 corrections](tests/windows/audits/T04_qpDstat.corrections.md). |
+| F056–F060 | T04; M17/M18 | Corrected inherited memory/scientific defects | Local tree indices, banker/list bounds, bounded Fourier lags and actual jackknife SD. | [T04 corrections and numerical oracles](tests/windows/audits/T04_qpDstat.corrections.md). |
+| F061–F069 | M03/M06/M07/M12/M18/M20; affected callers | Corrected reproduced module defects | Checked matrix dimensions/header/I/O/lifetime, defined hash arithmetic, bounded singular diagnostics, list/median cleanup and CRLF macros. | [T04 corrections](tests/windows/audits/T04_qpDstat.corrections.md); independent module reports remain incomplete. |
+| F070 | T22 qpDpart; targeted caller regression | Corrected borrowed-row ownership | patternscore retains its caller's colprobs row; multiple quartets pass ASan and native checks. | [T04 corrections](tests/windows/audits/T04_qpDstat.corrections.md); not a full T22 audit. |
+| F071–F072 | M11/T04/M20 | Corrected reproduced lifecycle/haploid-tree defects | Owned Unix gzip cleanup and explicit rejection of undefined single-allele tree corrections. | [T04 corrections](tests/windows/audits/T04_qpDstat.corrections.md). |
+| F073 | M03; numeric parameter callers | Corrected inherited partial numeric conversion | Reject malformed/out-of-range scalar/vector integer and real tokens; retain caller-specific finite-domain checks. | [T04 corrections](tests/windows/audits/T04_qpDstat.corrections.md); valid boundaries and targeted sibling consumers pass. |
 
 F001 evidence before correction (historical):
 

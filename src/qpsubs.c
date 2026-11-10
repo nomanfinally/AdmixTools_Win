@@ -5287,6 +5287,9 @@ void weightjackfourier(double *est, double *sig, double mean, double *kmean, dou
   
   double pi, tmean;
 
+  if (g < 2 || g > INT_MAX / 2)
+    fatalx("Fourier jackknife requires at least two blocks and representable dimensions\n");
+
   pi = 2.0*acos(0.0)  ;  
 
   yg = (double) g ; 
@@ -5333,8 +5336,9 @@ void weightjackfourier(double *est, double *sig, double mean, double *kmean, dou
   rho = y3 ; 
   printf("corr: %d %12.6f %12.6f %12.6f\n", 1, y1, y2, y3) ; 
   for (k=2; k<=10; ++k) { 
-   l = g-k+2 ; 
-   if (l <= 0) break ; 
+   /* jst/wk/wk2 contain g values and the first periodic endpoint. */
+   l = g-k+1 ;
+   if (l < 2) break ;
    y1 = corr(jst, jst+k, l) ; 
    y2 = corr(wk, wk+k, l) ; 
    y3 = corr(wk2, wk2+k, l) ; 
@@ -5355,6 +5359,8 @@ void weightjackfourier(double *est, double *sig, double mean, double *kmean, dou
      free(jp);
      free(wt);
      free(wk);
+     free(wt2);
+     free(wk2);
      free(qq);
      free(jmean) ; 
       return ; 
@@ -5363,6 +5369,8 @@ void weightjackfourier(double *est, double *sig, double mean, double *kmean, dou
   for(k=0;k<g;k++)
     {
       y = 1 + 2*rho*cos((2.0*pi*k)/yg);
+      if (!isfinite(y) || y <= 0)
+        fatalx("Fourier jackknife correlation does not define a positive spectrum\n");
       d[k] = 1.0/sqrt(y) ;
     }
 
@@ -5372,7 +5380,7 @@ void weightjackfourier(double *est, double *sig, double mean, double *kmean, dou
     {
       for(k=0;k<g;k++)
 	{
-          y = (double) (k*i) ; 
+          y = (double) k * (double) i ;
 	  c[i] += d[k]*cos((2.0*pi*y)/yg); 
 	}
       c[i] = c[i]/yg;
@@ -5485,6 +5493,8 @@ void weightjackfourier(double *est, double *sig, double mean, double *kmean, dou
   free(c);
   free(jp);
   free(wt);
+  free(wt2);
+  free(wk2);
   free(jmean) ; 
 	     
 }

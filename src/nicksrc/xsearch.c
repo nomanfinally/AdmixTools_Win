@@ -244,7 +244,11 @@ xhash2 (int x)
   if (x == xmax)
     return 0;
 
-  t = x * 11;
+  /* Preserve the historical 32-bit wrapping product without signed UB. */
+  {
+    uint32_t bits = (uint32_t)x * UINT32_C(11);
+    memcpy(&t, &bits, sizeof(t));
+  }
   return t % xmax;
 
 }
@@ -441,7 +445,7 @@ admix_long xlhash (admix_long x)
   b1 = w >> 61 ; 
   a2 = modinv(a1, bigp) ; 
   b2 = (a2 >> 7) & 7 ; 
-  w  = a2 << 3 ; 
+  w  = (admix_long) ((uint64_t) a2 << 3) ;
   b2 = b2 ^ b1 ; 
   w  = w ^ b2 ; 
   w ^= addpat[k] ; 

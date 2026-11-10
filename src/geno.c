@@ -1,6 +1,9 @@
 #include <admix_types.h>
 #include <assert.h>
 #include <fcntl.h>
+#include <errno.h>
+#include <inttypes.h>
+#include <limits.h>
 #include <math.h>
 #include <stddef.h>
 #include <stdio.h>
@@ -18,7 +21,29 @@
 
 // each entry is 2 bits
 size_t padded_bytes_needed(size_t n){
-	return (size_t) ceil(n/4.0);
+	return n / 4 + (n % 4 != 0);
+}
+
+/* The on-disk header remains exactly 48 bytes. Reject dimensions that cannot
+ * be represented there, addressed, or multiplied before allocating/mapping. */
+static int valid_dimensions(size_t samples, size_t snps, bool transpose,
+                            unsigned int ihash, unsigned int shash){
+	size_t columns = transpose ? snps : samples;
+	size_t rows = transpose ? samples : snps;
+	size_t bytes = padded_bytes_needed(columns);
+	if (!transpose && bytes < GENO_HEADER_SIZE) bytes = GENO_HEADER_SIZE;
+	if (!samples || !snps || bytes > SIZE_MAX / 4 || rows > PTRDIFF_MAX / bytes)
+		return 0;
+	return snprintf(NULL, 0, "%s %7zu %7zu %x %x", transpose ? "TGENO" : "GENO",
+	                samples, snps, ihash, shash) < GENO_HEADER_SIZE;
+}
+
+static int parse_unsigned(const char *text, int base, uintmax_t maximum, uintmax_t *value){
+	char *end;
+	if (!*text || *text == '-' || *text == '+') return 0;
+	errno = 0;
+	*value = strtoumax(text, &end, base);
+	return errno != ERANGE && *end == '\0' && *value <= maximum;
 }
 
 void genotype_matrix_fail( const char * message){
@@ -43,6 +68,9 @@ void genotype_matrix_initialize(genotype_matrix *this){
 }
 
 void genotype_matrix_setup_dimensions(genotype_matrix *this, size_t num_samples, size_t num_snps, bool transpose){
+	if (!valid_dimensions(num_samples, num_snps, transpose,
+	                      this->individual_file_hash, this->snp_file_hash))
+		genotype_matrix_fail("invalid dimensions");
 	this->transpose = transpose;
 	if(this->transpose){
 		this->num_rows = num_samples;
@@ -64,13 +92,13 @@ void genotype_matrix_allocate(genotype_matrix *this, size_t num_samples, size_t 
 
 	size_t size = genotype_matrix_byte_size(this);
 	this->genotypes = (unsigned char *) malloc(size);
+	if (this->genotypes == NULL) genotype_matrix_fail("allocation failure");
 	// missing data is all 1's
 	memset(this->genotypes, 0xFF, size);
 	// Nick writes unused end-of-row padding to 0. We replicate that here.
 	size_t max = this->row_size_bytes * 4;
 	for (size_t row = 0; row < this->num_rows; row++){
 		unsigned char *row_start = this->genotypes + (row * this->row_size_bytes);
-		assert(max - this->num_columns < 4);
 		for (size_t offset = this->num_columns; offset < max; offset++){
 			array_set_genotype(row_start, offset, 0);
 		}
@@ -89,6 +117,8 @@ void genotype_matrix_destructor(genotype_matrix *this){
 }
 
 size_t genotype_matrix_byte_size(const genotype_matrix *this){
+	if (this->row_size_bytes && this->num_rows > SIZE_MAX / this->row_size_bytes)
+		genotype_matrix_fail("matrix size overflow");
 	return this->num_rows * this->row_size_bytes * sizeof(unsigned char);
 }
 
@@ -96,8 +126,13 @@ int genotype_matrix_read_file(genotype_matrix *this, const char * const genotype
 	genotype_matrix_initialize(this);
 	struct stat sb;
 	size_t num_samples, num_snps;
+	int result;
 
-	int fd = open(genotype_filename, O_RDONLY);
+	int fd = open(genotype_filename, O_RDONLY
+#ifdef _WIN32
+	              | O_BINARY
+#endif
+	);
 	if(fd < 0){
 		return -1;
 	}
@@ -106,29 +141,42 @@ int genotype_matrix_read_file(genotype_matrix *this, const char * const genotype
 	header[GENO_HEADER_SIZE] = 0;
 	char matrix_type[GENO_HEADER_SIZE+1];
 
-	fstat(fd, &sb);
-	this->memory_map_length = sb.st_size;
-	this->memory_map_start = mmap(NULL, this->memory_map_length, PROT_READ, MAP_PRIVATE | flags, fd, 0);
-	if(this->memory_map_start == MAP_FAILED){
+	if (fstat(fd, &sb) != 0 || sb.st_size < GENO_HEADER_SIZE ||
+	    (uintmax_t)sb.st_size > SIZE_MAX || read(fd, header, GENO_HEADER_SIZE) != GENO_HEADER_SIZE) {
+		close(fd);
 		return -2;
 	}
-	close(fd);
-	// read header
-	strncpy(header, this->memory_map_start, GENO_HEADER_SIZE);
 	//printf("%s\n", header);
 	//printf("%d\n", strlen(header));
 
-	sscanf(header, "%s %zd %zd %x %x", matrix_type, &num_samples, &num_snps, &(this->individual_file_hash), &(this->snp_file_hash));
+	char samples[21], snps[21], ihash[9], shash[9], extra;
+	uintmax_t ns, np, ih, sh;
+	if (sscanf(header, "%48s %20s %20s %8s %8s %c", matrix_type, samples, snps, ihash, shash, &extra) != 5 ||
+	    !parse_unsigned(samples, 10, SIZE_MAX, &ns) || !parse_unsigned(snps, 10, SIZE_MAX, &np) ||
+	    !parse_unsigned(ihash, 16, UINT_MAX, &ih) || !parse_unsigned(shash, 16, UINT_MAX, &sh)) {
+		close(fd);
+		return -3;
+	}
+	num_samples = (size_t)ns; num_snps = (size_t)np;
+	this->individual_file_hash = (unsigned int)ih;
+	this->snp_file_hash = (unsigned int)sh;
 	printf("matrix type is %s\n", matrix_type);
 	//printf("samples %zd\n", num_samples);
 	//printf("snps %zd\n", num_snps);
 	bool transpose;
-	if(strncmp(matrix_type, "GENO", 4) == 0){
+	if(strcmp(matrix_type, "GENO") == 0){
 		transpose = false;
-	} else if (strncmp(matrix_type, "TGENO", 5) == 0){
+	} else if (strcmp(matrix_type, "TGENO") == 0){
 		transpose = true;
 	} else{
 		fprintf(stderr, "Unhandled file type");
+		close(fd);
+		genotype_matrix_initialize(this);
+		return -3;
+	}
+	if (!valid_dimensions(num_samples, num_snps, transpose, (unsigned int)ih, (unsigned int)sh)) {
+		close(fd);
+		genotype_matrix_initialize(this);
 		return -3;
 	}
 	genotype_matrix_setup_dimensions(this, num_samples, num_snps, transpose);
@@ -137,25 +185,38 @@ int genotype_matrix_read_file(genotype_matrix *this, const char * const genotype
 	if(!this->transpose){
 		header_size = this->row_size_bytes;
 	}
-	this->genotypes = (unsigned char *) this->memory_map_start + header_size;
 	// verify size
-	size_t expected_size = header_size + genotype_matrix_byte_size(this);
+	size_t data_size = genotype_matrix_byte_size(this);
+	if (data_size > SIZE_MAX - header_size) { result = -4; goto fail_fd; }
+	size_t expected_size = header_size + data_size;
+	this->memory_map_length = (size_t)sb.st_size;
 	if (this->memory_map_length != expected_size){
 		fprintf(stderr, "Unexpected %s size. Expected %zu was %zu\n", matrix_type, expected_size, this->memory_map_length);
-		return -4;
+		result = -4; goto fail_fd;
 	}
 
 	// verify hashes
 	if(individual_file_hash && (*individual_file_hash != this->individual_file_hash)){
 		fprintf(stderr, "individual file hash mismatch %x %x", *individual_file_hash, this->individual_file_hash);
-		return -5;
+		result = -5; goto fail_fd;
 	}
 	if(snp_file_hash && (*snp_file_hash != this->snp_file_hash)){
 		fprintf(stderr, "snp file hash mismatch %x %x", *snp_file_hash, this->snp_file_hash);
-		return -6;
+		result = -6; goto fail_fd;
 	}
+	this->memory_map_start = mmap(NULL, this->memory_map_length, PROT_READ, MAP_PRIVATE | flags, fd, 0);
+	close(fd);
+	if (this->memory_map_start == MAP_FAILED) {
+		genotype_matrix_initialize(this);
+		return -2;
+	}
+	this->genotypes = (unsigned char *)this->memory_map_start + header_size;
 
 	return 0;
+fail_fd:
+	close(fd);
+	genotype_matrix_initialize(this);
+	return result;
 }
 
 int genotype_matrix_read_file_full(genotype_matrix *this, const char * const genotype_filename, int flags, const unsigned int *individual_file_hash, const unsigned int *snp_file_hash){
@@ -165,6 +226,7 @@ int genotype_matrix_read_file_full(genotype_matrix *this, const char * const gen
 	}	
 	size_t genotype_size = genotype_matrix_byte_size(this);
 	unsigned char *in_memory = malloc(genotype_size);
+	if (in_memory == NULL) { genotype_matrix_destructor(this); return -7; }
 	memcpy(in_memory, this->genotypes, genotype_size);
 	munmap(this->memory_map_start, this->memory_map_length);
 	this->memory_map_start = NULL;
@@ -176,14 +238,19 @@ void genotype_matrix_header(const genotype_matrix *this, bool transpose, char *d
 	char *matrix_type = transpose ? "TGENO" : "GENO";
 	size_t num_samples = this->transpose ? this->num_rows : this->num_columns;
 	size_t num_snps = this->transpose ? this->num_columns : this->num_rows;
-	sprintf(dest, "%s %7zu %7zu %x %x", matrix_type, num_samples, num_snps, this->individual_file_hash, this->snp_file_hash);
+	if (!valid_dimensions(num_samples, num_snps, transpose, this->individual_file_hash, this->snp_file_hash))
+		genotype_matrix_fail("invalid header dimensions");
+	if (snprintf(dest, GENO_HEADER_SIZE, "%s %7zu %7zu %x %x", matrix_type, num_samples, num_snps,
+	             this->individual_file_hash, this->snp_file_hash) >= GENO_HEADER_SIZE)
+		genotype_matrix_fail("header overflow");
 }
 
 int genotype_matrix_write_packed_file(const genotype_matrix *this, const char *filename, bool transpose){
-	FILE *output = fopen(filename, "w");
+	FILE *output = fopen(filename, "wb");
+	if (output == NULL) genotype_matrix_fail("cannot open output file");
 
 	// first write out header
-	int header_size = GENO_HEADER_SIZE;
+	size_t header_size = GENO_HEADER_SIZE;
 	if(!transpose){ // header uses row size in packed ancestry map format
 		size_t output_row_size = padded_bytes_needed(genotype_matrix_num_samples(this));
 		if (header_size < output_row_size){
@@ -192,6 +259,7 @@ int genotype_matrix_write_packed_file(const genotype_matrix *this, const char *f
 	}
 	//printf("header_size %d\n", header_size);
 	char *buffer = malloc(header_size);
+	if (buffer == NULL) { fclose(output); genotype_matrix_fail("allocation failure"); }
 	memset(buffer, 0, header_size);
 	genotype_matrix_header(this, transpose, buffer);
 	size_t bytes_written = fwrite(buffer, sizeof(char), header_size, output);
@@ -215,6 +283,7 @@ int genotype_matrix_write_packed_file(const genotype_matrix *this, const char *f
 		}
 		//printf("output row size %d\n", output_row_size);
 		buffer = malloc(output_row_size);
+		if (buffer == NULL) { fclose(output); genotype_matrix_fail("allocation failure"); }
 		for (size_t column=0; column < this->num_columns; column++){
 			//memset(buffer, 0xFF, output_row_size);
 			memset(buffer, 0x00, output_row_size);
@@ -232,8 +301,9 @@ int genotype_matrix_write_packed_file(const genotype_matrix *this, const char *f
 		}
 		free(buffer);
 	}
-	fflush(output);
-	fclose(output);
+	int failed = ferror(output);
+	if (fclose(output) != 0) failed = 1;
+	if (failed) genotype_matrix_fail("write failure");
 	return 0;
 }
 

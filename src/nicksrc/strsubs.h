@@ -101,6 +101,8 @@ char *mytemp (char *qqq) ;
 char *reserve_temp(char *prefix);
 void release_temp(const char *path, int keep);
 void cleanup_temps(void);
+/* Register an exclusively created file; never register a user-owned path. */
+int track_temp(const char *path);
 void randomname(char **ans) ;
 int getchromlist(char **list, char *bamname) ;
 int getreglist (char ***preglist, char *bamname)  ;

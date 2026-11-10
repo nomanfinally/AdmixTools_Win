@@ -2,6 +2,7 @@
 #define GENO_PACKING_H
 
 #include <stdbool.h>
+#include <stddef.h>
 
 #define GENO_HEADER_SIZE 48
 
@@ -53,7 +54,8 @@ void genotype_matrix_initialize(genotype_matrix *this);
 void genotype_matrix_allocate(genotype_matrix *this, size_t num_samples, size_t num_snps, bool transpose);
 void genotype_matrix_destructor(genotype_matrix *this);
 
-// write the string for this matrix's header to the destination char buffer
+// Write the header to a buffer of at least GENO_HEADER_SIZE bytes. Invalid or
+// unserializable dimensions are fatal; no partial header is written.
 void genotype_matrix_header(const genotype_matrix *this, bool transpose, char *dest);
 
 // transpose: true  - write out a transpose_packed file
@@ -68,6 +70,7 @@ void transpose_position(const genotype_matrix *this, size_t sample, size_t snp, 
 // Read a genotype matrix from file, either in the packed ancestry map or transpose packed format
 // Optionally, check the individual and snp file hashes against the header
 // the current implementation will not write changes in the matrix back out to the file
+// Negative results leave an initialized empty matrix, with no open file/map.
 int genotype_matrix_read_file(genotype_matrix *this, const char * const genotype_filename, int flags, const unsigned int *individual_file_hash, const unsigned int *snp_file_hash);
 // Read genotpye file as above in genotype_matrix_read_file, and place contents into memory
 int genotype_matrix_read_file_full(genotype_matrix *this, const char * const genotype_filename, int flags, const unsigned int *individual_file_hash, const unsigned int *snp_file_hash);

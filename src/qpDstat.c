@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <limits.h>
 #include <libgen.h>
 
 #include <nicklib.h>
@@ -146,7 +147,7 @@ void getabc (double *dzscx, double *dzsc, double **abx, double **bax,
              int nblocks);
 void getdsc (double *dzscx, double *dzsc, double **abx, double **bax, double **swx, 
              int ncols, int a, int b, int c, int d, int numeg, int *bcols,
-             int nblocks, int *sz);
+             int nblocks, int *sz, double *sd);
 void gettreelen (double *tlenz, double *tlen, double **f2, double **abx,
                  double **bax, int ncols, int *ttt, int numeg, int *bcols,
                  int nblocks);
@@ -252,6 +253,7 @@ main (int argc, char **argv)
   if (parname == NULL)
     return 0;
   setdump(coredump) ;
+  SRAND((unsigned int)seed);
   if ((poplistname == NULL) && (popfilename == NULL))
     fatalx ("poplistname, popfilename both null\n");
 
@@ -273,13 +275,11 @@ main (int argc, char **argv)
 
   setinbreed (inbreed);
 
-  if (outputname != NULL)
-    openit (outputname, &ofile, "w");
-
   numsnps =
     getsnps (snpname, &snpmarkers, 0.0, badsnpname, &nignore, numrisks);
 
   numindivs = getindivs (indivname, &indivmarkers);
+  inddupcheck(indivmarkers, numindivs);
   if (id2pops != NULL) {
     setid2pops (id2pops, indivmarkers, numindivs);
   }
@@ -297,14 +297,18 @@ main (int argc, char **argv)
   ZALLOC (ztypes, numindivs, int);
   if (popfilename == NULL) {
     if (bankermode == NO)
-      numeg = loadlist (eglist, poplistname);
+      numeg = loadlist_capacity (eglist, poplistname, numindivs);
     else {
-      numeg = loadlist_type (eglist, poplistname, ztypes, 0);
+      numeg = loadlist_type_capacity (eglist, poplistname, ztypes, 0, numindivs);
       numbanker = 0;
       for (k = 0; k < numeg; ++k) {
+        if (ztypes[k] < 0 || ztypes[k] > 2)
+          fatalx("banker population types must be 0, 1 or 2\n");
         if (ztypes[k] == 2)
           ++numbanker;
       }
+      for (k = 0; k < numeg && ztypes[k] != 1; ++k) {}
+      if (k == numeg) fatalx("bankermode requires a type 1 population\n");
       printf ("bankermode: ");
       printimat (ztypes, 1, numeg);
     }
@@ -333,6 +337,8 @@ main (int argc, char **argv)
         t1 = indxstring (eglist, numeg, sx);
         if (t1 >= 0)
           continue;
+        if (numeg >= numindivs)
+          fatalx("population list exceeds number of individuals\n");
         eglist[numeg] = strdup (sx);
         ++numeg;
         setstatus (indivmarkers, numindivs, sx);
@@ -341,6 +347,9 @@ main (int argc, char **argv)
   }
 
   ckdups (eglist, numeg);
+  if (numeg < 1 || (popfilename == NULL && numeg < 4))
+    fatalx("at least four populations are required\n");
+  if (numeg > INT_MAX / numeg) fatalx("too many populations\n");
 
   ZALLOC (nsamppops, numeg, int);
 
@@ -387,6 +396,10 @@ main (int argc, char **argv)
   }
 
 
+  /* Sampling must precede construction of the analysis indices. */
+  if (popsizelimit > 0)
+    setplimit (indivmarkers, numindivs, eglist, numeg, popsizelimit);
+
   ZALLOC (xindex, numindivs, int);
   ZALLOC (xindlist, numindivs, Indiv *);
   ZALLOC (rawcol, numindivs, int);
@@ -416,10 +429,6 @@ main (int argc, char **argv)
 
   ZALLOC (xsnplist, numsnps, SNP *);
   ZALLOC (tagnums, numsnps, int);
-
-  if (popsizelimit > 0) {
-    setplimit (indivmarkers, numindivs, eglist, numeg, popsizelimit);
-  }
 
 //  ncols = loadsnpx (xsnplist, snpmarkers, numsnps, indivmarkers);
     ncols = loadsnpxx (xsnplist, snpmarkers, numsnps, xindlist, nrows); 
@@ -522,18 +531,13 @@ main (int argc, char **argv)
 
 
           getdsc (&rscore[0], &dstat[0], abx, bax, sweight, ncols,
-                  a, b, c, d, numeg, bcols, nblocks, ssize[0]);
+                  a, b, c, d, numeg, bcols, nblocks, ssize[0], &serr[0]);
 
           getdsc (&rscore[1], &dstat[1], abx, bax, sweight, ncols,
-                  a, c, b, d, numeg, bcols, nblocks, ssize[1]);
+                  a, c, b, d, numeg, bcols, nblocks, ssize[1], &serr[1]);
 
           getdsc (&rscore[2], &dstat[2], abx, bax, sweight, ncols,
-                  a, d, b, c, numeg, bcols, nblocks, ssize[2]);
-          for (k = 0; k < 3; ++k) {
-            serr[k] = 1.0;
-            if (rscore[k] != 0)
-              serr[k] = dstat[k] / rscore[k];
-          }
+                  a, d, b, c, numeg, bcols, nblocks, ssize[2], &serr[2]);
 
           xcopy (rpat[0], a, b, c, d);
           xcopy (rpat[1], a, c, b, d);
@@ -640,11 +644,7 @@ main (int argc, char **argv)
 
     vzero(rscore, 3) ; 
     getdsc (&rscore[0], &dstat[0], abx, bax, sweight, ncols,
-            a, b, c, d, numeg, bcols, nblocks, ssize[0]);
-
-    serr[0] = 1.0;
-    if (rscore[0] != 0.0)
-      serr[0] = dstat[0] / rscore[0];
+            a, b, c, d, numeg, bcols, nblocks, ssize[0], &serr[0]);
 
     xcopy (rpat[0], a, b, c, d);
 
@@ -732,7 +732,11 @@ readcommands (int argc, char **argv)
   int n;
 
   if (argc == 1) { usage(basename(argv[0]), 1); }
+#ifdef _WIN32
+  while ((i = admix_getopt (argc, argv, "L:H:p:hvV")) != -1) {
+#else
   while ((i = getopt (argc, argv, "L:H:p:hvV")) != -1) {
+#endif
 
     switch (i) {
 
@@ -754,7 +758,7 @@ readcommands (int argc, char **argv)
 
     case 'v':
       printf ("version: %s\n", WVERSION);
-      break;
+      exit(0);
 
     case 'V':
       verbose = YES;
@@ -807,6 +811,7 @@ readcommands (int argc, char **argv)
 
   getint (ph, "nostatslim:", &nostatslim);
   getint (ph, "popsizelimit:", &popsizelimit);
+  getint (ph, "seed:", &seed);
   getint (ph, "gfromp:", &gfromp);      // gen dis from phys
   getint (ph, "fullmode:", &fullmode);
   getint (ph, "bankermode:", &bankermode);
@@ -824,10 +829,23 @@ readcommands (int argc, char **argv)
   getint (ph, "fourierjack:", &fourier);
   getint (ph, "coredump:", &coredump);
 
+  if (!isfinite(blgsize) || blgsize <= 0)
+    fatalx("blgsize must be finite and positive\n");
+  if (numchrom < 1 || numchrom == INT_MAX) fatalx("invalid numchrom\n");
+  if (!isfinite(jackquart)) fatalx("jackquart must be finite\n");
+
 
   printf ("### THE INPUT PARAMETERS\n");
   printf ("##PARAMETER NAME: VALUE\n");
   writepars (ph);
+  for (i = 0; i < ph->numpars; ++i)
+    if (!strcmp(ph->ppars[i], "output:") || !strcmp(ph->ppars[i], "outputname:") ||
+        !strcmp(ph->ppars[i], "colcalc:") || !strcmp(ph->ppars[i], "fullmode:") ||
+        !strcmp(ph->ppars[i], "nostatslim:") || !strcmp(ph->ppars[i], "msjackname:") ||
+        !strcmp(ph->ppars[i], "msjackweight:") || !strcmp(ph->ppars[i], "msjack:") ||
+        !strcmp(ph->ppars[i], "forceclade:"))
+      fatalx("parameter %s is not supported by qpDstat\n", ph->ppars[i]);
+  closepars(ph);
 
 }
 
@@ -855,19 +873,18 @@ islegal (int *xind, int *types, int mode, int n)
 // at least 1 type 1 
 // check all bankers set.  OR at least 2 bankers 
   int cc[3];
-  int zz[MAXPOPS];
   int i, x, k, t;
 
 
   if (mode == NO)
     return YES;
-  ivzero (zz, n);
   ivzero (cc, 3);
   for (i = 0; i < 4; i++) {
     t = xind[i];
+    if (t < 0 || t >= n) fatalx("invalid banker population index\n");
     x = types[t];
+    if (x < 0 || x > 2) fatalx("banker population types must be 0, 1 or 2\n");
     ++cc[x];
-    ++zz[t];
   }
 
 /**
@@ -885,7 +902,8 @@ islegal (int *xind, int *types, int mode, int n)
   for (t = 0; t < n; ++t) {
     if (types[t] != 2)
       continue;
-    if (zz[t] == 0)
+    for (i = 0; i < 4 && xind[i] != t; ++i) {}
+    if (i == 4)
       return NO;
   }
   return YES;
@@ -982,6 +1000,9 @@ setf2 (double **f2, int ***counts, int ncols, int numeg)
           continue;
         if (t2 == 0)
           continue;
+        /* No unbiased finite-sample tree correction exists for one allele. */
+        if (t1 < 2 || t2 < 2)
+          fatalx("tree estimation requires at least two observed alleles per population at each used SNP\n");
 
         a = ccc[i][0];
         y1 = (double) a / (double) t1;
@@ -1080,7 +1101,7 @@ getabc (double *dzscx, double *dzsc, double **abx, double **bax, int ncols,
 void
 getdsc (double *dzscx, double *dzsc, double **abx, double **bax, double **swx, int ncols,
         int a, int b, int c, int d, int numeg, int *bcols, int nblocks,
-        int *sz)
+        int *sz, double *sd)
 {
   double *ztop, *zbot, *znum, *jmean, *jwt;
   int k, s, h1, h2;
@@ -1095,6 +1116,7 @@ getdsc (double *dzscx, double *dzsc, double **abx, double **bax, double **swx, i
   int fewblocks = NO ;
 
   *dzscx = *dzsc = 0.0;
+  if (sd != NULL) *sd = 0.0;
   sgn = 1.0;
   ntot = nbaba = nabba = 0;
   zbaba = zabba = 0;
@@ -1245,6 +1267,7 @@ getdsc (double *dzscx, double *dzsc, double **abx, double **bax, double **swx, i
 
   *dzscx = est / (sig + 1.0e-20);       // Z score
   *dzsc = est;
+  if (sd != NULL) *sd = sig;
 
   free (ztop);
   free (zbot);
@@ -1346,8 +1369,8 @@ gettreelen (double *tlenz, double *tlen, double **f2, double **abx,
     for (i = 0; i < ND; i++) {
       h = hh[i];
       y = f2[h][k];
-      xn[s][h] += y;
-      gn[h] += y;
+      xn[s][i] += y;
+      gn[i] += y;
     }
   }
   regesttree (qqest, gn, gden);

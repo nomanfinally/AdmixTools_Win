@@ -7,6 +7,9 @@
 #include  <xsearch.h>
 #include  <ranmath.h>
 #include "geno.h"  
+#ifndef _WIN32
+#include <sys/wait.h>
+#endif
 
 /*! \file mcio.c 
  *
@@ -1490,19 +1493,43 @@ getgenos (char *genoname, SNP ** snpmarkers, Indiv ** indivmarkers,
     free(genotmp);
     return count;
 #else
+    admix_long count;
+    int outfd, status;
+    pid_t child, waited;
     makedir (trashdir);
-    sprintf (line, "%s/genotmp:%d%s", trashdir, getpid (), suffix);
+    if (snprintf(line, sizeof(line), "%s/genotmp:%d.XXXXXX%s", trashdir, getpid(), suffix) >= sizeof(line))
+      fatalx("genotype temporary path too long\n");
     genotmp = strdup (line);
-    sprintf (cmd, "gunzip -c %s > %s", genoname, genotmp);
-    printf ("unzip cmd: %s\n", cmd);
-    kret = system (cmd);
-    if (kret != 0) {
-      unlink (genotmp);
+    if (genotmp == NULL) fatalx("cannot allocate genotype temporary path\n");
+    outfd = mkstemps(genotmp, (int)strlen(suffix));
+    if (outfd < 0) fatalx("cannot create genotype temporary file\n");
+    if (track_temp(genotmp)) {
+      close(outfd); unlink(genotmp); free(genotmp);
+      fatalx("cannot track decompressed genotype file\n");
+    }
+    printf("unzip cmd: gunzip -c \"%s\" > \"%s\"\n", genoname, genotmp);
+    fflush(stdout);
+    child = fork();
+    if (child == 0) {
+      if (dup2(outfd, STDOUT_FILENO) < 0) _exit(127);
+      close(outfd);
+      execlp("gunzip", "gunzip", "-c", "--", genoname, (char *)NULL);
+      _exit(127);
+    }
+    close(outfd);
+    waited = -1;
+    if (child >= 0)
+      do { waited = waitpid(child, &status, 0); } while (waited < 0 && errno == EINTR);
+    if (waited < 0 || !WIFEXITED(status) || WEXITSTATUS(status) != 0) {
+      release_temp(genotmp, 0);
       perror ("gunzip failed\n");
       fatalx ("gunzip failed... probably out of disk space\n");
     }
     printf ("geno file unzipped\n");
-    gname = genotmp;
+    count = getgenos(genotmp, snpmarkers, indivmarkers, numsnps, numindivs, nignore);
+    release_temp(genotmp, 0);
+    free(genotmp);
+    return count;
 #endif
   }
 
@@ -3088,7 +3115,8 @@ inpackt (char *gname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind)
    lseek(fdes, offset,  SEEK_SET);
    t = read (fdes, buff, trlen);
    if (t != trlen) {
-    perror ("read failure (genodata)" );
+    if (t < 0) perror ("read failure (genodata)" );
+    else fprintf(stderr, "read failure (genodata): unexpected end of file\n");
     fatalx ("read failure (genodata) ID: %s\n",   indx -> ID) ;
    }
    ++numread ;

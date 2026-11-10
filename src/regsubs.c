@@ -55,7 +55,11 @@ regressit (double *ans, double *eq, double *rhs, int m, int n)
     printnl() ; 
     printmatwl(co, n, n, n) ;
     printnl() ;
-    printmatwl(rr, n, n, n) ;
+    printmatwl(rr, n, 1, 1) ;
+    free(co);
+    free(rr);
+    free(ww);
+    free(w2);
     return -1.0e20 ;
   }
   for (i = 0; i < m; i++) {

@@ -60,10 +60,11 @@ median (double *aa, int len)
   }
   if (n == 0)
     fatalx ("(median) no valids\n");
-  if (n == 1)
-    return b[0];
-  if (n == 2)
-    return 0.5 * (b[0] + b[1]);
+  if (n <= 2) {
+    y = n == 1 ? b[0] : 0.5 * (b[0] + b[1]);
+    free(b);
+    return y;
+  }
   sortit (b, NULL, n);
   t = n % 2;
   x = n / 2;

@@ -3,6 +3,8 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdarg.h>
+#include <errno.h>
+#include <limits.h>
 
 #define MAXSTR  5000
 #define MAXPARS 400
@@ -24,6 +26,30 @@ int indxstring (char **ppars, int npars, char *ww);
 
 static int parchange = 0;
 static int debug = NO;
+
+/* Retain the existing decimal syntax and floating conversion, but never
+ * silently turn a malformed/out-of-range token into a scientific setting. */
+static admix_long parse_integer(const char *text, const char *name, admix_long low, admix_long high)
+{
+  char *end;
+  errno = 0;
+  long long value = strtoll(text, &end, 10);
+  if (errno == ERANGE || end == text || *end || value < low || value > high)
+    fatalx("invalid integer parameter %s: %s\n", name, text);
+  return (admix_long)value;
+}
+
+static double parse_real(const char *text, const char *name)
+{
+  char *end;
+  errno = 0;
+  double value = strtod(text, &end);
+  if (end == text || *end || errno == ERANGE)
+    fatalx("invalid real parameter %s: %s\n", name, text);
+  /* NaN/Inf are syntactically real tokens. Scientific callers validate their
+   * domain, rather than changing shared parser policy for unrelated tools. */
+  return value;
+}
 static int readpars(phandle *pp, char *fname, char **ppars, char **pdata, int capacity, int depth);
 
 
@@ -113,8 +139,9 @@ readpars(phandle *pp, char *fname, char **ppars, char **pdata, int capacity, int
 
     len = strlen (line);
 
-    if (len > 0 && isspace ((unsigned char)line[len - 1]))
-      line[len - 1] = '\0';
+    /* Consume both bytes of CRLF before storing macro values. */
+    while (len > 0 && (line[len - 1] == '\n' || line[len - 1] == '\r'))
+      line[--len] = '\0';
 
     if (first_word (line, ww, rest) > 0) {
 
@@ -336,7 +363,7 @@ getint (phandle * pp, char *parname, int *kret)
     return 1;
   }
 
-  *kret = atoi (str);
+  *kret = (int)parse_integer(str, parname, INT_MIN, INT_MAX);
   return 1;
 }
 
@@ -364,11 +391,7 @@ getlong (phandle * pp, char *parname, admix_long *kret)
     return 1;
   }
 
-  #ifdef _WIN32
-  *kret = strtoll(str, NULL, 10);
-#else
-  *kret = atol (str);
-#endif
+  *kret = parse_integer(str, parname, INT64_MIN, INT64_MAX);
   return 1;
 }
 
@@ -392,7 +415,7 @@ getints (phandle * pp, char *parname, int *aint, int nint)
     fatalx ("(getints) wrong number of ints in line\n");
 
   for (i = 0; i < n; i++) {
-    aint[i] = atoi (field[i]);
+    aint[i] = (int)parse_integer(field[i], parname, INT_MIN, INT_MAX);
   }
   freeup (field, n);
   return n;
@@ -415,7 +438,7 @@ getintss (phandle * pp, char *parname, int *aint, int *xint)
   subcolon (str);
   n = splitup (str, field, MAXFIELD);
   for (i = 0; i < n; i++) {
-    aint[i] = atoi (field[i]);
+    aint[i] = (int)parse_integer(field[i], parname, INT_MIN, INT_MAX);
   }
   freeup (field, n);
   *xint = n;
@@ -438,7 +461,7 @@ getdbls (phandle * pp, char *parname, double *dbl, int ndbl)
   if (ndbl != n)
     fatalx ("(getdbls) wrong number of dbls in line\n");
   for (i = 0; i < n; i++) {
-    dbl[i] = atof (field[i]);
+    dbl[i] = parse_real(field[i], parname);
   }
   freeup (field, n);
   return 1;
@@ -461,7 +484,7 @@ getdblss (phandle * pp, char *parname, double *dbl, int *ndbl)
   subcolon (str);
   n = splitup (str, field, MAXFIELD);
   for (i = 0; i < n; i++) {
-    dbl[i] = atof (field[i]);
+    dbl[i] = parse_real(field[i], parname);
   }
   freeup (field, n);
   *ndbl = n;
@@ -495,7 +518,7 @@ getdbl (phandle * pp, char *parname, double *dbl)
     return kode;
   n = splitup (pp->pdata[kode], field, MAXFIELD);
   if (n == 0) fatalx("empty parameter: %s\n", parname);
-  *dbl = atof (field[0]);
+  *dbl = parse_real(field[0], parname);
   freeup (field, n);
   return 1;
 }

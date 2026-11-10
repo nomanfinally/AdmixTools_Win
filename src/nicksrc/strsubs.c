@@ -2168,6 +2168,25 @@ static owned_temp *owned_temps;
 static int temp_cleanup_registered;
 #endif
 
+int track_temp(const char *path)
+{
+#ifdef _WIN32
+  return admix_track_temp(path);
+#else
+  owned_temp *entry = malloc(sizeof(*entry));
+  if (entry == NULL) return -1;
+  entry->path = strdup(path);
+  if (entry->path == NULL) { free(entry); return -1; }
+  if (!temp_cleanup_registered) {
+    if (atexit(cleanup_temps) != 0) { free(entry->path); free(entry); return -1; }
+    temp_cleanup_registered = 1;
+  }
+  entry->next = owned_temps;
+  owned_temps = entry;
+  return 0;
+#endif
+}
+
 void release_temp(const char *path, int keep)
 {
 #ifdef _WIN32

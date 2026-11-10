@@ -1,0 +1,2593 @@
+{
+  "upstream": "67bc219174a109951a9434e0a383ec464fb140ee",
+  "corrected_findings": [
+    "F024",
+    "F044",
+    "F045",
+    "F048",
+    "F050",
+    "F051",
+    "F056",
+    "F057",
+    "F058",
+    "F059",
+    "F060",
+    "F061",
+    "F062",
+    "F063",
+    "F064",
+    "F065",
+    "F066",
+    "F067",
+    "F068",
+    "F069",
+    "F070",
+    "F071",
+    "F072",
+    "F073"
+  ],
+  "complete_module_audit": false,
+  "checks": {
+    "windows": {
+      "path": "/mnt/c/work/AdmixTools_Win/validation-results/hard-check/T04/repairs/verified-windows",
+      "cases": 147,
+      "manifest_sha256": "6342098d8b79654c8bec6dcf0d172ac98456283e47d3becc000a425d19004995",
+      "verification": {
+        "failures": []
+      }
+    },
+    "linux": {
+      "path": "/home/user/t04-repairs-verified/results-linux",
+      "cases": 147,
+      "manifest_sha256": "d82cc7dc14896cfda0d69e1be4ab24e8f9f41413ddb36651bdec4e344b7693d4",
+      "verification": {
+        "failures": []
+      }
+    },
+    "asan": {
+      "path": "/home/user/t04-repairs-verified/results-asan",
+      "cases": 147,
+      "manifest_sha256": "93035f14cc34c9908f992bc9ba1ebf51cb27d64419b576f11f0ec88cf4cfa3cf",
+      "verification": {
+        "failures": []
+      }
+    },
+    "windows_modules": {
+      "path": "/mnt/c/work/AdmixTools_Win/validation-results/hard-check/T04/repairs/verified-modules-windows",
+      "cases": 91,
+      "manifest_sha256": "3f5f8ae0c593b9433ba662558c2f96f23744409c1a5ca1c3a22b9023050e7a94",
+      "verification": {
+        "failures": []
+      }
+    },
+    "linux_modules": {
+      "path": "/home/user/t04-repairs-verified/modules-linux",
+      "cases": 89,
+      "manifest_sha256": "80d91332c6511bff2d2518ea22a5f3e89e1b98c1742b9cfd534bcde5d4538431",
+      "verification": {
+        "failures": []
+      }
+    },
+    "asan_modules": {
+      "path": "/home/user/t04-repairs-verified/modules-asan",
+      "cases": 89,
+      "manifest_sha256": "fadf3366f7970b772f583f6d7c73af5bb84b8923180ddfc153158e9e439323fe",
+      "verification": {
+        "failures": []
+      }
+    },
+    "qpwave_windows": {
+      "path": "/mnt/c/work/AdmixTools_Win/validation-results/hard-check/T04/repairs/verified-qpwave-windows",
+      "cases": 59,
+      "manifest_sha256": "e04b1d3115f8f1cf53bdedb1f914beb72162349f147b51eb08c68e6905929fb3",
+      "verification": {
+        "failures": []
+      }
+    },
+    "qpwave_linux": {
+      "path": "/home/user/t04-repairs-verified/qpwave-linux",
+      "cases": 59,
+      "manifest_sha256": "5bb75d49bad45ff5859d8cd39adf1035961cf5bb5d7e06f85bdc19c71ee472e7",
+      "verification": {
+        "failures": []
+      }
+    },
+    "powershell": {
+      "powershell_version": "5.1.26100.9818",
+      "gzip_results": [
+        "result:        Out          A          B          X      0.0409      7.667     225    207   2200 ",
+        "result:        Out          C          A          X     -0.0051     -0.950     209    212   2200 "
+      ],
+      "tee_results": [
+        "result:        Out          A          B          X      0.0409      7.667     225    207   2200 ",
+        "result:        Out          C          A          X     -0.0051     -0.950     209    212   2200 "
+      ],
+      "tee_exit": 0,
+      "gzip_result_text_equal": true,
+      "direct_exit": 0,
+      "streams": {
+        "tee.stdout": "B4CDE190FFB5D1B8EDCE862E96C351418A60AB2088134C62ED286FC87FA37F26",
+        "direct.stderr": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "direct.stdout": "88274B33D0013193624EF9A8BE5DEAD705AC1900FD825AD44BAD2C2A2CE6E098",
+        "gzip.stderr": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "tee.stderr": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+        "gzip.stdout": "C4E412B309663BBF43AC592569FEADAADD52444A2EF686826551F16E22D982D1"
+      },
+      "result_text_equal": true,
+      "temporary_files": [],
+      "direct_results": [
+        "result:        Out          A          B          X      0.0409      7.667     225    207   2200 ",
+        "result:        Out          C          A          X     -0.0051     -0.950     209    212   2200 "
+      ],
+      "gzip_exit": 0
+    },
+    "linux_vs_windows": {
+      "path": "/mnt/c/work/AdmixTools_Win/validation-results/hard-check/T04/repairs/verified-windows/comparison-results-linux.json",
+      "sha256": "c8fb0a43379681facdfe9d9ee65dea2684706f0cdd78031807aa43476e98a953",
+      "exact": 92,
+      "total": 147,
+      "raw_differences": {
+        "all-missing": [
+          "exit"
+        ],
+        "bad-genotype": [
+          "exit"
+        ],
+        "bad-quads": [
+          "exit"
+        ],
+        "banker-force": [
+          "exit"
+        ],
+        "banker-many": [
+          "exit"
+        ],
+        "banker-type3": [
+          "exit"
+        ],
+        "blockfile-intmax": [
+          "exit"
+        ],
+        "blockfile-overflow": [
+          "exit"
+        ],
+        "blockfile-partial": [
+          "exit"
+        ],
+        "bom": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "cli-invalid-option": [
+          "exit"
+        ],
+        "cli-missing-value": [
+          "exit"
+        ],
+        "control-colcalc": [
+          "exit"
+        ],
+        "control-forceclade": [
+          "exit"
+        ],
+        "control-fullmode": [
+          "exit"
+        ],
+        "control-msjackname": [
+          "exit"
+        ],
+        "control-msjackweight": [
+          "exit"
+        ],
+        "control-nostatslim": [
+          "exit"
+        ],
+        "duplicate-ind": [
+          "exit"
+        ],
+        "duplicate-pops": [
+          "exit"
+        ],
+        "duplicate-snp": [
+          "exit"
+        ],
+        "embedded-nul": [
+          "exit"
+        ],
+        "empty-ind": [
+          "exit"
+        ],
+        "empty-poplist": [
+          "exit"
+        ],
+        "empty-snp": [
+          "exit"
+        ],
+        "forward-paths": [
+          "stdout"
+        ],
+        "fourier-constant": [
+          "exit"
+        ],
+        "gzip-corrupt": [
+          "exit"
+        ],
+        "gzip-crc": [
+          "exit"
+        ],
+        "gzip-empty": [
+          "exit"
+        ],
+        "gzip-length": [
+          "exit"
+        ],
+        "gzip-onebyte": [
+          "exit"
+        ],
+        "gzip-reader-fatal": [
+          "exit"
+        ],
+        "gzip-truncated": [
+          "exit"
+        ],
+        "infinite-blocksize": [
+          "exit"
+        ],
+        "missing-geno": [
+          "exit"
+        ],
+        "missing-par": [
+          "exit"
+        ],
+        "nan-blocksize": [
+          "exit"
+        ],
+        "negative-blocksize": [
+          "exit"
+        ],
+        "no-pop": [
+          "exit"
+        ],
+        "no-valid-snps": [
+          "exit"
+        ],
+        "numchrom-intmax": [
+          "exit"
+        ],
+        "output": [
+          "exit"
+        ],
+        "outputname": [
+          "exit"
+        ],
+        "poplist-capacity": [
+          "exit"
+        ],
+        "quad-capacity": [
+          "exit"
+        ],
+        "space-unicode": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "three-poplist": [
+          "exit"
+        ],
+        "tree-haploid": [
+          "exit"
+        ],
+        "truncated-packed": [
+          "exit"
+        ],
+        "truncated-text": [
+          "exit"
+        ],
+        "truncated-tgeno": [
+          "exit"
+        ],
+        "unknown-pop": [
+          "exit"
+        ],
+        "utf16": [
+          "exit"
+        ],
+        "zero-blocksize": [
+          "exit"
+        ]
+      }
+    },
+    "linux_vs_asan": {
+      "path": "/home/user/t04-repairs-verified/results-asan/comparison-results-linux.json",
+      "sha256": "636f8f05e240140e9a59747d210b7f6e5b188eba4693e08929d37966861b1bf3",
+      "exact": 145,
+      "total": 147,
+      "raw_differences": {
+        "forward-paths": [
+          "stdout"
+        ],
+        "space-unicode": [
+          "stdout",
+          "stderr"
+        ]
+      }
+    },
+    "baseline_vs_windows": {
+      "path": "/mnt/c/work/AdmixTools_Win/validation-results/hard-check/T04/repairs/verified-windows/comparison-windows-complete.json",
+      "sha256": "90ee791af6ceac3c0ae607f383855bcc14b82d40a8fc568eee7b1c64285b3da0",
+      "exact": 107,
+      "total": 147,
+      "raw_differences": {
+        "bad-quads": [
+          "stdout",
+          "stderr"
+        ],
+        "banker-force": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "banker-many": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "banker-type3": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "cli-invalid-option": [
+          "stderr"
+        ],
+        "cli-missing-value": [
+          "stderr"
+        ],
+        "cli-version": [
+          "stdout",
+          "stderr"
+        ],
+        "control-colcalc": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "control-forceclade": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "control-fullmode": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "control-msjackname": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "control-msjackweight": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "control-nostatslim": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "crlf-macro": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "duplicate-ind": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "empty-poplist": [
+          "stdout",
+          "stderr"
+        ],
+        "forward-paths": [
+          "stdout"
+        ],
+        "fourier": [
+          "stdout"
+        ],
+        "fourier-five": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "infinite-blocksize": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "nan-blocksize": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "negative-blocksize": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "numchrom-intmax": [
+          "stdout",
+          "stderr"
+        ],
+        "oracle-zero": [
+          "stdout"
+        ],
+        "output": [
+          "exit",
+          "stdout",
+          "stderr",
+          "generated files"
+        ],
+        "outputname": [
+          "exit",
+          "stdout",
+          "stderr",
+          "generated files"
+        ],
+        "poplist-capacity": [
+          "stderr"
+        ],
+        "popsizelimit": [
+          "stdout"
+        ],
+        "popsizelimit-high": [
+          "stdout"
+        ],
+        "popsizelimit-one": [
+          "stdout"
+        ],
+        "popsizelimit-repeat": [
+          "stdout"
+        ],
+        "popsizelimit-seed": [
+          "stdout"
+        ],
+        "popsizelimit-zero": [
+          "stdout"
+        ],
+        "quad-capacity": [
+          "stderr"
+        ],
+        "space-unicode": [
+          "stdout"
+        ],
+        "three-poplist": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "tree-five": [
+          "stdout"
+        ],
+        "tree-haploid": [
+          "not selected on both sides"
+        ],
+        "truncated-tgeno": [
+          "stderr"
+        ],
+        "zero-blocksize": [
+          "exit",
+          "stdout",
+          "stderr"
+        ]
+      }
+    },
+    "pristine_vs_linux": {
+      "path": "/home/user/t04-repairs-verified/results-linux/comparison-pristine.json",
+      "sha256": "02cc9cf14b1484a0aa60ceb55a9ec391ad62fc7450b84f42123fba38acf0483f",
+      "exact": 94,
+      "total": 147,
+      "raw_differences": {
+        "all-missing": [
+          "stderr"
+        ],
+        "bad-quads": [
+          "stdout",
+          "stderr"
+        ],
+        "banker-force": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "banker-many": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "banker-type3": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "blockfile-intmax": [
+          "exit",
+          "stderr"
+        ],
+        "blockfile-overflow": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "blockfile-partial": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "cli-version": [
+          "stdout",
+          "stderr"
+        ],
+        "control-colcalc": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "control-forceclade": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "control-fullmode": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "control-msjackname": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "control-msjackweight": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "control-nostatslim": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "crlf-macro": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "duplicate-ind": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "embedded-nul": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "empty-poplist": [
+          "stdout",
+          "stderr"
+        ],
+        "forward-paths": [
+          "stdout"
+        ],
+        "fourier": [
+          "stdout"
+        ],
+        "fourier-five": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "gzip-bed": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "gzip-corrupt": [
+          "stdout",
+          "stderr"
+        ],
+        "gzip-crc": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "gzip-empty": [
+          "stdout",
+          "stderr"
+        ],
+        "gzip-length": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "gzip-onebyte": [
+          "stdout",
+          "stderr"
+        ],
+        "gzip-ped": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "gzip-truncated": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "infinite-blocksize": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "nan-blocksize": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "negative-blocksize": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "numchrom-intmax": [
+          "stdout",
+          "stderr"
+        ],
+        "oracle-zero": [
+          "stdout"
+        ],
+        "output": [
+          "exit",
+          "stdout",
+          "stderr",
+          "generated files"
+        ],
+        "outputname": [
+          "exit",
+          "stdout",
+          "stderr",
+          "generated files"
+        ],
+        "poplist-capacity": [
+          "stderr"
+        ],
+        "popsizelimit": [
+          "stdout"
+        ],
+        "popsizelimit-high": [
+          "stdout"
+        ],
+        "popsizelimit-one": [
+          "stdout"
+        ],
+        "popsizelimit-repeat": [
+          "stdout"
+        ],
+        "popsizelimit-seed": [
+          "stdout"
+        ],
+        "popsizelimit-zero": [
+          "stdout"
+        ],
+        "quad-capacity": [
+          "stderr"
+        ],
+        "space-unicode": [
+          "stdout",
+          "stderr"
+        ],
+        "three-poplist": [
+          "exit",
+          "stdout",
+          "stderr"
+        ],
+        "tree-five": [
+          "exit",
+          "stdout"
+        ],
+        "tree-haploid": [
+          "not selected on both sides"
+        ],
+        "truncated-packed": [
+          "stderr"
+        ],
+        "truncated-tgeno": [
+          "stderr"
+        ],
+        "utf16": [
+          "stdout",
+          "stderr"
+        ],
+        "zero-blocksize": [
+          "exit",
+          "stdout",
+          "stderr"
+        ]
+      }
+    },
+    "linux_modules_vs_windows_modules": {
+      "path": "/mnt/c/work/AdmixTools_Win/validation-results/hard-check/T04/repairs/verified-modules-windows/comparison-modules-linux.json",
+      "sha256": "58b5f837ac18500c6faa85e7be44f7a5eafd5187f8f990cda15b7c24895e197b",
+      "exact": 61,
+      "total": 92,
+      "raw_differences": {
+        "M01-process-errors": [
+          "not selected on both sides"
+        ],
+        "M01-services": [
+          "not selected on both sides"
+        ],
+        "M01-sibling": [
+          "not selected on both sides"
+        ],
+        "M03-parser-empty": [
+          "exit"
+        ],
+        "M03-parser-invalid": [
+          "exit"
+        ],
+        "M03-parser-long": [
+          "exit"
+        ],
+        "M03-parser-loop": [
+          "exit"
+        ],
+        "M03-parser-many": [
+          "exit"
+        ],
+        "M03-parser-overflow": [
+          "exit"
+        ],
+        "M03-parser-real-junk": [
+          "exit"
+        ],
+        "M03-vector-junk": [
+          "exit"
+        ],
+        "M03-vector-long-overflow": [
+          "exit"
+        ],
+        "M03-vector-real-junk": [
+          "exit"
+        ],
+        "M06-empty": [
+          "exit"
+        ],
+        "M09-one": [
+          "exit"
+        ],
+        "M11-duplicate": [
+          "exit"
+        ],
+        "M12-header-size": [
+          "exit"
+        ],
+        "M12-overflow": [
+          "exit"
+        ],
+        "M12-write-full": [
+          "not selected on both sides"
+        ],
+        "M12-write-missing": [
+          "exit"
+        ],
+        "M13-map-failure": [
+          "exit"
+        ],
+        "M13-missing": [
+          "exit"
+        ],
+        "M17-fourier-0": [
+          "exit"
+        ],
+        "M17-fourier-1": [
+          "exit"
+        ],
+        "M18-capacity": [
+          "exit"
+        ],
+        "caller-qp3Pop-block-overflow": [
+          "exit"
+        ],
+        "caller-qpAdm-block-overflow": [
+          "exit"
+        ],
+        "caller-qpDpart-block-overflow": [
+          "exit"
+        ],
+        "caller-qpF4ratio-block-overflow": [
+          "exit"
+        ],
+        "caller-qpWave-block-overflow": [
+          "exit"
+        ],
+        "caller-transpose-missing-output": [
+          "exit"
+        ]
+      }
+    },
+    "linux_modules_vs_asan_modules": {
+      "path": "/home/user/t04-repairs-verified/modules-asan/comparison-modules-linux.json",
+      "sha256": "3bfbc6edcfac1091e63c4b7322c64e0f352c83234adcf0ce38d03699d50faf92",
+      "exact": 89,
+      "total": 89,
+      "raw_differences": {}
+    },
+    "M01-rng": {
+      "stdout_sha256": [
+        "b62c398efd682e2a935d20d3239103c1ea5c0b72711d4719dffc0083777bb0cc",
+        "b62c398efd682e2a935d20d3239103c1ea5c0b72711d4719dffc0083777bb0cc",
+        "b62c398efd682e2a935d20d3239103c1ea5c0b72711d4719dffc0083777bb0cc"
+      ]
+    },
+    "M07-hash": {
+      "stdout_sha256": [
+        "9d9f641fad5691c92b94cde77006a3e14dc6be546d945d7bdda207020af9e60a",
+        "9d9f641fad5691c92b94cde77006a3e14dc6be546d945d7bdda207020af9e60a",
+        "9d9f641fad5691c92b94cde77006a3e14dc6be546d945d7bdda207020af9e60a"
+      ]
+    },
+    "M12-packing": {
+      "stdout_sha256": [
+        "280cea72a180f8b30210ed29f86f255dd4f5d835fe91fe67712b439ebeed1716",
+        "280cea72a180f8b30210ed29f86f255dd4f5d835fe91fe67712b439ebeed1716",
+        "280cea72a180f8b30210ed29f86f255dd4f5d835fe91fe67712b439ebeed1716"
+      ]
+    },
+    "M12-small-normal": {
+      "stdout_sha256": [
+        "280cea72a180f8b30210ed29f86f255dd4f5d835fe91fe67712b439ebeed1716",
+        "280cea72a180f8b30210ed29f86f255dd4f5d835fe91fe67712b439ebeed1716",
+        "280cea72a180f8b30210ed29f86f255dd4f5d835fe91fe67712b439ebeed1716"
+      ]
+    },
+    "T04-tree-oracle": {
+      "stdout_sha256": [
+        "e61ca486dd2815a103ab69e83feeb46b408484df56eca9ddf0b0e7105b18e437",
+        "e61ca486dd2815a103ab69e83feeb46b408484df56eca9ddf0b0e7105b18e437",
+        "e61ca486dd2815a103ab69e83feeb46b408484df56eca9ddf0b0e7105b18e437"
+      ]
+    },
+    "T04-banker-large": {
+      "stdout_sha256": [
+        "2ddc314a1291d43de2fe2b78c606abf49ad5d5ba841fc5eaafdcfeccaef5f393",
+        "2ddc314a1291d43de2fe2b78c606abf49ad5d5ba841fc5eaafdcfeccaef5f393",
+        "2ddc314a1291d43de2fe2b78c606abf49ad5d5ba841fc5eaafdcfeccaef5f393"
+      ]
+    }
+  },
+  "failures": [],
+  "science_windows_linux": {
+    "exact": [
+      "badsnp",
+      "banker",
+      "blockfile",
+      "blockfile-ignore",
+      "blockfile-sparse",
+      "both-pop",
+      "chrom",
+      "colon-quads",
+      "control-inbreed",
+      "coredump-no",
+      "crlf-macro",
+      "default",
+      "enumerate",
+      "enumerate-five",
+      "enumerate-no-best",
+      "explicit-defaults",
+      "extra-quad-column",
+      "f4",
+      "few-blocks-ok",
+      "format-ancestry",
+      "format-bed",
+      "format-packed",
+      "format-ped",
+      "format-text",
+      "format-tgeno",
+      "forward-paths",
+      "fourier",
+      "fourier-five",
+      "gfromp",
+      "gzip-ancestry",
+      "gzip-bed",
+      "gzip-packed",
+      "gzip-ped",
+      "gzip-text",
+      "gzip-tgeno",
+      "id2pops",
+      "inbreed",
+      "instem",
+      "jack-unweighted",
+      "jackquart",
+      "line-cli",
+      "line-high",
+      "line-low",
+      "manual-subset-123",
+      "manual-subset-77",
+      "missing-data",
+      "negative-limit",
+      "no-size",
+      "nochrom",
+      "noxdata-no",
+      "numchrom",
+      "oracle-d",
+      "oracle-f4",
+      "oracle-missing",
+      "oracle-permutations",
+      "oracle-weighted",
+      "oracle-zero",
+      "physical-fallback",
+      "popsizelimit",
+      "popsizelimit-high",
+      "popsizelimit-one",
+      "popsizelimit-repeat",
+      "popsizelimit-seed",
+      "popsizelimit-zero",
+      "printsd",
+      "sizeweight",
+      "tree-five",
+      "tree-four",
+      "unlimited",
+      "verbose",
+      "xdata",
+      "xmode",
+      "xmode-all",
+      "xmode-no",
+      "zero-stat"
+    ],
+    "intentional_changes": {},
+    "not_jointly_successful": [
+      "all-missing",
+      "bad-genotype",
+      "bad-quads",
+      "banker-force",
+      "banker-many",
+      "banker-type3",
+      "blockfile-intmax",
+      "blockfile-overflow",
+      "blockfile-partial",
+      "bom",
+      "cli-invalid-option",
+      "cli-missing-value",
+      "cli-no-args",
+      "control-colcalc",
+      "control-forceclade",
+      "control-fullmode",
+      "control-msjackname",
+      "control-msjackweight",
+      "control-nostatslim",
+      "duplicate-ind",
+      "duplicate-pops",
+      "duplicate-snp",
+      "embedded-nul",
+      "empty-ind",
+      "empty-poplist",
+      "empty-snp",
+      "fourier-constant",
+      "gzip-corrupt",
+      "gzip-crc",
+      "gzip-empty",
+      "gzip-length",
+      "gzip-onebyte",
+      "gzip-reader-fatal",
+      "gzip-truncated",
+      "infinite-blocksize",
+      "missing-geno",
+      "missing-par",
+      "nan-blocksize",
+      "negative-blocksize",
+      "no-pop",
+      "no-valid-snps",
+      "numchrom-intmax",
+      "output",
+      "outputname",
+      "poplist-capacity",
+      "quad-capacity",
+      "space-unicode",
+      "three-poplist",
+      "tree-haploid",
+      "truncated-packed",
+      "truncated-text",
+      "truncated-tgeno",
+      "unknown-pop",
+      "utf16",
+      "zero-blocksize"
+    ],
+    "unexpected_differences": []
+  },
+  "science_linux_asan": {
+    "exact": [
+      "badsnp",
+      "banker",
+      "blockfile",
+      "blockfile-ignore",
+      "blockfile-sparse",
+      "both-pop",
+      "chrom",
+      "colon-quads",
+      "control-inbreed",
+      "coredump-no",
+      "crlf-macro",
+      "default",
+      "enumerate",
+      "enumerate-five",
+      "enumerate-no-best",
+      "explicit-defaults",
+      "extra-quad-column",
+      "f4",
+      "few-blocks-ok",
+      "format-ancestry",
+      "format-bed",
+      "format-packed",
+      "format-ped",
+      "format-text",
+      "format-tgeno",
+      "forward-paths",
+      "fourier",
+      "fourier-five",
+      "gfromp",
+      "gzip-ancestry",
+      "gzip-bed",
+      "gzip-packed",
+      "gzip-ped",
+      "gzip-text",
+      "gzip-tgeno",
+      "id2pops",
+      "inbreed",
+      "instem",
+      "jack-unweighted",
+      "jackquart",
+      "line-cli",
+      "line-high",
+      "line-low",
+      "manual-subset-123",
+      "manual-subset-77",
+      "missing-data",
+      "negative-limit",
+      "no-size",
+      "nochrom",
+      "noxdata-no",
+      "numchrom",
+      "oracle-d",
+      "oracle-f4",
+      "oracle-missing",
+      "oracle-permutations",
+      "oracle-weighted",
+      "oracle-zero",
+      "physical-fallback",
+      "popsizelimit",
+      "popsizelimit-high",
+      "popsizelimit-one",
+      "popsizelimit-repeat",
+      "popsizelimit-seed",
+      "popsizelimit-zero",
+      "printsd",
+      "sizeweight",
+      "tree-five",
+      "tree-four",
+      "unlimited",
+      "verbose",
+      "xdata",
+      "xmode",
+      "xmode-all",
+      "xmode-no",
+      "zero-stat"
+    ],
+    "intentional_changes": {},
+    "not_jointly_successful": [
+      "all-missing",
+      "bad-genotype",
+      "bad-quads",
+      "banker-force",
+      "banker-many",
+      "banker-type3",
+      "blockfile-intmax",
+      "blockfile-overflow",
+      "blockfile-partial",
+      "bom",
+      "cli-invalid-option",
+      "cli-missing-value",
+      "cli-no-args",
+      "control-colcalc",
+      "control-forceclade",
+      "control-fullmode",
+      "control-msjackname",
+      "control-msjackweight",
+      "control-nostatslim",
+      "duplicate-ind",
+      "duplicate-pops",
+      "duplicate-snp",
+      "embedded-nul",
+      "empty-ind",
+      "empty-poplist",
+      "empty-snp",
+      "fourier-constant",
+      "gzip-corrupt",
+      "gzip-crc",
+      "gzip-empty",
+      "gzip-length",
+      "gzip-onebyte",
+      "gzip-reader-fatal",
+      "gzip-truncated",
+      "infinite-blocksize",
+      "missing-geno",
+      "missing-par",
+      "nan-blocksize",
+      "negative-blocksize",
+      "no-pop",
+      "no-valid-snps",
+      "numchrom-intmax",
+      "output",
+      "outputname",
+      "poplist-capacity",
+      "quad-capacity",
+      "space-unicode",
+      "three-poplist",
+      "tree-haploid",
+      "truncated-packed",
+      "truncated-text",
+      "truncated-tgeno",
+      "unknown-pop",
+      "utf16",
+      "zero-blocksize"
+    ],
+    "unexpected_differences": []
+  },
+  "science_before_repairs": {
+    "exact": [
+      "badsnp",
+      "banker",
+      "blockfile",
+      "blockfile-ignore",
+      "blockfile-sparse",
+      "bom",
+      "both-pop",
+      "chrom",
+      "colon-quads",
+      "control-inbreed",
+      "coredump-no",
+      "default",
+      "enumerate",
+      "enumerate-five",
+      "enumerate-no-best",
+      "explicit-defaults",
+      "extra-quad-column",
+      "f4",
+      "few-blocks-ok",
+      "format-ancestry",
+      "format-bed",
+      "format-packed",
+      "format-ped",
+      "format-text",
+      "format-tgeno",
+      "forward-paths",
+      "fourier",
+      "gfromp",
+      "gzip-ancestry",
+      "gzip-bed",
+      "gzip-packed",
+      "gzip-ped",
+      "gzip-text",
+      "gzip-tgeno",
+      "id2pops",
+      "inbreed",
+      "instem",
+      "jack-unweighted",
+      "jackquart",
+      "line-cli",
+      "line-high",
+      "line-low",
+      "manual-subset-123",
+      "manual-subset-77",
+      "missing-data",
+      "negative-limit",
+      "no-size",
+      "nochrom",
+      "noxdata-no",
+      "numchrom",
+      "oracle-d",
+      "oracle-f4",
+      "oracle-missing",
+      "oracle-permutations",
+      "oracle-weighted",
+      "physical-fallback",
+      "printsd",
+      "sizeweight",
+      "space-unicode",
+      "tree-four",
+      "unlimited",
+      "verbose",
+      "xdata",
+      "xmode",
+      "xmode-all",
+      "xmode-no",
+      "zero-stat"
+    ],
+    "intentional_changes": {
+      "oracle-zero": {
+        "finding": "F060",
+        "before": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0000",
+            "1.000000",
+            "0.000",
+            "1100",
+            "1100",
+            "2200"
+          ]
+        ],
+        "after": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0000",
+            "0.218218",
+            "0.000",
+            "1100",
+            "1100",
+            "2200"
+          ]
+        ]
+      },
+      "popsizelimit": {
+        "finding": "F045",
+        "before": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0409",
+            "7.667",
+            "225",
+            "207",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "-0.0051",
+            "-0.950",
+            "209",
+            "212",
+            "2200"
+          ]
+        ],
+        "after": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0434",
+            "4.538",
+            "224",
+            "205",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "0.0005",
+            "0.047",
+            "212",
+            "211",
+            "2200"
+          ]
+        ]
+      },
+      "popsizelimit-high": {
+        "finding": "F045",
+        "before": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0409",
+            "7.667",
+            "225",
+            "207",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "-0.0051",
+            "-0.950",
+            "209",
+            "212",
+            "2200"
+          ]
+        ],
+        "after": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0363",
+            "3.987",
+            "223",
+            "207",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "-0.0076",
+            "-0.856",
+            "209",
+            "212",
+            "2200"
+          ]
+        ]
+      },
+      "popsizelimit-one": {
+        "finding": "F045",
+        "before": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0409",
+            "7.667",
+            "225",
+            "207",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "-0.0051",
+            "-0.950",
+            "209",
+            "212",
+            "2200"
+          ]
+        ],
+        "after": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0404",
+            "4.268",
+            "223",
+            "206",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "0.0061",
+            "0.625",
+            "212",
+            "209",
+            "2200"
+          ]
+        ]
+      },
+      "popsizelimit-repeat": {
+        "finding": "F045",
+        "before": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0409",
+            "7.667",
+            "225",
+            "207",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "-0.0051",
+            "-0.950",
+            "209",
+            "212",
+            "2200"
+          ]
+        ],
+        "after": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0434",
+            "4.538",
+            "224",
+            "205",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "0.0005",
+            "0.047",
+            "212",
+            "211",
+            "2200"
+          ]
+        ]
+      },
+      "popsizelimit-seed": {
+        "finding": "F045",
+        "before": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0409",
+            "7.667",
+            "225",
+            "207",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "-0.0051",
+            "-0.950",
+            "209",
+            "212",
+            "2200"
+          ]
+        ],
+        "after": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0348",
+            "4.026",
+            "224",
+            "209",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "-0.0075",
+            "-0.791",
+            "211",
+            "214",
+            "2200"
+          ]
+        ]
+      },
+      "popsizelimit-zero": {
+        "finding": "F045",
+        "before": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0409",
+            "7.667",
+            "225",
+            "207",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "-0.0051",
+            "-0.950",
+            "209",
+            "212",
+            "2200"
+          ]
+        ],
+        "after": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0404",
+            "4.268",
+            "223",
+            "206",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "0.0061",
+            "0.625",
+            "212",
+            "209",
+            "2200"
+          ]
+        ]
+      },
+      "tree-five": {
+        "finding": "F056",
+        "before": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0409",
+            "7.667",
+            "qqest:",
+            "0.066",
+            "0.054",
+            "-0.069",
+            "0.054",
+            "0.066"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "-0.0051",
+            "-0.950",
+            "qqest:",
+            "0.039",
+            "0.085",
+            "0.021",
+            "0.024",
+            "-0.024"
+          ]
+        ],
+        "after": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0409",
+            "7.667",
+            "qqest:",
+            "0.078",
+            "0.043",
+            "0.003",
+            "0.054",
+            "-0.009"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "-0.0051",
+            "-0.950",
+            "qqest:",
+            "0.060",
+            "0.060",
+            "0.041",
+            "0.020",
+            "-0.004"
+          ]
+        ]
+      }
+    },
+    "not_jointly_successful": [
+      "all-missing",
+      "bad-genotype",
+      "bad-quads",
+      "banker-force",
+      "banker-many",
+      "banker-type3",
+      "blockfile-intmax",
+      "blockfile-overflow",
+      "blockfile-partial",
+      "cli-invalid-option",
+      "cli-missing-value",
+      "cli-no-args",
+      "control-colcalc",
+      "control-forceclade",
+      "control-fullmode",
+      "control-msjackname",
+      "control-msjackweight",
+      "control-nostatslim",
+      "crlf-macro",
+      "duplicate-ind",
+      "duplicate-pops",
+      "duplicate-snp",
+      "embedded-nul",
+      "empty-ind",
+      "empty-poplist",
+      "empty-snp",
+      "fourier-constant",
+      "fourier-five",
+      "gzip-corrupt",
+      "gzip-crc",
+      "gzip-empty",
+      "gzip-length",
+      "gzip-onebyte",
+      "gzip-reader-fatal",
+      "gzip-truncated",
+      "infinite-blocksize",
+      "missing-geno",
+      "missing-par",
+      "nan-blocksize",
+      "negative-blocksize",
+      "no-pop",
+      "no-valid-snps",
+      "numchrom-intmax",
+      "output",
+      "outputname",
+      "poplist-capacity",
+      "quad-capacity",
+      "three-poplist",
+      "truncated-packed",
+      "truncated-text",
+      "truncated-tgeno",
+      "unknown-pop",
+      "utf16",
+      "zero-blocksize"
+    ],
+    "unexpected_differences": []
+  },
+  "science_pinned_pristine": {
+    "exact": [
+      "badsnp",
+      "banker",
+      "blockfile",
+      "blockfile-ignore",
+      "blockfile-sparse",
+      "both-pop",
+      "chrom",
+      "colon-quads",
+      "control-inbreed",
+      "coredump-no",
+      "default",
+      "enumerate",
+      "enumerate-five",
+      "enumerate-no-best",
+      "explicit-defaults",
+      "extra-quad-column",
+      "f4",
+      "few-blocks-ok",
+      "format-ancestry",
+      "format-bed",
+      "format-packed",
+      "format-ped",
+      "format-text",
+      "format-tgeno",
+      "forward-paths",
+      "fourier",
+      "gfromp",
+      "gzip-ancestry",
+      "gzip-packed",
+      "gzip-text",
+      "gzip-tgeno",
+      "id2pops",
+      "inbreed",
+      "instem",
+      "jack-unweighted",
+      "jackquart",
+      "line-cli",
+      "line-high",
+      "line-low",
+      "manual-subset-123",
+      "manual-subset-77",
+      "missing-data",
+      "negative-limit",
+      "no-size",
+      "nochrom",
+      "noxdata-no",
+      "numchrom",
+      "oracle-d",
+      "oracle-f4",
+      "oracle-missing",
+      "oracle-permutations",
+      "oracle-weighted",
+      "physical-fallback",
+      "printsd",
+      "sizeweight",
+      "tree-four",
+      "unlimited",
+      "verbose",
+      "xdata",
+      "xmode",
+      "xmode-all",
+      "xmode-no",
+      "zero-stat"
+    ],
+    "intentional_changes": {
+      "oracle-zero": {
+        "finding": "F060",
+        "before": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0000",
+            "1.000000",
+            "0.000",
+            "1100",
+            "1100",
+            "2200"
+          ]
+        ],
+        "after": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0000",
+            "0.218218",
+            "0.000",
+            "1100",
+            "1100",
+            "2200"
+          ]
+        ]
+      },
+      "popsizelimit": {
+        "finding": "F045",
+        "before": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0409",
+            "7.667",
+            "225",
+            "207",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "-0.0051",
+            "-0.950",
+            "209",
+            "212",
+            "2200"
+          ]
+        ],
+        "after": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0434",
+            "4.538",
+            "224",
+            "205",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "0.0005",
+            "0.047",
+            "212",
+            "211",
+            "2200"
+          ]
+        ]
+      },
+      "popsizelimit-high": {
+        "finding": "F045",
+        "before": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0409",
+            "7.667",
+            "225",
+            "207",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "-0.0051",
+            "-0.950",
+            "209",
+            "212",
+            "2200"
+          ]
+        ],
+        "after": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0363",
+            "3.987",
+            "223",
+            "207",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "-0.0076",
+            "-0.856",
+            "209",
+            "212",
+            "2200"
+          ]
+        ]
+      },
+      "popsizelimit-one": {
+        "finding": "F045",
+        "before": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0409",
+            "7.667",
+            "225",
+            "207",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "-0.0051",
+            "-0.950",
+            "209",
+            "212",
+            "2200"
+          ]
+        ],
+        "after": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0404",
+            "4.268",
+            "223",
+            "206",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "0.0061",
+            "0.625",
+            "212",
+            "209",
+            "2200"
+          ]
+        ]
+      },
+      "popsizelimit-repeat": {
+        "finding": "F045",
+        "before": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0409",
+            "7.667",
+            "225",
+            "207",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "-0.0051",
+            "-0.950",
+            "209",
+            "212",
+            "2200"
+          ]
+        ],
+        "after": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0434",
+            "4.538",
+            "224",
+            "205",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "0.0005",
+            "0.047",
+            "212",
+            "211",
+            "2200"
+          ]
+        ]
+      },
+      "popsizelimit-seed": {
+        "finding": "F045",
+        "before": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0409",
+            "7.667",
+            "225",
+            "207",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "-0.0051",
+            "-0.950",
+            "209",
+            "212",
+            "2200"
+          ]
+        ],
+        "after": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0348",
+            "4.026",
+            "224",
+            "209",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "-0.0075",
+            "-0.791",
+            "211",
+            "214",
+            "2200"
+          ]
+        ]
+      },
+      "popsizelimit-zero": {
+        "finding": "F045",
+        "before": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0409",
+            "7.667",
+            "225",
+            "207",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "-0.0051",
+            "-0.950",
+            "209",
+            "212",
+            "2200"
+          ]
+        ],
+        "after": [
+          [
+            "Out",
+            "A",
+            "B",
+            "X",
+            "0.0404",
+            "4.268",
+            "223",
+            "206",
+            "2200"
+          ],
+          [
+            "Out",
+            "C",
+            "A",
+            "X",
+            "0.0061",
+            "0.625",
+            "212",
+            "209",
+            "2200"
+          ]
+        ]
+      }
+    },
+    "not_jointly_successful": [
+      "all-missing",
+      "bad-genotype",
+      "bad-quads",
+      "banker-force",
+      "banker-many",
+      "banker-type3",
+      "blockfile-intmax",
+      "blockfile-overflow",
+      "blockfile-partial",
+      "bom",
+      "cli-invalid-option",
+      "cli-missing-value",
+      "cli-no-args",
+      "control-colcalc",
+      "control-forceclade",
+      "control-fullmode",
+      "control-msjackname",
+      "control-msjackweight",
+      "control-nostatslim",
+      "crlf-macro",
+      "duplicate-ind",
+      "duplicate-pops",
+      "duplicate-snp",
+      "embedded-nul",
+      "empty-ind",
+      "empty-poplist",
+      "empty-snp",
+      "fourier-constant",
+      "fourier-five",
+      "gzip-bed",
+      "gzip-corrupt",
+      "gzip-crc",
+      "gzip-empty",
+      "gzip-length",
+      "gzip-onebyte",
+      "gzip-ped",
+      "gzip-reader-fatal",
+      "gzip-truncated",
+      "infinite-blocksize",
+      "missing-geno",
+      "missing-par",
+      "nan-blocksize",
+      "negative-blocksize",
+      "no-pop",
+      "no-valid-snps",
+      "numchrom-intmax",
+      "output",
+      "outputname",
+      "poplist-capacity",
+      "quad-capacity",
+      "space-unicode",
+      "three-poplist",
+      "tree-five",
+      "truncated-packed",
+      "truncated-text",
+      "truncated-tgeno",
+      "unknown-pop",
+      "utf16",
+      "zero-blocksize"
+    ],
+    "unexpected_differences": []
+  },
+  "source_sha256": {
+    "src/admutils.c": "a45283ec0160dd1d21647fc9e66d9c560c810ac2621da54adc0fb120ca24f818",
+    "src/admutils.h": "6986f27211e2025a7998bff1b88627c82fe97704e844331061c3206926e98b45",
+    "src/ascore.c": "f77147a4e3696a6637727482fb8a8e182e69cb41d4b1344e1c8e7e0d00ebbb8a",
+    "src/badpairs.h": "093cd9c3d88f73446f75a2d9bc6985785909801442363f0e4a5beb74092a0697",
+    "src/convertf.c": "7fa538461d8cbf4716fe5cc5bc75ae8d3fd6e24b460bddfbc1a713584443e81f",
+    "src/diffmean.c": "be5eadb4feab45af6e8c50af0b2b500e62acac252a0a7f6781cfa8bd126b4374",
+    "src/dowtjack.c": "bcbd88c81ae2f697ff0df5541b94c9d5a949b13fc859294be87b891ed2ce6ec9",
+    "src/easycheck.c": "8d6b1b58a3f8653ce04a9cdce99bdc1a97f1321698aec071adb19d080b792c59",
+    "src/easylite.c": "8bf4d99469089a4afe0b0c6d06624828f6d8eec9e4430de18681751bacb8a601",
+    "src/easystats.c": "e7ddfa8901431184608a301c863716547e5cf1b5a3883f9c7ec066bc1aa8cb38",
+    "src/egsubs.c": "d65d279ccd86897723e7551dc64883f0cc0ba002cf56022b094b50482e9d3920",
+    "src/egsubs.h": "d6da94290717a7fe398aeac7960612a205ff4bc57233421a6b498c00ecd42bf6",
+    "src/eigsubs.c": "8a43d6dd4b7e77ba03cfa8e14b50174ba53899a569e210e6e716837573d663d1",
+    "src/eigsubs.h": "dca25a1b79e6627ccd3de343e30bfe2f3c05256421ceb0e9465bc01629307db9",
+    "src/eigx.c": "299a9f72999e46469a70eb4a94f9530b579c470f4e86cdf1e4ddc4a0770349aa",
+    "src/empr.c": "7f440763f6cd0cb7923cc2fdc6c782adb92e9098f2bf1a04c4e2bb0a85d32702",
+    "src/exclude.c": "046e0dc0c988813d96b61aa40fb2d222f66778ed40348bc6df41bfaf4b27ce11",
+    "src/exclude.h": "4c97aa9bc68d14b9e16d8c49729e342754a6d6679715689cb4621be6500a2dc1",
+    "src/f4rank.c": "4f9111aa95f6f4059a9e6b58e8376e05e0edfaca7947357c3537c327ca1cb574",
+    "src/f4rank.h": "d6b6b9f393d7ec615a787669835956b14ba50651522cad5fc2774134e4b562e5",
+    "src/faidx.h": "674989a3392e696ffa02ae0018050296778e375357aa96953a0ad8537780c82c",
+    "src/fitsubs.h": "c52d3b396f0de3e9b031b0e51eb55536f0ef50950da7a6dd25d91a4959c6ff2b",
+    "src/fourier.c": "cb19fa1c869439b78edd2e074b1b16607b5d7ef8c1ef9aee97b910cadf62631e",
+    "src/fstats.c": "08bd290c30028a0951e009446d5d382c1a3b2501760bc7fd92f95c00b0e6648d",
+    "src/gcount.c": "09fcf6c313a57b387590867a46605efec07880745703077efccd667c02f67c4e",
+    "src/geno.c": "f2e60a0a400a81ae6da55516be76a2cb04bf5fc57001e74ca3f355f8e0286457",
+    "src/geno.h": "bf865d770e915e59ed9a1281640c1a5d3e9b26e098c869cf32a67fc07ab00405",
+    "src/geno_single.c": "0913ab8b6e2a025ad44cc31470336f66b5cca59766271cef8e5b2b7b5bbc7ed1",
+    "src/globals.h": "27183657b91d0374f774be35816e667d32a5153855b9b86f8176d221ad7525bf",
+    "src/grabpars.c": "995e62a78fe9f98462332575796e86fa98fe6b24f4955845e9cd1eef888e4ff6",
+    "src/gslkim.c": "10598e009ea15149dcfe9748c690a4b173186e74e1dd681a84d93fc70029a924",
+    "src/gslqp.c": "a5548452784b1613935df1e505923b34a6b46be2ea39d59aa3f237637250867f",
+    "src/gslrank1.c": "67a5cec623ec368cc2933531a10dc2e7af69b9b2be0be570f1cfdf32b4911c5f",
+    "src/h2d.c": "b09a3a8a6f590e1aa4fc7a32b4e34278a6e0df5285e5f70e99d8c9212539345c",
+    "src/h2d.h": "9e3ddbb1128f257d3888db5d3301ac116bb5d75e7712dcfc4b02ea522eea3a34",
+    "src/kimf.c": "c86e0d901f68ac195d97375111982fad61b3c71199ec5749ebb052d63aba4c3d",
+    "src/kimqpg.c": "0d9a320c707766958713796bb59e864231a39c55e633ff7b403271acf5b365f4",
+    "src/kimqpr.c": "35ee484e43cbc984f0b0802b7f0769504bc8c3065e8d52b2ef2d5e5a28cc712b",
+    "src/ldsubs.c": "0b024b63c75b2e4988d3d90e48582baf5aa6f5cc3ec9d8e5fdd83539d08c790c",
+    "src/ldsubs.h": "1856386361c79b95c699063a497ab81e4c426ecdf1c29dff18ed81c196d158e9",
+    "src/mapfile.c": "33c375527be3fabb80fcb1e55db8f3b69af1b27e002e4e8547aee87835c5af95",
+    "src/mapfile.h": "a9b9c904b9fabd1975da4f316ae600f5088b6a599b15c95ae289ae2d4b2e5f77",
+    "src/mcio.c": "9b75a50637eaa6f93046acfe5d3667a9b8e6354f95408da7dd58d96a4cadb856",
+    "src/mcio.h": "95a0292f0db101f5084ad86c07b49df865da12fe3a0acddf3d014f6f4fca7cf2",
+    "src/mcmcpars.h": "be6627b88ce2502479e8dfd124deb60baff7e32a5b76f71a1c9936554c1cd93a",
+    "src/mergeit.c": "734bae002b533e07fc3296df748992d825d5661a0073672413a6640a6fb33c65",
+    "src/merge_transpose.c": "2f3bcec8e9563379310d35f6776ddee8d760d67fcff16992b9e817ed9404a306",
+    "src/mkweights.c": "42a977560ff26cff17a07095da47c91f7fd2ce718e133603a4c7838948796e7a",
+    "src/multimerge.c": "4eea21e30db6e6a0ad178c8c11e1a6c1513296d3fad58eea4adf0172e510594f",
+    "src/nickhash.c": "2e9c397b620f1ca7c322f9b6437ee75f58e0ab99745844f7b8011319752db818",
+    "src/nicklib.h": "bf32ae4d5e15bc8f3729938b89011018b9c5bce24faf00f202c4c1e66bf6f6c2",
+    "src/nicksam.h": "0a0db80576afd30c593cdbb7ad0e763abc2ef0bc1aeb7b2215cac31d67a5df3c",
+    "src/packit.h": "89dcaa1fb7c35eb2655a2f9f1961e1863047f9ad37c50a78c47e4cb5fbf8f8a9",
+    "src/qp3Pop.c": "f64af5a2b49af229bc3e8952649f871d31d69e6b2ef7b4c3f385bbfecc11ffe1",
+    "src/qp4diff.c": "a13ae22d2e91a6ce76a41db388c95414a09b98afc7045794b74cc587e8ab0a41",
+    "src/qpAdm.c": "4d5ba76dbf53e0a75071ce70de8923f30faae5d07414b7d47c8978c0fd5abc87",
+    "src/qpBound.c": "f717d53cf60744f0e0e986a34fe6b894f7325019c4ca156d22f1ed9f6f0e444c",
+    "src/qpDpart.c": "029e77df957d38077c7cad734cfc7e5fe8e6e7fd251746164673abe69b5b00de",
+    "src/qpdslow.c": "ddbb6e36b121a81daa86192341f4c3c80d420b6add991f4ba97f7b128ec5c5b1",
+    "src/qpDstat.c": "1b2f1eecfcd7e9ae7c0f7566a5eeb9cbfa70db790b9ea0af4d899b1e03c570fc",
+    "src/qpF4ratio.c": "bce262ab2ac20cbcccc98a537102e9eb65aec5bf6ed96e9d9716cd09d748e971",
+    "src/qpff3base.c": "df89c49cfdd445a81a903c97eeb715d1c80bd7d05206e4aa4736f17dc75d5f9f",
+    "src/qpfit.c": "0597e930cabdd6d46aa46387a4cb11099900d0c4e78562e8d781475f8a8ff48c",
+    "src/qpfitr1.c": "522d3225dedbd2595290d3f40ffa72a09a4bdfbbdffc7426e247abbb9b4edb5c",
+    "src/qpfmv.c": "d699e06c832fa2a87cf5d39a678c4321cda93df586b70dbd93fba0cca8a0db7b",
+    "src/qpfmvmix.c": "a9a69949c451ddf2e32211e98f0f7e39fb45cc99cd80ae23acec9543fba9e0ce",
+    "src/qpfstats.c": "7d7672ae40e3e1a469405a9408f1f0c9ad92b64b08c57629677458ee8eb649ce",
+    "src/qpGraph.c": "698605d8131086de3e0ce671af47c21b37f93ae1f7c645f7bcdaacbb61481f8e",
+    "src/qpgsubs.c": "8215da1d472a8fef661c2f7ae753ef10c3853f47d93c6f3359b258c669306de0",
+    "src/qpgsubs.h": "7e8c057df18904fe96cf29dcb4fbbe703a2c1bd54ec5594824dea52ef2b46efa",
+    "src/qpmix.c": "5b19989c23f8662121ecc5f1859d3c8861512aeeffc7692ebdae047eb759adca",
+    "src/qpreroot.c": "924b41b63c41c22383a126c08eb2cbd2f62b01c8d509943fbabb3b1a28b8295c",
+    "src/qpsubs.c": "2b426f2ba175422fa7575912d9af192bf605e9d0044fd51ed1e9edab103ca73b",
+    "src/qpsubs.h": "f5899ffd4c726060f65e789b1742133fc309ddcf36cb2376d4b141f43488faf8",
+    "src/qpsubsarti.c": "bfb4bb3849e6074ca985a1012f99c2570d802acd1478595f82859ef2c548a5e4",
+    "src/qpWave.c": "f91a3019da1351e64efaef85b3381841b9ac94e59e1f065f0e041c33edaa2d71",
+    "src/qsubs.h": "b06e54f053e31309fdd611667aa1a7146e38e20538590593433e740590529d2d",
+    "src/regsubs.c": "af0e8151117e5e1d5dc3d57c6a87a241ca905df3cfe24d144c0d03f2f50b75f7",
+    "src/regsubs.h": "3b186a2a31dee8b794e0aebebeb55ac8d3c10dfc478b8df82b4feaba4b392f0a",
+    "src/rolloff.c": "083c8cab6cebd7f6e793143c72c15f9ab1007ef24e9928f1e1c495f07d8d1ea1",
+    "src/rolloffp.c": "bfbe9f2599ee36f5caadc7a52d712f583211f42f6d7d129b2c0c5acd0e8315d7",
+    "src/simpjack2.c": "1fca67603d4cd0e05a10f9232728e3e6ace46cc42e83ff89f63a585427fd292d",
+    "src/snpunion.c": "131d9511000c157afe578e35d0073b44c8fac370304f5ab245d6da873afe98a3",
+    "src/testr1.c": "2f2e58d9b6fd91a142e7abaf64ef64e356022fbddee2f1cc4832664aa18d01be",
+    "src/tmcio.h": "a4e4ca13b57a8baa95f16ce541d1c9ddffb701010cf8c03c1f65d69ea77f2746",
+    "src/transpose.c": "efac29468a635a290054f4d55419214d0c19b043da6c54e0f10faa57ca6864a8",
+    "src/xpsubs.h": "548ed87ee542db9ac8f0cf85ec556bc2ab5fecba5ea1bd3e4de521d33451c15c",
+    "src/xqpsubs.c": "990a51f7732e396aa7b254db7283235c590defb4f5e2290d88d0713e43b85fdd",
+    "src/nicksrc/admix_platform.h": "04ee846ff81409e908d82fecf2280b59506bc5b7b6de6579acaec8d5feb413f5",
+    "src/nicksrc/admix_types.h": "c42b320c848bb98fbff352b2df1d4246e435cb49e340efc3c3fa6385c65c6a05",
+    "src/nicksrc/esttime2.c": "dabe86211945c071c7cfa351fd516878b4486af2196bbba9dfe416448347a251",
+    "src/nicksrc/gauss.c": "9a63a6b728441ae536a7a069d3b4e8573982285128a8f13dd96761aa51805527",
+    "src/nicksrc/gcd.c": "c5a10209fdb85ee20586b85668c7ea855623cb3e395da8a33880e2b0b9beef87",
+    "src/nicksrc/gds.c": "329f54fa44b37ac5d662629c5aade9e5392b0a981fdd246a1d9ccbec1fc8fda3",
+    "src/nicksrc/getpars.c": "f2b580a60e65897f89f6d1e7a654b03d932fcc6277e284674df7528ab4ef05c4",
+    "src/nicksrc/getpars.h": "a90d147f93f62ddd90832e15ed09b2ea78b710981ee12af33703eb278506bf3f",
+    "src/nicksrc/kimf.c": "f6214072260aef25b72c24bdd6cf1d29eefc6f9ab45d27980465f8f78cbdd6f5",
+    "src/nicksrc/linsolve.c": "224b2a2ee5e7aec70646bb450a8072bc97964abc51f051d49e69e438ad86b4fe",
+    "src/nicksrc/linsubs.c": "a8f6fd1143673caf79e1e1b4050dbbb4eda93fd9ca0b966a5c72d9653d35bf6c",
+    "src/nicksrc/linsubs.h": "6c5a822515049995a1ac90858eef9ea0328aa30117fbb65fd1f615b8aa587eba",
+    "src/nicksrc/mptable.h": "04834a9526179d4cdc92dc280b5a84dd70c0c05127b63c763b1df52872d10375",
+    "src/nicksrc/nicklib.h": "4f8a2ae1c4e2c02cf7bfabe995db3ce144488df32b98c664a12d86103e57cb1a",
+    "src/nicksrc/ranmath.h": "243a7ff80a294c29ae3c7f7875d31a89a3208f6a4cb8f03c643ba67e3c0ccfa4",
+    "src/nicksrc/sortit.c": "6d332a8494a00230e0c780c964bb8c4f4b513eeca7578e95132d4657054a5361",
+    "src/nicksrc/sortit.h": "dcdfdf3f8151b797935fb070187d01cc83e8fea537574d6bf0e1383b1bdf67b5",
+    "src/nicksrc/statsubs.c": "592a5000521cb33e3aa51fabb1bba5f7a800bd8b23d726851d686eafc3f8c8cf",
+    "src/nicksrc/statsubs.h": "3031707f9331f52f7ddd702865048e27f338e96644884ff254b02ab8d9538581",
+    "src/nicksrc/strsubs.c": "9b79f5f5bc0fb0fd4497a350cb67ad8e36d5c24dcb4bf11871a6bd0513e4c995",
+    "src/nicksrc/strsubs.h": "b4336452b3eff477da172c814eaf7ff670851f0d82952fe32c3ba2ecd3c19867",
+    "src/nicksrc/twtable.h": "3069a2ef5a9feae426cbd584ef7009b0d65d248f5640bea488b62f53e021b0bb",
+    "src/nicksrc/vsubs.c": "63be25e4209f80ede8516a78133a1a88ee7c2fd93f260ce27b46e35d88995d78",
+    "src/nicksrc/vsubs.h": "dc1108cdb1b31b096a87dd6a2310f884211556971fbf833742d5b5b483401e46",
+    "src/nicksrc/xsearch.c": "57b5f826a51845993555af355ea85baecf0cd8f2e08634df3036d340e861f6ed",
+    "src/nicksrc/xsearch.h": "6cbbb92e854ec12bd56df2645ab4d9649ac857cf16a4e45457ecff3df258d820",
+    "src/win32/argp.h": "f06486cbbbad9f0f84ef2a2d5cc90d2f63ee07aa7125953bd936f3e455d87b2a",
+    "src/win32/compat.c": "947e0b3025918efc4363e8362f9af9f9daa0d81e14ed2b11845b08a8acebc69a",
+    "src/win32/compat.h": "97e89303abad8f12ee3d17153bbdcaf4047dd2381ca496e8deafc2b252f8fad6",
+    "src/win32/mman.h": "eaef6bf4bc5b9c6a75841907bb671d1113f4cb767df95c569f0fb875b1ccf8ec"
+  },
+  "source_snapshot_mismatches": [],
+  "build_records": {
+    "linux": {
+      "root": "/home/user/t04-repairs-verified/linux",
+      "flags": "-std=gnu11 -ffp-contract=off -fno-fast-math",
+      "link_flags": "",
+      "executables": {
+        "qpDstat": "cf365034138de3b2b579060c486dcd7dd3d9e8a0e45f078cdc5fbfa1a6f089a6",
+        "convertf": "247ff241466322a60d95c5b4ff50e265a11c6111e0cf972766358d949fba5867",
+        "transpose": "d2456ad82e425b003a386e069e94c0697f4bc4aa0df861577679790ad551533b",
+        "qp3Pop": "f70103ee90010f0b458d7f9c07e630d24dcc19e12eaf2f145b2183cc1dd2cd3c",
+        "qp4diff": "e4ac0c452e599ff0d583a00352c1dfa282a41d72b9b9f8293be9c6fc2ac5fd69",
+        "qpF4ratio": "7f15387892d0d6d814b9aab1332b671f350402246e84d92a2632484a107f3ccd",
+        "qpAdm": "8705ecd35e346528d2f8f36481ce0536d5fa98675991d159bc391e588c085cfd",
+        "qpfstats": "78c021bf9e19fc79a51f03d921d118b221717746d85823dcfc5300a49d56275b",
+        "qpWave": "d1c5f28bbe485d63bd6d1d5ad0cfab2ea62789b644e6a3933a7d3fad650f0ea8",
+        "qpDpart": "c454f498e15ad840f7be6b676863c2bf3241e7d9e7a6c80df1701be78dffacb5",
+        "qpdslow": "dba060dc9d35f06bd56a52f3b9872b529250cce8075783154f697ff934e1f730"
+      },
+      "sources": {
+        "src/kimqpg.c": "0d9a320c707766958713796bb59e864231a39c55e633ff7b403271acf5b365f4",
+        "src/qpfit.c": "0597e930cabdd6d46aa46387a4cb11099900d0c4e78562e8d781475f8a8ff48c",
+        "src/mapfile.h": "a9b9c904b9fabd1975da4f316ae600f5088b6a599b15c95ae289ae2d4b2e5f77",
+        "src/gslkim.c": "10598e009ea15149dcfe9748c690a4b173186e74e1dd681a84d93fc70029a924",
+        "src/merge_transpose.c": "2f3bcec8e9563379310d35f6776ddee8d760d67fcff16992b9e817ed9404a306",
+        "src/fitsubs.h": "c52d3b396f0de3e9b031b0e51eb55536f0ef50950da7a6dd25d91a4959c6ff2b",
+        "src/admutils.c": "a45283ec0160dd1d21647fc9e66d9c560c810ac2621da54adc0fb120ca24f818",
+        "src/qpfmvmix.c": "a9a69949c451ddf2e32211e98f0f7e39fb45cc99cd80ae23acec9543fba9e0ce",
+        "src/geno.h": "bf865d770e915e59ed9a1281640c1a5d3e9b26e098c869cf32a67fc07ab00405",
+        "src/simpjack2.c": "1fca67603d4cd0e05a10f9232728e3e6ace46cc42e83ff89f63a585427fd292d",
+        "src/snpunion.c": "131d9511000c157afe578e35d0073b44c8fac370304f5ab245d6da873afe98a3",
+        "src/mcio.h": "95a0292f0db101f5084ad86c07b49df865da12fe3a0acddf3d014f6f4fca7cf2",
+        "src/exclude.h": "4c97aa9bc68d14b9e16d8c49729e342754a6d6679715689cb4621be6500a2dc1",
+        "src/globals.h": "27183657b91d0374f774be35816e667d32a5153855b9b86f8176d221ad7525bf",
+        "src/regsubs.h": "3b186a2a31dee8b794e0aebebeb55ac8d3c10dfc478b8df82b4feaba4b392f0a",
+        "src/qpsubsarti.c": "bfb4bb3849e6074ca985a1012f99c2570d802acd1478595f82859ef2c548a5e4",
+        "src/f4rank.c": "4f9111aa95f6f4059a9e6b58e8376e05e0edfaca7947357c3537c327ca1cb574",
+        "src/easystats.c": "e7ddfa8901431184608a301c863716547e5cf1b5a3883f9c7ec066bc1aa8cb38",
+        "src/qpfmv.c": "d699e06c832fa2a87cf5d39a678c4321cda93df586b70dbd93fba0cca8a0db7b",
+        "src/gslqp.c": "a5548452784b1613935df1e505923b34a6b46be2ea39d59aa3f237637250867f",
+        "src/eigsubs.c": "8a43d6dd4b7e77ba03cfa8e14b50174ba53899a569e210e6e716837573d663d1",
+        "src/gcount.c": "09fcf6c313a57b387590867a46605efec07880745703077efccd667c02f67c4e",
+        "src/xqpsubs.c": "990a51f7732e396aa7b254db7283235c590defb4f5e2290d88d0713e43b85fdd",
+        "src/rolloffp.c": "bfbe9f2599ee36f5caadc7a52d712f583211f42f6d7d129b2c0c5acd0e8315d7",
+        "src/faidx.h": "674989a3392e696ffa02ae0018050296778e375357aa96953a0ad8537780c82c",
+        "src/qpF4ratio.c": "bce262ab2ac20cbcccc98a537102e9eb65aec5bf6ed96e9d9716cd09d748e971",
+        "src/qpgsubs.c": "8215da1d472a8fef661c2f7ae753ef10c3853f47d93c6f3359b258c669306de0",
+        "src/egsubs.h": "d6da94290717a7fe398aeac7960612a205ff4bc57233421a6b498c00ecd42bf6",
+        "src/kimqpr.c": "35ee484e43cbc984f0b0802b7f0769504bc8c3065e8d52b2ef2d5e5a28cc712b",
+        "src/ldsubs.c": "0b024b63c75b2e4988d3d90e48582baf5aa6f5cc3ec9d8e5fdd83539d08c790c",
+        "src/ascore.c": "f77147a4e3696a6637727482fb8a8e182e69cb41d4b1344e1c8e7e0d00ebbb8a",
+        "src/nickhash.c": "2e9c397b620f1ca7c322f9b6437ee75f58e0ab99745844f7b8011319752db818",
+        "src/transpose.c": "efac29468a635a290054f4d55419214d0c19b043da6c54e0f10faa57ca6864a8",
+        "src/fourier.c": "cb19fa1c869439b78edd2e074b1b16607b5d7ef8c1ef9aee97b910cadf62631e",
+        "src/qpfitr1.c": "522d3225dedbd2595290d3f40ffa72a09a4bdfbbdffc7426e247abbb9b4edb5c",
+        "src/qpWave.c": "f91a3019da1351e64efaef85b3381841b9ac94e59e1f065f0e041c33edaa2d71",
+        "src/qpfstats.c": "7d7672ae40e3e1a469405a9408f1f0c9ad92b64b08c57629677458ee8eb649ce",
+        "src/grabpars.c": "995e62a78fe9f98462332575796e86fa98fe6b24f4955845e9cd1eef888e4ff6",
+        "src/tmcio.h": "a4e4ca13b57a8baa95f16ce541d1c9ddffb701010cf8c03c1f65d69ea77f2746",
+        "src/gslrank1.c": "67a5cec623ec368cc2933531a10dc2e7af69b9b2be0be570f1cfdf32b4911c5f",
+        "src/qpBound.c": "f717d53cf60744f0e0e986a34fe6b894f7325019c4ca156d22f1ed9f6f0e444c",
+        "src/regsubs.c": "af0e8151117e5e1d5dc3d57c6a87a241ca905df3cfe24d144c0d03f2f50b75f7",
+        "src/xpsubs.h": "548ed87ee542db9ac8f0cf85ec556bc2ab5fecba5ea1bd3e4de521d33451c15c",
+        "src/geno.c": "f2e60a0a400a81ae6da55516be76a2cb04bf5fc57001e74ca3f355f8e0286457",
+        "src/ldsubs.h": "1856386361c79b95c699063a497ab81e4c426ecdf1c29dff18ed81c196d158e9",
+        "src/easycheck.c": "8d6b1b58a3f8653ce04a9cdce99bdc1a97f1321698aec071adb19d080b792c59",
+        "src/multimerge.c": "4eea21e30db6e6a0ad178c8c11e1a6c1513296d3fad58eea4adf0172e510594f",
+        "src/nicklib.h": "bf32ae4d5e15bc8f3729938b89011018b9c5bce24faf00f202c4c1e66bf6f6c2",
+        "src/qsubs.h": "b06e54f053e31309fdd611667aa1a7146e38e20538590593433e740590529d2d",
+        "src/testr1.c": "2f2e58d9b6fd91a142e7abaf64ef64e356022fbddee2f1cc4832664aa18d01be",
+        "src/mcio.c": "9b75a50637eaa6f93046acfe5d3667a9b8e6354f95408da7dd58d96a4cadb856",
+        "src/qpsubs.h": "f5899ffd4c726060f65e789b1742133fc309ddcf36cb2376d4b141f43488faf8",
+        "src/exclude.c": "046e0dc0c988813d96b61aa40fb2d222f66778ed40348bc6df41bfaf4b27ce11",
+        "src/geno_single.c": "0913ab8b6e2a025ad44cc31470336f66b5cca59766271cef8e5b2b7b5bbc7ed1",
+        "src/mergeit.c": "734bae002b533e07fc3296df748992d825d5661a0073672413a6640a6fb33c65",
+        "src/qpAdm.c": "4d5ba76dbf53e0a75071ce70de8923f30faae5d07414b7d47c8978c0fd5abc87",
+        "src/mkweights.c": "42a977560ff26cff17a07095da47c91f7fd2ce718e133603a4c7838948796e7a",
+        "src/easylite.c": "8bf4d99469089a4afe0b0c6d06624828f6d8eec9e4430de18681751bacb8a601",
+        "src/kimf.c": "c86e0d901f68ac195d97375111982fad61b3c71199ec5749ebb052d63aba4c3d",
+        "src/badpairs.h": "093cd9c3d88f73446f75a2d9bc6985785909801442363f0e4a5beb74092a0697",
+        "src/mcmcpars.h": "be6627b88ce2502479e8dfd124deb60baff7e32a5b76f71a1c9936554c1cd93a",
+        "src/fstats.c": "08bd290c30028a0951e009446d5d382c1a3b2501760bc7fd92f95c00b0e6648d",
+        "src/eigx.c": "299a9f72999e46469a70eb4a94f9530b579c470f4e86cdf1e4ddc4a0770349aa",
+        "src/convertf.c": "7fa538461d8cbf4716fe5cc5bc75ae8d3fd6e24b460bddfbc1a713584443e81f",
+        "src/qp4diff.c": "a13ae22d2e91a6ce76a41db388c95414a09b98afc7045794b74cc587e8ab0a41",
+        "src/h2d.h": "9e3ddbb1128f257d3888db5d3301ac116bb5d75e7712dcfc4b02ea522eea3a34",
+        "src/qp3Pop.c": "f64af5a2b49af229bc3e8952649f871d31d69e6b2ef7b4c3f385bbfecc11ffe1",
+        "src/qpGraph.c": "698605d8131086de3e0ce671af47c21b37f93ae1f7c645f7bcdaacbb61481f8e",
+        "src/egsubs.c": "d65d279ccd86897723e7551dc64883f0cc0ba002cf56022b094b50482e9d3920",
+        "src/qpff3base.c": "df89c49cfdd445a81a903c97eeb715d1c80bd7d05206e4aa4736f17dc75d5f9f",
+        "src/mapfile.c": "33c375527be3fabb80fcb1e55db8f3b69af1b27e002e4e8547aee87835c5af95",
+        "src/qpreroot.c": "924b41b63c41c22383a126c08eb2cbd2f62b01c8d509943fbabb3b1a28b8295c",
+        "src/dowtjack.c": "bcbd88c81ae2f697ff0df5541b94c9d5a949b13fc859294be87b891ed2ce6ec9",
+        "src/eigsubs.h": "dca25a1b79e6627ccd3de343e30bfe2f3c05256421ceb0e9465bc01629307db9",
+        "src/admutils.h": "6986f27211e2025a7998bff1b88627c82fe97704e844331061c3206926e98b45",
+        "src/qpdslow.c": "ddbb6e36b121a81daa86192341f4c3c80d420b6add991f4ba97f7b128ec5c5b1",
+        "src/empr.c": "7f440763f6cd0cb7923cc2fdc6c782adb92e9098f2bf1a04c4e2bb0a85d32702",
+        "src/qpDstat.c": "1b2f1eecfcd7e9ae7c0f7566a5eeb9cbfa70db790b9ea0af4d899b1e03c570fc",
+        "src/qpmix.c": "5b19989c23f8662121ecc5f1859d3c8861512aeeffc7692ebdae047eb759adca",
+        "src/qpsubs.c": "2b426f2ba175422fa7575912d9af192bf605e9d0044fd51ed1e9edab103ca73b",
+        "src/nicksam.h": "0a0db80576afd30c593cdbb7ad0e763abc2ef0bc1aeb7b2215cac31d67a5df3c",
+        "src/f4rank.h": "d6b6b9f393d7ec615a787669835956b14ba50651522cad5fc2774134e4b562e5",
+        "src/qpgsubs.h": "7e8c057df18904fe96cf29dcb4fbbe703a2c1bd54ec5594824dea52ef2b46efa",
+        "src/qpDpart.c": "029e77df957d38077c7cad734cfc7e5fe8e6e7fd251746164673abe69b5b00de",
+        "src/packit.h": "89dcaa1fb7c35eb2655a2f9f1961e1863047f9ad37c50a78c47e4cb5fbf8f8a9",
+        "src/rolloff.c": "083c8cab6cebd7f6e793143c72c15f9ab1007ef24e9928f1e1c495f07d8d1ea1",
+        "src/diffmean.c": "be5eadb4feab45af6e8c50af0b2b500e62acac252a0a7f6781cfa8bd126b4374",
+        "src/h2d.c": "b09a3a8a6f590e1aa4fc7a32b4e34278a6e0df5285e5f70e99d8c9212539345c",
+        "src/nicksrc/strsubs.h": "b4336452b3eff477da172c814eaf7ff670851f0d82952fe32c3ba2ecd3c19867",
+        "src/nicksrc/gauss.c": "9a63a6b728441ae536a7a069d3b4e8573982285128a8f13dd96761aa51805527",
+        "src/nicksrc/vsubs.c": "63be25e4209f80ede8516a78133a1a88ee7c2fd93f260ce27b46e35d88995d78",
+        "src/nicksrc/xsearch.h": "6cbbb92e854ec12bd56df2645ab4d9649ac857cf16a4e45457ecff3df258d820",
+        "src/nicksrc/twtable.h": "3069a2ef5a9feae426cbd584ef7009b0d65d248f5640bea488b62f53e021b0bb",
+        "src/nicksrc/getpars.h": "a90d147f93f62ddd90832e15ed09b2ea78b710981ee12af33703eb278506bf3f",
+        "src/nicksrc/linsubs.c": "a8f6fd1143673caf79e1e1b4050dbbb4eda93fd9ca0b966a5c72d9653d35bf6c",
+        "src/nicksrc/linsubs.h": "6c5a822515049995a1ac90858eef9ea0328aa30117fbb65fd1f615b8aa587eba",
+        "src/nicksrc/admix_types.h": "c42b320c848bb98fbff352b2df1d4246e435cb49e340efc3c3fa6385c65c6a05",
+        "src/nicksrc/ranmath.h": "243a7ff80a294c29ae3c7f7875d31a89a3208f6a4cb8f03c643ba67e3c0ccfa4",
+        "src/nicksrc/vsubs.h": "dc1108cdb1b31b096a87dd6a2310f884211556971fbf833742d5b5b483401e46",
+        "src/nicksrc/statsubs.h": "3031707f9331f52f7ddd702865048e27f338e96644884ff254b02ab8d9538581",
+        "src/nicksrc/nicklib.h": "4f8a2ae1c4e2c02cf7bfabe995db3ce144488df32b98c664a12d86103e57cb1a",
+        "src/nicksrc/sortit.c": "6d332a8494a00230e0c780c964bb8c4f4b513eeca7578e95132d4657054a5361",
+        "src/nicksrc/sortit.h": "dcdfdf3f8151b797935fb070187d01cc83e8fea537574d6bf0e1383b1bdf67b5",
+        "src/nicksrc/mptable.h": "04834a9526179d4cdc92dc280b5a84dd70c0c05127b63c763b1df52872d10375",
+        "src/nicksrc/kimf.c": "f6214072260aef25b72c24bdd6cf1d29eefc6f9ab45d27980465f8f78cbdd6f5",
+        "src/nicksrc/strsubs.c": "9b79f5f5bc0fb0fd4497a350cb67ad8e36d5c24dcb4bf11871a6bd0513e4c995",
+        "src/nicksrc/getpars.c": "f2b580a60e65897f89f6d1e7a654b03d932fcc6277e284674df7528ab4ef05c4",
+        "src/nicksrc/xsearch.c": "57b5f826a51845993555af355ea85baecf0cd8f2e08634df3036d340e861f6ed",
+        "src/nicksrc/statsubs.c": "592a5000521cb33e3aa51fabb1bba5f7a800bd8b23d726851d686eafc3f8c8cf",
+        "src/nicksrc/gcd.c": "c5a10209fdb85ee20586b85668c7ea855623cb3e395da8a33880e2b0b9beef87",
+        "src/nicksrc/admix_platform.h": "04ee846ff81409e908d82fecf2280b59506bc5b7b6de6579acaec8d5feb413f5",
+        "src/nicksrc/linsolve.c": "224b2a2ee5e7aec70646bb450a8072bc97964abc51f051d49e69e438ad86b4fe",
+        "src/nicksrc/esttime2.c": "dabe86211945c071c7cfa351fd516878b4486af2196bbba9dfe416448347a251",
+        "src/nicksrc/gds.c": "329f54fa44b37ac5d662629c5aade9e5392b0a981fdd246a1d9ccbec1fc8fda3",
+        "src/win32/compat.h": "97e89303abad8f12ee3d17153bbdcaf4047dd2381ca496e8deafc2b252f8fad6",
+        "src/win32/compat.c": "947e0b3025918efc4363e8362f9af9f9daa0d81e14ed2b11845b08a8acebc69a",
+        "src/win32/argp.h": "f06486cbbbad9f0f84ef2a2d5cc90d2f63ee07aa7125953bd936f3e455d87b2a",
+        "src/win32/mman.h": "eaef6bf4bc5b9c6a75841907bb671d1113f4cb767df95c569f0fb875b1ccf8ec"
+      },
+      "snapshot_mismatches": []
+    },
+    "asan": {
+      "root": "/home/user/t04-repairs-verified/asan",
+      "flags": "-std=gnu11 -ffp-contract=off -fno-fast-math -fsanitize=address,undefined -fno-omit-frame-pointer -g -fno-pie",
+      "link_flags": "-fsanitize=address,undefined -no-pie",
+      "executables": {
+        "qpDstat": "bec510d835002e4a4e567cfa1dafd2484cb71cf353c98eff279fe37df7dfab82",
+        "convertf": "96c12deb30d6ab6dbcbf344cc5d9c794a572eb00d3643e550f33f1a5f20aa308",
+        "transpose": "0f81fb41041ac5ddcb722ddfea42b05448090ec1f9b99689e22f5457caa811ae",
+        "qp3Pop": "3e4e95225ad0d2e450c588683243e3e1ddcb5d1ce05510196becc9acb5107fb0",
+        "qp4diff": "3e84f794501199fd7cb29f1aea2736648443e6827d7456e1aec4e617d15a3433",
+        "qpF4ratio": "aba2dedcdc7e25a88d82417f37c695420f15fb7ec38e93364d1121dc6693186b",
+        "qpAdm": "0428b1101967cd11796b802247552c8c1f238f444c732e5ca559109f6769e9e7",
+        "qpfstats": "3dd5f01bf8e4d9bd64d00331776abb3347935d69ade7abfa74d59ea635055f25",
+        "qpWave": "872b6f827cd43b7b2d0e6e441b9c29650a6e0a0a89e4dac90f1f7464185a058e",
+        "qpDpart": "a5dbc49dbc6694e55b6131445011f03e6fd63310732ecac61c1ee9b493903495",
+        "qpdslow": "a6daee08c80b9b0094a082e7eb1ea5fb9033b743c76fe6cedf83676da4e6480d"
+      },
+      "sources": {
+        "src/kimqpg.c": "0d9a320c707766958713796bb59e864231a39c55e633ff7b403271acf5b365f4",
+        "src/qpfit.c": "0597e930cabdd6d46aa46387a4cb11099900d0c4e78562e8d781475f8a8ff48c",
+        "src/mapfile.h": "a9b9c904b9fabd1975da4f316ae600f5088b6a599b15c95ae289ae2d4b2e5f77",
+        "src/gslkim.c": "10598e009ea15149dcfe9748c690a4b173186e74e1dd681a84d93fc70029a924",
+        "src/merge_transpose.c": "2f3bcec8e9563379310d35f6776ddee8d760d67fcff16992b9e817ed9404a306",
+        "src/fitsubs.h": "c52d3b396f0de3e9b031b0e51eb55536f0ef50950da7a6dd25d91a4959c6ff2b",
+        "src/admutils.c": "a45283ec0160dd1d21647fc9e66d9c560c810ac2621da54adc0fb120ca24f818",
+        "src/qpfmvmix.c": "a9a69949c451ddf2e32211e98f0f7e39fb45cc99cd80ae23acec9543fba9e0ce",
+        "src/geno.h": "bf865d770e915e59ed9a1281640c1a5d3e9b26e098c869cf32a67fc07ab00405",
+        "src/simpjack2.c": "1fca67603d4cd0e05a10f9232728e3e6ace46cc42e83ff89f63a585427fd292d",
+        "src/snpunion.c": "131d9511000c157afe578e35d0073b44c8fac370304f5ab245d6da873afe98a3",
+        "src/mcio.h": "95a0292f0db101f5084ad86c07b49df865da12fe3a0acddf3d014f6f4fca7cf2",
+        "src/exclude.h": "4c97aa9bc68d14b9e16d8c49729e342754a6d6679715689cb4621be6500a2dc1",
+        "src/globals.h": "27183657b91d0374f774be35816e667d32a5153855b9b86f8176d221ad7525bf",
+        "src/regsubs.h": "3b186a2a31dee8b794e0aebebeb55ac8d3c10dfc478b8df82b4feaba4b392f0a",
+        "src/qpsubsarti.c": "bfb4bb3849e6074ca985a1012f99c2570d802acd1478595f82859ef2c548a5e4",
+        "src/f4rank.c": "4f9111aa95f6f4059a9e6b58e8376e05e0edfaca7947357c3537c327ca1cb574",
+        "src/easystats.c": "e7ddfa8901431184608a301c863716547e5cf1b5a3883f9c7ec066bc1aa8cb38",
+        "src/qpfmv.c": "d699e06c832fa2a87cf5d39a678c4321cda93df586b70dbd93fba0cca8a0db7b",
+        "src/gslqp.c": "a5548452784b1613935df1e505923b34a6b46be2ea39d59aa3f237637250867f",
+        "src/eigsubs.c": "8a43d6dd4b7e77ba03cfa8e14b50174ba53899a569e210e6e716837573d663d1",
+        "src/gcount.c": "09fcf6c313a57b387590867a46605efec07880745703077efccd667c02f67c4e",
+        "src/xqpsubs.c": "990a51f7732e396aa7b254db7283235c590defb4f5e2290d88d0713e43b85fdd",
+        "src/rolloffp.c": "bfbe9f2599ee36f5caadc7a52d712f583211f42f6d7d129b2c0c5acd0e8315d7",
+        "src/faidx.h": "674989a3392e696ffa02ae0018050296778e375357aa96953a0ad8537780c82c",
+        "src/qpF4ratio.c": "bce262ab2ac20cbcccc98a537102e9eb65aec5bf6ed96e9d9716cd09d748e971",
+        "src/qpgsubs.c": "8215da1d472a8fef661c2f7ae753ef10c3853f47d93c6f3359b258c669306de0",
+        "src/egsubs.h": "d6da94290717a7fe398aeac7960612a205ff4bc57233421a6b498c00ecd42bf6",
+        "src/kimqpr.c": "35ee484e43cbc984f0b0802b7f0769504bc8c3065e8d52b2ef2d5e5a28cc712b",
+        "src/ldsubs.c": "0b024b63c75b2e4988d3d90e48582baf5aa6f5cc3ec9d8e5fdd83539d08c790c",
+        "src/ascore.c": "f77147a4e3696a6637727482fb8a8e182e69cb41d4b1344e1c8e7e0d00ebbb8a",
+        "src/nickhash.c": "2e9c397b620f1ca7c322f9b6437ee75f58e0ab99745844f7b8011319752db818",
+        "src/transpose.c": "efac29468a635a290054f4d55419214d0c19b043da6c54e0f10faa57ca6864a8",
+        "src/fourier.c": "cb19fa1c869439b78edd2e074b1b16607b5d7ef8c1ef9aee97b910cadf62631e",
+        "src/qpfitr1.c": "522d3225dedbd2595290d3f40ffa72a09a4bdfbbdffc7426e247abbb9b4edb5c",
+        "src/qpWave.c": "f91a3019da1351e64efaef85b3381841b9ac94e59e1f065f0e041c33edaa2d71",
+        "src/qpfstats.c": "7d7672ae40e3e1a469405a9408f1f0c9ad92b64b08c57629677458ee8eb649ce",
+        "src/grabpars.c": "995e62a78fe9f98462332575796e86fa98fe6b24f4955845e9cd1eef888e4ff6",
+        "src/tmcio.h": "a4e4ca13b57a8baa95f16ce541d1c9ddffb701010cf8c03c1f65d69ea77f2746",
+        "src/gslrank1.c": "67a5cec623ec368cc2933531a10dc2e7af69b9b2be0be570f1cfdf32b4911c5f",
+        "src/qpBound.c": "f717d53cf60744f0e0e986a34fe6b894f7325019c4ca156d22f1ed9f6f0e444c",
+        "src/regsubs.c": "af0e8151117e5e1d5dc3d57c6a87a241ca905df3cfe24d144c0d03f2f50b75f7",
+        "src/xpsubs.h": "548ed87ee542db9ac8f0cf85ec556bc2ab5fecba5ea1bd3e4de521d33451c15c",
+        "src/geno.c": "f2e60a0a400a81ae6da55516be76a2cb04bf5fc57001e74ca3f355f8e0286457",
+        "src/ldsubs.h": "1856386361c79b95c699063a497ab81e4c426ecdf1c29dff18ed81c196d158e9",
+        "src/easycheck.c": "8d6b1b58a3f8653ce04a9cdce99bdc1a97f1321698aec071adb19d080b792c59",
+        "src/multimerge.c": "4eea21e30db6e6a0ad178c8c11e1a6c1513296d3fad58eea4adf0172e510594f",
+        "src/nicklib.h": "bf32ae4d5e15bc8f3729938b89011018b9c5bce24faf00f202c4c1e66bf6f6c2",
+        "src/qsubs.h": "b06e54f053e31309fdd611667aa1a7146e38e20538590593433e740590529d2d",
+        "src/testr1.c": "2f2e58d9b6fd91a142e7abaf64ef64e356022fbddee2f1cc4832664aa18d01be",
+        "src/mcio.c": "9b75a50637eaa6f93046acfe5d3667a9b8e6354f95408da7dd58d96a4cadb856",
+        "src/qpsubs.h": "f5899ffd4c726060f65e789b1742133fc309ddcf36cb2376d4b141f43488faf8",
+        "src/exclude.c": "046e0dc0c988813d96b61aa40fb2d222f66778ed40348bc6df41bfaf4b27ce11",
+        "src/geno_single.c": "0913ab8b6e2a025ad44cc31470336f66b5cca59766271cef8e5b2b7b5bbc7ed1",
+        "src/mergeit.c": "734bae002b533e07fc3296df748992d825d5661a0073672413a6640a6fb33c65",
+        "src/qpAdm.c": "4d5ba76dbf53e0a75071ce70de8923f30faae5d07414b7d47c8978c0fd5abc87",
+        "src/mkweights.c": "42a977560ff26cff17a07095da47c91f7fd2ce718e133603a4c7838948796e7a",
+        "src/easylite.c": "8bf4d99469089a4afe0b0c6d06624828f6d8eec9e4430de18681751bacb8a601",
+        "src/kimf.c": "c86e0d901f68ac195d97375111982fad61b3c71199ec5749ebb052d63aba4c3d",
+        "src/badpairs.h": "093cd9c3d88f73446f75a2d9bc6985785909801442363f0e4a5beb74092a0697",
+        "src/mcmcpars.h": "be6627b88ce2502479e8dfd124deb60baff7e32a5b76f71a1c9936554c1cd93a",
+        "src/fstats.c": "08bd290c30028a0951e009446d5d382c1a3b2501760bc7fd92f95c00b0e6648d",
+        "src/eigx.c": "299a9f72999e46469a70eb4a94f9530b579c470f4e86cdf1e4ddc4a0770349aa",
+        "src/convertf.c": "7fa538461d8cbf4716fe5cc5bc75ae8d3fd6e24b460bddfbc1a713584443e81f",
+        "src/qp4diff.c": "a13ae22d2e91a6ce76a41db388c95414a09b98afc7045794b74cc587e8ab0a41",
+        "src/h2d.h": "9e3ddbb1128f257d3888db5d3301ac116bb5d75e7712dcfc4b02ea522eea3a34",
+        "src/qp3Pop.c": "f64af5a2b49af229bc3e8952649f871d31d69e6b2ef7b4c3f385bbfecc11ffe1",
+        "src/qpGraph.c": "698605d8131086de3e0ce671af47c21b37f93ae1f7c645f7bcdaacbb61481f8e",
+        "src/egsubs.c": "d65d279ccd86897723e7551dc64883f0cc0ba002cf56022b094b50482e9d3920",
+        "src/qpff3base.c": "df89c49cfdd445a81a903c97eeb715d1c80bd7d05206e4aa4736f17dc75d5f9f",
+        "src/mapfile.c": "33c375527be3fabb80fcb1e55db8f3b69af1b27e002e4e8547aee87835c5af95",
+        "src/qpreroot.c": "924b41b63c41c22383a126c08eb2cbd2f62b01c8d509943fbabb3b1a28b8295c",
+        "src/dowtjack.c": "bcbd88c81ae2f697ff0df5541b94c9d5a949b13fc859294be87b891ed2ce6ec9",
+        "src/eigsubs.h": "dca25a1b79e6627ccd3de343e30bfe2f3c05256421ceb0e9465bc01629307db9",
+        "src/admutils.h": "6986f27211e2025a7998bff1b88627c82fe97704e844331061c3206926e98b45",
+        "src/qpdslow.c": "ddbb6e36b121a81daa86192341f4c3c80d420b6add991f4ba97f7b128ec5c5b1",
+        "src/empr.c": "7f440763f6cd0cb7923cc2fdc6c782adb92e9098f2bf1a04c4e2bb0a85d32702",
+        "src/qpDstat.c": "1b2f1eecfcd7e9ae7c0f7566a5eeb9cbfa70db790b9ea0af4d899b1e03c570fc",
+        "src/qpmix.c": "5b19989c23f8662121ecc5f1859d3c8861512aeeffc7692ebdae047eb759adca",
+        "src/qpsubs.c": "2b426f2ba175422fa7575912d9af192bf605e9d0044fd51ed1e9edab103ca73b",
+        "src/nicksam.h": "0a0db80576afd30c593cdbb7ad0e763abc2ef0bc1aeb7b2215cac31d67a5df3c",
+        "src/f4rank.h": "d6b6b9f393d7ec615a787669835956b14ba50651522cad5fc2774134e4b562e5",
+        "src/qpgsubs.h": "7e8c057df18904fe96cf29dcb4fbbe703a2c1bd54ec5594824dea52ef2b46efa",
+        "src/qpDpart.c": "029e77df957d38077c7cad734cfc7e5fe8e6e7fd251746164673abe69b5b00de",
+        "src/packit.h": "89dcaa1fb7c35eb2655a2f9f1961e1863047f9ad37c50a78c47e4cb5fbf8f8a9",
+        "src/rolloff.c": "083c8cab6cebd7f6e793143c72c15f9ab1007ef24e9928f1e1c495f07d8d1ea1",
+        "src/diffmean.c": "be5eadb4feab45af6e8c50af0b2b500e62acac252a0a7f6781cfa8bd126b4374",
+        "src/h2d.c": "b09a3a8a6f590e1aa4fc7a32b4e34278a6e0df5285e5f70e99d8c9212539345c",
+        "src/nicksrc/strsubs.h": "b4336452b3eff477da172c814eaf7ff670851f0d82952fe32c3ba2ecd3c19867",
+        "src/nicksrc/gauss.c": "9a63a6b728441ae536a7a069d3b4e8573982285128a8f13dd96761aa51805527",
+        "src/nicksrc/vsubs.c": "63be25e4209f80ede8516a78133a1a88ee7c2fd93f260ce27b46e35d88995d78",
+        "src/nicksrc/xsearch.h": "6cbbb92e854ec12bd56df2645ab4d9649ac857cf16a4e45457ecff3df258d820",
+        "src/nicksrc/twtable.h": "3069a2ef5a9feae426cbd584ef7009b0d65d248f5640bea488b62f53e021b0bb",
+        "src/nicksrc/getpars.h": "a90d147f93f62ddd90832e15ed09b2ea78b710981ee12af33703eb278506bf3f",
+        "src/nicksrc/linsubs.c": "a8f6fd1143673caf79e1e1b4050dbbb4eda93fd9ca0b966a5c72d9653d35bf6c",
+        "src/nicksrc/linsubs.h": "6c5a822515049995a1ac90858eef9ea0328aa30117fbb65fd1f615b8aa587eba",
+        "src/nicksrc/admix_types.h": "c42b320c848bb98fbff352b2df1d4246e435cb49e340efc3c3fa6385c65c6a05",
+        "src/nicksrc/ranmath.h": "243a7ff80a294c29ae3c7f7875d31a89a3208f6a4cb8f03c643ba67e3c0ccfa4",
+        "src/nicksrc/vsubs.h": "dc1108cdb1b31b096a87dd6a2310f884211556971fbf833742d5b5b483401e46",
+        "src/nicksrc/statsubs.h": "3031707f9331f52f7ddd702865048e27f338e96644884ff254b02ab8d9538581",
+        "src/nicksrc/nicklib.h": "4f8a2ae1c4e2c02cf7bfabe995db3ce144488df32b98c664a12d86103e57cb1a",
+        "src/nicksrc/sortit.c": "6d332a8494a00230e0c780c964bb8c4f4b513eeca7578e95132d4657054a5361",
+        "src/nicksrc/sortit.h": "dcdfdf3f8151b797935fb070187d01cc83e8fea537574d6bf0e1383b1bdf67b5",
+        "src/nicksrc/mptable.h": "04834a9526179d4cdc92dc280b5a84dd70c0c05127b63c763b1df52872d10375",
+        "src/nicksrc/kimf.c": "f6214072260aef25b72c24bdd6cf1d29eefc6f9ab45d27980465f8f78cbdd6f5",
+        "src/nicksrc/strsubs.c": "9b79f5f5bc0fb0fd4497a350cb67ad8e36d5c24dcb4bf11871a6bd0513e4c995",
+        "src/nicksrc/getpars.c": "f2b580a60e65897f89f6d1e7a654b03d932fcc6277e284674df7528ab4ef05c4",
+        "src/nicksrc/xsearch.c": "57b5f826a51845993555af355ea85baecf0cd8f2e08634df3036d340e861f6ed",
+        "src/nicksrc/statsubs.c": "592a5000521cb33e3aa51fabb1bba5f7a800bd8b23d726851d686eafc3f8c8cf",
+        "src/nicksrc/gcd.c": "c5a10209fdb85ee20586b85668c7ea855623cb3e395da8a33880e2b0b9beef87",
+        "src/nicksrc/admix_platform.h": "04ee846ff81409e908d82fecf2280b59506bc5b7b6de6579acaec8d5feb413f5",
+        "src/nicksrc/linsolve.c": "224b2a2ee5e7aec70646bb450a8072bc97964abc51f051d49e69e438ad86b4fe",
+        "src/nicksrc/esttime2.c": "dabe86211945c071c7cfa351fd516878b4486af2196bbba9dfe416448347a251",
+        "src/nicksrc/gds.c": "329f54fa44b37ac5d662629c5aade9e5392b0a981fdd246a1d9ccbec1fc8fda3",
+        "src/win32/compat.h": "97e89303abad8f12ee3d17153bbdcaf4047dd2381ca496e8deafc2b252f8fad6",
+        "src/win32/compat.c": "947e0b3025918efc4363e8362f9af9f9daa0d81e14ed2b11845b08a8acebc69a",
+        "src/win32/argp.h": "f06486cbbbad9f0f84ef2a2d5cc90d2f63ee07aa7125953bd936f3e455d87b2a",
+        "src/win32/mman.h": "eaef6bf4bc5b9c6a75841907bb671d1113f4cb767df95c569f0fb875b1ccf8ec"
+      },
+      "snapshot_mismatches": []
+    }
+  },
+  "test_sha256": {
+    "tests/windows/audit_qpdstat.py": "75f33c97054c88147abff2a4a5660bec42814cbc8acfeed5f2f4d1e219b9ff3c",
+    "tests/windows/audit_t04_modules.py": "ed741423efd1fe9970a55b29eec9c88a8c2ea3f60b0b821d1321fa3ef2cc9253",
+    "tests/windows/build_t04_audit.py": "e72b856e13a364f002e8fa4f16ac59148c9f048c8cdfd6b649265e1be293acef",
+    "tests/windows/build_t04_probes.py": "2224e0cf9e40df4d109923ae7a20a2151843e7a61562b56ef41b9de6ed2d5e80",
+    "tests/windows/collect_t04_evidence.py": "a9fe80609564f9e032dc018ed827d344731c95a752426d127ba7e4b9a9bf3a04",
+    "tests/windows/inventory_t04_modules.py": "6b51078137f4adf62e182fc2dd0144e32e62319648efd1672d7864af3adefd78",
+    "tests/windows/qpdstat_module_probe.c": "5a01154812c4b34af3823d75847addc5be5cfb95222f5a214f83318d2fbc82d0",
+    "tests/windows/t04_argv_child.c": "d6c498b7c3d0477201be50ccc3dc61368c9cc0ca41c88c18bf7e61635d8a5c7f",
+    "tests/windows/t04_native_checks.ps1": "6e5d50aaf9da49dfa8da32f3332f0f10d64fcc7dc2f1016b2158c21983d8d708",
+    "tests/windows/verify_t04_repairs.py": "c0fa5bb73d32d18901fa476638d7238cd02c067cd72e0f4fa143a559bc22ad17"
+  },
+  "linux_raw_archive": {
+    "path": "validation-results/hard-check/T04/repairs/linux-repairs-evidence.tar.gz",
+    "bytes": 84551066,
+    "sha256": "5135548e7dd46d1f9a2134ad82b96c0157f32c9a6d89c03318cb32f33bca2b73",
+    "sparse": true
+  },
+  "repair_classifications": {
+    "F024": "inherited upstream defect; scoped repair",
+    "F044": "Windows diagnostic regression",
+    "F045": "inherited upstream defect; scoped repair",
+    "F048": "inherited upstream defect; scoped repair",
+    "F050": "inherited upstream defect; scoped repair",
+    "F051": "inherited upstream defect; scoped repair",
+    "F056": "inherited upstream defect; scoped repair",
+    "F057": "inherited upstream defect; scoped repair",
+    "F058": "inherited upstream defect; scoped repair",
+    "F059": "inherited upstream defect; scoped repair",
+    "F060": "inherited upstream defect; scoped repair",
+    "F061": "inherited upstream defect; scoped repair",
+    "F062": "inherited upstream defect; scoped repair",
+    "F063": "inherited upstream defect; scoped repair",
+    "F064": "inherited upstream defect; scoped repair",
+    "F065": "inherited upstream defect; scoped repair",
+    "F066": "inherited upstream defect; scoped repair",
+    "F067": "inherited upstream defect; scoped repair",
+    "F068": "inherited upstream defect; scoped repair",
+    "F069": "inherited upstream defect; scoped repair",
+    "F070": "inherited upstream defect; scoped repair",
+    "F071": "inherited upstream defect; scoped repair",
+    "F072": "inherited upstream defect; scoped repair",
+    "F073": "inherited upstream defect; scoped repair"
+  }
+}

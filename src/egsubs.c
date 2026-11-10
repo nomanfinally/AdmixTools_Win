@@ -1,5 +1,7 @@
 #include  "mcio.h"
 #include  "egsubs.h"
+#include <errno.h>
+#include <limits.h>
 
 
 int
@@ -49,6 +51,13 @@ mkeglist (Indiv ** indm, int numindivs, char **eglist)
 
 int
 loadlist_type (char **list, char *listname, int *ztypes, int off)
+{
+  /* Legacy interface: callers must supply space for every input row. */
+  return loadlist_type_capacity(list, listname, ztypes, off, INT_MAX);
+}
+
+int
+loadlist_type_capacity (char **list, char *listname, int *ztypes, int off, int capacity)
 // listname is just a list of names ... 
 {
   FILE *lfile;
@@ -72,12 +81,20 @@ loadlist_type (char **list, char *listname, int *ztypes, int off)
     }
     if (nsplit < 2)
       fatalx ("bad listname: %s\n", sx);
+    if (n >= capacity) fatalx("typed population list exceeds capacity %d\n", capacity);
+    char *end;
+    long value;
+    errno = 0;
+    value = strtol(spt[1], &end, 10);
+    if (errno || end == spt[1] || *end || value < INT_MIN || value > INT_MAX ||
+        (int64_t)value + off < INT_MIN || (int64_t)value + off > INT_MAX)
+      fatalx("invalid population type: %s\n", spt[1]);
     list[n] = strdup (sx);
-    tt = atoi (spt[1]);
-    ztypes[n] = tt + off;
+    ztypes[n] = (int)value + off;
     ++n;
     freeup (spt, nsplit);
   }
+  fclose(lfile);
   return n;
 }
 

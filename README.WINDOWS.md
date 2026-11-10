@@ -205,6 +205,22 @@ directory**, not automatically from the parameter file's directory. Keeping
 parameter and data names relative also makes workflows easier to use on Linux.
 Use the call operator `&` when invoking an executable whose path is quoted.
 
+The [T04 corrections](tests/windows/audits/T04_qpDstat.corrections.md) repair all
+23 recorded defects and an additional malformed numeric parameter defect.
+Population limits now honor the seed; tree/Fourier memory errors and zero-statistic
+SD output are corrected. Unsupported `output`/`outputname`, `colcalc`, `fullmode`,
+`nostatslim`, `msjack` controls and `forceclade` fail explicitly. Use shell
+redirection for output. Tree corrections requiring a single observed allele and
+degenerate Fourier inputs are rejected; no replacement estimator is introduced.
+
+CRLF macro substitution now works on Windows and Linux. Use UTF-8 parameter files;
+LF and CRLF are tested. Forward-slash Windows input paths remain accepted.
+The independent module/header audits remain incomplete, so T04 still has no
+unqualified pass. The tested repair executables are isolated under
+`validation-results/hard-check/T04/repairs/verified-builds/snapshot/bin`; the
+previous installed `bin/` was preserved. Rebuild from the repaired source before
+using the corrections through your normal PATH.
+
 For Windows string parameters containing spaces, quote the value:
 
 ```text

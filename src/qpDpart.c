@@ -699,7 +699,7 @@ void  patternscore (double *pysc, double *pysig,  char **pattern, double **colpr
 
  free(pat1) ; 
  free(pat2) ; 
- free(cp) ;  
+ /* cp borrows a row of colprobs; the caller retains ownership. */
  
 
  return ;

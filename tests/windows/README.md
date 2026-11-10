@@ -264,3 +264,103 @@ See [T03 qpWave](audits/T03_qpWave.md) for initial findings, corrected fixture
 definitions, exact comparison scope, architecture review and remaining limits.
 The [T03 corrections](audits/T03_qpWave.corrections.md) supersede that initial
 open status and document the fixed findings, current evidence and limits.
+
+## T04 qpDstat and independent module review
+
+The [T04 report](audits/T04_qpDstat.md) is **reviewed with open defects, not
+passed**. Production behavior was not repaired. The 18 module reports and
+[function inventory](audits/T04_modules.inventory.json) list remaining
+contract/coverage gaps; none is a full-module certification.
+
+The recorded four-build matrix has 146 cases; a later haploid/tree case is a
+separate focused run. New complete invocations also include later parser/output
+checks. Read actual counts/selections from each manifest.
+
+Create an isolated snapshot/build on Windows using your actual UCRT64
+toolchain. Output directories and Linux build trees must be new:
+
+```powershell
+$taskToolchain = 'C:\msys64\ucrt64\bin'
+python tests/windows/build_t04_audit.py --output validation-results/hard-check/T04-new/builds --toolchain $taskToolchain
+python tests/windows/build_t04_probes.py --tree validation-results/hard-check/T04-new/builds/snapshot --output validation-results/hard-check/T04-new/probes-windows --toolchain $taskToolchain
+python tests/windows/audit_qpdstat.py --bin validation-results/hard-check/T04-new/builds/snapshot/bin --probe validation-results/hard-check/T04-new/probes-windows/module_probe.exe --output validation-results/hard-check/T04-new/windows
+python tests/windows/audit_qpdstat.py --verify validation-results/hard-check/T04-new/windows
+python tests/windows/audit_t04_modules.py --bin validation-results/hard-check/T04-new/builds/snapshot/bin --probes validation-results/hard-check/T04-new/probes-windows --output validation-results/hard-check/T04-new/modules-windows
+python tests/windows/audit_t04_modules.py --verify validation-results/hard-check/T04-new/modules-windows
+```
+
+The toolchain path above is this audit's tested location; substitute your own.
+The isolated build preserves the working checkout's `bin/`. Additional review
+warnings from `inventory_t04_modules.py` are neither findings nor passes.
+
+From the repo in WSL, use the snapshot output's actual Linux path:
+
+```bash
+python3 tests/windows/build_t04_audit.py --linux --output /mnt/c/path/to/repo/validation-results/hard-check/T04-new/builds
+python3 tests/windows/build_t04_probes.py --tree "$HOME/admixtools-t04-linux" --output "$HOME/t04-new-probes/linux"
+python3 tests/windows/audit_qpdstat.py --bin "$HOME/admixtools-t04-linux/src" --probe "$HOME/t04-new-probes/linux/module_probe" --output "$HOME/t04-new-results/linux"
+python3 tests/windows/audit_qpdstat.py --compare "$HOME/t04-new-results/linux" /mnt/c/path/to/repo/validation-results/hard-check/T04-new/windows
+```
+
+Use Linux filesystem output for WSL matrices to avoid slow per-file Windows
+mount I/O. The build refuses to overwrite its existing scratch trees; preserve
+previous evidence and use `--linux-root NEW_DIRECTORY` for another build.
+Repeat the runner/probe links for `admixtools-t04-pristine` and
+`admixtools-t04-asan`; pass `--sanitizer` for sanitizer probes.
+`--linux --coverage` creates a separate instrumented build; its probes require
+`--coverage`. The original Linux reference is never patched.
+
+`--select REGEX` limits diagnostic reruns. In PowerShell use `wsl -e python3`
+when passing a regex, so another shell cannot interpret its parentheses/pipes.
+Verifiers/comparators intentionally return nonzero for reproduced bugs, missing
+executables, timeouts, raw OS status differences and stream/file mismatches.
+Inspect the classification instead of loosening tolerances. Missing cases are
+not silently excluded.
+
+Run native checks with a new output directory:
+
+```powershell
+powershell -NoProfile -File tests/windows/t04_native_checks.ps1 -Bin validation-results/hard-check/T04-new/builds/snapshot/bin -Fixtures validation-results/hard-check/T04-new/windows/fixtures -Output validation-results/hard-check/T04-new/powershell
+```
+
+`collect_t04_evidence.py` collects the retained audit-specific paths after
+validation, checks production hashes, and writes evidence/module reports.
+Its Linux archive uses GNU sparse tar: extract it on a sparse-capable filesystem
+so logical 4-GiB failure-probe fixtures are not expanded as ordinary byte streams.
+
+### Requested T04 corrections
+
+[The repair report](audits/T04_qpDstat.corrections.md) and
+[machine evidence](audits/T04_qpDstat.corrections.evidence.json) supersede the
+original open findings in their reproduced scopes. Behavior verifiers now pass
+the repaired Windows/Linux/sanitizer matrices. Comparators continue returning
+nonzero for retained raw OS statuses, paths, Windows input extensions and the
+explicitly identified upstream defect corrections. Do not loosen tolerances.
+
+Build into new directories, preserving the installed binaries and old reference:
+
+```powershell
+python tests/windows/build_t04_audit.py --output validation-results/hard-check/T04-repair-new/builds --toolchain C:/msys64/ucrt64/bin
+wsl -e python3 tests/windows/build_t04_audit.py --linux --output validation-results/hard-check/T04-repair-new/builds --linux-root /home/user/t04-repair-new --skip-pristine
+```
+
+Adjust the toolchain and WSL paths to your machine. `--skip-pristine` uses the
+retained pinned reference for later comparisons; it does not rebuild or modify it.
+Repeat the probe/tool/module runner commands above for the new corrected native,
+Linux and ASan trees. The current direct probes use the new bounded list API;
+for a pristine probe rebuild use the original probe saved in the audit snapshot.
+The current qpDstat runner can exercise pristine executables directly.
+
+Run `verify_t04_repairs.py --help` for the required completed matrices, native
+PowerShell record, shared qpWave runs, original native/pristine references and
+build manifest paths. Run it under WSL so it can access both filesystems. It
+requires a new output evidence filename, checks every behavior verifier and
+source hash, compares scientific rows exactly against both corrected and pinned
+references, and retains every raw terminal/file comparison. The original
+`collect_t04_evidence.py` describes the pre-repair snapshot and must not be used
+to replace the preserved original audit evidence with repaired-source results.
+
+Authoritative repair artifacts use the `verified-*` names under
+`validation-results/hard-check/T04/repairs/`; Linux raw inputs/streams/probes are
+also retained in its separate sparse archive. The module/header queue remains
+pending beyond the reproduced defects, and sibling probes are targeted checks.
