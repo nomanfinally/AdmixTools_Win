@@ -364,3 +364,102 @@ Authoritative repair artifacts use the `verified-*` names under
 `validation-results/hard-check/T04/repairs/`; Linux raw inputs/streams/probes are
 also retained in its separate sparse archive. The module/header queue remains
 pending beyond the reproduced defects, and sibling probes are targeted checks.
+
+### T05 qp3Pop
+
+[The T05 report](audits/T05_qp3Pop.md) records open defects. Its independent
+mixed-ploidy X and large-inbred-count oracles expose shared upstream scientific
+failures; agreement between native/Linux outputs is not a pass. Production
+sources and the installed binaries were not changed by this audit.
+
+Use new scratch paths (substitute your compiler and WSL mount paths):
+
+```powershell
+python tests/windows/build_t05_audit.py --output validation-results/hard-check/T05-new/builds --toolchain C:/msys64/ucrt64/bin
+wsl -e python3 /mnt/c/path/to/repo/tests/windows/build_t05_audit.py --linux --output /mnt/c/path/to/repo/validation-results/hard-check/T05-new/builds --linux-root /home/user/t05-new
+python tests/windows/build_t05_probe.py --tree validation-results/hard-check/T05-new/builds/snapshot --output validation-results/hard-check/T05-new/probes --toolchain C:/msys64/ucrt64/bin
+python tests/windows/audit_qp3pop.py --bin validation-results/hard-check/T05-new/builds/snapshot/bin --probe validation-results/hard-check/T05-new/probes/qp3pop_probe.exe --output validation-results/hard-check/T05-new/complete-windows
+```
+
+Build the probe against each Linux source tree, passing `--sanitizer` for ASan,
+then run `audit_qp3pop.py` against each tree's `src/` binary directory and its
+matching probe. The pristine probe must include the pristine tree's qp3Pop.c.
+Use Linux filesystem output to avoid per-file Windows mount overhead. A separate
+`build_t05_audit.py --linux --coverage` invocation builds the coverage tree;
+its probe needs `--coverage`. `build_t05_probe.py --sanitizer --float-cast`
+also recompiles qpsubs.c with the explicit floating-to-integer overflow check.
+It leaves the production executable/object unchanged.
+
+```powershell
+python tests/windows/audit_qp3pop.py --verify validation-results/hard-check/T05-new/complete-windows
+wsl -e python3 /mnt/c/path/to/repo/tests/windows/audit_qp3pop.py --compare /home/user/t05-new/complete-linux /mnt/c/path/to/repo/validation-results/hard-check/T05-new/complete-windows
+powershell -NoProfile -File tests/windows/t05_native_checks.ps1 -Binary validation-results/hard-check/T05-new/builds/snapshot/bin/qp3Pop.exe -Fixture validation-results/hard-check/T05-new/complete-windows/fixtures -Output validation-results/hard-check/T05-new/native-powershell-final
+```
+
+The verifier/comparator returns nonzero while recorded defects/raw differences
+remain. Collection itself can complete successfully while preserving failures;
+inspect `verification.json`, scientific rows, original streams and case statuses.
+Never replace missing output or widen numeric tolerances to obtain a pass.
+
+The separate shared-module runner can use T04's production-function probe
+builders and this selection (quoted as one argument):
+`^(?!M13-map-failure|caller-(qpAdm|qpfstats|qpWave|qpdslow|qpDpart)|T04-)`.
+Pass `--skip-map` to `build_t04_probes.py` for this selection: the T05 tool set
+excludes rank/eigen objects needed by the unused Windows qpWave injection job.
+The module/platform/largefile/argv probe executables build normally. The new
+flag leaves the helper's default T04 behavior unchanged. Use a broader isolated
+tool build to rerun the excluded injection job.
+
+`collect_t05_evidence.py --help` describes its explicit Windows/Linux scratch
+paths. It requires completed `complete-*`, shared-module and native matrices,
+the recorded Windows package versions in `windows-environment.txt`, and the
+matching `probes-final-*`/`probes-float-*` trees. It runs focused leakage,
+float-cast, zero-denominator and `/dev/full` probes, checks source hashes, and
+collects coverage plus raw comparisons. The checked-in report/evidence identify
+the exact retained paths; this collector is an audit helper, not an installer.
+
+Authoritative Windows results are under `validation-results/hard-check/T05/`;
+Linux raw results/probe build records are also retained in
+`linux-artifacts.tar.gz` there. Extract using GNU sparse support on a
+sparse-capable filesystem: module offset probes contain logical files beyond
+4 GiB. Earlier diagnostic matrices remain historical, not replacement evidence.
+
+### T05 corrections
+
+[The repair report](audits/T05_qp3Pop.corrections.md) closes the 14 recorded
+finding groups in their tested scopes. The original report/hashes/failing
+streams and original harness bytes are retained. New runs against corrected
+sources must use `audit_qp3pop.py --repairs`; the earlier commands above describe
+the original audit contract and will continue to flag its intentional repairs.
+
+Use fresh paths and build affected consumers:
+
+```powershell
+python tests/windows/build_t05_audit.py --related --output validation-results/hard-check/T05-repair-new/builds --toolchain C:/msys64/ucrt64/bin
+wsl -e python3 /mnt/c/path/to/repo/tests/windows/build_t05_audit.py --linux --related --skip-pristine --output /mnt/c/path/to/repo/validation-results/hard-check/T05-repair-new/builds --linux-root /home/user/t05-repair-new
+python tests/windows/build_t05_probe.py --tree validation-results/hard-check/T05-repair-new/builds/snapshot --output validation-results/hard-check/T05-repair-new/probes-verified-windows --toolchain C:/msys64/ucrt64/bin
+python tests/windows/audit_qp3pop.py --repairs --bin validation-results/hard-check/T05-repair-new/builds/snapshot/bin --probe validation-results/hard-check/T05-repair-new/probes-verified-windows/qp3pop_probe.exe --output validation-results/hard-check/T05-repair-new/verified-windows
+```
+
+`--skip-pristine` retains the pinned original reference; the broader pristine
+qpfit build has its documented declaration conflict and must not be patched to
+make it appear pristine. Repeat probe links and the repair matrix for Linux and
+ASan; pass `--sanitizer --float-cast` for the sanitizer probe. Their source
+hashes are now recorded at link time. `--related` supplies the rank/eigen
+objects for the normal full shared-probe builder, including map-failure probes.
+
+Run `verify_t05_repairs.py --help` under WSL for the Windows/Linux root paths and
+new output filename. It requires the completed `verified-*`, modules,
+qpAdm/qpfstats/qpWave/qpDstat, native and installed check directories recorded in
+the correction evidence. It checks expected matrix counts, behavior verifiers,
+exact scientific rows, narrow original/pristine differences, source/build and
+installed provenance, native broken-pipe output errors, `/dev/full` and a
+LeakSanitizer-enabled low-data probe. Its own failure list must be empty.
+Comparators still retain raw OS statuses and paths; they are not full-stream
+parity certificates.
+
+Corrected raw Linux builds/results are in the separate sparse archive under
+`validation-results/hard-check/T05/repairs/`. The installed bin was rebuilt only
+after the scoped checks passed; its previous bytes/hashes are backed up in
+`repairs/installed-before/`. Full-suite parity, macOS runtime and independent
+module/header audits remain incomplete.

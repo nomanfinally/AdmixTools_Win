@@ -1095,6 +1095,8 @@ readinddata (Indiv ** indivmarkers, char *fname)
       indx->idnum = num;
       sx = spt[1];
       indx->gender = sx[0];
+      /* X: declared females are diploid; M/U retain the haploid convention. */
+      indx->hasxhets = (indx->gender == 'F');
       indx->affstatus = indx->ignore = NO;
       sx = spt[2];
       if (strcmp (sx, "Ignore") == 0)
@@ -1164,6 +1166,7 @@ readindpeddata (Indiv ** indivmarkers, char *fname)
       if (k == 2)
 	gender = 'F';
       indx->gender = gender;
+      indx->hasxhets = (gender == 'F');
       indx->affstatus = indx->ignore = NO;
 
       sx = spt[5];

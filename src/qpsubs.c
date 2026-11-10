@@ -3717,6 +3717,10 @@ estjackq (double *pjest, double *pjsig, double *btop, double *bbot,
   double y, mmean;
   double *xtop, *xbot, *xwt, *xmean;
 
+  if (nblocks <= 1) fatalx("(estjackq) number of blocks <= 1\n");
+  if (!isfinite(quartileval) || quartileval >= 0.5)
+    fatalx("jackquart must be finite and less than 0.5\n");
+
   ZALLOC (jjmean, nblocks, double);
   ZALLOC (jjwt, nblocks, double);
 
@@ -3774,6 +3778,8 @@ estjackq (double *pjest, double *pjsig, double *btop, double *bbot,
     free (ord);
     y = quartileval * (double) n;
     m = nnint (y);
+    if (m < 0 || m > (n - 2) / 2)
+      fatalx("jackquart leaves fewer than two blocks\n");
     g = n - 2 * m;
     xbot = wbot + m;
     xtop = wtop + m;
@@ -4202,7 +4208,8 @@ loadaa (SNP * cupt, int *xindex, int *xtypes, int nrows, int numeg)
   int k, j, t, a;
   int g, inb;
   int **ccc, *gg, *rawcol;
-  int nf, nm, nt, jhet ; 
+  int nf, nm, nt;
+  double jhet;
   int wcc[5] ; 
   double *cc, *dd;
   double x0, x1, x2, w0, w1, h1, s, yt, yf, ym, yy;
@@ -4293,11 +4300,11 @@ loadaa (SNP * cupt, int *xindex, int *xtypes, int nrows, int numeg)
 
   for (k = 0; k < nrows; ++k) {
     a = xtypes[k];
-    inb = aainbreed[a] ; 
     if (a < 0)
       continue;
     if (a >= aanum)
       continue;
+    inb = aainbreed[a] ;
     cc = aacnts[a];
     gg = ccc[k];
     g = gg[0];
@@ -4386,7 +4393,7 @@ loadaa (SNP * cupt, int *xindex, int *xtypes, int nrows, int numeg)
       hest[a] = h1;
       htest[a] = h1 / s; // correction for f-stats  
       if (verbose) { 
-       printf("zzh %6d %9.3f %9.3f\n", jhet, yt, h1) ;
+       printf("zzh %6.0f %9.3f %9.3f\n", jhet, yt, h1) ;
       }
     }
     else {

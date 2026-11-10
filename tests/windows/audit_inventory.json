@@ -16,7 +16,7 @@
     "shared_c_module": 28,
     "source_only_program": 5,
     "unbuilt_c_module": 7,
-    "validation_harness": 23
+    "validation_harness": 30
   },
   "c_sources": 78,
   "headers": 40,
@@ -131,7 +131,8 @@
         "M17",
         "M18"
       ],
-      "t04_contract_status": "production-context declarations reviewed; independent header contract remains pending"
+      "t04_contract_status": "production-context declarations reviewed; independent header contract remains pending",
+      "t05_corrections": "F082 initializes existing hasxhets in readers; struct layout unchanged; independent H01 audit pending."
     },
     {
       "id": "H02",
@@ -1161,6 +1162,13 @@
           "F044"
         ],
         "independent_contracts_still_pending": true
+      },
+      "t05_review": {
+        "report": "tests/windows/audits/T05_connected_modules.md",
+        "scope": "Scoped T05 defects corrected; independent module audit remains pending.",
+        "open_findings": [],
+        "findings_at_original_review": [],
+        "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       }
     },
     {
@@ -1247,6 +1255,13 @@
         },
         "corrected_findings": [],
         "independent_contracts_still_pending": true
+      },
+      "t05_review": {
+        "report": "tests/windows/audits/T05_connected_modules.md",
+        "scope": "Scoped T05 defects corrected; independent module audit remains pending.",
+        "open_findings": [],
+        "findings_at_original_review": [],
+        "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       }
     },
     {
@@ -1337,6 +1352,13 @@
           "F073"
         ],
         "independent_contracts_still_pending": true
+      },
+      "t05_review": {
+        "report": "tests/windows/audits/T05_connected_modules.md",
+        "scope": "Scoped T05 defects corrected; independent module audit remains pending.",
+        "open_findings": [],
+        "findings_at_original_review": [],
+        "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       }
     },
     {
@@ -1413,6 +1435,13 @@
         },
         "corrected_findings": [],
         "independent_contracts_still_pending": true
+      },
+      "t05_review": {
+        "report": "tests/windows/audits/T05_connected_modules.md",
+        "scope": "Scoped T05 defects corrected; independent module audit remains pending.",
+        "open_findings": [],
+        "findings_at_original_review": [],
+        "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       }
     },
     {
@@ -1489,6 +1518,13 @@
         },
         "corrected_findings": [],
         "independent_contracts_still_pending": true
+      },
+      "t05_review": {
+        "report": "tests/windows/audits/T05_connected_modules.md",
+        "scope": "Scoped T05 defects corrected; independent module audit remains pending.",
+        "open_findings": [],
+        "findings_at_original_review": [],
+        "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       }
     },
     {
@@ -1569,6 +1605,13 @@
           "F069"
         ],
         "independent_contracts_still_pending": true
+      },
+      "t05_review": {
+        "report": "tests/windows/audits/T05_connected_modules.md",
+        "scope": "Scoped T05 defects corrected; independent module audit remains pending.",
+        "open_findings": [],
+        "findings_at_original_review": [],
+        "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       }
     },
     {
@@ -1650,6 +1693,13 @@
           "F065"
         ],
         "independent_contracts_still_pending": true
+      },
+      "t05_review": {
+        "report": "tests/windows/audits/T05_connected_modules.md",
+        "scope": "Scoped T05 defects corrected; independent module audit remains pending.",
+        "open_findings": [],
+        "findings_at_original_review": [],
+        "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       }
     },
     {
@@ -1733,6 +1783,13 @@
           "F066"
         ],
         "independent_contracts_still_pending": true
+      },
+      "t05_review": {
+        "report": "tests/windows/audits/T05_connected_modules.md",
+        "scope": "Scoped T05 defects corrected; independent module audit remains pending.",
+        "open_findings": [],
+        "findings_at_original_review": [],
+        "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       }
     },
     {
@@ -1818,6 +1875,13 @@
         },
         "corrected_findings": [],
         "independent_contracts_still_pending": true
+      },
+      "t05_review": {
+        "report": "tests/windows/audits/T05_connected_modules.md",
+        "scope": "Scoped T05 defects corrected; independent module audit remains pending.",
+        "open_findings": [],
+        "findings_at_original_review": [],
+        "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       }
     },
     {
@@ -1895,6 +1959,13 @@
         },
         "corrected_findings": [],
         "independent_contracts_still_pending": true
+      },
+      "t05_review": {
+        "report": "tests/windows/audits/T05_connected_modules.md",
+        "scope": "Scoped T05 defects corrected; independent module audit remains pending.",
+        "open_findings": [],
+        "findings_at_original_review": [],
+        "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       }
     },
     {
@@ -1983,6 +2054,15 @@
           "F071"
         ],
         "independent_contracts_still_pending": true
+      },
+      "t05_review": {
+        "report": "tests/windows/audits/T05_connected_modules.md",
+        "scope": "Scoped T05 defects corrected; independent module audit remains pending.",
+        "open_findings": [],
+        "findings_at_original_review": [
+          "F082"
+        ],
+        "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       }
     },
     {
@@ -2065,6 +2145,13 @@
           "F064"
         ],
         "independent_contracts_still_pending": true
+      },
+      "t05_review": {
+        "report": "tests/windows/audits/T05_connected_modules.md",
+        "scope": "Scoped T05 defects corrected; independent module audit remains pending.",
+        "open_findings": [],
+        "findings_at_original_review": [],
+        "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       }
     },
     {
@@ -2141,6 +2228,13 @@
         },
         "corrected_findings": [],
         "independent_contracts_still_pending": true
+      },
+      "t05_review": {
+        "report": "tests/windows/audits/T05_connected_modules.md",
+        "scope": "Scoped T05 defects corrected; independent module audit remains pending.",
+        "open_findings": [],
+        "findings_at_original_review": [],
+        "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       }
     },
     {
@@ -2226,6 +2320,15 @@
           "F050"
         ],
         "independent_contracts_still_pending": true
+      },
+      "t05_review": {
+        "report": "tests/windows/audits/T05_connected_modules.md",
+        "scope": "Scoped T05 defects corrected; independent module audit remains pending.",
+        "open_findings": [],
+        "findings_at_original_review": [
+          "F082"
+        ],
+        "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       }
     },
     {
@@ -2346,6 +2449,19 @@
           "F059"
         ],
         "independent_contracts_still_pending": true
+      },
+      "t05_review": {
+        "report": "tests/windows/audits/T05_connected_modules.md",
+        "scope": "Scoped T05 defects corrected; independent module audit remains pending.",
+        "open_findings": [],
+        "findings_at_original_review": [
+          "F048",
+          "F075",
+          "F076",
+          "F080",
+          "F082"
+        ],
+        "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       }
     },
     {
@@ -2429,6 +2545,13 @@
           "F067"
         ],
         "independent_contracts_still_pending": true
+      },
+      "t05_review": {
+        "report": "tests/windows/audits/T05_connected_modules.md",
+        "scope": "Scoped T05 defects corrected; independent module audit remains pending.",
+        "open_findings": [],
+        "findings_at_original_review": [],
+        "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       }
     },
     {
@@ -2493,6 +2616,13 @@
         },
         "corrected_findings": [],
         "independent_contracts_still_pending": true
+      },
+      "t05_review": {
+        "report": "tests/windows/audits/T05_connected_modules.md",
+        "scope": "Scoped T05 defects corrected; independent module audit remains pending.",
+        "open_findings": [],
+        "findings_at_original_review": [],
+        "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       }
     },
     {
@@ -2561,6 +2691,13 @@
           "F066"
         ],
         "independent_contracts_still_pending": true
+      },
+      "t05_review": {
+        "report": "tests/windows/audits/T05_connected_modules.md",
+        "scope": "Scoped T05 defects corrected; independent module audit remains pending.",
+        "open_findings": [],
+        "findings_at_original_review": [],
+        "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       }
     },
     {
@@ -3744,7 +3881,7 @@
       "paths": [
         "src/qp3Pop.c"
       ],
-      "hard_check": "pending",
+      "hard_check": "passed with limitations",
       "role": "Three-population statistics",
       "build": "built",
       "blocked_reason": null,
@@ -3777,6 +3914,56 @@
       "links_nick_archive": true,
       "sha256": {
         "src/qp3Pop.c": "f64af5a2b49af229bc3e8952649f871d31d69e6b2ef7b4c3f385bbfecc11ffe1"
+      },
+      "audit_report": "tests/windows/audits/T05_qp3Pop.md",
+      "audit_evidence": "tests/windows/audits/T05_qp3Pop.evidence.json",
+      "audit_working_head": "05780fbcbaa509fbe17be140999b1224bfdfa7ba",
+      "t05_open_findings": [],
+      "audit_limits": "Recorded T05 defects corrected with independent oracles and Windows/Linux/ASan comparisons; full research datasets/macOS and independent M/H contracts remain uncompleted.",
+      "audited_sha256": {
+        "src/qp3Pop.c": "f64af5a2b49af229bc3e8952649f871d31d69e6b2ef7b4c3f385bbfecc11ffe1"
+      },
+      "t05_findings_at_original_review": [
+        "F044",
+        "F045",
+        "F048",
+        "F050",
+        "F051",
+        "F074",
+        "F075",
+        "F076",
+        "F077",
+        "F078",
+        "F079",
+        "F080",
+        "F081",
+        "F082"
+      ],
+      "t05_corrections": {
+        "report": "tests/windows/audits/T05_qp3Pop.corrections.md",
+        "evidence": "tests/windows/audits/T05_qp3Pop.corrections.evidence.json",
+        "date": "2026-11-11",
+        "corrected_findings": [
+          "F044",
+          "F045",
+          "F048",
+          "F050",
+          "F051",
+          "F074",
+          "F075",
+          "F076",
+          "F077",
+          "F078",
+          "F079",
+          "F080",
+          "F081",
+          "F082"
+        ],
+        "source_sha256": {
+          "src/qp3Pop.c": "991e3c4c1d0449f793a94ed4a4398fcfe1dd230f953a1ff427ca780acd57a834",
+          "src/qpsubs.c": "6e828b42817b6c9966ee4a4db06d087aa04258a77c49d892ce84c2bda271fd1a",
+          "src/mcio.c": "376de15769c170b83a86b4224c3f4045d1d32b6a7555b001c2e5efc97907be0f"
+        }
       }
     },
     {
@@ -4433,7 +4620,8 @@
       "links_nick_archive": true,
       "sha256": {
         "src/qpBound.c": "f717d53cf60744f0e0e986a34fe6b894f7325019c4ca156d22f1ed9f6f0e444c"
-      }
+      },
+      "t05_integration_evidence": "qp3Pop result-to-qpBound workflow tested on Windows/pristine/current Linux/ASan; independent T21 audit remains pending."
     },
     {
       "id": "T22",
@@ -5355,7 +5543,11 @@
       "sha256": {
         "tests/windows/build_t04_probes.py": "2224e0cf9e40df4d109923ae7a20a2151843e7a61562b56ef41b9de6ed2d5e80"
       },
-      "prior_evidence": "Exercised under T04; audit runner/probe contracts remain independently pending. See tests/windows/audits/T04_qpDstat.md"
+      "prior_evidence": "Exercised under T04; audit runner/probe contracts remain independently pending. See tests/windows/audits/T04_qpDstat.md",
+      "t05_sha256": {
+        "tests/windows/build_t04_probes.py": "3f01bfe70f8aca01b5dec0010ebcdc43c9de62f2dee08ef9e1034d740267b796"
+      },
+      "t05_note": "Optional --skip-map preserves default T04 probe jobs; fresh T05 native shared build succeeds."
     },
     {
       "id": "Q18",
@@ -5434,10 +5626,113 @@
         "tests/windows/verify_t04_repairs.py": "c0fa5bb73d32d18901fa476638d7238cd02c067cd72e0f4fa143a559bc22ad17"
       },
       "prior_evidence": "T04 repair verification and scoped evidence; independent harness audit remains pending."
+    },
+    {
+      "id": "Q24",
+      "category": "validation_harness",
+      "name": "build_t05_audit.py",
+      "paths": [
+        "tests/windows/build_t05_audit.py"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/build_t05_audit.py": "c5b0f375262d7bb201384f53116cfb75952587db39c13c392719b7ad8fed7038"
+      },
+      "prior_evidence": "Exercised under T05; independent harness audit remains pending. isolated native/pristine/Linux/sanitizer/coverage builds",
+      "t05_correction_sha256": {
+        "tests/windows/build_t05_audit.py": "95db6444bbdc1bc1b13831dde07c4915d5d34e4f310b47297d0340a8927ca048"
+      }
+    },
+    {
+      "id": "Q25",
+      "category": "validation_harness",
+      "name": "audit_qp3pop.py",
+      "paths": [
+        "tests/windows/audit_qp3pop.py"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/audit_qp3pop.py": "54be63e75ef746001a2bed597d400597a2c9dac781c682ebf09e94a9073f2fc4"
+      },
+      "prior_evidence": "Exercised under T05; independent harness audit remains pending. mode matrix, strict comparisons and independent allele/jackknife oracles",
+      "t05_correction_sha256": {
+        "tests/windows/audit_qp3pop.py": "3e02e89274c44779c63daabdc3512cb35e3dca61b8efed26f9d27eee30bffa96"
+      }
+    },
+    {
+      "id": "Q26",
+      "category": "validation_harness",
+      "name": "build_t05_probe.py",
+      "paths": [
+        "tests/windows/build_t05_probe.py"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/build_t05_probe.py": "c54cb27239920216dd9e45e3ce66a6bf562e55168ae28cdb87eb4f09df0f28c5"
+      },
+      "prior_evidence": "Exercised under T05; independent harness audit remains pending. normal, coverage and explicit float-cast production-function probe links",
+      "t05_correction_sha256": {
+        "tests/windows/build_t05_probe.py": "8ac93f4bbeabe18bd9ff9cbd3b56d028b6eefa2c1eb5b234f95547ea6ec1c1bd"
+      }
+    },
+    {
+      "id": "Q27",
+      "category": "validation_harness",
+      "name": "qp3pop_probe.c",
+      "paths": [
+        "tests/windows/qp3pop_probe.c"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/qp3pop_probe.c": "c5df01b93c312000a00a9e1cbf3e74e8e0b5ae55a3b398ff9868ccf8c8c5b864"
+      },
+      "prior_evidence": "Exercised under T05; independent harness audit remains pending. sampling, lifetime, count, type-boundary and jackknife probes",
+      "t05_correction_sha256": {
+        "tests/windows/qp3pop_probe.c": "d8ddb33dbe56ab63bfdfaca52dc1b874c780723ed4518002f8c53e29b43c3b76"
+      }
+    },
+    {
+      "id": "Q28",
+      "category": "validation_harness",
+      "name": "t05_native_checks.ps1",
+      "paths": [
+        "tests/windows/t05_native_checks.ps1"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/t05_native_checks.ps1": "de0b71b815dc49357619027ed2eda02bfe131f1154a47d9e3ec89b7e80841c9d"
+      },
+      "prior_evidence": "Exercised under T05; independent harness audit remains pending. native PowerShell invocation, paths, streams, Tee and gzip"
+    },
+    {
+      "id": "Q29",
+      "category": "validation_harness",
+      "name": "collect_t05_evidence.py",
+      "paths": [
+        "tests/windows/collect_t05_evidence.py"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/collect_t05_evidence.py": "4d536dac5e700a07692c60e8ce44d2d546536b57ebd34535e8803770df1bd804"
+      },
+      "prior_evidence": "Exercised under T05; independent harness audit remains pending. source-checked evidence, supplemental probes and coverage collection"
+    },
+    {
+      "id": "Q30",
+      "category": "validation_harness",
+      "name": "verify_t05_repairs.py",
+      "paths": [
+        "tests/windows/verify_t05_repairs.py"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/verify_t05_repairs.py": "2aa86ac6febc8c28be2b9eb47159beab96c6b068cf9310218f7ebff60f38a245"
+      },
+      "prior_evidence": "T05 repair evidence collector/verifier; independent harness audit remains pending."
     }
   ],
-  "last_audit_date": "2026-11-10",
-  "last_audit_working_head": "f0e642a3cfc077137af0b6c5c3888b3056e99fbf",
+  "last_audit_date": "2026-11-11",
+  "last_audit_working_head": "05780fbcbaa509fbe17be140999b1224bfdfa7ba",
   "active_audit": "T04",
   "next_queued_item": "T04",
   "completed_hard_audits": [
@@ -5452,6 +5747,10 @@
     {
       "id": "T03",
       "status": "passed with limitations"
+    },
+    {
+      "id": "T05",
+      "status": "passed with limitations"
     }
   ],
   "reviewed_with_open_defects": [
@@ -5462,6 +5761,7 @@
     }
   ],
   "reviewed_with_coverage_limits": [
-    "T04"
+    "T04",
+    "T05"
   ]
 }

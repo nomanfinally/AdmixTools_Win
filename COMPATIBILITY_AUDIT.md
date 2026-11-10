@@ -30,14 +30,16 @@ New items get new IDs; do not renumber the existing queue.
 | Shared C modules linked directly or available through libnick | 28 |
 | Additional C programs with main(), outside supported build | 5 |
 | Additional C modules outside supported links | 7 |
-| Validation runners/probes | 23 |
+| Validation runners/probes | 30 |
 
-Total: **196 audit items**, covering **78 production C sources and 40 headers** plus scripts and build/test controls.
+Total: **203 audit items**, covering **78 production C sources and 40 headers** plus scripts and build/test controls.
 I10 and Q07–Q08 were appended during T01; original snapshot hashes remain historical.
 Q09–Q10 were appended during T02; snapshot hashes remain historical.
 Q11–Q13 were appended during T03 and its corrections; snapshot hashes remain historical.
 Q14–Q22 were appended during T04; original snapshot hashes remain historical.
 Q23 was appended during the requested T04 corrections.
+Q24-Q29 were appended during T05; original snapshot hashes remain historical.
+Q30 was appended during T05 corrections; original evidence is retained.
 
 Data files, parameter templates (including `parsimp.templ` and
 `parsimp2.templ`), reference logs, manuals and generated binaries are fixtures or
@@ -60,10 +62,23 @@ sooner; record that dependency and resume the current tool afterward. T38 is
 blocked pending an established upstream algorithm/reference, not permission to
 guess the intended statistical expressions.
 
-Current active hard audit: **T04 qpDstat — recorded defects corrected; independent coverage incomplete; not passed**.
-Hard tool reviews recorded: **4**: T01, T02 and T03 **passed with limitations**;
-T04 remains the coverage-closure item before T05.
-Clean/unqualified passes: **0**. This is not full-suite certification.
+Current remaining coverage-closure item: **T04 qpDstat**.
+Hard tool reviews recorded: **5**. T01-T03 and T05 passed with limitations;
+T04 retains independent coverage gaps. T05 was reviewed/corrected at the user's
+explicit request without closing T04's unfinished coverage. Clean/unqualified
+passes: **0**. This is not full-suite certification.
+
+[T05 corrections](tests/windows/audits/T05_qp3Pop.corrections.md) close all 14
+recorded finding groups in their reproduced scopes. The 167-case native,
+corrected Linux and sanitizer matrices pass; all 75 jointly successful
+result-producing cases agree at printed precision and independent oracles pass.
+The retained original Windows/pristine comparisons isolate changed seeded and
+X results explicitly. Shared 91 Windows / 89 Linux / 89 ASan cases, affected
+qpAdm/qpfstats/qpWave/qpDstat regressions and native PowerShell checks pass.
+All 37 supported binaries were rebuilt; the old bin bytes are backed up.
+The [original review](tests/windows/audits/T05_qp3Pop.md),
+[connected-module report](tests/windows/audits/T05_connected_modules.md) and
+1,102-function inventory remain historical. Independent M/H audits stay pending.
 
 [T04 qpDstat report](tests/windows/audits/T04_qpDstat.md) records 146-case
 Windows/pristine-Linux/Linux-port/sanitizer matrices, independent allele-count
@@ -124,7 +139,7 @@ and state its limits; it does not close related modules automatically.
 | [x] | T02 | `qpfstats` | F-statistic precomputation and helper process | Default | [Passed with limitations](tests/windows/audits/T02_qpfstats.corrections.md) |
 | [x] | T03 | `qpWave` | Rank/ancestry-stream tests | Default | [Passed with limitations](tests/windows/audits/T03_qpWave.corrections.md) |
 | [ ] | T04 | `qpDstat` | D/f4 statistics | Default | [Defects corrected; coverage incomplete](tests/windows/audits/T04_qpDstat.corrections.md) |
-| [ ] | T05 | `qp3Pop` | Three-population statistics | Default | Fixture |
+| [x] | T05 | `qp3Pop` | Three-population statistics | Default | [Passed with limitations](tests/windows/audits/T05_qp3Pop.corrections.md) |
 | [ ] | T06 | `qpF4ratio` | F4-ratio estimation | Default | Fixture |
 | [ ] | T07 | `qp4diff` | Differences between four-population statistics | Default | Fixture |
 | [ ] | T08 | `qpGraph` | Admixture graph fitting | Default | Fixture |
@@ -392,6 +407,13 @@ Audit the oracle and test runner too: expected failures, missing cases/files, ti
 | [ ] | Q21 | `t04_native_checks.ps1` | `tests/windows/t04_native_checks.ps1`; direct PowerShell/redirection/Tee/gzip path checks |
 | [ ] | Q22 | `collect_t04_evidence.py` | `tests/windows/collect_t04_evidence.py`; retained-run summaries, sparse archive and independent module reports |
 | [ ] | Q23 | `verify_t04_repairs.py` | `tests/windows/verify_t04_repairs.py`; repair verifiers, exact comparisons, source hashes and scoped closure evidence |
+| [ ] | Q24 | `build_t05_audit.py` | `tests/windows/build_t05_audit.py`; isolated native/pristine/Linux/sanitizer/coverage builds |
+| [ ] | Q25 | `audit_qp3pop.py` | `tests/windows/audit_qp3pop.py`; mode matrix, strict comparisons and independent allele/jackknife oracles |
+| [ ] | Q26 | `build_t05_probe.py` | `tests/windows/build_t05_probe.py`; normal, coverage and explicit float-cast production-function probe links |
+| [ ] | Q27 | `qp3pop_probe.c` | `tests/windows/qp3pop_probe.c`; sampling, lifetime, count, type-boundary and jackknife probes |
+| [ ] | Q28 | `t05_native_checks.ps1` | `tests/windows/t05_native_checks.ps1`; native PowerShell invocation, paths, streams, Tee and gzip |
+| [ ] | Q29 | `collect_t05_evidence.py` | `tests/windows/collect_t05_evidence.py`; source-checked evidence, supplemental probes and coverage collection |
+| [ ] | Q30 | `verify_t05_repairs.py` | `tests/windows/verify_t05_repairs.py`; corrected matrices, original scientific comparisons, source/installed provenance and fault probes |
 
 ## Hard-check procedure for each item
 
@@ -470,6 +492,10 @@ Keep a completed-with-open-limitations state distinct from a clean pass.
 | F070 | T22 qpDpart; targeted caller regression | Corrected borrowed-row ownership | patternscore retains its caller's colprobs row; multiple quartets pass ASan and native checks. | [T04 corrections](tests/windows/audits/T04_qpDstat.corrections.md); not a full T22 audit. |
 | F071–F072 | M11/T04/M20 | Corrected reproduced lifecycle/haploid-tree defects | Owned Unix gzip cleanup and explicit rejection of undefined single-allele tree corrections. | [T04 corrections](tests/windows/audits/T04_qpDstat.corrections.md). |
 | F073 | M03; numeric parameter callers | Corrected inherited partial numeric conversion | Reject malformed/out-of-range scalar/vector integer and real tokens; retain caller-specific finite-domain checks. | [T04 corrections](tests/windows/audits/T04_qpDstat.corrections.md); valid boundaries and targeted sibling consumers pass. |
+| F044/F045/F048/F050/F051, T05 occurrences | T05; M01/M11/M14/M17 | Corrected in reproduced T05 scopes | Shared Windows getopt diagnostics, seeded sampling, finite/domain/trim guards, duplicate validation and truthful CLI/unsupported controls. | [T05 corrections](tests/windows/audits/T05_qp3Pop.corrections.md); original comparisons and scoped regressions retained. |
+| F074-F078 | T05; M02/M17 and related callers | Corrected inherited lifetime/scientific/bounds/output defects | Unified low-data cleanup, representable pair counts, bounds before reads, checked parser status and one ordered details stream. | [T05 corrections](tests/windows/audits/T05_qp3Pop.corrections.md); independent large-count, physical-subset, details and sanitizer checks pass. |
+| F079-F081 | T05; documentation/estimator/output | Corrected inherited contract defects | Explain outgroup/inbreed settings, reject undefined normalized denominators and check detail flush/close errors. | [T05 corrections](tests/windows/audits/T05_qp3Pop.corrections.md); zero denominator, native broken-pipe and Linux /dev/full tests pass. |
+| F082 | T05; M11/M14/M17; X consumers | Corrected missing ploidy metadata initialization | Ordinary/PED readers set F diploid; M/U retain legacy haploid behavior. Independent female/mixed/weighted/male/unknown X and genotype-format oracles pass. | [T05 corrections](tests/windows/audits/T05_qp3Pop.corrections.md); eight seed/X scientific changes from broken original runs are explicitly recorded. |
 
 F001 evidence before correction (historical):
 

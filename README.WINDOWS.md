@@ -28,6 +28,23 @@ For the sequential per-tool/module bug and compatibility review, see
 [COMPATIBILITY_AUDIT.md](COMPATIBILITY_AUDIT.md). Existing fixture coverage does
 not count as a completed hard audit.
 
+The [T05 qp3Pop corrections](tests/windows/audits/T05_qp3Pop.corrections.md)
+close all 14 recorded finding groups in their tested scopes. T05 has passed
+with limitations: 167 Windows/Linux/sanitizer cases pass, including independent
+X and large-inbred-count oracles. All 37 supported binaries have been rebuilt;
+the previous bin bytes are preserved under the recorded repair artifacts.
+Seeded and mixed-X results intentionally differ from broken pristine behavior.
+
+On X, declared F records are diploid; M/U retain the haploid convention, with
+heterozygous calls excluded. Supply correct sex labels; inbreed does not infer
+sex. A zero target-heterozygosity denominator is rejected. `outgroupmode: YES`
+uses upstream's arbitrary `.001` denominator and still requires the applicable
+inbreed/override setting for a target without heterozygotes. SNP details now
+retain all triples in input order, using the existing fields without separator
+headers; write failures are fatal. Ordinary results go to stdout. Inactive
+`output:`/`outputname:`/`f3log:` and legacy controls reject explicitly. Use
+PowerShell redirection as shown below and inspect stderr and `$LASTEXITCODE`.
+
 ## 1. Prerequisites
 
 Use 64-bit Windows 10 version 1903 or later, or Windows 11, PowerShell,

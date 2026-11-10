@@ -10,7 +10,7 @@ ROOT=Path(__file__).resolve().parents[2]
 DEPENDENCIES='qpsubs mcio mapfile ldsubs admutils egsubs regsubs geno'.split()
 
 
-def build(tree, output, toolchain=None, sanitizer=False,coverage=False):
+def build(tree, output, toolchain=None, sanitizer=False,coverage=False,skip_map=False):
     output.mkdir(parents=True,exist_ok=False)
     tests=tree/'tests/windows'; tests.mkdir(parents=True,exist_ok=True)
     for filename in ('qpdstat_module_probe.c','platform_probe.c','largefile_probe.c','qpwave_map_probe.c','t04_argv_child.c'):
@@ -38,11 +38,11 @@ def build(tree, output, toolchain=None, sanitizer=False,coverage=False):
           ('argv_child','t04_argv_child.c',extra,[]),
           ('platform_probe','platform_probe.c',[archive]+extra,[]),
           ('largefile_probe','largefile_probe.c',extra,[])]
-    if windows:
+    if windows and not skip_map:
         waveobjects=[tree/'src/.windows'/(s+'.o') for s in DEPENDENCIES if s!='mapfile']
         waveobjects += [tree/'src/.windows'/(s+'.o') for s in ('f4rank','eigsubs','eigx')]
         jobs.append(('map_failure_probe','qpwave_map_probe.c',waveobjects+[archive]+extra,['-DQPWAVE_FORCE_MAP_FAILURE']))
-    else:
+    elif not windows and not skip_map:
         jobs.append(('map_failure_probe','qpwave_map_probe.c',[archive],['-ffunction-sections','-fdata-sections','-Wl,--gc-sections']))
     with (output/'build.log').open('w') as log:
         for name,source,inputs,options in jobs:
@@ -59,4 +59,5 @@ if __name__=='__main__':
     p.add_argument('--tree',required=True,type=Path);p.add_argument('--output',required=True,type=Path)
     p.add_argument('--toolchain',type=Path);p.add_argument('--sanitizer',action='store_true')
     p.add_argument('--coverage',action='store_true')
-    a=p.parse_args();build(a.tree.resolve(),a.output.resolve(),a.toolchain.resolve() if a.toolchain else None,a.sanitizer,a.coverage)
+    p.add_argument('--skip-map',action='store_true',help='omit the separate qpWave mapping-failure injection job')
+    a=p.parse_args();build(a.tree.resolve(),a.output.resolve(),a.toolchain.resolve() if a.toolchain else None,a.sanitizer,a.coverage,a.skip_map)
