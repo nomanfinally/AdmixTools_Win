@@ -5034,9 +5034,8 @@ void   dumpfstatshr(char *fstatsname, double *ff3, double *ff3var, char **eglist
 {
    FILE *fff ;
    int a, b, nh2, k, x, u, v, c, d ; 
-   double y1, y2, y ; 
+   double y1, y2 ;
 // double *vvar, *vinv ; 
-   char sx[128] ;
 
    if (fstatsname == NULL) return ; 
 
@@ -5074,9 +5073,6 @@ void   dumpfstatshr(char *fstatsname, double *ff3, double *ff3var, char **eglist
      fprintf(fff, "%15s %15s   ",  eglist[c], eglist[d ]) ; 
      fprintf(fff, "%12.6f\n", y2) ;
 
-     sprintf(sx, "%12.6f", y2) ; 
-     y = atof(sx) ;
-//   vvar[u*nh2+v] = vvar[v*nh2+u] = y ; 
 
  }} 
 

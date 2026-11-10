@@ -16,6 +16,13 @@ The per-tool hard compatibility audit is underway. The
 Windows fixes, upstream bug fixes and remaining limits. This is a development
 source publication, with no release or MSI installer yet.
 
+The [T02 qpfstats report](tests/windows/audits/T02_qpfstats.md) records direct
+modes, formats, helper/consumer checks and further repairs. T02 is **reviewed
+with open upstream defects**, not passed: qpfstats currently ignores its seed
+and does not apply `popsizelimit` to the analysis despite changing displayed
+sample counts. Do not rely on those settings to subsample data. Legacy qpfit
+also exits before fitting; qpGraph helper cleanup remains open.
+
 For the sequential per-tool/module bug and compatibility review, see
 [COMPATIBILITY_AUDIT.md](COMPATIBILITY_AUDIT.md). Existing fixture coverage does
 not count as a completed hard audit.
@@ -161,8 +168,8 @@ damaged or truncated streams are rejected before analysis.
 The upstream `unzip cmd: gunzip -c ...` terminal line is retained for output
 compatibility; Windows performs that decompression internally. Generated paths
 use native backslashes. Temporary decompressed files are removed after a
-successful read or decompression failure. Cleanup after a fatal error inside a
-genotype reader remains unverified. For large inputs, ensure the temporary
+successful read, decompression failure and the native Windows fatal-reader
+cases exercised in T01/T02. Forced process termination is not covered. For large inputs, ensure the temporary
 directory has space for the uncompressed file. To select an existing directory:
 
 ```powershell
@@ -216,7 +223,7 @@ for that console before invoking the tools:
 [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding $false
 ```
 
-Windows qpAdm parameter files also accept an initial UTF-8 BOM; UTF-16/NUL
+Windows qpAdm and qpfstats parameter files also accept an initial UTF-8 BOM; UTF-16/NUL
 parameter files are rejected with an instruction to save as UTF-8.
 Long-path cases pass on the audited machine with Windows long paths enabled.
 The manifest opts in but does not change that machine policy; network/UNC paths
@@ -256,6 +263,20 @@ coefficients, high-resolution/diagonal-only output, compressed PED/BED dispatch,
 and invalid input/output handling. Read the report before comparing such cases
 with an unpatched Linux binary. Ordinary supported fits retain upstream's
 calculations and printed precision; optimization work remains deferred.
+
+For standalone f-statistic precomputation, use the upstream executable directly:
+
+```powershell
+.\bin\qpfstats.exe -p .\par.qpfstats > .\qpfstats.log 2> .\qpfstats.err
+$LASTEXITCODE
+```
+
+Set `poplistname:` to a file with one population per line (at least two); the
+first population is the basis. Set `fstatsoutname:` for the generated statistics,
+and specify `allsnps:`, `inbreed:` and `scale:` explicitly as recommended in
+`README.qpfstats`. `output:` does not redirect qpfstats results. Version is
+`1101.w` for this baseline. The T02 report explains deliberate corrections to
+broken diagnostics/error cases and the remaining upstream scientific limitations.
 
 ## 6. Add the suite to your user PATH
 

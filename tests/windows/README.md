@@ -181,3 +181,25 @@ extraction, merge, sample ordering, hashes and temporary cleanup. Windows also
 exercises parameter paths with spaces/metacharacters and forces the specific
 denied-symlink error to verify the SNP copy fallback. This does not certify every
 Perl/R/Python helper or byte-identical terminal output from all wrappers.
+
+## T02 qpfstats hard review
+
+```powershell
+python tests/windows/audit_qpfstats.py --bin bin --output validation-results/T02-windows
+python tests/windows/audit_qpfstats.py --verify validation-results/T02-windows
+python tests/windows/audit_qpfstats.py --compare validation-results/T02-linux validation-results/T02-windows
+```
+
+Run against the pinned pristine Linux reference and a separate repaired Linux
+build, using a new output directory each time. The runner retains raw streams,
+exits and scientific file hashes; `--select REGEX` limits diagnostic reruns.
+Missing executables/timeouts are explicit failures. Compare scientific bytes
+and printed precision exactly; examine the diff and raw exit statuses.
+`--verify` currently reports the known qpGraph automatic-helper temporary leak.
+It does not waive it or certify ineffective upstream options.
+
+The [T02 report](audits/T02_qpfstats.md) lists source/build controls, deliberate
+upstream bug corrections, consumer coverage, sanitizer findings and open issues.
+`qpfstats_probe.c` exercises the actual integer dimension guard and bounded list
+loader without allocating enormous matrices. Its source inclusion is a test
+technique; production executables retain the upstream layout and link rules.

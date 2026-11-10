@@ -430,6 +430,7 @@ main (int argc, char **argv)
  if (retkode < 0) return -1 ;
 
  printf("all OK!\n") ;  
+ if (deletefstats && !keeptmp) remove(fstatsname);
  exit(0) ;
 
 

@@ -45,6 +45,8 @@ int getjj(int **xx, int maxrow, int numcol, char *fname) ;
 int getxx(double **xx, int maxrow, int numcol, char *fname) ;
 int getss(char  **ss, char *fname) ;
 int  loadlist(char **list, char *listname)    ;  // with dup check
+/* Same ordering/comment/duplicate rules; reject before exceeding the array. */
+int loadlist_capacity(char **list, char *listname, int capacity);
 void printdups(char **list, int n)  ;
 int checkdup(char **list, int n)  ;
 double clocktime() ;  // cpu time in seconds

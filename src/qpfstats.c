@@ -6,6 +6,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <libgen.h>
+#include <limits.h>
+#include <stdint.h>
 
 #include <nicklib.h>
 #include <getpars.h>
@@ -179,6 +181,7 @@ void load4(int *x, int a, int b, int c, int d)  ;
 void loadco(double *co, int *fs, int *fsb, int np) ;
 void  setinbreedlist(char **eglist, int numeg, char **inbreedlist, int numinbreed) ;
 void setinb(int *inbarr) ;  
+static void checkdimensions(int np);
 
 int
 main (int argc, char **argv)
@@ -280,7 +283,9 @@ main (int argc, char **argv)
 
   numindivs = getindivs (indivname, &indivmarkers);
 
-   setgk(indivmarkers, numindivs, poplistname, NULL, NULL) ; 
+  if (poplistname == NULL) fatalx("qpfstats requires poplistname\n");
+
+   setgk(indivmarkers, numindivs, poplistname, NULL, NULL) ;
 
    gkignore(indivmarkers, numindivs) ;
 
@@ -288,8 +293,9 @@ main (int argc, char **argv)
 		numsnps, numindivs, nignore);
 
   if (poplistname != NULL) {
-    ZALLOC (eglist, numindivs, char *);
-    numeg = loadlist (eglist, poplistname);
+    t = numlines (poplistname);
+    ZALLOC (eglist, t, char *);
+    numeg = loadlist_capacity (eglist, poplistname, t);
     seteglist (indivmarkers, numindivs, poplistname);
   }
 
@@ -299,6 +305,7 @@ main (int argc, char **argv)
     numeg = makeeglist (eglist, MAXPOPS, indivmarkers, numindivs);
   }
 
+  checkdimensions(numeg);
   ZALLOC(inbarr, numeg, int) ;
 
 
@@ -310,7 +317,7 @@ main (int argc, char **argv)
   else {                  
    t = numlines(inbreedlistname) ;
    ZALLOC(inbreedlist, t, char *) ; 
-   numinbreed = loadlist(inbreedlist, inbreedlistname) ;
+   numinbreed = loadlist_capacity(inbreedlist, inbreedlistname, t) ;
    setinbreedlist(eglist, numeg, inbreedlist, numinbreed) ;
    printf("inbreedlist set!\n") ; 
   }
@@ -587,7 +594,7 @@ main (int argc, char **argv)
     vst (f2sig, f2sig, lambdascale / scale, ng2);
   }
 
-  if (isnan(lambdascale)) fatalx("scaling bug!\n") ;
+  if (!isfinite(lambdascale)) fatalx("scaling bug!\n") ;
   printf ("lambdascale: %9.3f\n", lambdascale);
 
   printf("statistics multiplied by 1000\n") ;
@@ -957,7 +964,11 @@ readcommands (int argc, char **argv)
   char *tempname;
   int n, t;
 
+#ifdef _WIN32
+  while ((i = admix_getopt (argc, argv, "p:g:s:o:l:vVxh")) != -1) {
+#else
   while ((i = getopt (argc, argv, "p:g:s:o:l:vVxh")) != -1) {
+#endif
 
     switch (i) {
 
@@ -1052,7 +1063,29 @@ readcommands (int argc, char **argv)
   printf ("### THE INPUT PARAMETERS\n");
   printf ("##PARAMETER NAME: VALUE\n");
   writepars (ph);
+  closepars (ph);
 
+}
+
+/* The shared matrix/index APIs use int lengths on LP64 and LLP64 alike.
+ * Check all products before allocating the quartic table. This changes no
+ * statistic enumeration, matrix layout or calculation order for valid sizes. */
+static void checkdimensions(int np)
+{
+  int i;
+  int64_t power = 1, count, basiscount;
+  if (np < 2) fatalx("qpfstats requires at least two populations\n");
+  for (i = 0; i < 4; ++i) {
+    if (power > INT_MAX / np)
+      fatalx("too many populations for qpfstats integer dimensions: %d\n", np);
+    power *= np;
+  }
+  basiscount = (int64_t) np * (np - 1) / 2;
+  /* f2 + three f3 per triple + three f4 per quartet. */
+  count = basiscount + (int64_t) np * (np - 1) * (np - 2) / 2
+        + (int64_t) np * (np - 1) * (np - 2) * (np - 3) / 8;
+  if (count * basiscount > INT_MAX)
+    fatalx("too many populations for qpfstats coefficient dimensions: %d\n", np);
 }
 
 void

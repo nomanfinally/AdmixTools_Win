@@ -30,10 +30,11 @@ New items get new IDs; do not renumber the existing queue.
 | Shared C modules linked directly or available through libnick | 28 |
 | Additional C programs with main(), outside supported build | 5 |
 | Additional C modules outside supported links | 7 |
-| Validation runners/probes | 8 |
+| Validation runners/probes | 10 |
 
-Total: **181 audit items**, covering **78 C sources and 40 headers** plus scripts and build/test controls.
+Total: **183 audit items**, covering **78 C sources and 40 headers** plus scripts and build/test controls.
 I10 and Q07–Q08 were appended during T01; original snapshot hashes remain historical.
+Q09–Q10 were appended during T02; snapshot hashes remain historical.
 
 Data files, parameter templates (including `parsimp.templ` and
 `parsimp2.templ`), reference logs, manuals and generated binaries are fixtures or
@@ -56,13 +57,21 @@ sooner; record that dependency and resume the current tool afterward. T38 is
 blocked pending an established upstream algorithm/reference, not permission to
 guess the intended statistical expressions.
 
-Current active hard audit: **none**. Next queued: **T02 qpfstats**.
-Completed hard reviews: **1**, T01 **passed with limitations**. Clean/unqualified
+Current active hard audit: **none**. T02 remains queued for its open findings.
+Completed hard reviews: **2**: T01 **passed with limitations**, T02 **reviewed
+with open upstream defects** (not passed). Clean/unqualified
 passes: **0**. This is not full-suite certification.
 
 [T01 qpAdm report](tests/windows/audits/T01_qpAdm.md) records the mode/helper
 checks, findings F002–F025, changes and limits. Shared M/H items and qpfstats
 retain their separate audit status.
+
+[T02 qpfstats report](tests/windows/audits/T02_qpfstats.md) records 122 Windows
+and 120 repaired Linux/sanitizer cases, fixes F026–F033/F036–F038, and open or
+retained findings F034–F035/F039–F041. All 86 jointly successful shared cases
+match both streams exactly after the documented metadata substitutions. Its
+ineffective subsampling/seed behavior and downstream limitations keep T02
+unchecked; related tools/modules are not automatically closed.
 
 ## Native executable queue
 
@@ -75,7 +84,7 @@ and state its limits; it does not close related modules automatically.
 | Done | ID | Tool | Role | Target | Previous evidence |
 | --- | --- | --- | --- | --- | --- |
 | [x] | T01 | `qpAdm` | Admixture model fitting | Default | [Passed with limitations](tests/windows/audits/T01_qpAdm.md) |
-| [ ] | T02 | `qpfstats` | F-statistic precomputation and helper process | Default | Fixture |
+| [ ] | T02 | `qpfstats` | F-statistic precomputation and helper process | Default | [Reviewed; open upstream defects](tests/windows/audits/T02_qpfstats.md) |
 | [ ] | T03 | `qpWave` | Rank/ancestry-stream tests | Default | Fixture |
 | [ ] | T04 | `qpDstat` | D/f4 statistics | Default | Fixture |
 | [ ] | T05 | `qp3Pop` | Three-population statistics | Default | Fixture |
@@ -331,6 +340,8 @@ Audit the oracle and test runner too: expected failures, missing cases/files, ti
 | [ ] | Q06 | `stack_probe.c` | `tests/windows/stack_probe.c` |
 | [ ] | Q07 | `audit_qpadm.py` | `tests/windows/audit_qpadm.py`; mode/error/format assertions and raw comparisons |
 | [ ] | Q08 | `qpadm_probe.c` | `tests/windows/qpadm_probe.c`; shared hash, blocks, temporary ownership and output errors |
+| [ ] | Q09 | `audit_qpfstats.py` | `tests/windows/audit_qpfstats.py`; direct modes, errors, formats and downstream consumers |
+| [ ] | Q10 | `qpfstats_probe.c` | `tests/windows/qpfstats_probe.c`; real dimension/capacity boundaries without huge allocations |
 
 ## Hard-check procedure for each item
 
@@ -385,6 +396,10 @@ Keep a completed-with-open-limitations state distinct from a clean pass.
 | F001 | I03; installed fxtract variants | Confirmed installation divergence; runtime impact not yet audited | Windows copies `src/fxtract` and then overwrites it with `perlsrc/fxtract`. Upstream `make install` copies in the opposite order, leaving `src/fxtract`. Current `bin/fxtract` matches the other source. | Fix and validate installation order during I03/script audit; retain both source variants in inventory. No fix made by this inventory change. |
 | F002–F023 | T01; helper and shared runtime paths | Fixed; T01 passed with limitations | Upstream bounds/UB, single-source results, output errors, gzip PLINK dispatch, and Windows paths/temporary ownership. Each stable ID and reproducer is in the [T01 report](tests/windows/audits/T01_qpAdm.md). | Retain recorded broken-upstream differences; continue T02 and independent M/H/T reviews. |
 | F024–F025 | T01; M11 / inherited CLI | Documented limitations | CRT zero-errno wording differs on truncated input; inherited version/help/legacy parameter quirks are preserved. | Read the T01 report; no scientific difference is waived. |
+| F026–F033 | T02; M02/M11/M17/H27 | Fixed; regression evidence recorded | Population-list overwrite, invalid/overflowing dimensions, writer stack overwrite, nonfinite scale, ignored POSIX gunzip failure, CLI wording and parameter handle. | Retain deliberate broken-upstream differences; see the [T02 report](tests/windows/audits/T02_qpfstats.md). |
+| F034–F035 | T02 | Open upstream scientific defects | qpfstats population limits alter displayed sizes but not the analysis index; parsed seeds never initialize its RNG. | Keep T02 unchecked; an explicit upstream scientific repair must not be presented as pristine parity. |
+| F036–F038 | T19/T08/T20, exercised through T02 | Fixed narrow consumer defects | qpmix diagnostic over-read, qpGraph uninitialized diagnostic count, qpfit normal helper-fstats leak. | Consumer reruns pass on repaired Linux/Windows and sanitizers; these are not full downstream audits. |
+| F039–F041 | T20/T08/T02 and helper lifecycle | Open or retained upstream behavior | qpfit exits before fitting; qpGraph retains helper files; ineffective legacy options/help and duplicate-ID/block quirks remain. | See the T02 report and carry forward to each independent tool/module review. |
 
 F001 evidence from the current files:
 

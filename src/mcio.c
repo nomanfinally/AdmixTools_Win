@@ -1490,9 +1490,9 @@ getgenos (char *genoname, SNP ** snpmarkers, Indiv ** indivmarkers,
     genotmp = strdup (line);
     sprintf (cmd, "gunzip -c %s > %s", genoname, genotmp);
     printf ("unzip cmd: %s\n", cmd);
-    system (cmd);
     kret = system (cmd);
-    if (kret < 0) {
+    if (kret != 0) {
+      unlink (genotmp);
       perror ("gunzip failed\n");
       fatalx ("gunzip failed... probably out of disk space\n");
     }

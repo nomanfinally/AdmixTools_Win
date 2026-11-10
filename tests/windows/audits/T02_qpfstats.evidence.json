@@ -1,0 +1,5598 @@
+{
+  "audit_id": "T02",
+  "date": "2026-11-10",
+  "status": "reviewed with open upstream defects",
+  "upstream_commit": "67bc219174a109951a9434e0a383ec464fb140ee",
+  "working_base": "e99074c8645590168f9552131854a146618d467d",
+  "uncommitted_changes": true,
+  "source_sha256": {
+    "src/qpfstats.c": "7c52621012819258e4ed39776c02a8428eecbf0a4de938811d1f44fc3d572c48",
+    "src/qpsubs.c": "561fa788a69788b03d17a5ba162d9378243f4e64c1502e5cc8b5af50e0004a1d",
+    "src/mcio.c": "20291beed174eb91eff37e5699448decdc3029676209b43e6c2014aa51192f55",
+    "src/nicksrc/strsubs.c": "27a87cb0b985819dd22a8a0916247f564f421171a8acf9cb1088a7fd282e1484",
+    "src/nicksrc/strsubs.h": "004d9a7ccf9c25a9fe704ec239f7571eeb7494aacac91dcc5763939ece3c3c27",
+    "src/qpGraph.c": "469f5e39c6d5db7caf16d48f04b4f353eea3d4cab9fd91cae0ee01b45182cc34",
+    "src/qpmix.c": "5b19989c23f8662121ecc5f1859d3c8861512aeeffc7692ebdae047eb759adca",
+    "src/qpfit.c": "d6f9d571a8554e7c55b531d481497cffa636771a255ab669bd3c81446366bab2",
+    "tests/windows/audit_qpfstats.py": "1131958852f08f68543083e20b400a686b04328d114d24307109c2ed3668764b",
+    "tests/windows/qpfstats_probe.c": "f79e02afbc654ef32c44b09789caf74b734d39aa3f16bb83549609f8431c5139"
+  },
+  "environment": {
+    "reference_commit": "67bc219174a109951a9434e0a383ec464fb140ee",
+    "pristine_source_sha256": {
+      "src/Makefile": "ef78eea5c421b41a52b0e7efe125efb0e20ada3a3e008c824787067f782a1b39",
+      "src/Makefile.mac": "2cfa6f7c1c6b32a7e64209121de6f87b3c2384671fa692d138b3ec5fcadab437",
+      "src/admutils.c": "b1740ea125d795a43637e80ffb9ac1c5d0d24ba2fc7ee74a543d16b4fb3728f3",
+      "src/admutils.h": "4755bbe1c699afa1a1de26f1f976805e737edf6a6b8d12e7114059802efc8efd",
+      "src/ascore.c": "5391d429fc93a5234d45fd6b8e7daa0f2223cc192711c0f0a92655f10fc7f763",
+      "src/badpairs.h": "d1d3214e3b2f71625be4e1f80fd9bfced5163ca33ba4bfa7f4c0fcb2b257a830",
+      "src/convertf.c": "f2f0b3f9db12467ab23ee22dd1231455959fb25a60cc98e8913402f6c4501e0b",
+      "src/diffmean.c": "d0c439c0cc2d67b7aa434aa588301b3ce3e73db5b552346ceb6ba58fcdc920d7",
+      "src/dowtjack.c": "42f4b6d3561eeb74784070cc1456e5f7e4ee6dd4402465e4d7052b9b57000aa8",
+      "src/easycheck.c": "5a19aeebdd9a939aca631a17a83e42793f87ebcc82e15993cac3701fb89ce1bf",
+      "src/easylite.c": "e297124baa63ebea32e3ec09c3706f4a87ab8b2d7a70f51fc7ac4ab472f9acde",
+      "src/easystats.c": "ec3e280bc3fc76b5c51b83622b882cacd25b331dcf1e701281b35b4f5177e94b",
+      "src/egsubs.c": "dd24df0702279396708504d5fa3c1389161de4dbdf9f9b7c7759e012b71a34c6",
+      "src/egsubs.h": "a68e7e526d643a4a9335460eab71714fd479555e82f72380132a04447b95586b",
+      "src/eigsubs.c": "4c400f118e8df9e3f3cd90901663a8cb7315f13baac01bb774d6f06377f45edc",
+      "src/eigsubs.h": "650195968bd08c55ecadeaa1006fafac6a858c6243f7346bd808f9112e53a636",
+      "src/eigx.c": "c840c694392d0e83965c07f811a21c0b23cfef6893ba5aec35af1663703221ed",
+      "src/empr.c": "46d152f7c2cabd046a0d5c1f9d971838e1f95a4b984dd65b4846d9e624d757f3",
+      "src/exclude.c": "0d0f029cd2e05ec3ab2dce398135c499e0c30cbba17d4071a19c6e7eb483af3b",
+      "src/exclude.h": "2257936a6b08b52626fb757cd30eb8d8c62bc6511519525fa864e00474d7d3a4",
+      "src/f4rank.c": "1d7c6178b3f96b28f71ecd9f05b3d78034bc44390eaf44499d9437b9752741e7",
+      "src/f4rank.h": "1da8f82442a4b894727a252687104a833bb11e76dab66cde19bf5579f4e201dc",
+      "src/faidx.h": "aadc78b410d7c72ede866ff55cd52057053da9ca52c221d4ac7689e1ffad0f1a",
+      "src/fitsubs.h": "7cc9f4ed0f363637e5bfd5a1c59932f8229e73ad3facada4fb9c4bf86e3fd84b",
+      "src/fourier.c": "f7ea1b773d6672ee4fcb32abcb292f7fb34f1d25699fee849c00f5d15fd21ce9",
+      "src/fstats.c": "e23d989830b5fbf560045d88907abec1fb72f6c76f96c6bc7fd30854054c03b5",
+      "src/gcount.c": "3cbc81188f0aad47c1c1eb9c69ada37454fd96334f2e66d3a16108f5d0bfff4b",
+      "src/geno.c": "848450718bf277ace35a59050e3da8935deff56d2b17bb42a4ef604c95081e66",
+      "src/geno.h": "bb56279c0da3fe901538ef68daa88828190cb2e95dc55fb8b329841a52256c09",
+      "src/geno_single.c": "938a8f7bff72ec2e6237cee3c4a99451edcbb761aaee76b9b9f08c58da4efa82",
+      "src/globals.h": "ae674d3b422a63cc206b6ba4b7cda8681ed4801e881e274434db726632020a47",
+      "src/grabpars.c": "4bc468f25cee8e04b8dd1d66c1b6696f08ac9aee6c93b768fccbb1236fb12b40",
+      "src/gslkim.c": "568121294dbd1883849adda83e80a383a152e599a727193cff4e58999fd35f81",
+      "src/gslqp.c": "c8d694e4b1ae249859c6c39afdd914610eb30159cf7766e9a052a6449375d27d",
+      "src/gslrank1.c": "9b5c835a2dc90dea4dd6ab4b60848d358c1b49d11134e0e63c6d1c189a14aa56",
+      "src/h2d.c": "96d8de947147c095052d5c8219341f374e17bd029aed63cd40c6b7f22ffb07d3",
+      "src/h2d.h": "ca5afc300304e4e62cd1f72ea86721edf3ee85f97c9d07faf1f466c89555f627",
+      "src/kimf.c": "1bac79838c077cd997a3fac6a080366ebf03c7dc61426305a1629c80fddf28d2",
+      "src/kimqpg.c": "300405017bd3dde7ac2831d0f4b3dc2c1e93f55ca078e2e58ade05bc02fd7896",
+      "src/kimqpr.c": "6d319e02443c7b01eecf8e51c6d69404adff696096931db61b79ebbe04475b9a",
+      "src/ldsubs.c": "aa41d0cc3329fb9f30416a9b9097d651bf4aa418c786afdb99865ddd5879affb",
+      "src/ldsubs.h": "47033c8de2dfee02061032f5763dbaede98e63a52520474453460bab50f0c643",
+      "src/mapfile.c": "54a9db67ef1e8452097d810e20309bfe4442b992d8e8f4e5dd457800fe2d24a0",
+      "src/mapfile.h": "100f7432659fec2e699de73a613703906ba1731068cb4e728de4247a2fa1ae3e",
+      "src/mcio.c": "4a427222ed6b1b975f17df961ea3fc1be41279c0977f6c1b25dfb86a248e4cc2",
+      "src/mcio.h": "d10664855291f044f3c31bef37a2202c4fed3a6d6365effd432a24b9a56be672",
+      "src/mcmcpars.h": "45bdccc5537e90f92758a6361d2cd80b26ba8d2d1f0b7e21959bf2e286f2cfbf",
+      "src/merge_transpose.c": "4da22b21657adc1cca618bdb54faea61e869d216d374a32df51dd44dd1ea45bb",
+      "src/mergeit.c": "45e4e14d7f2b4dd3c4f70cc222696e39cb68c6d821ceb0b38c0d366a2bfd0dd6",
+      "src/mkweights.c": "3db455181a82b34ad0671e15b1f85332b74e2e7d573b49845657e28c9cbe3a7c",
+      "src/multimerge.c": "5da1df9741fbae1c755abb923502012177c37ea51d0c99776bf57096ab624ee6",
+      "src/nickhash.c": "e934afd17ef7a8669617c8b114452cb149d2a061c794006a2e7f9a80c5541053",
+      "src/nicklib.h": "7e244f3201409a101fc8ecfd5abb4d83629be9d588cc3c7e792eab7b95f2b35d",
+      "src/nicksam.h": "72e458dc66e90a624feaf3b322a6e8a4d26c65d8a0c7e9c077ea9fd8e290162c",
+      "src/nicksrc/Makefile": "a077dbc20892f93a826f61b3693a6d1f0264b8574d2ce0d963aa80fdece80907",
+      "src/nicksrc/esttime2.c": "b39bc3ccbfb07247de30446b03d35363a231b6ff91ffd3d81d30aeb2cd50eabe",
+      "src/nicksrc/gauss.c": "660af0ae4fe74846d44324b486a8cf11556c1d6d19596de13ca1e69014b52cb4",
+      "src/nicksrc/gcd.c": "abab4fa0f1c01b3bdb9b1551018b057a50fde95d01ea4a42b48e146848838a1a",
+      "src/nicksrc/gds.c": "4a17159b00015c79b3ca23e4915a61b38082078ec78fd782cccfc4275c35695f",
+      "src/nicksrc/getpars.c": "ec95b67da29b5cd84192585029394e2c6e6a748d4c6a9d45637c9531db27b0ae",
+      "src/nicksrc/getpars.h": "04b72a1dd534fba50c283731680a05cdbcfc711c0f3aa9d484db4ecff398a881",
+      "src/nicksrc/kimf.c": "f9014a650e5cf42c799ffc419c8f427a7b0599baa5255127dc4591c5b0aacc42",
+      "src/nicksrc/linsolve.c": "4760fe368f4654a50db46fdd0ffb11d1c956bd473bada4088d679733728975b0",
+      "src/nicksrc/linsubs.c": "983ec84a2fb0a7baa13bfbea3b8a93caafbfce38a0617222b7e30a7f87eca26d",
+      "src/nicksrc/linsubs.h": "7f81b4e4b78aa6c45c04694d4a0feaada2378bc799f8099e64c4912f28bad0a6",
+      "src/nicksrc/mptable.h": "b075e4a39a6d170637e5d771f3ba186766e9511da951f0bbfe2b1b7893a97ea4",
+      "src/nicksrc/nicklib.h": "e07a0cd777caed3c7d0e0b42893a82cf039fbae4badb292f8c7cef300a269df9",
+      "src/nicksrc/ranmath.h": "2f1c5d3d225d7d8d635b66fa11f4610a90c719dec48cfc30fcbb1bffe91e203e",
+      "src/nicksrc/sortit.c": "d462804089d87ff71cf7786e653ddb0ad50866116a10f34636992ba214dbe4a6",
+      "src/nicksrc/sortit.h": "2fa09f7470856be2bddcc082fc872a17fe8be6c15c39dc98c2e003573a995735",
+      "src/nicksrc/statsubs.c": "598e4d4328a28c1cb2e1ea378338c0da1bc11452f234855ef6f129547c813727",
+      "src/nicksrc/statsubs.h": "d0b4d7d768b4135cb48a043c543168c6a2526f9b0e48742818879e0b4576df59",
+      "src/nicksrc/strsubs.c": "413cc6535bd066898c8d6df69f67cab2d0927f308562cd442881ddcb517ac2de",
+      "src/nicksrc/strsubs.h": "247ded677e771b48332ddb6e95568ff7d2b61281788abe1429d05dbda12209f7",
+      "src/nicksrc/twtable.h": "8bf6461a0329e8b83cf4a115d3ace1a7a7ad0a72ee76115a320b7d4b9cc8377c",
+      "src/nicksrc/vsubs.c": "d21a209e4144823c89b2e60a2564bfd13ac228399d4e16ee54f62e35da4faf25",
+      "src/nicksrc/vsubs.h": "e2cbd7a7b8190df95f3ba1d25768d4a74190de6c13c506385300d4b337dd9fdc",
+      "src/nicksrc/xsearch.c": "32b3399ac692afe1ab114037458099c3cbbeb6e51a0621eb9eca25ca4162c8c5",
+      "src/nicksrc/xsearch.h": "80f414c58ab5ea240f00f5832a73fdbf3fa098906a630b9db3e149c0503442d0",
+      "src/packit.h": "5ba46e70c813d4e22aa1894e45c6d5421e06a09dea2fac4ee6f8adc3e8efceb3",
+      "src/qp3Pop.c": "27dcb41ceff005c0b79a4e49a271ed6dbde999ef86ca6aca83b66b8f3b56bc4b",
+      "src/qp4diff.c": "b57ab2970ef051b9682c3dd2cf71b34514c8b7aa609ccd6359e40dffd9c9c82e",
+      "src/qpAdm.c": "284a5456f188c08839655c2fd363c7ec591da3b9e2ce62b448b9071b37d6c1a5",
+      "src/qpBound.c": "eb4a9622884fd912cc4dbf76254f66775b5aa4c42dcde4343bfb1eede9c23cd2",
+      "src/qpDpart.c": "f0ffe4cbbb88d89ca1b3f204499832cac1d2ab085418c790d3de8d3df466363d",
+      "src/qpDstat.c": "7be064512c8cd05a700fc70d79f30073aba634f32ca7f689cf3ee6157eca4881",
+      "src/qpF4ratio.c": "00c2ced1dbb94f38477c63b96ea2992a435ebc92f77a47248b6e78e3f36893e3",
+      "src/qpGraph.c": "8341fad1c6e1f1acda945e8134f5d2715b3bae8ba43ff165ef184b0c258901c7",
+      "src/qpWave.c": "d033e97d3111692673b65fba0147ebc5cac095c130b6af553b39fbcc40a64477",
+      "src/qpdslow.c": "022d8f379d960e985be9c26f213498261caa549b3ccfe88e50e6f1a93c31c606",
+      "src/qpff3base.c": "f6ed9674412fc2f6f0a331f7c363318397ee93c33cb13fb8063727189aa4d8ac",
+      "src/qpfit.c": "217fdac55d5ac1a776f0f43ebbf26191031c04da3f98c53b509aac4714cb22ab",
+      "src/qpfitr1.c": "c97cbeed3dba51734baef4b48b5ae72dbc54335ba7ecf5d1984d64221112c9d8",
+      "src/qpfmv.c": "f5a8a8cd7216edd99d17e1a6ab0624a5b8e6132c4fb9c138dae256f55b39e3bb",
+      "src/qpfmvmix.c": "390759eea5ad34b9a264ba37d4ceda55114fedaf1614c92da94a45c6b2bb0ed6",
+      "src/qpfstats.c": "b7369a823d794a7aad804f4f73bc8db3d1c9586e0ce114d9111bb7778a4a8f49",
+      "src/qpgsubs.c": "70c99eddf6e223daa9b24549b10a1b9e815f061c1aea8fb5d7f54e2aba7e3aaf",
+      "src/qpgsubs.h": "512979ceded1fabc6e8192d66431710498213eca2541c07ec238d684a79195c2",
+      "src/qpmix.c": "5928f34dc41854b7db4643562e3218441434ecaf7e724b82adeb39c6639609fe",
+      "src/qpreroot.c": "3d248ac6ec5350c245423a9ed76c6bbcb683c89f7b2cb33f186d8e850f959ad8",
+      "src/qpsubs.c": "5ccd5f5e4342b7a890d13088c2978692bb59523f783319807c6682e760620d01",
+      "src/qpsubs.h": "9632ab3eaa2ebb73e257c88e11363f730d72ffe4eb6d3ddada5475a5f6b0604e",
+      "src/qpsubsarti.c": "2ebd93cae4047a83e671f78a17c4d8e3b9316c08e588c4c1115fd02f359e5d41",
+      "src/qsubs.h": "97d9b993e12e94d108c92ca4f22e7f1515f238e51d6d58676abd5bf69465bcd9",
+      "src/regsubs.c": "6bb5463abb8ff8a643c90306487153f9b7709577f9f55f4024fdf8665db5bf1d",
+      "src/regsubs.h": "1eb96434b6325c8ff3ed88b715d4a2dfaecd26d9edd21dfb23f8efef7bd6b721",
+      "src/rolloff.c": "789c5c94f36b3c5056d16671779c82dc482358786f8e688a4782c8f4fa6bebed",
+      "src/rolloffp.c": "b40c1065f12b9eca3f8bdf16726be6bcb82a2d6c468266803b627c11c144c43a",
+      "src/simpjack2.c": "b1e75bc42ff697498249b1df9561301260bc2344d6f8d4416fa1e75ed045e222",
+      "src/snpunion.c": "9d51474c03ec1dfcfc556796bde0e552ee37af4ecf383eb9578e71f2e713b1cc",
+      "src/testr1.c": "8716b145c4f981fa6913d5cecd4df4b842d2395b98456e6f0b5bf4615605e836",
+      "src/tmcio.h": "3a5ffd93aa6269fa885455044c94e85de61fa114d88c5887dc69854796acdcf8",
+      "src/transpose.c": "a6a31df3af69f41dadeb11f5af64d6fe35bd6899e0b1cb69c5b5231e8b41c180",
+      "src/xpsubs.h": "15875bce4f43ff5cb234cde588793b1238fb51e21bad8b4f1f04e865dd900272",
+      "src/xqpsubs.c": "abdf8c4812f7b950f325c4fb33bd485ea668c3a416d9938d7d2a1c5c5a918cef"
+    },
+    "pristine_source_mismatches": [],
+    "linux": "x86_64\ngcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\n2.8\nlibgsl28:amd64\t2.8+dfsg-6\nlibopenblas0-pthread:amd64\t0.3.32+ds-5\n\tlinux-vdso.so.1 (0x00007aacee678000)\n\tlibm.so.6 => /usr/lib/x86_64-linux-gnu/libm.so.6 (0x00007aacee4a0000)\n\tlibc.so.6 => /usr/lib/x86_64-linux-gnu/libc.so.6 (0x00007aacee200000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007aacee67a000)\n/usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.32.so\n84e8cc7466afe66a669e5db2f55bebf22e673130c1362ee64d7a2d87f4edd884  /home/user/admixtools-linux-reference/src/qpfstats\n",
+    "windows_pkg_versions_gsl_openblas_zlib": {
+      "gsl/gsl_version.h": "#ifndef __GSL_VERSION_H__\n#define __GSL_VERSION_H__\n#define GSL_VERSION \"2.8\"\n#define GSL_MAJOR_VERSION 2\n#define GSL_MINOR_VERSION 8\n#endif /* __GSL_VERSION_H__ */",
+      "zlib.h": "#define ZLIB_VERSION \"1.4\"\n#define Z_VERSION_ERROR (-6)\n/* The application can compare zlibVersion and ZLIB_VERSION for consistency.\n   Z_VERSION_ERROR if the zlib library version (zlib_version) is incompatible\n   with the version assumed by the caller (ZLIB_VERSION).  msg is set to null\n   memory, Z_VERSION_ERROR if the zlib library version is incompatible with the\n   method), or Z_VERSION_ERROR if the zlib library version (zlib_version) is\n   incompatible with the version assumed by the caller (ZLIB_VERSION).  msg is\n   memory, Z_VERSION_ERROR if the zlib library version is incompatible with the\n   allocated, or Z_VERSION_ERROR if the version of the library does not match\n          deflateInit_((strm), (level), ZLIB_VERSION, (int)sizeof(z_stream))\n          inflateInit_((strm), ZLIB_VERSION, (int)sizeof(z_stream))\n                        (strategy), ZLIB_VERSION, (int)sizeof(z_stream))\n          inflateInit2_((strm), (windowBits), ZLIB_VERSION, \\\n                           ZLIB_VERSION, (int)sizeof(z_stream))\n          deflateInit_((strm), (level), ZLIB_VERSION, (int)sizeof(z_stream))\n          inflateInit_((strm), ZLIB_VERSION, (int)sizeof(z_stream))\n                        (strategy), ZLIB_VERSION, (int)sizeof(z_stream))\n          inflateInit2_((strm), (windowBits), ZLIB_VERSION, \\\n                           ZLIB_VERSION, (int)sizeof(z_stream))",
+      "openblas_config": "OpenBLAS 0.3.34 DYNAMIC_ARCH NO_AFFINITY USE_OPENMP Haswell MAX_THREADS=64"
+    },
+    "windows_build": {
+      "upstream_commit": "67bc219174a109951a9434e0a383ec464fb140ee",
+      "working_head": "e99074c8645590168f9552131854a146618d467d",
+      "compiler": "gcc.exe (Rev6, Built by MSYS2 project) 16.2.0",
+      "zlib_header_version": "1.4",
+      "flags": [
+        "-std=gnu11",
+        "-fno-common",
+        "-ffp-contract=off",
+        "-fno-fast-math",
+        "-D__USE_MINGW_ANSI_STDIO=1",
+        "-D_FILE_OFFSET_BITS=64",
+        "-I.",
+        "-Inicksrc",
+        "-IC:\\work\\AdmixTools_Win\\src\\.windows\\argp\\include",
+        "-include",
+        "win32/compat.h"
+      ],
+      "link_flags": [
+        "-Wl,--stack,8388608"
+      ],
+      "optimization": {
+        "nicksrc": "-O3",
+        "other": "-O2"
+      },
+      "executables": [
+        "ascore",
+        "convertf",
+        "diffmean",
+        "dowtjack",
+        "easycheck",
+        "easylite",
+        "easystats",
+        "gcount",
+        "geno_single",
+        "grabpars",
+        "kimf",
+        "merge_transpose",
+        "mergeit",
+        "mkweights",
+        "multimerge",
+        "nickhash",
+        "qp3Pop",
+        "qp4diff",
+        "qpAdm",
+        "qpBound",
+        "qpDpart",
+        "qpDstat",
+        "qpF4ratio",
+        "qpGraph",
+        "qpWave",
+        "qpdslow",
+        "qpff3base",
+        "qpfit",
+        "qpfmv",
+        "qpfstats",
+        "qpmix",
+        "qpreroot",
+        "rolloff",
+        "rolloffp",
+        "simpjack2",
+        "snpunion",
+        "transpose"
+      ],
+      "runtime_dlls": [
+        "libgcc_s_seh-1.dll",
+        "libgfortran-5.dll",
+        "libgomp-1.dll",
+        "libgsl-28.dll",
+        "libgslcblas-0.dll",
+        "libopenblas.dll",
+        "libquadmath-0.dll",
+        "libwinpthread-1.dll",
+        "libz-1.dll"
+      ],
+      "runtime_sha256": {
+        "libgcc_s_seh-1.dll": "791ebf66e99c7c1b4ed3666468cec45a0172b4c8942ac6c84c3e9cab3e1b5270",
+        "libgfortran-5.dll": "c6efba147926b0897a791d081cbc3c266967e7d63c5b325df5f8f14a3e91b62f",
+        "libgomp-1.dll": "ccaf59dc8cff15ace88ab47acd68a5b014167cad8f960e7683466a4c821e41c4",
+        "libgsl-28.dll": "d0f7e108ffbb958b551c798ce733104632002ff5d03f2a1988b8f6bb65cf6552",
+        "libgslcblas-0.dll": "de35388e089cbcd723ad7ec968ea4ff1d3811f5b0f5c66606bfeb7d7906631f9",
+        "libopenblas.dll": "4b5cbee2aba54a599a031023dcc0d99ebd24988954fe094cf59ed76c004781f6",
+        "libquadmath-0.dll": "802010365378b7421a7c3d61dabf2a46d8a3c8b71950ddeb4b5fefb32f117f4c",
+        "libwinpthread-1.dll": "94a9a4e2fe27b4bc827a4b209e9deb4cc3dc34bc025df06b849144f9d4c588f8",
+        "libz-1.dll": "934103c50623302548a1cf66fbc22f0029e4eb4556343252a505e2fc005e835f"
+      },
+      "source_sha256": {
+        "admutils.c": "a45283ec0160dd1d21647fc9e66d9c560c810ac2621da54adc0fb120ca24f818",
+        "ascore.c": "f77147a4e3696a6637727482fb8a8e182e69cb41d4b1344e1c8e7e0d00ebbb8a",
+        "convertf.c": "7fa538461d8cbf4716fe5cc5bc75ae8d3fd6e24b460bddfbc1a713584443e81f",
+        "diffmean.c": "be5eadb4feab45af6e8c50af0b2b500e62acac252a0a7f6781cfa8bd126b4374",
+        "dowtjack.c": "bcbd88c81ae2f697ff0df5541b94c9d5a949b13fc859294be87b891ed2ce6ec9",
+        "easycheck.c": "8d6b1b58a3f8653ce04a9cdce99bdc1a97f1321698aec071adb19d080b792c59",
+        "easylite.c": "8bf4d99469089a4afe0b0c6d06624828f6d8eec9e4430de18681751bacb8a601",
+        "easystats.c": "e7ddfa8901431184608a301c863716547e5cf1b5a3883f9c7ec066bc1aa8cb38",
+        "egsubs.c": "fbe45d185d42680c781d998c0ceddc29589354398ce169c5cf47fda36f54edb2",
+        "eigsubs.c": "8a43d6dd4b7e77ba03cfa8e14b50174ba53899a569e210e6e716837573d663d1",
+        "eigx.c": "299a9f72999e46469a70eb4a94f9530b579c470f4e86cdf1e4ddc4a0770349aa",
+        "exclude.c": "046e0dc0c988813d96b61aa40fb2d222f66778ed40348bc6df41bfaf4b27ce11",
+        "f4rank.c": "4f9111aa95f6f4059a9e6b58e8376e05e0edfaca7947357c3537c327ca1cb574",
+        "gcount.c": "09fcf6c313a57b387590867a46605efec07880745703077efccd667c02f67c4e",
+        "geno.c": "6cf8c816393fe8a36d2328b85bb169ba0c176698feee2fee3072b5fddfb9558a",
+        "geno_single.c": "0913ab8b6e2a025ad44cc31470336f66b5cca59766271cef8e5b2b7b5bbc7ed1",
+        "grabpars.c": "995e62a78fe9f98462332575796e86fa98fe6b24f4955845e9cd1eef888e4ff6",
+        "gslkim.c": "10598e009ea15149dcfe9748c690a4b173186e74e1dd681a84d93fc70029a924",
+        "gslqp.c": "a5548452784b1613935df1e505923b34a6b46be2ea39d59aa3f237637250867f",
+        "gslrank1.c": "67a5cec623ec368cc2933531a10dc2e7af69b9b2be0be570f1cfdf32b4911c5f",
+        "h2d.c": "b09a3a8a6f590e1aa4fc7a32b4e34278a6e0df5285e5f70e99d8c9212539345c",
+        "kimf.c": "c86e0d901f68ac195d97375111982fad61b3c71199ec5749ebb052d63aba4c3d",
+        "ldsubs.c": "0b024b63c75b2e4988d3d90e48582baf5aa6f5cc3ec9d8e5fdd83539d08c790c",
+        "mapfile.c": "596ac12d487603aa08f6120a8b5992a19bb4fee960c582e6059e3a8504945226",
+        "mcio.c": "20291beed174eb91eff37e5699448decdc3029676209b43e6c2014aa51192f55",
+        "merge_transpose.c": "2f3bcec8e9563379310d35f6776ddee8d760d67fcff16992b9e817ed9404a306",
+        "mergeit.c": "734bae002b533e07fc3296df748992d825d5661a0073672413a6640a6fb33c65",
+        "mkweights.c": "42a977560ff26cff17a07095da47c91f7fd2ce718e133603a4c7838948796e7a",
+        "multimerge.c": "4eea21e30db6e6a0ad178c8c11e1a6c1513296d3fad58eea4adf0172e510594f",
+        "nickhash.c": "2e9c397b620f1ca7c322f9b6437ee75f58e0ab99745844f7b8011319752db818",
+        "nicksrc/gauss.c": "9a63a6b728441ae536a7a069d3b4e8573982285128a8f13dd96761aa51805527",
+        "nicksrc/gds.c": "329f54fa44b37ac5d662629c5aade9e5392b0a981fdd246a1d9ccbec1fc8fda3",
+        "nicksrc/getpars.c": "ac069efbcb2a7a81d4d9b46b2b332a44288594e687b155ffce6cbe65d0aaeafb",
+        "nicksrc/linsubs.c": "a8f6fd1143673caf79e1e1b4050dbbb4eda93fd9ca0b966a5c72d9653d35bf6c",
+        "nicksrc/sortit.c": "fbdb91aa7dc850bb9d1d87809ce4dd75fa047ab7f9096c1278fab1188ab4062a",
+        "nicksrc/statsubs.c": "592a5000521cb33e3aa51fabb1bba5f7a800bd8b23d726851d686eafc3f8c8cf",
+        "nicksrc/strsubs.c": "27a87cb0b985819dd22a8a0916247f564f421171a8acf9cb1088a7fd282e1484",
+        "nicksrc/vsubs.c": "63be25e4209f80ede8516a78133a1a88ee7c2fd93f260ce27b46e35d88995d78",
+        "nicksrc/xsearch.c": "ba7db9296f02ac8a029e267a648093b9d1b53c045ab711171e37a67880bf34b6",
+        "qp3Pop.c": "f64af5a2b49af229bc3e8952649f871d31d69e6b2ef7b4c3f385bbfecc11ffe1",
+        "qp4diff.c": "a13ae22d2e91a6ce76a41db388c95414a09b98afc7045794b74cc587e8ab0a41",
+        "qpAdm.c": "83be8250fdd4b41516fd122f45f978febcaae35694fb2b8ae8364f38b553aed7",
+        "qpBound.c": "f717d53cf60744f0e0e986a34fe6b894f7325019c4ca156d22f1ed9f6f0e444c",
+        "qpDpart.c": "613c5b3b990ea5e99349288b6c98f0e971fd460d8cfc1ad657612400252801c9",
+        "qpDstat.c": "d0becd369742ca6b7e274ccece4acdf8495378f0662245a943e89238a86b292b",
+        "qpF4ratio.c": "bce262ab2ac20cbcccc98a537102e9eb65aec5bf6ed96e9d9716cd09d748e971",
+        "qpGraph.c": "469f5e39c6d5db7caf16d48f04b4f353eea3d4cab9fd91cae0ee01b45182cc34",
+        "qpWave.c": "ee11a2951648ded044117ec46a2ed32b69f575c475b1f517e6364bef15f09baa",
+        "qpdslow.c": "ddbb6e36b121a81daa86192341f4c3c80d420b6add991f4ba97f7b128ec5c5b1",
+        "qpff3base.c": "df89c49cfdd445a81a903c97eeb715d1c80bd7d05206e4aa4736f17dc75d5f9f",
+        "qpfit.c": "d6f9d571a8554e7c55b531d481497cffa636771a255ab669bd3c81446366bab2",
+        "qpfitr1.c": "522d3225dedbd2595290d3f40ffa72a09a4bdfbbdffc7426e247abbb9b4edb5c",
+        "qpfmv.c": "d699e06c832fa2a87cf5d39a678c4321cda93df586b70dbd93fba0cca8a0db7b",
+        "qpfstats.c": "7c52621012819258e4ed39776c02a8428eecbf0a4de938811d1f44fc3d572c48",
+        "qpgsubs.c": "8215da1d472a8fef661c2f7ae753ef10c3853f47d93c6f3359b258c669306de0",
+        "qpmix.c": "5b19989c23f8662121ecc5f1859d3c8861512aeeffc7692ebdae047eb759adca",
+        "qpreroot.c": "924b41b63c41c22383a126c08eb2cbd2f62b01c8d509943fbabb3b1a28b8295c",
+        "qpsubs.c": "561fa788a69788b03d17a5ba162d9378243f4e64c1502e5cc8b5af50e0004a1d",
+        "regsubs.c": "8d84b669c637d4f0aca5c05178847994a1716d026aef6785b764345ff13f61a9",
+        "rolloff.c": "083c8cab6cebd7f6e793143c72c15f9ab1007ef24e9928f1e1c495f07d8d1ea1",
+        "rolloffp.c": "bfbe9f2599ee36f5caadc7a52d712f583211f42f6d7d129b2c0c5acd0e8315d7",
+        "simpjack2.c": "1fca67603d4cd0e05a10f9232728e3e6ace46cc42e83ff89f63a585427fd292d",
+        "snpunion.c": "131d9511000c157afe578e35d0073b44c8fac370304f5ab245d6da873afe98a3",
+        "transpose.c": "efac29468a635a290054f4d55419214d0c19b043da6c54e0f10faa57ca6864a8",
+        "win32/compat.c": "b3cf0aefaad3d45a4d362bc8c342d354efdd8685ec208ba5ae22484eaee1a7d5"
+      },
+      "header_signature": "c38d4cc0a0254c5dce5b73372fa0d736813dae00605bf0295b5cce08ca86e020",
+      "manifest_sha256": "43469be415f51c4ae3c728519ae1565d8a539c026ac15d5aef6aa862054690e0",
+      "script_sha256": {
+        "convertf.py": "bb11ad4f3f859812358646f0704794e9f9da9d74c8dbb06cf52ef24c1b410d88",
+        "extract_individuals.py": "101036e00e377c9c46bc497bb86679ef78db4c643f6ef6c9a2e2543477a80a80",
+        "geno_header.py": "cdd66e6b29c6a8762d9b8c52d5917f45ae7bee0a21ab5683a87b7182e0074ecb",
+        "hash_checks.py": "5be6a7591109e7ea35b0c2b02690d635f04a6d521501d05bf95ab7a6ab71c546",
+        "link_identical_files.py": "a883ecba8287bea153e58e8d3356b696cca528196b1c3f970ba29710301f2911",
+        "merge_transpose.py": "bd07677e2a938faa8618909aa7a086c44e73bbfb5c60ea005edce5444c7172f4",
+        "nick_hash_file.py": "0549c9726dd2bf7f6aa42fabfe906a651e28ba40bb5e532a89d7d09263d74937",
+        "platform_compat.py": "d6073b81eed0cd6164fe8eb47d3966d6dd48e48843d8faf36eeba551ae4b45ce",
+        "read_group_categories.py": "f73cd95404c127910cd700f410cc0907e6772d940aa8a8b69adb4bfbab9c3659",
+        "test_hash_merge.py": "af5d9a8deef87dde66edeef2feacfdd3384370d924a91b270d465a4d4de840dd"
+      },
+      "parity_validated": false
+    }
+  },
+  "matrices": {
+    "windows": {
+      "cases": 122,
+      "assertion_or_sanitizer_failures": [],
+      "case_origins": {
+        "prepare-packed": "windows-closure",
+        "prepare-transpose": "windows-closure",
+        "prepare-ped": "windows-closure",
+        "prepare-bed": "windows-closure",
+        "default": "windows-closure",
+        "explicit-defaults": "windows-verified",
+        "allsnps-default-inbreed": "windows-verified",
+        "allsnps-diploid": "windows-verified",
+        "complete-inbreed": "windows-verified",
+        "standard-precision": "windows-verified",
+        "details": "windows-verified",
+        "unscaled": "windows-verified",
+        "doscale-alias": "windows-verified",
+        "lambda": "windows-closure",
+        "cli-lambda": "windows-closure",
+        "lambda-large": "windows-closure",
+        "sizeweight": "windows-verified",
+        "outpop-none": "windows-verified",
+        "outpop-base": "windows-verified",
+        "outpop-other": "windows-verified",
+        "chrom": "windows-verified",
+        "nochrom": "windows-verified",
+        "gfromp": "windows-verified",
+        "physical-fallback": "windows-verified",
+        "xchrom": "windows-verified",
+        "xchrom-male": "windows-verified",
+        "xdata": "windows-verified",
+        "noxdata-no": "windows-verified",
+        "custom-numchrom": "windows-verified",
+        "popsizelimit": "windows-verified",
+        "popsizelimit-seed": "windows-verified",
+        "cli-seed": "windows-verified",
+        "high-seed": "windows-verified",
+        "inbreed-list": "windows-verified",
+        "inbreed-list-override": "windows-verified",
+        "inbreed-list-empty": "windows-verified",
+        "inbreed-list-extra": "windows-verified",
+        "pseudo": "windows-verified",
+        "pseudo-inbreed": "windows-verified",
+        "pseudo-base": "windows-verified",
+        "single-sample": "windows-verified",
+        "single-inbreed": "windows-verified",
+        "missing-complete": "windows-verified",
+        "missing-all": "windows-verified",
+        "missing-sizeweight": "windows-closure",
+        "missing-disjoint": "windows-verified",
+        "two-pops": "windows-verified",
+        "three-pops": "windows-verified",
+        "reorder": "windows-verified",
+        "long-popnames": "windows-verified",
+        "no-poplist": "windows-verified",
+        "empty-poplist": "windows-verified",
+        "one-pop": "windows-verified",
+        "many-pops": "windows-verified",
+        "overflow-pops": "windows-verified",
+        "duplicate-pops": "windows-verified",
+        "unknown-pop": "windows-verified",
+        "no-output": "windows-verified",
+        "instem": "windows-verified",
+        "poplist-alias": "windows-verified",
+        "useallsnps-alias": "windows-verified",
+        "legacy-keys": "windows-verified",
+        "badsnp": "windows-verified",
+        "no-valid-snps": "windows-verified",
+        "all-missing": "windows-verified",
+        "constant": "windows-verified",
+        "one-block": "windows-verified",
+        "zero-blocksize": "windows-verified",
+        "negative-blocksize": "windows-verified",
+        "nan-blocksize": "windows-verified",
+        "nan-lambda": "windows-closure",
+        "missing-par": "windows-verified",
+        "missing-geno": "windows-verified",
+        "truncated-packed": "windows-verified",
+        "empty-ind": "windows-verified",
+        "empty-snp": "windows-verified",
+        "duplicate-ind": "windows-verified",
+        "duplicate-snp": "windows-verified",
+        "empty-scalar": "windows-verified",
+        "bom": "windows-verified",
+        "utf16": "windows-verified",
+        "embedded-nul": "windows-verified",
+        "include": "windows-verified",
+        "packed": "windows-verified",
+        "tgeno": "windows-verified",
+        "ancestry": "windows-verified",
+        "gzip-text": "windows-verified",
+        "gzip-packed": "windows-verified",
+        "gzip-tgeno": "windows-verified",
+        "gzip-ancestry": "windows-verified",
+        "ped": "windows-verified",
+        "bed": "windows-verified",
+        "gzip-ped": "windows-verified",
+        "gzip-bed": "windows-verified",
+        "gzip-corrupt": "windows-verified",
+        "gzip-truncated": "windows-verified",
+        "gzip-reader-fatal": "windows-verified",
+        "output-directory": "windows-verified",
+        "win-space-hash-unicode": "windows-verified",
+        "win-forward-temp": "windows-verified",
+        "win-missing-temp": "windows-verified",
+        "win-long-path": "windows-closure",
+        "cli-help": "windows-verified",
+        "cli-version": "windows-verified",
+        "cli-none": "windows-verified",
+        "cli-invalid": "windows-verified",
+        "cli-missing-argument": "windows-verified",
+        "cli-unused": "windows-verified",
+        "consumer-prepare": "windows-closure",
+        "consumer-qpfmv": "windows-closure",
+        "consumer-qpAdm": "windows-closure",
+        "consumer-qpWave": "windows-closure",
+        "consumer-qpfit": "windows-closure",
+        "consumer-auto-qpAdm": "windows-closure",
+        "consumer-auto-qpWave": "windows-closure",
+        "consumer-auto-qpfit": "windows-closure",
+        "consumer-qpmix": "windows-closure",
+        "consumer-qpGraph": "windows-closure",
+        "consumer-auto-qpGraph": "windows-closure",
+        "consumer-mixed-qpfmv": "windows-closure",
+        "infinite-lambda": "windows-closure",
+        "verbose": "windows-final"
+      },
+      "executed_cases": {
+        "prepare-packed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.convertf"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "prepare-transpose": {
+          "returncode": 0,
+          "arguments": [
+            "output.geno",
+            "input.tgeno"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "prepare-ped": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.ped"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "prepare-bed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.bed"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "default": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "explicit-defaults": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "allsnps-default-inbreed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "ac7cc2906c305c14136a7ec6cb9a4cb7a1b49f60355b92323a9bc057b02cc998"
+          },
+          "temporaries": []
+        },
+        "allsnps-diploid": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "complete-inbreed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "ac7cc2906c305c14136a7ec6cb9a4cb7a1b49f60355b92323a9bc057b02cc998"
+          },
+          "temporaries": []
+        },
+        "standard-precision": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "c094fb6dbfcd792f53c7b792d57183d68ad548793dfe0bbf0059d5780eb633fc"
+          },
+          "temporaries": []
+        },
+        "details": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "unscaled": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "e3c135c32a1630cf2b29a0fbc56b994aa648b81ca17f259c6837ad28b59a66ef"
+          },
+          "temporaries": []
+        },
+        "doscale-alias": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "e3c135c32a1630cf2b29a0fbc56b994aa648b81ca17f259c6837ad28b59a66ef"
+          },
+          "temporaries": []
+        },
+        "lambda": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "5d9bb1564c627ddb43ac222571b716fddd76ae5d4bae1cd001330a31b4f8e2f0"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "cli-lambda": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par",
+            "-l",
+            "2"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "5d9bb1564c627ddb43ac222571b716fddd76ae5d4bae1cd001330a31b4f8e2f0"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "lambda-large": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "a03b8b8b9a38e86eadde37ba21d25c367272c45d9e5b109bb0602b356a423476"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "sizeweight": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "a66301eab713044f7adf0c333d1a98ddf9a393b779e5d94fd2053e4a04793641"
+          },
+          "temporaries": []
+        },
+        "outpop-none": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "43c6d55c9ec32975d759853670bd613d77a998437ed4c7d3c540bc1ccff3a33d"
+          },
+          "temporaries": []
+        },
+        "outpop-base": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "85b03fc0c0a6295e29e62a9c1f29f2b6ee269fba8f79a2bfb73e05e6075f176b"
+          },
+          "temporaries": []
+        },
+        "outpop-other": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "chrom": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "4ffe1cddc8afd946df931eec929ff44b590ecf4c54682f5ea15d6867371303e6"
+          },
+          "temporaries": []
+        },
+        "nochrom": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "552869bc4c8b9141c849cf4ade5857f064496b61afccd8837a15ac2130e17331"
+          },
+          "temporaries": []
+        },
+        "gfromp": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "1ba998dcb1579cd1e554a4dc874af97a72e79f0d1c8eeb68aec72a6ebb6e75d3"
+          },
+          "temporaries": []
+        },
+        "physical-fallback": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "1ba998dcb1579cd1e554a4dc874af97a72e79f0d1c8eeb68aec72a6ebb6e75d3"
+          },
+          "temporaries": []
+        },
+        "xchrom": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "317bb82d6a871a0ce49508a208ed13f19427ecd2daf673114b253434968fdf64"
+          },
+          "temporaries": []
+        },
+        "xchrom-male": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "7a186d5c273f8ecdba51c7d46dea2846435d598e171fd5f81d4a0bdcda12ae1e"
+          },
+          "temporaries": []
+        },
+        "xdata": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "113504d68375b39d147748aa7b674667be932eb39d223dc44925f99a58e8e64b"
+          },
+          "temporaries": []
+        },
+        "noxdata-no": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "113504d68375b39d147748aa7b674667be932eb39d223dc44925f99a58e8e64b"
+          },
+          "temporaries": []
+        },
+        "custom-numchrom": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "113504d68375b39d147748aa7b674667be932eb39d223dc44925f99a58e8e64b"
+          },
+          "temporaries": []
+        },
+        "popsizelimit": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "popsizelimit-seed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "cli-seed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par",
+            "-s",
+            "123"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "high-seed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "inbreed-list": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "b4111fb3a37a144c8b338acadc8da6f06474754f00a5838fdd6a8a69859e901e"
+          },
+          "temporaries": []
+        },
+        "inbreed-list-override": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "b4111fb3a37a144c8b338acadc8da6f06474754f00a5838fdd6a8a69859e901e"
+          },
+          "temporaries": []
+        },
+        "inbreed-list-empty": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "inbreed-list-extra": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "b4111fb3a37a144c8b338acadc8da6f06474754f00a5838fdd6a8a69859e901e"
+          },
+          "temporaries": []
+        },
+        "pseudo": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "486208781c731573bf184da6ba73b3a2c0a6cae378d66e2543b7067c37a163cf"
+          },
+          "temporaries": []
+        },
+        "pseudo-inbreed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3dac45c0ff1fe2364a55353102f5ec21fac518eabb7ca2dac271e88aab9d80a8"
+          },
+          "temporaries": []
+        },
+        "pseudo-base": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "single-sample": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "45aaa2589aed8a16c1cd6d075761f44066e627e03bbd99be765459b3528baad4"
+          },
+          "temporaries": []
+        },
+        "single-inbreed": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "missing-complete": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "b637815fc5a44b41b6697414ef073c862aa2752363d834c227eb03c6b182a1ac"
+          },
+          "temporaries": []
+        },
+        "missing-all": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "703ad207f6317201a7e93fbd5265bf725be5c8ff5c59d14a256a64dd6049a348"
+          },
+          "temporaries": []
+        },
+        "missing-sizeweight": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "af37b71ae13e01aa8944ae976eb5d5ede5273a403e6fe7f347d417cda78e365a"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "missing-disjoint": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "89af1aeaf1ebd2f2cf6b93ae14db218bd12cc931c09124db756c112a247799d0"
+          },
+          "temporaries": []
+        },
+        "two-pops": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3eb7bc799c4c6390352db58761c53add5e53d12431e862a39dc01a2a17aa90b4"
+          },
+          "temporaries": []
+        },
+        "three-pops": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "f0fd6e18677f3adf5711533c9960ca89928c1388d335134c575828f81992bd9a"
+          },
+          "temporaries": []
+        },
+        "reorder": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "a25b5f3cd6e05435853e68e12bcfb83ea27ea4aa729ff0ca394d85bdf60698bc"
+          },
+          "temporaries": []
+        },
+        "long-popnames": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "96813d284d40e6035f5a7c987c6245370dd578e370612cbec9c69f74694d84ca"
+          },
+          "temporaries": []
+        },
+        "no-poplist": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "empty-poplist": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "one-pop": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "many-pops": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "overflow-pops": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "duplicate-pops": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "unknown-pop": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "no-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": []
+        },
+        "instem": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "poplist-alias": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "useallsnps-alias": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "ac7cc2906c305c14136a7ec6cb9a4cb7a1b49f60355b92323a9bc057b02cc998"
+          },
+          "temporaries": []
+        },
+        "legacy-keys": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "badsnp": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "cbda6399ba33c64eb63c64e9b68b92825b4ed133f72960b7d610b979c10fcc0c"
+          },
+          "temporaries": []
+        },
+        "no-valid-snps": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "all-missing": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "constant": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "one-block": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "zero-blocksize": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "6794ddb44fc5a1169f26a512c79ac0150bd04ef690f4396b20c94faee081cc72"
+          },
+          "temporaries": []
+        },
+        "negative-blocksize": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "6794ddb44fc5a1169f26a512c79ac0150bd04ef690f4396b20c94faee081cc72"
+          },
+          "temporaries": []
+        },
+        "nan-blocksize": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "48a9b40be73f5fd6c0fc2587ddbc417bef293858f3536bddea2b55c45f89adbc"
+          },
+          "temporaries": []
+        },
+        "nan-lambda": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "missing-par": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "absent.par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "missing-geno": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "truncated-packed": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "empty-ind": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "empty-snp": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "duplicate-ind": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "duplicate-snp": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "empty-scalar": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "bom": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "utf16": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "embedded-nul": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "include": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "packed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "tgeno": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "ancestry": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-text": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-packed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-tgeno": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-ancestry": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "ped": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "bed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-ped": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-bed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-corrupt": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "gzip-truncated": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "gzip-reader-fatal": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "output-directory": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "win-space-hash-unicode": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "win-forward-temp": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "win-missing-temp": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "win-long-path": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "cli-help": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": []
+        },
+        "cli-version": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": []
+        },
+        "cli-none": {
+          "returncode": 0,
+          "arguments": [],
+          "expected": "success",
+          "files": {},
+          "temporaries": []
+        },
+        "cli-invalid": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-?"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "cli-missing-argument": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "cli-unused": {
+          "returncode": 0,
+          "arguments": [
+            "-g",
+            "ignored",
+            "-o",
+            "ignored",
+            "-x"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": []
+        },
+        "consumer-prepare": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.qpfstats"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-qpfmv": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.qpfmv"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-qpAdm": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-qpWave": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-qpfit": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-auto-qpAdm": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-auto"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-auto-qpWave": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-auto"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-auto-qpfit": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-auto"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-qpmix": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-mix"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-qpGraph": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-graph"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-auto-qpGraph": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-graph-auto"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [
+            "fstpar.26684",
+            "fsx.26684",
+            "pops.26684",
+            "ppp.26684"
+          ],
+          "new_temporaries": [
+            "fstpar.26684",
+            "fsx.26684",
+            "pops.26684",
+            "ppp.26684"
+          ]
+        },
+        "consumer-mixed-qpfmv": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-fmv"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "e79fed7f53e8a3f7832144dd87fb0300712755e4fb8b9ebad9d918c369915cfa",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [
+            "fstpar.26684",
+            "fsx.26684",
+            "pops.26684",
+            "ppp.26684"
+          ],
+          "new_temporaries": []
+        },
+        "infinite-lambda": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "verbose": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par",
+            "-V"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        }
+      }
+    },
+    "repaired_linux": {
+      "cases": 120,
+      "assertion_or_sanitizer_failures": [],
+      "case_origins": {
+        "prepare-packed": "linux-closure",
+        "prepare-transpose": "linux-closure",
+        "prepare-ped": "linux-closure",
+        "prepare-bed": "linux-closure",
+        "default": "linux-closure",
+        "explicit-defaults": "linux-verified",
+        "allsnps-default-inbreed": "linux-verified",
+        "allsnps-diploid": "linux-verified",
+        "complete-inbreed": "linux-verified",
+        "standard-precision": "linux-verified",
+        "details": "linux-verified",
+        "unscaled": "linux-verified",
+        "doscale-alias": "linux-verified",
+        "lambda": "linux-closure",
+        "cli-lambda": "linux-closure",
+        "lambda-large": "linux-closure",
+        "sizeweight": "linux-verified",
+        "outpop-none": "linux-verified",
+        "outpop-base": "linux-verified",
+        "outpop-other": "linux-verified",
+        "chrom": "linux-verified",
+        "nochrom": "linux-verified",
+        "gfromp": "linux-verified",
+        "physical-fallback": "linux-verified",
+        "xchrom": "linux-verified",
+        "xchrom-male": "linux-verified",
+        "xdata": "linux-verified",
+        "noxdata-no": "linux-verified",
+        "custom-numchrom": "linux-verified",
+        "popsizelimit": "linux-verified",
+        "popsizelimit-seed": "linux-verified",
+        "cli-seed": "linux-verified",
+        "high-seed": "linux-verified",
+        "inbreed-list": "linux-verified",
+        "inbreed-list-override": "linux-verified",
+        "inbreed-list-empty": "linux-verified",
+        "inbreed-list-extra": "linux-verified",
+        "pseudo": "linux-verified",
+        "pseudo-inbreed": "linux-verified",
+        "pseudo-base": "linux-verified",
+        "single-sample": "linux-verified",
+        "single-inbreed": "linux-verified",
+        "missing-complete": "linux-verified",
+        "missing-all": "linux-verified",
+        "missing-sizeweight": "linux-closure",
+        "missing-disjoint": "linux-verified",
+        "two-pops": "linux-verified",
+        "three-pops": "linux-verified",
+        "reorder": "linux-verified",
+        "long-popnames": "linux-verified",
+        "no-poplist": "linux-verified",
+        "empty-poplist": "linux-verified",
+        "one-pop": "linux-verified",
+        "many-pops": "linux-verified",
+        "overflow-pops": "linux-verified",
+        "duplicate-pops": "linux-verified",
+        "unknown-pop": "linux-verified",
+        "no-output": "linux-verified",
+        "instem": "linux-verified",
+        "poplist-alias": "linux-verified",
+        "useallsnps-alias": "linux-verified",
+        "legacy-keys": "linux-verified",
+        "badsnp": "linux-verified",
+        "no-valid-snps": "linux-verified",
+        "all-missing": "linux-verified",
+        "constant": "linux-verified",
+        "one-block": "linux-verified",
+        "zero-blocksize": "linux-verified",
+        "negative-blocksize": "linux-verified",
+        "nan-blocksize": "linux-verified",
+        "nan-lambda": "linux-closure",
+        "missing-par": "linux-verified",
+        "missing-geno": "linux-verified",
+        "truncated-packed": "linux-verified",
+        "empty-ind": "linux-verified",
+        "empty-snp": "linux-verified",
+        "duplicate-ind": "linux-verified",
+        "duplicate-snp": "linux-verified",
+        "empty-scalar": "linux-verified",
+        "bom": "linux-verified",
+        "utf16": "linux-verified",
+        "embedded-nul": "linux-verified",
+        "include": "linux-verified",
+        "packed": "linux-verified",
+        "tgeno": "linux-verified",
+        "ancestry": "linux-verified",
+        "gzip-text": "linux-verified",
+        "gzip-packed": "linux-verified",
+        "gzip-tgeno": "linux-verified",
+        "gzip-ancestry": "linux-verified",
+        "ped": "linux-verified",
+        "bed": "linux-verified",
+        "gzip-ped": "linux-verified",
+        "gzip-bed": "linux-verified",
+        "gzip-corrupt": "linux-verified",
+        "gzip-truncated": "linux-verified",
+        "gzip-reader-fatal": "linux-verified",
+        "output-directory": "linux-verified",
+        "unix-full-hires": "linux-verified",
+        "unix-full-standard": "linux-verified",
+        "cli-help": "linux-verified",
+        "cli-version": "linux-verified",
+        "cli-none": "linux-verified",
+        "cli-invalid": "linux-verified",
+        "cli-missing-argument": "linux-verified",
+        "cli-unused": "linux-verified",
+        "consumer-prepare": "linux-closure",
+        "consumer-qpfmv": "linux-closure",
+        "consumer-qpAdm": "linux-closure",
+        "consumer-qpWave": "linux-closure",
+        "consumer-qpfit": "linux-closure",
+        "consumer-auto-qpAdm": "linux-closure",
+        "consumer-auto-qpWave": "linux-closure",
+        "consumer-auto-qpfit": "linux-closure",
+        "consumer-qpmix": "linux-closure",
+        "consumer-qpGraph": "linux-closure",
+        "consumer-auto-qpGraph": "linux-closure",
+        "consumer-mixed-qpfmv": "linux-closure",
+        "infinite-lambda": "linux-closure",
+        "verbose": "linux-fixed"
+      },
+      "executed_cases": {
+        "prepare-packed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.convertf"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "prepare-transpose": {
+          "returncode": 0,
+          "arguments": [
+            "output.geno",
+            "input.tgeno"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "prepare-ped": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.ped"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "prepare-bed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.bed"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "default": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "explicit-defaults": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "allsnps-default-inbreed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "ac7cc2906c305c14136a7ec6cb9a4cb7a1b49f60355b92323a9bc057b02cc998"
+          },
+          "temporaries": []
+        },
+        "allsnps-diploid": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "complete-inbreed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "ac7cc2906c305c14136a7ec6cb9a4cb7a1b49f60355b92323a9bc057b02cc998"
+          },
+          "temporaries": []
+        },
+        "standard-precision": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "c094fb6dbfcd792f53c7b792d57183d68ad548793dfe0bbf0059d5780eb633fc"
+          },
+          "temporaries": []
+        },
+        "details": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "unscaled": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "e3c135c32a1630cf2b29a0fbc56b994aa648b81ca17f259c6837ad28b59a66ef"
+          },
+          "temporaries": []
+        },
+        "doscale-alias": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "e3c135c32a1630cf2b29a0fbc56b994aa648b81ca17f259c6837ad28b59a66ef"
+          },
+          "temporaries": []
+        },
+        "lambda": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "5d9bb1564c627ddb43ac222571b716fddd76ae5d4bae1cd001330a31b4f8e2f0"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "cli-lambda": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par",
+            "-l",
+            "2"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "5d9bb1564c627ddb43ac222571b716fddd76ae5d4bae1cd001330a31b4f8e2f0"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "lambda-large": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "a03b8b8b9a38e86eadde37ba21d25c367272c45d9e5b109bb0602b356a423476"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "sizeweight": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "a66301eab713044f7adf0c333d1a98ddf9a393b779e5d94fd2053e4a04793641"
+          },
+          "temporaries": []
+        },
+        "outpop-none": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "43c6d55c9ec32975d759853670bd613d77a998437ed4c7d3c540bc1ccff3a33d"
+          },
+          "temporaries": []
+        },
+        "outpop-base": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "85b03fc0c0a6295e29e62a9c1f29f2b6ee269fba8f79a2bfb73e05e6075f176b"
+          },
+          "temporaries": []
+        },
+        "outpop-other": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "chrom": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "4ffe1cddc8afd946df931eec929ff44b590ecf4c54682f5ea15d6867371303e6"
+          },
+          "temporaries": []
+        },
+        "nochrom": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "552869bc4c8b9141c849cf4ade5857f064496b61afccd8837a15ac2130e17331"
+          },
+          "temporaries": []
+        },
+        "gfromp": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "1ba998dcb1579cd1e554a4dc874af97a72e79f0d1c8eeb68aec72a6ebb6e75d3"
+          },
+          "temporaries": []
+        },
+        "physical-fallback": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "1ba998dcb1579cd1e554a4dc874af97a72e79f0d1c8eeb68aec72a6ebb6e75d3"
+          },
+          "temporaries": []
+        },
+        "xchrom": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "317bb82d6a871a0ce49508a208ed13f19427ecd2daf673114b253434968fdf64"
+          },
+          "temporaries": []
+        },
+        "xchrom-male": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "7a186d5c273f8ecdba51c7d46dea2846435d598e171fd5f81d4a0bdcda12ae1e"
+          },
+          "temporaries": []
+        },
+        "xdata": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "113504d68375b39d147748aa7b674667be932eb39d223dc44925f99a58e8e64b"
+          },
+          "temporaries": []
+        },
+        "noxdata-no": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "113504d68375b39d147748aa7b674667be932eb39d223dc44925f99a58e8e64b"
+          },
+          "temporaries": []
+        },
+        "custom-numchrom": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "113504d68375b39d147748aa7b674667be932eb39d223dc44925f99a58e8e64b"
+          },
+          "temporaries": []
+        },
+        "popsizelimit": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "popsizelimit-seed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "cli-seed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par",
+            "-s",
+            "123"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "high-seed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "inbreed-list": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "b4111fb3a37a144c8b338acadc8da6f06474754f00a5838fdd6a8a69859e901e"
+          },
+          "temporaries": []
+        },
+        "inbreed-list-override": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "b4111fb3a37a144c8b338acadc8da6f06474754f00a5838fdd6a8a69859e901e"
+          },
+          "temporaries": []
+        },
+        "inbreed-list-empty": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "inbreed-list-extra": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "b4111fb3a37a144c8b338acadc8da6f06474754f00a5838fdd6a8a69859e901e"
+          },
+          "temporaries": []
+        },
+        "pseudo": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "486208781c731573bf184da6ba73b3a2c0a6cae378d66e2543b7067c37a163cf"
+          },
+          "temporaries": []
+        },
+        "pseudo-inbreed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3dac45c0ff1fe2364a55353102f5ec21fac518eabb7ca2dac271e88aab9d80a8"
+          },
+          "temporaries": []
+        },
+        "pseudo-base": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "single-sample": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "45aaa2589aed8a16c1cd6d075761f44066e627e03bbd99be765459b3528baad4"
+          },
+          "temporaries": []
+        },
+        "single-inbreed": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "missing-complete": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "b637815fc5a44b41b6697414ef073c862aa2752363d834c227eb03c6b182a1ac"
+          },
+          "temporaries": []
+        },
+        "missing-all": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "703ad207f6317201a7e93fbd5265bf725be5c8ff5c59d14a256a64dd6049a348"
+          },
+          "temporaries": []
+        },
+        "missing-sizeweight": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "af37b71ae13e01aa8944ae976eb5d5ede5273a403e6fe7f347d417cda78e365a"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "missing-disjoint": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "89af1aeaf1ebd2f2cf6b93ae14db218bd12cc931c09124db756c112a247799d0"
+          },
+          "temporaries": []
+        },
+        "two-pops": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3eb7bc799c4c6390352db58761c53add5e53d12431e862a39dc01a2a17aa90b4"
+          },
+          "temporaries": []
+        },
+        "three-pops": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "f0fd6e18677f3adf5711533c9960ca89928c1388d335134c575828f81992bd9a"
+          },
+          "temporaries": []
+        },
+        "reorder": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "a25b5f3cd6e05435853e68e12bcfb83ea27ea4aa729ff0ca394d85bdf60698bc"
+          },
+          "temporaries": []
+        },
+        "long-popnames": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "96813d284d40e6035f5a7c987c6245370dd578e370612cbec9c69f74694d84ca"
+          },
+          "temporaries": []
+        },
+        "no-poplist": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "empty-poplist": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "one-pop": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "many-pops": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "overflow-pops": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "duplicate-pops": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "unknown-pop": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "no-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": []
+        },
+        "instem": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "poplist-alias": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "useallsnps-alias": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "ac7cc2906c305c14136a7ec6cb9a4cb7a1b49f60355b92323a9bc057b02cc998"
+          },
+          "temporaries": []
+        },
+        "legacy-keys": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "badsnp": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "cbda6399ba33c64eb63c64e9b68b92825b4ed133f72960b7d610b979c10fcc0c"
+          },
+          "temporaries": []
+        },
+        "no-valid-snps": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "all-missing": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "constant": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "one-block": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "zero-blocksize": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "6794ddb44fc5a1169f26a512c79ac0150bd04ef690f4396b20c94faee081cc72"
+          },
+          "temporaries": []
+        },
+        "negative-blocksize": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "6794ddb44fc5a1169f26a512c79ac0150bd04ef690f4396b20c94faee081cc72"
+          },
+          "temporaries": []
+        },
+        "nan-blocksize": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "48a9b40be73f5fd6c0fc2587ddbc417bef293858f3536bddea2b55c45f89adbc"
+          },
+          "temporaries": []
+        },
+        "nan-lambda": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "missing-par": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "absent.par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "missing-geno": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "truncated-packed": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "empty-ind": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "empty-snp": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "duplicate-ind": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "duplicate-snp": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "empty-scalar": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "bom": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "utf16": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "embedded-nul": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "include": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "packed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "tgeno": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "ancestry": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-text": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-packed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-tgeno": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-ancestry": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "ped": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "bed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-ped": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-bed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-corrupt": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "gzip-truncated": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "gzip-reader-fatal": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "output-directory": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "unix-full-hires": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "unix-full-standard": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "cli-help": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": []
+        },
+        "cli-version": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": []
+        },
+        "cli-none": {
+          "returncode": 0,
+          "arguments": [],
+          "expected": "success",
+          "files": {},
+          "temporaries": []
+        },
+        "cli-invalid": {
+          "returncode": -6,
+          "arguments": [
+            "-?"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "cli-missing-argument": {
+          "returncode": -6,
+          "arguments": [
+            "-p"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "cli-unused": {
+          "returncode": 0,
+          "arguments": [
+            "-g",
+            "ignored",
+            "-o",
+            "ignored",
+            "-x"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": []
+        },
+        "consumer-prepare": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.qpfstats"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-qpfmv": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.qpfmv"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-qpAdm": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-qpWave": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-qpfit": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-auto-qpAdm": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-auto"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-auto-qpWave": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-auto"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-auto-qpfit": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-auto"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-qpmix": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-mix"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-qpGraph": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-graph"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-auto-qpGraph": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-graph-auto"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [
+            "fstpar.18837",
+            "fsx.18837",
+            "pops.18837",
+            "ppp.18837"
+          ],
+          "new_temporaries": [
+            "fstpar.18837",
+            "fsx.18837",
+            "pops.18837",
+            "ppp.18837"
+          ]
+        },
+        "consumer-mixed-qpfmv": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-fmv"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "e79fed7f53e8a3f7832144dd87fb0300712755e4fb8b9ebad9d918c369915cfa",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [
+            "fstpar.18837",
+            "fsx.18837",
+            "pops.18837",
+            "ppp.18837"
+          ],
+          "new_temporaries": []
+        },
+        "infinite-lambda": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "verbose": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par",
+            "-V"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        }
+      }
+    },
+    "asan_ubsan": {
+      "cases": 120,
+      "assertion_or_sanitizer_failures": [],
+      "case_origins": {
+        "prepare-packed": "asan-closure",
+        "prepare-transpose": "asan-closure",
+        "prepare-ped": "asan-closure",
+        "prepare-bed": "asan-closure",
+        "default": "asan-closure",
+        "explicit-defaults": "asan-verified",
+        "allsnps-default-inbreed": "asan-verified",
+        "allsnps-diploid": "asan-verified",
+        "complete-inbreed": "asan-verified",
+        "standard-precision": "asan-verified",
+        "details": "asan-verified",
+        "unscaled": "asan-verified",
+        "doscale-alias": "asan-verified",
+        "lambda": "asan-closure",
+        "cli-lambda": "asan-closure",
+        "lambda-large": "asan-closure",
+        "sizeweight": "asan-verified",
+        "outpop-none": "asan-verified",
+        "outpop-base": "asan-verified",
+        "outpop-other": "asan-verified",
+        "chrom": "asan-verified",
+        "nochrom": "asan-verified",
+        "gfromp": "asan-verified",
+        "physical-fallback": "asan-verified",
+        "xchrom": "asan-verified",
+        "xchrom-male": "asan-verified",
+        "xdata": "asan-verified",
+        "noxdata-no": "asan-verified",
+        "custom-numchrom": "asan-verified",
+        "popsizelimit": "asan-verified",
+        "popsizelimit-seed": "asan-verified",
+        "cli-seed": "asan-verified",
+        "high-seed": "asan-verified",
+        "inbreed-list": "asan-verified",
+        "inbreed-list-override": "asan-verified",
+        "inbreed-list-empty": "asan-verified",
+        "inbreed-list-extra": "asan-verified",
+        "pseudo": "asan-verified",
+        "pseudo-inbreed": "asan-verified",
+        "pseudo-base": "asan-verified",
+        "single-sample": "asan-verified",
+        "single-inbreed": "asan-verified",
+        "missing-complete": "asan-verified",
+        "missing-all": "asan-verified",
+        "missing-sizeweight": "asan-closure",
+        "missing-disjoint": "asan-verified",
+        "two-pops": "asan-verified",
+        "three-pops": "asan-verified",
+        "reorder": "asan-verified",
+        "long-popnames": "asan-verified",
+        "no-poplist": "asan-verified",
+        "empty-poplist": "asan-verified",
+        "one-pop": "asan-verified",
+        "many-pops": "asan-verified",
+        "overflow-pops": "asan-verified",
+        "duplicate-pops": "asan-verified",
+        "unknown-pop": "asan-verified",
+        "no-output": "asan-verified",
+        "instem": "asan-verified",
+        "poplist-alias": "asan-verified",
+        "useallsnps-alias": "asan-verified",
+        "legacy-keys": "asan-verified",
+        "badsnp": "asan-verified",
+        "no-valid-snps": "asan-verified",
+        "all-missing": "asan-verified",
+        "constant": "asan-verified",
+        "one-block": "asan-verified",
+        "zero-blocksize": "asan-verified",
+        "negative-blocksize": "asan-verified",
+        "nan-blocksize": "asan-verified",
+        "nan-lambda": "asan-closure",
+        "missing-par": "asan-verified",
+        "missing-geno": "asan-verified",
+        "truncated-packed": "asan-verified",
+        "empty-ind": "asan-verified",
+        "empty-snp": "asan-verified",
+        "duplicate-ind": "asan-verified",
+        "duplicate-snp": "asan-verified",
+        "empty-scalar": "asan-verified",
+        "bom": "asan-verified",
+        "utf16": "asan-verified",
+        "embedded-nul": "asan-verified",
+        "include": "asan-verified",
+        "packed": "asan-verified",
+        "tgeno": "asan-verified",
+        "ancestry": "asan-verified",
+        "gzip-text": "asan-verified",
+        "gzip-packed": "asan-verified",
+        "gzip-tgeno": "asan-verified",
+        "gzip-ancestry": "asan-verified",
+        "ped": "asan-verified",
+        "bed": "asan-verified",
+        "gzip-ped": "asan-verified",
+        "gzip-bed": "asan-verified",
+        "gzip-corrupt": "asan-verified",
+        "gzip-truncated": "asan-verified",
+        "gzip-reader-fatal": "asan-verified",
+        "output-directory": "asan-verified",
+        "unix-full-hires": "asan-verified",
+        "unix-full-standard": "asan-verified",
+        "cli-help": "asan-verified",
+        "cli-version": "asan-verified",
+        "cli-none": "asan-verified",
+        "cli-invalid": "asan-verified",
+        "cli-missing-argument": "asan-verified",
+        "cli-unused": "asan-verified",
+        "consumer-prepare": "asan-closure",
+        "consumer-qpfmv": "asan-closure",
+        "consumer-qpAdm": "asan-closure",
+        "consumer-qpWave": "asan-closure",
+        "consumer-qpfit": "asan-closure",
+        "consumer-auto-qpAdm": "asan-closure",
+        "consumer-auto-qpWave": "asan-closure",
+        "consumer-auto-qpfit": "asan-closure",
+        "consumer-qpmix": "asan-closure",
+        "consumer-qpGraph": "asan-closure",
+        "consumer-auto-qpGraph": "asan-closure",
+        "consumer-mixed-qpfmv": "asan-closure",
+        "infinite-lambda": "asan-closure",
+        "verbose": "asan-fixed"
+      },
+      "executed_cases": {
+        "prepare-packed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.convertf"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "prepare-transpose": {
+          "returncode": 0,
+          "arguments": [
+            "output.geno",
+            "input.tgeno"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "prepare-ped": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.ped"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "prepare-bed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.bed"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "default": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "explicit-defaults": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "allsnps-default-inbreed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "ac7cc2906c305c14136a7ec6cb9a4cb7a1b49f60355b92323a9bc057b02cc998"
+          },
+          "temporaries": []
+        },
+        "allsnps-diploid": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "complete-inbreed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "ac7cc2906c305c14136a7ec6cb9a4cb7a1b49f60355b92323a9bc057b02cc998"
+          },
+          "temporaries": []
+        },
+        "standard-precision": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "c094fb6dbfcd792f53c7b792d57183d68ad548793dfe0bbf0059d5780eb633fc"
+          },
+          "temporaries": []
+        },
+        "details": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "unscaled": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "e3c135c32a1630cf2b29a0fbc56b994aa648b81ca17f259c6837ad28b59a66ef"
+          },
+          "temporaries": []
+        },
+        "doscale-alias": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "e3c135c32a1630cf2b29a0fbc56b994aa648b81ca17f259c6837ad28b59a66ef"
+          },
+          "temporaries": []
+        },
+        "lambda": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "5d9bb1564c627ddb43ac222571b716fddd76ae5d4bae1cd001330a31b4f8e2f0"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "cli-lambda": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par",
+            "-l",
+            "2"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "5d9bb1564c627ddb43ac222571b716fddd76ae5d4bae1cd001330a31b4f8e2f0"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "lambda-large": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "a03b8b8b9a38e86eadde37ba21d25c367272c45d9e5b109bb0602b356a423476"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "sizeweight": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "a66301eab713044f7adf0c333d1a98ddf9a393b779e5d94fd2053e4a04793641"
+          },
+          "temporaries": []
+        },
+        "outpop-none": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "43c6d55c9ec32975d759853670bd613d77a998437ed4c7d3c540bc1ccff3a33d"
+          },
+          "temporaries": []
+        },
+        "outpop-base": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "85b03fc0c0a6295e29e62a9c1f29f2b6ee269fba8f79a2bfb73e05e6075f176b"
+          },
+          "temporaries": []
+        },
+        "outpop-other": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "chrom": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "4ffe1cddc8afd946df931eec929ff44b590ecf4c54682f5ea15d6867371303e6"
+          },
+          "temporaries": []
+        },
+        "nochrom": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "552869bc4c8b9141c849cf4ade5857f064496b61afccd8837a15ac2130e17331"
+          },
+          "temporaries": []
+        },
+        "gfromp": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "1ba998dcb1579cd1e554a4dc874af97a72e79f0d1c8eeb68aec72a6ebb6e75d3"
+          },
+          "temporaries": []
+        },
+        "physical-fallback": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "1ba998dcb1579cd1e554a4dc874af97a72e79f0d1c8eeb68aec72a6ebb6e75d3"
+          },
+          "temporaries": []
+        },
+        "xchrom": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "317bb82d6a871a0ce49508a208ed13f19427ecd2daf673114b253434968fdf64"
+          },
+          "temporaries": []
+        },
+        "xchrom-male": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "7a186d5c273f8ecdba51c7d46dea2846435d598e171fd5f81d4a0bdcda12ae1e"
+          },
+          "temporaries": []
+        },
+        "xdata": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "113504d68375b39d147748aa7b674667be932eb39d223dc44925f99a58e8e64b"
+          },
+          "temporaries": []
+        },
+        "noxdata-no": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "113504d68375b39d147748aa7b674667be932eb39d223dc44925f99a58e8e64b"
+          },
+          "temporaries": []
+        },
+        "custom-numchrom": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "113504d68375b39d147748aa7b674667be932eb39d223dc44925f99a58e8e64b"
+          },
+          "temporaries": []
+        },
+        "popsizelimit": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "popsizelimit-seed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "cli-seed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par",
+            "-s",
+            "123"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "high-seed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "inbreed-list": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "b4111fb3a37a144c8b338acadc8da6f06474754f00a5838fdd6a8a69859e901e"
+          },
+          "temporaries": []
+        },
+        "inbreed-list-override": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "b4111fb3a37a144c8b338acadc8da6f06474754f00a5838fdd6a8a69859e901e"
+          },
+          "temporaries": []
+        },
+        "inbreed-list-empty": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "inbreed-list-extra": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "b4111fb3a37a144c8b338acadc8da6f06474754f00a5838fdd6a8a69859e901e"
+          },
+          "temporaries": []
+        },
+        "pseudo": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "486208781c731573bf184da6ba73b3a2c0a6cae378d66e2543b7067c37a163cf"
+          },
+          "temporaries": []
+        },
+        "pseudo-inbreed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3dac45c0ff1fe2364a55353102f5ec21fac518eabb7ca2dac271e88aab9d80a8"
+          },
+          "temporaries": []
+        },
+        "pseudo-base": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "single-sample": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "45aaa2589aed8a16c1cd6d075761f44066e627e03bbd99be765459b3528baad4"
+          },
+          "temporaries": []
+        },
+        "single-inbreed": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "missing-complete": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "b637815fc5a44b41b6697414ef073c862aa2752363d834c227eb03c6b182a1ac"
+          },
+          "temporaries": []
+        },
+        "missing-all": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "703ad207f6317201a7e93fbd5265bf725be5c8ff5c59d14a256a64dd6049a348"
+          },
+          "temporaries": []
+        },
+        "missing-sizeweight": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "af37b71ae13e01aa8944ae976eb5d5ede5273a403e6fe7f347d417cda78e365a"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "missing-disjoint": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "89af1aeaf1ebd2f2cf6b93ae14db218bd12cc931c09124db756c112a247799d0"
+          },
+          "temporaries": []
+        },
+        "two-pops": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3eb7bc799c4c6390352db58761c53add5e53d12431e862a39dc01a2a17aa90b4"
+          },
+          "temporaries": []
+        },
+        "three-pops": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "f0fd6e18677f3adf5711533c9960ca89928c1388d335134c575828f81992bd9a"
+          },
+          "temporaries": []
+        },
+        "reorder": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "a25b5f3cd6e05435853e68e12bcfb83ea27ea4aa729ff0ca394d85bdf60698bc"
+          },
+          "temporaries": []
+        },
+        "long-popnames": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "96813d284d40e6035f5a7c987c6245370dd578e370612cbec9c69f74694d84ca"
+          },
+          "temporaries": []
+        },
+        "no-poplist": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "empty-poplist": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "one-pop": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "many-pops": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "overflow-pops": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "duplicate-pops": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "unknown-pop": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "no-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": []
+        },
+        "instem": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "poplist-alias": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "useallsnps-alias": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "ac7cc2906c305c14136a7ec6cb9a4cb7a1b49f60355b92323a9bc057b02cc998"
+          },
+          "temporaries": []
+        },
+        "legacy-keys": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "badsnp": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "cbda6399ba33c64eb63c64e9b68b92825b4ed133f72960b7d610b979c10fcc0c"
+          },
+          "temporaries": []
+        },
+        "no-valid-snps": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "all-missing": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "constant": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "one-block": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "zero-blocksize": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "6794ddb44fc5a1169f26a512c79ac0150bd04ef690f4396b20c94faee081cc72"
+          },
+          "temporaries": []
+        },
+        "negative-blocksize": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "6794ddb44fc5a1169f26a512c79ac0150bd04ef690f4396b20c94faee081cc72"
+          },
+          "temporaries": []
+        },
+        "nan-blocksize": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "48a9b40be73f5fd6c0fc2587ddbc417bef293858f3536bddea2b55c45f89adbc"
+          },
+          "temporaries": []
+        },
+        "nan-lambda": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "missing-par": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "absent.par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "missing-geno": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "truncated-packed": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "empty-ind": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "empty-snp": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "duplicate-ind": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "duplicate-snp": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "empty-scalar": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "bom": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "utf16": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "embedded-nul": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "include": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "packed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "tgeno": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "ancestry": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-text": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-packed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-tgeno": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-ancestry": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "ped": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "bed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-ped": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-bed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        },
+        "gzip-corrupt": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "gzip-truncated": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "gzip-reader-fatal": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "output-directory": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "unix-full-hires": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "unix-full-standard": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "cli-help": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": []
+        },
+        "cli-version": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": []
+        },
+        "cli-none": {
+          "returncode": 0,
+          "arguments": [],
+          "expected": "success",
+          "files": {},
+          "temporaries": []
+        },
+        "cli-invalid": {
+          "returncode": -6,
+          "arguments": [
+            "-?"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "cli-missing-argument": {
+          "returncode": -6,
+          "arguments": [
+            "-p"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": []
+        },
+        "cli-unused": {
+          "returncode": 0,
+          "arguments": [
+            "-g",
+            "ignored",
+            "-o",
+            "ignored",
+            "-x"
+          ],
+          "expected": "success",
+          "files": {},
+          "temporaries": []
+        },
+        "consumer-prepare": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.qpfstats"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-qpfmv": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.qpfmv"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-qpAdm": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-qpWave": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-qpfit": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-auto-qpAdm": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-auto"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-auto-qpWave": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-auto"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-auto-qpfit": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-auto"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-qpmix": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-mix"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-qpGraph": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-graph"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "consumer-auto-qpGraph": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-graph-auto"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "a81026d0176ce8c9dd3e83b0fb68e02f8389f64e913f64af2fed3cce1eeef9ea",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [
+            "fstpar.18875",
+            "fsx.18875",
+            "pops.18875",
+            "ppp.18875"
+          ],
+          "new_temporaries": [
+            "fstpar.18875",
+            "fsx.18875",
+            "pops.18875",
+            "ppp.18875"
+          ]
+        },
+        "consumer-mixed-qpfmv": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par.consumer-fmv"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fmv": "e79fed7f53e8a3f7832144dd87fb0300712755e4fb8b9ebad9d918c369915cfa",
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": [
+            "fstpar.18875",
+            "fsx.18875",
+            "pops.18875",
+            "ppp.18875"
+          ],
+          "new_temporaries": []
+        },
+        "infinite-lambda": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "par"
+          ],
+          "expected": "failure",
+          "files": {},
+          "temporaries": [],
+          "new_temporaries": []
+        },
+        "verbose": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "par",
+            "-V"
+          ],
+          "expected": "success",
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          },
+          "temporaries": []
+        }
+      }
+    }
+  },
+  "repaired_linux_windows_comparison": {
+    "shared_cases": 118,
+    "jointly_successful": 86,
+    "equal_streams": 230,
+    "total_streams": 236,
+    "equal_case_file_comparisons": 88,
+    "cases": {
+      "all-missing": [
+        "exit"
+      ],
+      "allsnps-default-inbreed": "exact",
+      "allsnps-diploid": "exact",
+      "ancestry": "exact",
+      "badsnp": "exact",
+      "bed": "exact",
+      "bom": [
+        "exit",
+        "stdout",
+        "stderr",
+        "output.fstats"
+      ],
+      "chrom": "exact",
+      "cli-help": "exact",
+      "cli-invalid": [
+        "exit"
+      ],
+      "cli-lambda": "exact",
+      "cli-missing-argument": [
+        "exit"
+      ],
+      "cli-none": "exact",
+      "cli-seed": "exact",
+      "cli-unused": "exact",
+      "cli-version": "exact",
+      "complete-inbreed": "exact",
+      "constant": [
+        "exit"
+      ],
+      "consumer-auto-qpAdm": "exact",
+      "consumer-auto-qpGraph": "exact",
+      "consumer-auto-qpWave": "exact",
+      "consumer-auto-qpfit": "exact",
+      "consumer-mixed-qpfmv": "exact",
+      "consumer-prepare": "exact",
+      "consumer-qpAdm": "exact",
+      "consumer-qpGraph": "exact",
+      "consumer-qpWave": "exact",
+      "consumer-qpfit": "exact",
+      "consumer-qpfmv": "exact",
+      "consumer-qpmix": "exact",
+      "custom-numchrom": "exact",
+      "default": "exact",
+      "details": "exact",
+      "doscale-alias": "exact",
+      "duplicate-ind": "exact",
+      "duplicate-pops": [
+        "exit"
+      ],
+      "duplicate-snp": [
+        "exit"
+      ],
+      "embedded-nul": [
+        "exit"
+      ],
+      "empty-ind": [
+        "exit"
+      ],
+      "empty-poplist": [
+        "exit"
+      ],
+      "empty-scalar": [
+        "exit"
+      ],
+      "empty-snp": [
+        "exit"
+      ],
+      "explicit-defaults": "exact",
+      "gfromp": "exact",
+      "gzip-ancestry": "exact",
+      "gzip-bed": "exact",
+      "gzip-corrupt": [
+        "exit",
+        "stderr"
+      ],
+      "gzip-packed": "exact",
+      "gzip-ped": "exact",
+      "gzip-reader-fatal": [
+        "exit"
+      ],
+      "gzip-text": "exact",
+      "gzip-tgeno": "exact",
+      "gzip-truncated": [
+        "exit",
+        "stderr"
+      ],
+      "high-seed": "exact",
+      "inbreed-list": "exact",
+      "inbreed-list-empty": "exact",
+      "inbreed-list-extra": "exact",
+      "inbreed-list-override": "exact",
+      "include": "exact",
+      "infinite-lambda": [
+        "exit"
+      ],
+      "instem": "exact",
+      "lambda": "exact",
+      "lambda-large": "exact",
+      "legacy-keys": "exact",
+      "long-popnames": "exact",
+      "many-pops": [
+        "exit"
+      ],
+      "missing-all": "exact",
+      "missing-complete": "exact",
+      "missing-disjoint": "exact",
+      "missing-geno": [
+        "exit"
+      ],
+      "missing-par": [
+        "exit"
+      ],
+      "missing-sizeweight": "exact",
+      "nan-blocksize": "exact",
+      "nan-lambda": [
+        "exit"
+      ],
+      "negative-blocksize": "exact",
+      "no-output": "exact",
+      "no-poplist": [
+        "exit"
+      ],
+      "no-valid-snps": [
+        "exit"
+      ],
+      "nochrom": "exact",
+      "noxdata-no": "exact",
+      "one-block": [
+        "exit"
+      ],
+      "one-pop": [
+        "exit"
+      ],
+      "outpop-base": "exact",
+      "outpop-none": "exact",
+      "outpop-other": [
+        "exit"
+      ],
+      "output-directory": [
+        "exit",
+        "stderr"
+      ],
+      "overflow-pops": [
+        "exit"
+      ],
+      "packed": "exact",
+      "ped": "exact",
+      "physical-fallback": "exact",
+      "poplist-alias": "exact",
+      "popsizelimit": "exact",
+      "popsizelimit-seed": "exact",
+      "prepare-bed": "exact",
+      "prepare-packed": "exact",
+      "prepare-ped": "exact",
+      "prepare-transpose": "exact",
+      "pseudo": "exact",
+      "pseudo-base": [
+        "exit"
+      ],
+      "pseudo-inbreed": "exact",
+      "reorder": "exact",
+      "single-inbreed": [
+        "exit"
+      ],
+      "single-sample": "exact",
+      "sizeweight": "exact",
+      "standard-precision": "exact",
+      "tgeno": "exact",
+      "three-pops": "exact",
+      "truncated-packed": [
+        "exit",
+        "stderr"
+      ],
+      "two-pops": "exact",
+      "unknown-pop": [
+        "exit"
+      ],
+      "unscaled": "exact",
+      "useallsnps-alias": "exact",
+      "utf16": [
+        "exit"
+      ],
+      "verbose": "exact",
+      "xchrom": "exact",
+      "xchrom-male": "exact",
+      "xdata": "exact",
+      "zero-blocksize": "exact"
+    }
+  },
+  "pristine_linux_windows_comparison": {
+    "shared_cases": 118,
+    "jointly_successful": 81,
+    "equal_streams": 198,
+    "total_streams": 236,
+    "equal_case_file_comparisons": 81,
+    "cases": {
+      "all-missing": [
+        "exit"
+      ],
+      "allsnps-default-inbreed": "exact",
+      "allsnps-diploid": "exact",
+      "ancestry": "exact",
+      "badsnp": "exact",
+      "bed": "exact",
+      "bom": [
+        "exit",
+        "stdout",
+        "stderr",
+        "output.fstats"
+      ],
+      "chrom": "exact",
+      "cli-help": "exact",
+      "cli-invalid": [
+        "exit"
+      ],
+      "cli-lambda": "exact",
+      "cli-missing-argument": [
+        "exit"
+      ],
+      "cli-none": "exact",
+      "cli-seed": "exact",
+      "cli-unused": "exact",
+      "cli-version": "exact",
+      "complete-inbreed": "exact",
+      "constant": [
+        "exit"
+      ],
+      "consumer-auto-qpAdm": "exact",
+      "consumer-auto-qpGraph": [
+        "stdout"
+      ],
+      "consumer-auto-qpWave": "exact",
+      "consumer-auto-qpfit": [
+        "exit",
+        "stdout",
+        "stderr",
+        "output.fmv",
+        "output.fstats"
+      ],
+      "consumer-mixed-qpfmv": "exact",
+      "consumer-prepare": "exact",
+      "consumer-qpAdm": "exact",
+      "consumer-qpGraph": [
+        "stdout"
+      ],
+      "consumer-qpWave": "exact",
+      "consumer-qpfit": [
+        "exit",
+        "stdout",
+        "stderr",
+        "output.fmv",
+        "output.fstats"
+      ],
+      "consumer-qpfmv": "exact",
+      "consumer-qpmix": [
+        "stdout"
+      ],
+      "custom-numchrom": "exact",
+      "default": "exact",
+      "details": "exact",
+      "doscale-alias": "exact",
+      "duplicate-ind": "exact",
+      "duplicate-pops": [
+        "exit"
+      ],
+      "duplicate-snp": [
+        "exit"
+      ],
+      "embedded-nul": [
+        "exit",
+        "stdout",
+        "stderr",
+        "output.fstats"
+      ],
+      "empty-ind": [
+        "exit"
+      ],
+      "empty-poplist": [
+        "exit",
+        "stdout",
+        "stderr"
+      ],
+      "empty-scalar": [
+        "exit",
+        "stderr"
+      ],
+      "empty-snp": [
+        "exit"
+      ],
+      "explicit-defaults": "exact",
+      "gfromp": "exact",
+      "gzip-ancestry": "exact",
+      "gzip-bed": [
+        "exit",
+        "stdout",
+        "stderr",
+        "output.fstats"
+      ],
+      "gzip-corrupt": [
+        "exit",
+        "stdout",
+        "stderr"
+      ],
+      "gzip-packed": "exact",
+      "gzip-ped": [
+        "exit",
+        "stdout",
+        "stderr",
+        "output.fstats"
+      ],
+      "gzip-reader-fatal": [
+        "exit"
+      ],
+      "gzip-text": "exact",
+      "gzip-tgeno": "exact",
+      "gzip-truncated": [
+        "exit",
+        "stdout",
+        "stderr",
+        "output.fstats"
+      ],
+      "high-seed": "exact",
+      "inbreed-list": "exact",
+      "inbreed-list-empty": "exact",
+      "inbreed-list-extra": "exact",
+      "inbreed-list-override": "exact",
+      "include": "exact",
+      "infinite-lambda": [
+        "exit",
+        "stdout",
+        "stderr",
+        "output.fstats"
+      ],
+      "instem": "exact",
+      "lambda": "exact",
+      "lambda-large": [
+        "exit",
+        "stdout",
+        "stderr",
+        "output.fstats"
+      ],
+      "legacy-keys": "exact",
+      "long-popnames": "exact",
+      "many-pops": [
+        "exit",
+        "stdout",
+        "stderr"
+      ],
+      "missing-all": "exact",
+      "missing-complete": "exact",
+      "missing-disjoint": "exact",
+      "missing-geno": [
+        "exit"
+      ],
+      "missing-par": [
+        "exit"
+      ],
+      "missing-sizeweight": "exact",
+      "nan-blocksize": "exact",
+      "nan-lambda": [
+        "exit"
+      ],
+      "negative-blocksize": "exact",
+      "no-output": "exact",
+      "no-poplist": [
+        "exit",
+        "stdout",
+        "stderr"
+      ],
+      "no-valid-snps": [
+        "exit"
+      ],
+      "nochrom": "exact",
+      "noxdata-no": "exact",
+      "one-block": [
+        "exit"
+      ],
+      "one-pop": [
+        "exit",
+        "stdout",
+        "stderr"
+      ],
+      "outpop-base": "exact",
+      "outpop-none": "exact",
+      "outpop-other": [
+        "exit"
+      ],
+      "output-directory": [
+        "exit",
+        "stderr"
+      ],
+      "overflow-pops": [
+        "exit",
+        "stdout",
+        "stderr"
+      ],
+      "packed": "exact",
+      "ped": "exact",
+      "physical-fallback": "exact",
+      "poplist-alias": "exact",
+      "popsizelimit": "exact",
+      "popsizelimit-seed": "exact",
+      "prepare-bed": "exact",
+      "prepare-packed": "exact",
+      "prepare-ped": "exact",
+      "prepare-transpose": "exact",
+      "pseudo": "exact",
+      "pseudo-base": [
+        "exit"
+      ],
+      "pseudo-inbreed": "exact",
+      "reorder": "exact",
+      "single-inbreed": [
+        "exit"
+      ],
+      "single-sample": "exact",
+      "sizeweight": "exact",
+      "standard-precision": "exact",
+      "tgeno": "exact",
+      "three-pops": "exact",
+      "truncated-packed": [
+        "exit",
+        "stderr"
+      ],
+      "two-pops": "exact",
+      "unknown-pop": [
+        "exit"
+      ],
+      "unscaled": "exact",
+      "useallsnps-alias": "exact",
+      "utf16": [
+        "exit",
+        "stdout",
+        "stderr"
+      ],
+      "verbose": "exact",
+      "xchrom": "exact",
+      "xchrom-male": "exact",
+      "xdata": "exact",
+      "zero-blocksize": "exact"
+    }
+  },
+  "current_regression": {
+    "matched": [
+      "convertf.stdout",
+      "convertf.stderr",
+      "diffmean.stdout",
+      "diffmean.stderr",
+      "dowtjack.stdout",
+      "dowtjack.stderr",
+      "easycheck.stdout",
+      "easycheck.stderr",
+      "easylite.stdout",
+      "easylite.stderr",
+      "easystats.stdout",
+      "easystats.stderr",
+      "geno_single.stdout",
+      "geno_single.stderr",
+      "grabpars.stdout",
+      "grabpars.stderr",
+      "merge_transpose.stdout",
+      "merge_transpose.stderr",
+      "merge_transpose-help.stdout",
+      "merge_transpose-help.stderr",
+      "mergeit.stdout",
+      "mergeit.stderr",
+      "nickhash.stdout",
+      "nickhash.stderr",
+      "qp3Pop.stdout",
+      "qp3Pop.stderr",
+      "qp4diff.stdout",
+      "qp4diff.stderr",
+      "qpAdm.stdout",
+      "qpAdm.stderr",
+      "qpAdm-allsnps.stdout",
+      "qpAdm-allsnps.stderr",
+      "qpDstat.stdout",
+      "qpDstat.stderr",
+      "qpDstat-f4.stdout",
+      "qpDstat-f4.stderr",
+      "qpDstat-random.stdout",
+      "qpDstat-random.stderr",
+      "qpF4ratio.stdout",
+      "qpF4ratio.stderr",
+      "qpGraph.stderr",
+      "qpWave.stdout",
+      "qpWave.stderr",
+      "qpWave-allsnps.stdout",
+      "qpWave-allsnps.stderr",
+      "qpff3base.stdout",
+      "qpff3base.stderr",
+      "qpfmv.stdout",
+      "qpfmv.stderr",
+      "qpfstats.stdout",
+      "qpfstats.stderr",
+      "qpreroot.stdout",
+      "qpreroot.stderr",
+      "rolloff.stdout",
+      "rolloff.stderr",
+      "rolloffp.stdout",
+      "rolloffp.stderr",
+      "simpjack2.stdout",
+      "simpjack2.stderr",
+      "transpose.stdout",
+      "transpose.stderr",
+      "transpose-help.stdout",
+      "transpose-help.stderr",
+      "transpose-invalid.stdout",
+      "transpose-invalid.stderr",
+      "transpose-lowmem.stdout",
+      "transpose-lowmem.stderr",
+      "transpose-roundtrip.stdout",
+      "transpose-roundtrip.stderr",
+      "graph.out",
+      "merged.geno",
+      "merged.ind",
+      "merged.snp",
+      "merged.tgeno",
+      "output.fmv",
+      "output.fstats",
+      "output.geno",
+      "output.ind",
+      "output.snp",
+      "reroot.out",
+      "rolloff.out",
+      "rolloffp.out",
+      "roundtrip.tgeno",
+      "single.tgeno",
+      "transposed-lowmem.geno",
+      "transposed.geno",
+      "weighted.out"
+    ],
+    "mismatches": [
+      "qpGraph.stdout"
+    ],
+    "unsuccessful_cases": [],
+    "linux_roundtrip_exact": true,
+    "windows_roundtrip_exact": true
+  },
+  "artifact_sha256": {
+    "environment.json": "c2f113ad48c80630c49e4a657a971239615687c48ab61fdb252d20c72ca71607",
+    "probes-windows.json": "80a64cc844ba4148e6d4783634ae87b8fb20a52eaed1556ba86d316b7c710f3c",
+    "probes-asan.json": "99323376658bb3cdd28d405e32112867ad3dba22b22865d529b3dcd24369b7fc",
+    "platform-windows.json": "b374ff393e633785b864fe8e7a3a4ae1cd0cae307a6f7732ddbe0f06d976036c",
+    "platform-linux.json": "c91aba32f85dd31c2b09b7ff16f4e8e5cc05bbd9df99f17f93602ac317a7802c",
+    "powershell.json": "2bbd418eac071d95b7cb42d4602675e6f778d7a2df33d8014a1f33cdd8997f68",
+    "build-pristine-consumers.json": "ed71c1d07876f695bde8e69557bfd7b8ca0344f645b032b5d3f382a9a1669aa1",
+    "windows-regression/comparison.json": "9dbabc22412064cc3cf2004c81acd458e10fef0cff6a7694aa095601d14b142a",
+    "windows-regression-closure/comparison.json": "685a1c19ac73a80f5d468f9ad8c15555da0550c846c0abdaa0b4743ac67167ce",
+    "composed-repaired.json": "b59398713e892ea4358904207cd1c5218cda858fd37acd53800461b51303559c",
+    "composed-repaired.diff": "09cfcb5657b9a868eaa4e46586f9f708367fd4a188ba0563e56218f92a193b00",
+    "composed-pristine.json": "57b1a4bea92c7712fd8a51832eea70b3d307a1f2c0c420b4d05725917fe84540",
+    "composed-pristine.diff": "d5ce0f6aa7ebcc3b72977c404caac7fa228a68aafc2a09d85fef5b15823d27ff",
+    "build-windows-closure.log": "7dfd4a58fd6ea034ce4b077ac164e0b5fe6908d70b17657d522fb5520f271622",
+    "build-linux.log": "a864d891e0cf732cea5632653b24418a7976983a92f250528f37bd9ab654f0f4",
+    "build-asan.log": "a525696e45bda8e719ab05a88346281566ee07ac90ce22d175b890b5eea569d7",
+    "build_linux.py": "7aa3a52633b78cef476adf04f734086af6c9116009c3269245cf2765a053f8f1",
+    "run_probes.py": "693649b084e445ab03656e3f3896600ee766ee29104e1559b1c0e79e3779e54f",
+    "check_platform.py": "fe581fa602003e1888ee14124e15869d4ff615ba759729e28a270f22dfb75974",
+    "collect_environment.py": "33c11313feff733c847b8c0156724b665e50a30d739d33df7eb7812f3e2a9fd2",
+    "collect_evidence.py": "1cfac8477191084ae10cce00ffce4eab753935b04e9693af5e7566d85b9727a9",
+    "native_checks.ps1": "aaf7d41d7cfccfaf8de594dbd462dcec4bb381840585f3a8b843d268d8c3cd52",
+    "qpfstats-warnings.txt": "b3dc84a95216979b8283d3216c34cf710c504d9d63e14d119b265e9480cbea13"
+  },
+  "powerShell": {
+    "direct_exit": 0,
+    "tee_exit": 0,
+    "powershell": "5.1.26100.9818",
+    "fstats_sha256": "3CA3181475FEC9F2AE7204EE1086B07D1C9FF9CB8F315C8A74E08DE93BF60CCE"
+  },
+  "platform_probes": {
+    "windows": {
+      "platform": 0,
+      "rng_sha256": "b62c398efd682e2a935d20d3239103c1ea5c0b72711d4719dffc0083777bb0cc",
+      "largefile": 0,
+      "warning_review_exit": 0
+    },
+    "linux": {
+      "platform": 0,
+      "rng_sha256": "b62c398efd682e2a935d20d3239103c1ea5c0b72711d4719dffc0083777bb0cc",
+      "largefile": 0
+    }
+  },
+  "dimension_list_probes": {
+    "windows": {
+      "min": 0,
+      "ordinary": 0,
+      "largest-int-coefficients": 0,
+      "first-int-coefficient-overflow": 3221226505,
+      "empty": 3221226505,
+      "one": 3221226505,
+      "negative": 3221226505,
+      "quartic-overflow": 3221226505,
+      "coefficient-overflow": 3221226505,
+      "int-max": 3221226505,
+      "list-exact": 0,
+      "list-overflow": 3221226505
+    },
+    "asan": {
+      "min": 0,
+      "ordinary": 0,
+      "largest-int-coefficients": 0,
+      "first-int-coefficient-overflow": -6,
+      "empty": -6,
+      "one": -6,
+      "negative": -6,
+      "quartic-overflow": -6,
+      "coefficient-overflow": -6,
+      "int-max": -6,
+      "list-exact": 0,
+      "list-overflow": -6
+    }
+  },
+  "fixed_findings": [
+    "F026",
+    "F027",
+    "F028",
+    "F029",
+    "F030",
+    "F031",
+    "F032",
+    "F033",
+    "F036",
+    "F037",
+    "F038"
+  ],
+  "open_or_retained_findings": [
+    "F034",
+    "F035",
+    "F039",
+    "F040",
+    "F041"
+  ],
+  "known_cleanup_failures": {
+    "consumer-auto-qpGraph": "four owned-by-parent helper files remain on both systems"
+  },
+  "limits": [
+    "synthetic inputs",
+    "macOS runtime untested",
+    "UNC paths untested",
+    "no forced-termination/power-loss/low-memory/exhaustive finite arithmetic certification",
+    "pristine qpfit unavailable: upstream prototype conflict",
+    "other T/M/H items remain independently pending"
+  ]
+}

@@ -1322,8 +1322,8 @@ like getxxnames but file already open
 }
 
 
-int
-getss (char **ss, char *fname)
+static int
+getss_capacity (char **ss, char *fname, int capacity)
 
 /** 
  get list of names 
@@ -1359,6 +1359,9 @@ getss (char **ss, char *fname)
     if (nsplit < 1) {
       continue;
     }
+    if (num >= capacity)
+      fatalx ("(getss) list exceeds capacity %d: %s\n", capacity,
+              fname == NULL ? "stdin" : fname);
     ss[num] = strdup (spt[0]);
     freeup (spt, nsplit);
     ++num;
@@ -1366,6 +1369,12 @@ getss (char **ss, char *fname)
   if (fname != NULL)
     fclose (fff);
   return num;
+}
+
+int
+getss (char **ss, char *fname)
+{
+  return getss_capacity (ss, fname, INT_MAX);
 }
 
 int
@@ -1398,11 +1407,17 @@ printdups (char **list, int n)
 
 int
 loadlist (char **list, char *listname)
+{
+  return loadlist_capacity (list, listname, INT_MAX);
+}
+
+int
+loadlist_capacity (char **list, char *listname, int capacity)
 // listname is just a list of names ... 
 // dup check made
 {
   int n, a, b, t;
-  n = getss (list, listname);
+  n = getss_capacity (list, listname, capacity);
   for (a = 0; a < n; ++a) {
     for (b = a + 1; b < n; ++b) {
       t = strcmp (list[a], list[b]);

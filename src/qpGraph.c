@@ -391,7 +391,7 @@ main (int argc, char **argv)
    }
 
     ZALLOC(fseglist, MAXPOPS, char *) ;  
-    fstats2popl(fstatsname, fseglist) ;
+    x = fstats2popl(fstatsname, fseglist) ;
     fsbasep = fseglist[0] ;  
     setbasep(fsbasep) ;
     loadf3 = YES ;

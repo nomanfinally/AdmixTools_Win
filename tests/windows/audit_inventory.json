@@ -16,7 +16,7 @@
     "shared_c_module": 28,
     "source_only_program": 5,
     "unbuilt_c_module": 7,
-    "validation_harness": 8
+    "validation_harness": 10
   },
   "c_sources": 78,
   "headers": 40,
@@ -344,7 +344,10 @@
       "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
       "sha256": {
         "src/nicksrc/admix_platform.h": "04ee846ff81409e908d82fecf2280b59506bc5b7b6de6579acaec8d5feb413f5"
-      }
+      },
+      "partial_audit_evidence": [
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
+      ]
     },
     {
       "id": "H19",
@@ -357,7 +360,10 @@
       "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
       "sha256": {
         "src/nicksrc/admix_types.h": "c42b320c848bb98fbff352b2df1d4246e435cb49e340efc3c3fa6385c65c6a05"
-      }
+      },
+      "partial_audit_evidence": [
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
+      ]
     },
     {
       "id": "H20",
@@ -370,7 +376,10 @@
       "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
       "sha256": {
         "src/nicksrc/getpars.h": "a90d147f93f62ddd90832e15ed09b2ea78b710981ee12af33703eb278506bf3f"
-      }
+      },
+      "partial_audit_evidence": [
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
+      ]
     },
     {
       "id": "H21",
@@ -461,7 +470,10 @@
       "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
       "sha256": {
         "src/nicksrc/strsubs.h": "1a781a09301c8045d540a0c4cabc9b85a5d7ec0f9e8a8fdb7dd6ffa7faecdc88"
-      }
+      },
+      "partial_audit_evidence": [
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
+      ]
     },
     {
       "id": "H28",
@@ -487,7 +499,10 @@
       "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
       "sha256": {
         "src/nicksrc/vsubs.h": "dc1108cdb1b31b096a87dd6a2310f884211556971fbf833742d5b5b483401e46"
-      }
+      },
+      "partial_audit_evidence": [
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
+      ]
     },
     {
       "id": "H30",
@@ -539,7 +554,10 @@
       "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
       "sha256": {
         "src/qpsubs.h": "430f0be7f0410c7c92ed79f3c133e65fe8d900e23cb23ed2696234fb6839b06d"
-      }
+      },
+      "partial_audit_evidence": [
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
+      ]
     },
     {
       "id": "H34",
@@ -604,7 +622,10 @@
       "role": "Declarations, ABI, macros, ownership, defaults/tables and platform guards",
       "sha256": {
         "src/win32/compat.h": "79b42bbc4d4b92ca99506bcce3ab362afab684e54a71dfa2469e13a4cd8a33c9"
-      }
+      },
+      "partial_audit_evidence": [
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
+      ]
     },
     {
       "id": "H39",
@@ -864,7 +885,8 @@
         "src/win32/compat.c": "3f19c8678c2cd859f06163269a1dc4f53865f663a2686a74d0aa70ae550c019b"
       },
       "partial_audit_evidence": [
-        "T01: see report for scope; this does not close this item"
+        "T01: see report for scope; this does not close this item",
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
       ]
     },
     {
@@ -920,7 +942,8 @@
         "src/nicksrc/strsubs.c": "af6641d0a33c87546ed35caf9f286605e0a87d347f5342c09ff651ddb84a8409"
       },
       "partial_audit_evidence": [
-        "T01: see report for scope; this does not close this item"
+        "T01: see report for scope; this does not close this item",
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
       ]
     },
     {
@@ -976,7 +999,8 @@
         "src/nicksrc/getpars.c": "fcebcc2153506183dd04b9dfa0ab8c233f24dc4c5cfe900e4c7fbe9456907167"
       },
       "partial_audit_evidence": [
-        "T01: see report for scope; this does not close this item"
+        "T01: see report for scope; this does not close this item",
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
       ]
     },
     {
@@ -1256,7 +1280,8 @@
         "src/nicksrc/vsubs.c": "63be25e4209f80ede8516a78133a1a88ee7c2fd93f260ce27b46e35d88995d78"
       },
       "partial_audit_evidence": [
-        "T01: see report for scope; this does not close this item"
+        "T01: see report for scope; this does not close this item",
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
       ]
     },
     {
@@ -1312,7 +1337,8 @@
         "src/nicksrc/statsubs.c": "592a5000521cb33e3aa51fabb1bba5f7a800bd8b23d726851d686eafc3f8c8cf"
       },
       "partial_audit_evidence": [
-        "T01: see report for scope; this does not close this item"
+        "T01: see report for scope; this does not close this item",
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
       ]
     },
     {
@@ -1368,7 +1394,8 @@
         "src/nicksrc/linsubs.c": "a8f6fd1143673caf79e1e1b4050dbbb4eda93fd9ca0b966a5c72d9653d35bf6c"
       },
       "partial_audit_evidence": [
-        "T01: see report for scope; this does not close this item"
+        "T01: see report for scope; this does not close this item",
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
       ]
     },
     {
@@ -1416,7 +1443,8 @@
         "src/mcio.c": "4bc3de3a7e81a73b6d76d75db21de1175c4695ebdbd858fd3e26ed408b511244"
       },
       "partial_audit_evidence": [
-        "T01: see report for scope; this does not close this item"
+        "T01: see report for scope; this does not close this item",
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
       ]
     },
     {
@@ -1467,7 +1495,8 @@
         "src/geno.c": "6cf8c816393fe8a36d2328b85bb169ba0c176698feee2fee3072b5fddfb9558a"
       },
       "partial_audit_evidence": [
-        "T01: see report for scope; this does not close this item"
+        "T01: see report for scope; this does not close this item",
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
       ]
     },
     {
@@ -1514,7 +1543,8 @@
         "src/mapfile.c": "596ac12d487603aa08f6120a8b5992a19bb4fee960c582e6059e3a8504945226"
       },
       "partial_audit_evidence": [
-        "T01: see report for scope; this does not close this item"
+        "T01: see report for scope; this does not close this item",
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
       ]
     },
     {
@@ -1563,7 +1593,8 @@
         "src/admutils.c": "a45283ec0160dd1d21647fc9e66d9c560c810ac2621da54adc0fb120ca24f818"
       },
       "partial_audit_evidence": [
-        "T01: see report for scope; this does not close this item"
+        "T01: see report for scope; this does not close this item",
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
       ]
     },
     {
@@ -1646,7 +1677,8 @@
         "src/qpsubs.c": "cca149c813af9faa6e08a382e190cb62d6feb6a293ea5a24448161e6442af22c"
       },
       "partial_audit_evidence": [
-        "T01: see report for scope; this does not close this item"
+        "T01: see report for scope; this does not close this item",
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
       ]
     },
     {
@@ -1694,7 +1726,8 @@
         "src/egsubs.c": "fbe45d185d42680c781d998c0ceddc29589354398ce169c5cf47fda36f54edb2"
       },
       "partial_audit_evidence": [
-        "T01: see report for scope; this does not close this item"
+        "T01: see report for scope; this does not close this item",
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
       ]
     },
     {
@@ -1737,7 +1770,8 @@
         "src/ldsubs.c": "0b024b63c75b2e4988d3d90e48582baf5aa6f5cc3ec9d8e5fdd83539d08c790c"
       },
       "partial_audit_evidence": [
-        "T01: see report for scope; this does not close this item"
+        "T01: see report for scope; this does not close this item",
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
       ]
     },
     {
@@ -1780,7 +1814,8 @@
         "src/regsubs.c": "8d84b669c637d4f0aca5c05178847994a1716d026aef6785b764345ff13f61a9"
       },
       "partial_audit_evidence": [
-        "T01: see report for scope; this does not close this item"
+        "T01: see report for scope; this does not close this item",
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
       ]
     },
     {
@@ -1874,7 +1909,8 @@
         "src/qpgsubs.c": "8215da1d472a8fef661c2f7ae753ef10c3853f47d93c6f3359b258c669306de0"
       },
       "partial_audit_evidence": [
-        "T01: see report for scope; this does not close this item"
+        "T01: see report for scope; this does not close this item",
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
       ]
     },
     {
@@ -2684,7 +2720,7 @@
       "paths": [
         "src/qpfstats.c"
       ],
-      "hard_check": "pending",
+      "hard_check": "reviewed with open upstream defects",
       "role": "F-statistic precomputation and helper process",
       "build": "built",
       "blocked_reason": null,
@@ -2722,6 +2758,19 @@
       },
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item"
+      ],
+      "audit_date": "2026-11-10",
+      "audit_report": "tests/windows/audits/T02_qpfstats.md",
+      "audit_evidence": "tests/windows/audits/T02_qpfstats.evidence.json",
+      "audited_sha256": {
+        "src/qpfstats.c": "7c52621012819258e4ed39776c02a8428eecbf0a4de938811d1f44fc3d572c48"
+      },
+      "open_or_retained_findings": [
+        "F034",
+        "F035",
+        "F039",
+        "F040",
+        "F041"
       ]
     },
     {
@@ -2770,7 +2819,10 @@
       "links_nick_archive": true,
       "sha256": {
         "src/qpWave.c": "ee11a2951648ded044117ec46a2ed32b69f575c475b1f517e6364bef15f09baa"
-      }
+      },
+      "partial_audit_evidence": [
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
+      ]
     },
     {
       "id": "T04",
@@ -2984,7 +3036,10 @@
       "links_nick_archive": true,
       "sha256": {
         "src/qpGraph.c": "43854e08fcfd28bf800bab84d3c2d7db24a1b781224ca09212f60d35d3ee30b3"
-      }
+      },
+      "partial_audit_evidence": [
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
+      ]
     },
     {
       "id": "T09",
@@ -3356,7 +3411,10 @@
       "links_nick_archive": true,
       "sha256": {
         "src/qpfmv.c": "d699e06c832fa2a87cf5d39a678c4321cda93df586b70dbd93fba0cca8a0db7b"
-      }
+      },
+      "partial_audit_evidence": [
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
+      ]
     },
     {
       "id": "T19",
@@ -3406,7 +3464,10 @@
       "links_nick_archive": true,
       "sha256": {
         "src/qpmix.c": "a4a860b3ca66f11fefdd36c72581ae258ba01e306682cf581103714e237f10be"
-      }
+      },
+      "partial_audit_evidence": [
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
+      ]
     },
     {
       "id": "T20",
@@ -3454,7 +3515,10 @@
       "links_nick_archive": true,
       "sha256": {
         "src/qpfit.c": "f2a9ce3ac01fb5c053f1b7340ea6640c89fd12e0dbab2a8820c62e3f3baf3816"
-      }
+      },
+      "partial_audit_evidence": [
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
+      ]
     },
     {
       "id": "T21",
@@ -4270,16 +4334,46 @@
         "tests/windows/qpadm_probe.c": "ea8e28580715f49cb0c884c3b4870fa380d47be44c823c7c35aca3f4a468f42f"
       },
       "prior_evidence": "Exercised under T01; independent audit remains pending"
+    },
+    {
+      "id": "Q09",
+      "category": "validation_harness",
+      "name": "qpfstats hard-check runner",
+      "paths": [
+        "tests/windows/audit_qpfstats.py"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/audit_qpfstats.py": "1131958852f08f68543083e20b400a686b04328d114d24307109c2ed3668764b"
+      },
+      "prior_evidence": "Exercised under T02; independent audit remains pending"
+    },
+    {
+      "id": "Q10",
+      "category": "validation_harness",
+      "name": "qpfstats dimension/capacity probes",
+      "paths": [
+        "tests/windows/qpfstats_probe.c"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/qpfstats_probe.c": "f79e02afbc654ef32c44b09789caf74b734d39aa3f16bb83549609f8431c5139"
+      },
+      "prior_evidence": "Exercised under T02; independent audit remains pending"
     }
   ],
   "last_audit_date": "2026-11-10",
-  "last_audit_working_head": "a8e87433a8e63008d0163314e84802538219d5c4",
+  "last_audit_working_head": "e99074c8645590168f9552131854a146618d467d",
   "active_audit": null,
   "next_queued_item": "T02",
   "completed_hard_audits": [
     {
       "id": "T01",
       "status": "passed with limitations"
+    },
+    {
+      "id": "T02",
+      "status": "reviewed with open upstream defects"
     }
   ]
 }
