@@ -386,7 +386,11 @@ void readcommands(int argc, char **argv)
   int n ;
 
   if (argc == 1) { usage(basename(argv[0]), 1); }
+#ifdef _WIN32
+  while ((i = admix_getopt (argc, argv, "p:vVh")) != -1) {
+#else
   while ((i = getopt (argc, argv, "p:vVh")) != -1) {
+#endif
 
     switch (i)
       {

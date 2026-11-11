@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-12",
+  "scope": "Recheck of existing port-only restoration; no production code changes",
+  "baseline_commit": "37ed02b",
+  "upstream": "67bc219174a109951a9434e0a383ec464fb140ee",
+  "integrity": {
+    "sources": {
+      "checked": 131,
+      "mismatches": []
+    },
+    "executables": {
+      "checked": 37,
+      "mismatches": []
+    },
+    "runtime_dlls": {
+      "checked": 9,
+      "mismatches": []
+    },
+    "exact_pre_audit_files": 12
+  },
+  "pristine_integrity": {
+    "pristine_source_files_checked": 112,
+    "source_mismatches": [],
+    "qpWave_sha256": "080d3f1105df0fa7d4385157822de12c93214a07e87b96e4f85599a2a2f659e2",
+    "upstream": "67bc219174a109951a9434e0a383ec464fb140ee"
+  },
+  "cases": {
+    "qpWave-auto": "exact",
+    "qpWave-cli-h": [
+      "stderr"
+    ],
+    "qpWave-cli-invalid": [
+      "exit"
+    ],
+    "qpWave-cli-v": "exact",
+    "qpWave-duplicate-ids": "exact",
+    "qpWave-inactive-output": "exact",
+    "qpWave-limited-123": "exact",
+    "qpWave-limited-77": "exact",
+    "qpWave-ordinary": "exact",
+    "qpWave-partial-number": "exact",
+    "qpWave-x-mixed": "exact"
+  },
+  "expected_differences": {
+    "qpWave-cli-h": "Only help wording after executable-suffix/newline normalization: version prints and continues; runtime remains upstream.",
+    "qpWave-cli-invalid": {
+      "linux": -6,
+      "windows": 3221226505,
+      "behavior": "Native fatal/abort on both operating systems; streams match."
+    }
+  },
+  "artifacts": {
+    "validation-results/port-only-restoration/recheck-20261112-pristine/manifest.json": "6b54d586eb4aa57c82e5c07ba05f299f8db118debd7ae66e500bbe2729745891",
+    "validation-results/port-only-restoration/recheck-20261112-windows/manifest.json": "c7b1097979dd16fe58cddcad35bb570786240de6af63c00661e54b51b3e85528",
+    "validation-results/port-only-restoration/recheck-20261112-windows/comparison-recheck-20261112-pristine.json": "1330fe809c457523178ab4b375f8dfb56bc66a74afbad437fbe53affa77891a7"
+  }
+}

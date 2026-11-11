@@ -111,6 +111,38 @@ or require removed APIs. Their historical results are not current release checks
 Use `port_only_scope.py`, `parity.py`, `compatibility.py` and `script_helpers.py`
 for the restoration evidence and retain the older material for deferred work.
 
+## Rechecked 12 November 2026
+
+The checkout already contains this restoration in commit `37ed02b`. No additional
+production-code rollback was needed. A fresh integrity check matches all 131
+recorded source/build files, 37 installed executables and nine runtime DLLs.
+All 112 reference C/header files match the pinned upstream bytes; the pristine
+qpWave executable also matches its recorded hash.
+
+Eleven qpWave cases were rerun on Windows and pristine Linux. Nine compare
+exactly after the existing metadata normalization. The other two retain only
+the documented help-text clarification and native fatal/abort exit-code
+representation; scientific output is unchanged. This includes upstream's
+limited-sampling/seed behavior, inactive output parameter, partial numeric token
+and duplicate-ID acceptance. Earlier repaired-Linux tests remain historical.
+See [recheck evidence](PORT_ONLY_SCOPE_RECHECK_20261112.evidence.json).
+
+### T04 qpDstat confirmation
+
+A separate ten-case qpDstat recheck against pristine Linux also confirms the
+restored scope. Eight cases compare exactly; the remaining differences are only
+the help clarification that `-v` continues and native fatal/abort exit-code
+representation. Ordinary and mixed-X results, upstream's population-limit/seed
+behavior, inactive output-file behavior, partial numeric tokens, duplicate IDs
+and the actual version-switch behavior match the pristine reference.
+
+No additional production rollback or rebuild was necessary: all 131 recorded
+source/build files, 37 installed executables and nine DLLs match the restored
+baseline. The 112 pristine reference source/header hashes and qpDstat executable
+hash also match their recorded values. The previous repair patches, source
+snapshots and evidence remain preserved for deferred upstream work.
+See [T04 recheck evidence](T04_PORT_ONLY_SCOPE_RECHECK_20261112.evidence.json).
+
 ## Remaining limits
 
 This establishes the recorded port-only baseline, not complete hard-audit closure

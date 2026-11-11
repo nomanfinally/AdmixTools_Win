@@ -37,9 +37,9 @@ New items get new IDs; do not renumber the existing queue.
 | Shared C modules linked directly or available through libnick | 28 |
 | Additional C programs with main(), outside supported build | 5 |
 | Additional C modules outside supported links | 7 |
-| Validation runners/probes | 39 |
+| Validation runners/probes | 46 |
 
-Total: **212 audit items**, covering **78 production C sources and 40 headers** plus scripts and build/test controls.
+Total: **219 audit items**, covering **78 production C sources and 40 headers** plus scripts and build/test controls.
 I10 and Q07–Q08 were appended during T01; original snapshot hashes remain historical.
 Q09–Q10 were appended during T02; snapshot hashes remain historical.
 Q11–Q13 were appended during T03 and its corrections; snapshot hashes remain historical.
@@ -50,6 +50,7 @@ Q30 was appended during T05 corrections; original evidence is retained.
 Q31-Q37 were appended during T06; original snapshot hashes remain historical.
 Q38 was appended during T06 corrections; original evidence is retained.
 Q39 was appended for port-only restoration; original snapshot hashes remain historical.
+Q40-Q46 were appended during T07; original snapshot hashes remain historical.
 
 Data files, parameter templates (including `parsimp.templ` and
 `parsimp2.templ`), reference logs, manuals and generated binaries are fixtures or
@@ -81,6 +82,9 @@ The [restoration report](tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md) re
 retained Windows adapters/presentation, source and binary hashes, comparison
 results and remaining limitations. Resume the applicable coverage reviews against
 this restored baseline; do not use repaired-Linux expectations as the oracle.
+The [12 November T04 recheck](tests/windows/audits/T04_PORT_ONLY_SCOPE_RECHECK_20261112.evidence.json)
+confirms restored qpDstat behavior against pristine Linux in ten focused cases;
+the inherited Linux defects remain deferred.
 
 ## Native executable queue
 
@@ -98,7 +102,7 @@ and state its limits; it does not close related modules automatically.
 | [ ] | T04 | `qpDstat` | D/f4 statistics | Default | [Restored; coverage pending](tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md) |
 | [ ] | T05 | `qp3Pop` | Three-population statistics | Default | [Restored; coverage pending](tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md) |
 | [ ] | T06 | `qpF4ratio` | F4-ratio estimation | Default | [Restored; Linux bugs deferred](tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md) |
-| [ ] | T07 | `qp4diff` | Differences between four-population statistics | Default | Fixture |
+| [ ] | T07 | `qp4diff` | Differences between four-population statistics | Default | [Reviewed; open compatibility gaps](tests/windows/audits/T07_qp4diff.md) |
 | [ ] | T08 | `qpGraph` | Admixture graph fitting | Default | Fixture |
 | [ ] | T09 | `qpreroot` | Graph rerooting, scripts and optional rendering | Default | Fixture |
 | [ ] | T10 | `convertf` | Genotype format conversion | Default | Fixture |
@@ -383,6 +387,18 @@ Audit the oracle and test runner too: expected failures, missing cases/files, ti
 Q39: [`port_only_scope.py`](tests/windows/port_only_scope.py), pristine-reference
 builds and restoration cases; independent harness review pending.
 
+T07 validation additions (independent harness checks remain pending):
+
+| Done | ID | Runner/probe | Scope |
+| --- | --- | --- | --- |
+| [ ] | Q40 | `build_t07_audit.py` | Isolated Windows/pristine/Linux/sanitizer/coverage builds |
+| [ ] | Q41 | `audit_qp4diff.py` | Both estimator modes, exact streams/statuses/data and eleven independent oracles |
+| [ ] | Q42 | `build_t07_probe.py` | Current production-function and shared platform probe links |
+| [ ] | Q43 | `qp4diff_probe.c` | Actual f4/count/block/workspace boundary and lifetime paths |
+| [ ] | Q44 | `run_t07_probes.py` | Raw direct probe/LeakSanitizer results, RNG and >4 GiB platform checks |
+| [ ] | Q45 | `t07_native_checks.ps1` | PowerShell/redirection/Tee/gzip/native and long-temp paths |
+| [ ] | Q46 | `collect_t07_evidence.py` | Source/fixture/oracle invariants, explicit differences and hashed raw archive |
+
 ## Hard-check procedure for each item
 
 1. **Freeze the evidence.** Record upstream commit, dirty-source hashes, actual
@@ -433,6 +449,19 @@ passed when the report's applicable checks and regression comparisons pass.
 Keep a completed-with-open-limitations state distinct from a clean pass.
 
 ## Current finding disposition
+
+T07 was reviewed on **12 November 2026** against pristine upstream. Its
+[report](tests/windows/audits/T07_qp4diff.md),
+[evidence](tests/windows/audits/T07_qp4diff.evidence.json) and
+[connected-module review](tests/windows/audits/T07_connected_modules.md) record
+69 jointly successful finite-result cases / 122 rows exact, eleven independent
+oracles, native PowerShell and direct RNG/large-offset checks. The Windows
+getopt diagnostic occurrence F044 is corrected in source and an isolated build.
+**F088** remains an open gzip error/exit compatibility gap; **F089** records
+Windows `nan` versus Linux `-nan` on undefined Z. **F090** is an inherited
+low-block workspace leak. Existing inherited defects remain deferred, and all
+module/header checks stay independently pending. T07 is not a clean pass and
+the installed binary has not been replaced.
 
 Windows installation order (F001), native quoted/Unicode paths and manifest,
 owned Windows temporary handles, native helper execution and getopt/gzip

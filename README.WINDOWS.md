@@ -362,6 +362,35 @@ Other filesystem errors are still reported. Perl/R helpers and additional
 external-tool workflows remain separate work; copying them does not establish
 that every script is Windows-compatible.
 
+### qp4diff
+
+Run the native executable from PowerShell and redirect its results from stdout:
+
+```powershell
+& .\bin\qp4diff.exe -p '.\parameters with spaces' > .\qp4diff.log 2> .\qp4diff.err
+$LASTEXITCODE
+```
+
+The parameter file needs `genotypename`, `snpname`, `indivname` and
+`popfilename`, or `instem` in place of the three data paths. Each population-list
+row has eight names: `A B C D : E F G H`. Colons are optional. The statistic is
+`firstf4mult * f4(A,B;C,D) - f4(E,F;G,H)`, with its joint block-jackknife error.
+`firstf4mult` defaults to 1. `blgsize` is in **Morgans**, with default 0.05.
+Default `overlap: YES` uses sites valid for both quartets. `allsnps: YES`
+selects separate site sets; `allsnps: NO` selects shared sites and overrides
+`overlap`. This tool defaults to `fancyf4: NO`.
+
+The pinned upstream has quirks preserved by this compatibility port:
+`output:`/`outputname:` truncate a named file but leave results on stdout;
+use shell redirection. `-v` prints the version and continues if `-p` is also
+given, despite its inherited help text. `seed`, `chrom`, `xdata`, `noxdata`,
+`inbreed`, `jackweight` and `blockname` are not parsed controls here.
+`popsizelimit` uses an analysis index built before limiting and is unreliable.
+Long population-list rows can corrupt memory on both Linux and Windows.
+These are deferred upstream findings, not new Windows behavior. The
+[T07 audit](tests/windows/audits/T07_qp4diff.md) records exact tested modes,
+comparisons, remaining coverage and the isolated validated executable location.
+
 ## 9. Updates and removal
 
 Keep your analysis data outside the source tree. Before synchronizing upstream,

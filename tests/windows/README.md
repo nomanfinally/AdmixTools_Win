@@ -586,3 +586,58 @@ seed/X/version differences against the original/pristine records. Its failure
 list must be empty before closing a finding. See
 [the correction report](audits/T06_qpF4ratio.corrections.md) for authoritative
 paths, scope and remaining independent coverage limits.
+
+### T07 qp4diff
+
+This is a **port-only audit with open differences**, not an inherited-bug repair
+suite. See [the report](audits/T07_qp4diff.md) and
+[evidence](audits/T07_qp4diff.evidence.json). Use new output directories; preserve
+the original/reference builds. Set `$taskToolchain` to the installed UCRT64 bin
+directory, for example `C:\msys64\ucrt64\bin`.
+
+```powershell
+python tests/windows/build_t07_audit.py --output validation-results/hard-check/T07-new/builds --toolchain $taskToolchain
+wsl python3 tests/windows/build_t07_audit.py --output validation-results/hard-check/T07-new/builds --linux-root /home/user/t07-new
+python tests/windows/audit_qp4diff.py --bin validation-results/hard-check/T07-new/builds/snapshot/bin --output validation-results/hard-check/T07-new/windows
+wsl python3 tests/windows/audit_qp4diff.py --bin /home/user/t07-new/pristine/src --output validation-results/hard-check/T07-new/pristine
+wsl python3 tests/windows/audit_qp4diff.py --bin /home/user/t07-new/linux/src --output validation-results/hard-check/T07-new/port-linux
+wsl python3 tests/windows/audit_qp4diff.py --bin /home/user/t07-new/asan/src --output validation-results/hard-check/T07-new/asan-recover --ubsan-recover
+python tests/windows/audit_qp4diff.py --compare validation-results/hard-check/T07-new/pristine validation-results/hard-check/T07-new/windows
+```
+
+The comparator intentionally returns nonzero for retained differences. Inspect
+its JSON/diff: abort-code representation, Windows input extensions, inherited
+heap corruption, OS diagnostic wording, damaged-gzip rejection and NaN signs
+are not silently converted into passes. All 69 jointly successful finite
+qp4diff cases / 122 rows match pristine at printed precision in the recorded
+audit. Eleven independent oracles cover both modes, missingness, permutations,
+covariance corrections, scaling and unequal blocks.
+
+Default sanitizer mode halts on inherited hash UB during preparation. The
+explicit recovery option logs those findings and reaches later cases; it does
+not make the run sanitizer-clean. Leak checks use the direct probes:
+
+```powershell
+python tests/windows/build_t07_probe.py --tree validation-results/hard-check/T07-new/builds/snapshot --output validation-results/hard-check/T07-new/probes-windows --toolchain $taskToolchain
+python tests/windows/run_t07_probes.py --binary validation-results/hard-check/T07-new/probes-windows/qp4diff_probe.exe --output validation-results/hard-check/T07-new/direct-windows
+wsl python3 tests/windows/build_t07_probe.py --tree /home/user/t07-new/asan --output /home/user/t07-new/probes-asan --sanitizer
+wsl python3 tests/windows/run_t07_probes.py --binary /home/user/t07-new/probes-asan/qp4diff_probe --output validation-results/hard-check/T07-new/direct-asan
+powershell -NoProfile -File tests/windows/t07_native_checks.ps1 -Binary validation-results/hard-check/T07-new/builds/snapshot/bin/qp4diff.exe -Fixture validation-results/hard-check/T07-new/windows/fixtures -Output validation-results/hard-check/T07-new/native
+```
+
+The direct runner records expected failures/leaks rather than declaring them
+passes. It also runs shared rounding/sort/RNG and sparse >4 GiB probes. Build
+coverage separately with `build_t07_audit.py --coverage --linux-root NEW_ROOT`;
+run the same matrix, then use `gcov --json-format --branch-probabilities
+--branch-counts -o NEW_ROOT/coverage/src NEW_ROOT/coverage/src/qp4diff.c` in a
+new counters directory. Tool-local counters exclude helper/tool function bodies;
+shared-module counters from the full matrix also contain fixture preparation.
+
+Authoritative T07 paths are `validation-results/hard-check/T07/windows-final`,
+`pristine`, `port-linux`, `asan-recover`, `coverage`, `direct-final-*` and
+`native-final`. The validated Windows binary is under `final-build/snapshot/bin`;
+the installed binary was preserved. `collect_t07_evidence.py` consumes those
+recorded directory names, checks source/fixture/oracle/RNG/native invariants,
+retains all differences, and creates the hashed raw archive. Incomplete
+`windows-before`/`asan` runs are diagnostic history, not completed matrices.
+Independent module/header/harness audits and T07 closure remain pending.
