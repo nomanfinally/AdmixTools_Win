@@ -30,9 +30,9 @@ New items get new IDs; do not renumber the existing queue.
 | Shared C modules linked directly or available through libnick | 28 |
 | Additional C programs with main(), outside supported build | 5 |
 | Additional C modules outside supported links | 7 |
-| Validation runners/probes | 30 |
+| Validation runners/probes | 38 |
 
-Total: **203 audit items**, covering **78 production C sources and 40 headers** plus scripts and build/test controls.
+Total: **211 audit items**, covering **78 production C sources and 40 headers** plus scripts and build/test controls.
 I10 and Q07–Q08 were appended during T01; original snapshot hashes remain historical.
 Q09–Q10 were appended during T02; snapshot hashes remain historical.
 Q11–Q13 were appended during T03 and its corrections; snapshot hashes remain historical.
@@ -40,6 +40,8 @@ Q14–Q22 were appended during T04; original snapshot hashes remain historical.
 Q23 was appended during the requested T04 corrections.
 Q24-Q29 were appended during T05; original snapshot hashes remain historical.
 Q30 was appended during T05 corrections; original evidence is retained.
+Q31-Q37 were appended during T06; original snapshot hashes remain historical.
+Q38 was appended during T06 corrections; original evidence is retained.
 
 Data files, parameter templates (including `parsimp.templ` and
 `parsimp2.templ`), reference logs, manuals and generated binaries are fixtures or
@@ -63,10 +65,22 @@ blocked pending an established upstream algorithm/reference, not permission to
 guess the intended statistical expressions.
 
 Current remaining coverage-closure item: **T04 qpDstat**.
-Hard tool reviews recorded: **5**. T01-T03 and T05 passed with limitations;
-T04 retains independent coverage gaps. T05 was reviewed/corrected at the user's
-explicit request without closing T04's unfinished coverage. Clean/unqualified
+Hard tool reviews recorded: **6**. T01-T03 and T05 passed with limitations;
+T04 retains independent coverage gaps; T06's inherited Linux defects are deferred.
+T05 and
+T06 were reviewed at the user's explicit request without closing T04's
+unfinished coverage. Clean/unqualified
 passes: **0**. This is not full-suite certification.
+
+[T06 compatibility scope](tests/windows/audits/T06_scope_restoration.md) follows
+the user's clarification: **porting only; inherited Linux bugs are recorded and
+deferred**. The T06 scientific, parser, validation and shared-module bug repairs
+were removed from active source and binaries. The Windows-only getopt diagnostic
+fix remains. Earlier tools' changes are untouched. The
+[original review](tests/windows/audits/T06_qpF4ratio.md) records pinned-reference
+comparisons and Linux findings; the corrected-Linux experiment is historical,
+not the active compatibility baseline. All 37 supported binaries were rebuilt
+from the restored source. Independent module audits/full-suite parity remain open.
 
 [T05 corrections](tests/windows/audits/T05_qp3Pop.corrections.md) close all 14
 recorded finding groups in their reproduced scopes. The 167-case native,
@@ -140,7 +154,7 @@ and state its limits; it does not close related modules automatically.
 | [x] | T03 | `qpWave` | Rank/ancestry-stream tests | Default | [Passed with limitations](tests/windows/audits/T03_qpWave.corrections.md) |
 | [ ] | T04 | `qpDstat` | D/f4 statistics | Default | [Defects corrected; coverage incomplete](tests/windows/audits/T04_qpDstat.corrections.md) |
 | [x] | T05 | `qp3Pop` | Three-population statistics | Default | [Passed with limitations](tests/windows/audits/T05_qp3Pop.corrections.md) |
-| [ ] | T06 | `qpF4ratio` | F4-ratio estimation | Default | Fixture |
+| [ ] | T06 | `qpF4ratio` | F4-ratio estimation | Default | [Compatibility reviewed; Linux bugs deferred](tests/windows/audits/T06_scope_restoration.md) |
 | [ ] | T07 | `qp4diff` | Differences between four-population statistics | Default | Fixture |
 | [ ] | T08 | `qpGraph` | Admixture graph fitting | Default | Fixture |
 | [ ] | T09 | `qpreroot` | Graph rerooting, scripts and optional rendering | Default | Fixture |
@@ -414,6 +428,14 @@ Audit the oracle and test runner too: expected failures, missing cases/files, ti
 | [ ] | Q28 | `t05_native_checks.ps1` | `tests/windows/t05_native_checks.ps1`; native PowerShell invocation, paths, streams, Tee and gzip |
 | [ ] | Q29 | `collect_t05_evidence.py` | `tests/windows/collect_t05_evidence.py`; source-checked evidence, supplemental probes and coverage collection |
 | [ ] | Q30 | `verify_t05_repairs.py` | `tests/windows/verify_t05_repairs.py`; corrected matrices, original scientific comparisons, source/installed provenance and fault probes |
+| [ ] | Q31 | `build_t06_audit.py` | `tests/windows/build_t06_audit.py`; isolated native/pristine/Linux/sanitizer/coverage builds |
+| [ ] | Q32 | `audit_qpf4ratio.py` | `tests/windows/audit_qpf4ratio.py`; mode/input matrix, strict comparisons and independent f4-ratio/jackknife oracles |
+| [ ] | Q33 | `build_t06_probe.py` | `tests/windows/build_t06_probe.py`; isolated production-function probe links |
+| [ ] | Q34 | `qpf4ratio_probe.c` | `tests/windows/qpf4ratio_probe.c`; f4/count/ratio lifetime and boundary probes |
+| [ ] | Q35 | `run_t06_probes.py` | `tests/windows/run_t06_probes.py`; Fraction oracle, native statuses and leak-detected lifetime checks |
+| [ ] | Q36 | `t06_native_checks.ps1` | `tests/windows/t06_native_checks.ps1`; PowerShell/redirection/Tee/gzip/native-path checks |
+| [ ] | Q37 | `collect_t06_evidence.py` | `tests/windows/collect_t06_evidence.py`; source-checked evidence, raw differences and fresh tool-only coverage |
+| [ ] | Q38 | `verify_t06_corrections.py` | `tests/windows/verify_t06_corrections.py`; corrected matrices, independent oracles, original/pristine scientific differences, consumer and installed provenance |
 
 ## Hard-check procedure for each item
 

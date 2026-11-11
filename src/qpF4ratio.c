@@ -435,7 +435,11 @@ readcommands (int argc, char **argv)
   char *tempname;
   int n;
 
+#ifdef _WIN32
+  while ((i = admix_getopt (argc, argv, "p:hvV")) != -1) {
+#else
   while ((i = getopt (argc, argv, "p:hvV")) != -1) {
+#endif
 
     switch (i) {
 

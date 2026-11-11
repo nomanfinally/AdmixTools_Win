@@ -463,3 +463,105 @@ Corrected raw Linux builds/results are in the separate sparse archive under
 after the scoped checks passed; its previous bytes/hashes are backed up in
 `repairs/installed-before/`. Full-suite parity, macOS runtime and independent
 module/header audits remain incomplete.
+
+### T06 qpF4ratio
+
+[T06](audits/T06_qpF4ratio.md) is **reviewed with open defects**. The connected
+module report and evidence distinguish exact platform agreement from correctness:
+131 cases per build, 15/19 independent oracle cases passing, four X oracle
+failures, nine inherited finding groups open and a corrected Windows CLI
+diagnostic. Existing `bin/` was not replaced. Never treat the runner completing
+as a pass: `--verify` deliberately returns nonzero while findings remain.
+
+Create new output directories; the commands below do not overwrite prior
+evidence. From the project root in PowerShell:
+
+```powershell
+$taskToolchain = 'C:/msys64/ucrt64/bin'
+python tests/windows/build_t06_audit.py --output validation-results/hard-check/T06-new/builds --toolchain $taskToolchain
+wsl -e python3 tests/windows/build_t06_audit.py --linux --output validation-results/hard-check/T06-new/builds --linux-root /home/user/t06-new
+wsl -e python3 tests/windows/build_t06_audit.py --linux --coverage --output validation-results/hard-check/T06-new/builds --linux-root /home/user/t06-new
+python tests/windows/audit_qpf4ratio.py --bin validation-results/hard-check/T06-new/builds/snapshot/bin --output validation-results/hard-check/T06-new/final-windows
+wsl -e python3 tests/windows/audit_qpf4ratio.py --bin /home/user/t06-new/pristine/src --output /home/user/t06-new/final-pristine
+wsl -e python3 tests/windows/audit_qpf4ratio.py --bin /home/user/t06-new/linux/src --output /home/user/t06-new/final-linux
+wsl -e python3 tests/windows/audit_qpf4ratio.py --bin /home/user/t06-new/asan/src --output /home/user/t06-new/final-asan
+wsl -e python3 tests/windows/audit_qpf4ratio.py --bin /home/user/t06-new/coverage/src --output /home/user/t06-new/final-coverage
+python tests/windows/audit_qpf4ratio.py --verify validation-results/hard-check/T06-new/final-windows
+wsl -e python3 tests/windows/audit_qpf4ratio.py --compare /home/user/t06-new/final-linux validation-results/hard-check/T06-new/final-windows
+```
+
+Comparators retain raw OS exit codes, absolute data paths, Windows input
+extensions, nonfinite signs and sanitizer diagnostics. A nonzero comparator
+status must be investigated using its JSON/diff, not dismissed as a numerical
+tolerance issue. Every result row and printed number is compared.
+
+Direct function checks and native PowerShell checks:
+
+```powershell
+python tests/windows/build_t06_probe.py --tree validation-results/hard-check/T06-new/builds/snapshot --output validation-results/hard-check/T06-new/probes-windows --toolchain $taskToolchain
+python tests/windows/run_t06_probes.py --binary validation-results/hard-check/T06-new/probes-windows/qpf4ratio_probe.exe --output validation-results/hard-check/T06-new/direct-windows
+wsl -e python3 tests/windows/build_t06_probe.py --tree /home/user/t06-new/linux --output /home/user/t06-new/probes-linux
+wsl -e python3 tests/windows/build_t06_probe.py --tree /home/user/t06-new/asan --sanitizer --output /home/user/t06-new/probes-asan
+wsl -e python3 tests/windows/run_t06_probes.py --binary /home/user/t06-new/probes-linux/qpf4ratio_probe --output /home/user/t06-new/direct-linux
+wsl -e python3 tests/windows/run_t06_probes.py --binary /home/user/t06-new/probes-asan/qpf4ratio_probe --output /home/user/t06-new/direct-asan
+powershell -NoProfile -File tests/windows/t06_native_checks.ps1 -Binary validation-results/hard-check/T06-new/builds/snapshot/bin/qpF4ratio.exe -Fixture validation-results/hard-check/T06-new/final-windows/fixtures -Output validation-results/hard-check/T06-new/native-powershell-final
+```
+
+The direct sanitizer runner enables LeakSanitizer and repeats ratio/diff
+allocations 16 times. Native tests require one actual result row, equal Tee/gzip
+results, empty stderr, successful exits, backslash temporary paths and cleanup.
+
+For shared probes, reuse `build_t04_probes.py --skip-map`, with the appropriate
+tree/toolchain/`--sanitizer` flags, then `audit_t04_modules.py --select
+'^(?!M13-map-failure)(M|caller-(?:qp3Pop|qp4diff|qpF4ratio|transpose))'` and its
+`--verify`. This produces 80 native and 78 Unix cases. The qpWave-specific
+map-failure injection is excluded because this isolated tool set has no rank
+objects. The inventory generator can include T06 by adding `T06` to its `IDS`
+list at invocation; the checked-in inventory records the actual compiler scan.
+
+`collect_t06_evidence.py --help` describes the Windows/Linux/shared root paths.
+It checks completed manifests and production hashes, retains both streams and
+all statuses, evaluates scientific agreement separately, and reruns qpF4ratio
+alone with a fresh `GCOV_PREFIX`. It also requires the retained pre-fix
+`original-windows` and post-fix `windows` diagnostic matrices to document the
+CLI-only correction. These historical matrices are already retained for T06;
+they cannot be substituted with an unknown installed binary. The aggregate
+coverage matrix and isolated tool counters are separate.
+
+Authoritative native runs: `validation-results/hard-check/T06/final-windows`.
+Linux: `/home/user/admixtools-t06-final/final-{pristine,linux,asan}`; shared and
+coverage: `/home/user/admixtools-t06/`. The machine evidence records a portable
+Linux raw-input/stream/executable archive and SHA-256. Earlier interrupted
+`complete-*` directories are not completed evidence. Independent M/H/Q checks,
+X format equivalence, macOS, real giant genotypes and research datasets remain
+uncompleted.
+
+### T06 corrections
+
+**Historical, deferred upstream-bug experiment.** After the user's scope
+clarification, its production changes were removed. The commands below target
+the retained experimental builds, not current source or installed binaries.
+Current work addresses Windows porting differences; inherited Linux behavior
+is retained. See [scope restoration](audits/T06_scope_restoration.md).
+
+The original T06 review and 131-case evidence remain historical. Current repairs
+use `audit_qpf4ratio.py --repairs --probe PATH`; the seeded physical-subset checks
+require the production-function probe. This matrix has 225 cases and 50 independent
+oracle cases. Use the same Windows/Linux commands above with `--repairs`, fresh
+output directories and corrected probes. `run_t06_probes.py` now has 11 cases.
+
+`build_t06_audit.py --related` includes affected qpAdm/qpfstats/qpWave/qpfit/qpdslow
+links. `--skip-pristine` retains the original pristine build rather than attempting
+to overwrite it. Explicit `--linux-root` is required. The managed environment may
+require approved WSL command execution; all repair outputs can remain below the
+project's validation-results directory.
+
+`verify_t06_corrections.py --root validation-results/hard-check/T06/repairs
+--output NEW_JSON` runs under WSL after completed-windows/linux/asan matrices,
+direct probes, shared matrices, qpDstat and selected rank/precomputation consumers,
+native and installed checks finish. It enforces all matrix/oracle case counts,
+retains exact scientific comparisons and permits only the named intentional
+seed/X/version differences against the original/pristine records. Its failure
+list must be empty before closing a finding. See
+[the correction report](audits/T06_qpF4ratio.corrections.md) for authoritative
+paths, scope and remaining independent coverage limits.

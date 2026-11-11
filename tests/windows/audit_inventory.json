@@ -16,7 +16,7 @@
     "shared_c_module": 28,
     "source_only_program": 5,
     "unbuilt_c_module": 7,
-    "validation_harness": 30
+    "validation_harness": 38
   },
   "c_sources": 78,
   "headers": 40,
@@ -3973,7 +3973,7 @@
       "paths": [
         "src/qpF4ratio.c"
       ],
-      "hard_check": "pending",
+      "hard_check": "reviewed with deferred upstream defects",
       "role": "F4-ratio estimation",
       "build": "built",
       "blocked_reason": null,
@@ -4006,6 +4006,79 @@
       "links_nick_archive": true,
       "sha256": {
         "src/qpF4ratio.c": "bce262ab2ac20cbcccc98a537102e9eb65aec5bf6ed96e9d9716cd09d748e971"
+      },
+      "audit_report": "tests/windows/audits/T06_qpF4ratio.md",
+      "audit_evidence": "tests/windows/audits/T06_qpF4ratio.evidence.json",
+      "audit_working_head": "ecbed635d74d89908b53d21f5cf0caa9d778a50d",
+      "t06_open_findings": [
+        "F048",
+        "F050",
+        "F051",
+        "F080",
+        "F083",
+        "F084",
+        "F085",
+        "F086",
+        "F087"
+      ],
+      "t06_corrected_findings": [
+        "F044"
+      ],
+      "audit_limits": "Compatibility-only scope. Inherited Linux bugs are deferred; original T06 scientific behavior restored, Windows getopt fix retained. Earlier audits unchanged; no full-suite pristine parity claim.",
+      "audited_sha256": {
+        "src/qpF4ratio.c": "6cc422d09bc06877f184bda5f92d43cb02cfe3a65aa1e7eb78e8a6637ee1dadb"
+      },
+      "t06_findings_at_original_review": [
+        "F048",
+        "F050",
+        "F051",
+        "F080",
+        "F083",
+        "F084",
+        "F085",
+        "F086",
+        "F087"
+      ],
+      "t06_corrections": {
+        "report": "tests/windows/audits/T06_qpF4ratio.corrections.md",
+        "evidence": "tests/windows/audits/T06_qpF4ratio.corrections.evidence.json",
+        "date": "2026-11-11",
+        "corrected_findings": [
+          "F044",
+          "F048",
+          "F050",
+          "F051",
+          "F060",
+          "F080",
+          "F083",
+          "F084",
+          "F085",
+          "F086",
+          "F087"
+        ],
+        "source_sha256": {
+          "src/qpF4ratio.c": "2b4cf7802cf65c7a6b332235c765b5f0f2edef8a6a494b85c4fb5685914dacf1",
+          "src/qpsubs.c": "78324da1a451905fa7a0491e2f29f50c1b04c2c042a99ce86d4584707ef65239"
+        },
+        "applied": false,
+        "scope_note": "Historical corrected-Linux experiment; inherited Linux bug repairs removed from active source/binaries per user clarification."
+      },
+      "t06_deferred_upstream_findings": [
+        "F048",
+        "F050",
+        "F051",
+        "F080",
+        "F083",
+        "F084",
+        "F085",
+        "F086",
+        "F087",
+        "F060"
+      ],
+      "scope_restoration": {
+        "report": "tests/windows/audits/T06_scope_restoration.md",
+        "evidence": "tests/windows/audits/T06_scope_restoration.evidence.json",
+        "date": "2026-11-11"
       }
     },
     {
@@ -5729,10 +5802,135 @@
         "tests/windows/verify_t05_repairs.py": "2aa86ac6febc8c28be2b9eb47159beab96c6b068cf9310218f7ebff60f38a245"
       },
       "prior_evidence": "T05 repair evidence collector/verifier; independent harness audit remains pending."
+    },
+    {
+      "id": "Q31",
+      "category": "validation_harness",
+      "name": "build_t06_audit.py",
+      "paths": [
+        "tests/windows/build_t06_audit.py"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/build_t06_audit.py": "cc15900e74df0271b730e4ad37ab1852b86ad6c1bfbf7ed67cd7a60f5f9580b6"
+      },
+      "prior_evidence": "Exercised under T06; independent harness audit remains pending. See tests/windows/audits/T06_qpF4ratio.md",
+      "t06_correction_sha256": {
+        "tests/windows/build_t06_audit.py": "eee99107a4f2d55ae75d8d3003ddd521b55ac94c91dcc73595adc4f753b8c5eb"
+      }
+    },
+    {
+      "id": "Q32",
+      "category": "validation_harness",
+      "name": "audit_qpf4ratio.py",
+      "paths": [
+        "tests/windows/audit_qpf4ratio.py"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/audit_qpf4ratio.py": "5043a9ceb589b618757805aebe87f0af1ecf1a6406a27e379a1f14a30bfbd5fb"
+      },
+      "prior_evidence": "Exercised under T06; independent harness audit remains pending. See tests/windows/audits/T06_qpF4ratio.md",
+      "t06_correction_sha256": {
+        "tests/windows/audit_qpf4ratio.py": "7fbe3b2544c1cf3746f0b235f53bf40fb17dfc7135a08bc765b9db47ee3706c1"
+      }
+    },
+    {
+      "id": "Q33",
+      "category": "validation_harness",
+      "name": "build_t06_probe.py",
+      "paths": [
+        "tests/windows/build_t06_probe.py"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/build_t06_probe.py": "51f8e357c45c53f3b200c6defaf0fe369ba4dc62a456f17ef1ddff7951c8f622"
+      },
+      "prior_evidence": "Exercised under T06; independent harness audit remains pending. See tests/windows/audits/T06_qpF4ratio.md",
+      "t06_correction_sha256": {
+        "tests/windows/build_t06_probe.py": "51f8e357c45c53f3b200c6defaf0fe369ba4dc62a456f17ef1ddff7951c8f622"
+      }
+    },
+    {
+      "id": "Q34",
+      "category": "validation_harness",
+      "name": "qpf4ratio_probe.c",
+      "paths": [
+        "tests/windows/qpf4ratio_probe.c"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/qpf4ratio_probe.c": "f179dfc4ea0298535db80af9adddf8f0c180b84134ed15f083670b2ec9c033ee"
+      },
+      "prior_evidence": "Exercised under T06; independent harness audit remains pending. See tests/windows/audits/T06_qpF4ratio.md",
+      "t06_correction_sha256": {
+        "tests/windows/qpf4ratio_probe.c": "e1c4ca46e1066ad538e905d6d464eeb9d0135368817f3996a3791e447cb9e825"
+      }
+    },
+    {
+      "id": "Q35",
+      "category": "validation_harness",
+      "name": "run_t06_probes.py",
+      "paths": [
+        "tests/windows/run_t06_probes.py"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/run_t06_probes.py": "ac60abad1b64507682053680103d8dea718c1e361a3c565c02403497b19acfaf"
+      },
+      "prior_evidence": "Exercised under T06; independent harness audit remains pending. See tests/windows/audits/T06_qpF4ratio.md",
+      "t06_correction_sha256": {
+        "tests/windows/run_t06_probes.py": "0d0b1117f6998449f73849672084d05c8eda33bf570391aef84aa65ef26e2117"
+      }
+    },
+    {
+      "id": "Q36",
+      "category": "validation_harness",
+      "name": "t06_native_checks.ps1",
+      "paths": [
+        "tests/windows/t06_native_checks.ps1"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/t06_native_checks.ps1": "18f1d0838cfaa2d16a921285f9b3e2bb38691815f60e042f13e113e5004118f6"
+      },
+      "prior_evidence": "Exercised under T06; independent harness audit remains pending. See tests/windows/audits/T06_qpF4ratio.md",
+      "t06_correction_sha256": {
+        "tests/windows/t06_native_checks.ps1": "18f1d0838cfaa2d16a921285f9b3e2bb38691815f60e042f13e113e5004118f6"
+      }
+    },
+    {
+      "id": "Q37",
+      "category": "validation_harness",
+      "name": "collect_t06_evidence.py",
+      "paths": [
+        "tests/windows/collect_t06_evidence.py"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/collect_t06_evidence.py": "a7e53ec37b37e639ae8e750df225d8c259d0183ae20eb874bcd7c4fb898fddef"
+      },
+      "prior_evidence": "Exercised under T06; independent harness audit remains pending. See tests/windows/audits/T06_qpF4ratio.md",
+      "t06_correction_sha256": {
+        "tests/windows/collect_t06_evidence.py": "a7e53ec37b37e639ae8e750df225d8c259d0183ae20eb874bcd7c4fb898fddef"
+      }
+    },
+    {
+      "id": "Q38",
+      "category": "validation_harness",
+      "name": "verify_t06_corrections.py",
+      "paths": [
+        "tests/windows/verify_t06_corrections.py"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/verify_t06_corrections.py": "081ed218f901efbcb8a676792815dd911a655bd8e3741af498fbb7d6043e2c32"
+      },
+      "prior_evidence": "T06 correction evidence; independent harness audit remains pending."
     }
   ],
   "last_audit_date": "2026-11-11",
-  "last_audit_working_head": "05780fbcbaa509fbe17be140999b1224bfdfa7ba",
+  "last_audit_working_head": "ecbed635d74d89908b53d21f5cf0caa9d778a50d",
   "active_audit": "T04",
   "next_queued_item": "T04",
   "completed_hard_audits": [
@@ -5758,10 +5956,17 @@
       "id": "T04",
       "status": "reviewed with open defects",
       "report": "tests/windows/audits/T04_qpDstat.md"
+    },
+    {
+      "id": "T06",
+      "status": "reviewed with deferred upstream defects",
+      "report": "tests/windows/audits/T06_scope_restoration.md"
     }
   ],
   "reviewed_with_coverage_limits": [
     "T04",
-    "T05"
-  ]
+    "T05",
+    "T06"
+  ],
+  "compatibility_scope_clarification": "2026-11-11: record/defer inherited Linux bugs; fix Windows porting differences. Applied to T06 restoration; earlier tool changes are not automatically reverted."
 }

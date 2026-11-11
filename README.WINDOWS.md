@@ -45,6 +45,23 @@ headers; write failures are fatal. Ordinary results go to stdout. Inactive
 `output:`/`outputname:`/`f3log:` and legacy controls reject explicitly. Use
 PowerShell redirection as shown below and inspect stderr and `$LASTEXITCODE`.
 
+The [T06 compatibility review](tests/windows/audits/T06_scope_restoration.md)
+keeps inherited Linux behavior. Its upstream-bug repairs are deferred and were
+removed from active source/binaries; the Windows-only CLI diagnostic fix remains.
+Known inherited issues include ineffective population limits/seed settings,
+X counting, malformed lists and undefined estimates. `output:`/`outputname:`
+can truncate an existing file without writing results: omit them and redirect
+stdout in PowerShell. These issues are recorded, not repaired at this stage.
+Earlier tools' changes remain untouched; this is not full-suite pristine parity.
+
+For qpF4ratio, each population row has eight names: four for the numerator f4,
+then four for the denominator. `blgsize` is in **Morgans** (`0.05` = 5 cM),
+despite the unit wording in the upstream README. `diffmode: YES` pairs the first
+half of rows with the second half and computes **alpha A + alpha B - 1**.
+Supply an even, nonzero number of rows; upstream silently ignores an unpaired
+final row. Keep population-list lines short: the inherited fixed-buffer parser
+has a recorded long-line defect. Preserve upstream `zzblock:` output in logs.
+
 ## 1. Prerequisites
 
 Use 64-bit Windows 10 version 1903 or later, or Windows 11, PowerShell,
