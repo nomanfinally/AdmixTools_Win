@@ -42,6 +42,8 @@ int admix_filter_fstats(const char *input, const char *output);
 int admix_copy_file(const char *input, const char *output);
 int admix_gunzip(const char *input, const char *output);
 int admix_run_qpfstats(const char *parameters, const char *logfile);
+char *admix_qpfstats_helper(char *parameters, char **pops, int npops,
+                           char *output, char *logfile, int keep, int graphcall);
 int admix_run_sibling(const char *name, const char *const arguments[], const char *logfile);
 int admix_render_graph(const char *dotfile, const char *psfile);
 int admix_getopt(int argc, char *const argv[], const char *options);

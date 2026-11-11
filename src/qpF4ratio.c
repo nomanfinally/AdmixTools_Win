@@ -882,7 +882,7 @@ int usage (char *prog, int exval)
   (void)fprintf(stderr, "Usage: %s [options] <file>\n", prog);
   (void)fprintf(stderr, "   -h          ... Print this message and exit.\n");
   (void)fprintf(stderr, "   -p <file>   ... use parameters from <file> .\n");
-  (void)fprintf(stderr, "   -v          ... print version and exit.\n");
+  (void)fprintf(stderr, "   -v          ... print version (continues normally).\n");
   (void)fprintf(stderr, "   -V          ... toggle verbose mode ON.\n");
 
   exit(exval);

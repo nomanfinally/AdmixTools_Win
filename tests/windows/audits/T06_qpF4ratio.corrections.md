@@ -1,5 +1,10 @@
 # T06 qpF4ratio corrections
 
+Scope notice (11 November 2026): this is historical audit evidence.
+Inherited-bug repairs described here are not the current porting baseline.
+See [the project-wide restoration](PORT_ONLY_SCOPE_RESTORATION.md) for
+active sources, retained Windows adaptations and new reference results.
+
 **Historical experiment, no longer applied.** The user's subsequent scope
 clarification defers inherited Linux bug fixes. These changes were removed from
 active production source and binaries; only the Windows getopt fix remains.

@@ -1,5 +1,10 @@
 # T06 connected modules, headers and tools
 
+Scope notice (11 November 2026): this is historical audit evidence.
+Inherited-bug repairs described here are not the current porting baseline.
+See [the project-wide restoration](PORT_ONLY_SCOPE_RESTORATION.md) for
+active sources, retained Windows adaptations and new reference results.
+
 Status: **scoped review with open findings**, 11 November 2026. Independent M/H
 audits remain pending. See [T06](T06_qpF4ratio.md) and its
 [evidence](T06_qpF4ratio.evidence.json) for actual failures, hashes, statuses,

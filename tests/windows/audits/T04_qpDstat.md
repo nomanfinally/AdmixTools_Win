@@ -1,5 +1,10 @@
 # T04 qpDstat hard review
 
+Scope notice (11 November 2026): this is historical audit evidence.
+Inherited-bug repairs described here are not the current porting baseline.
+See [the project-wide restoration](PORT_ONLY_SCOPE_RESTORATION.md) for
+active sources, retained Windows adaptations and new reference results.
+
 Follow-up: all recorded defects were subsequently corrected at the user's
 request; see [corrections and current evidence](T04_qpDstat.corrections.md).
 Independent module/header coverage remains incomplete. The original audit

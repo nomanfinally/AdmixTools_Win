@@ -1,5 +1,10 @@
 # T05 qp3Pop corrections
 
+Scope notice (11 November 2026): this is historical audit evidence.
+Inherited-bug repairs described here are not the current porting baseline.
+See [the project-wide restoration](PORT_ONLY_SCOPE_RESTORATION.md) for
+active sources, retained Windows adaptations and new reference results.
+
 Status: **all 14 recorded finding groups corrected in their reproduced scopes**,
 11 November 2026. T05 has passed with limitations. The original
 [audit](T05_qp3Pop.md), [evidence](T05_qp3Pop.evidence.json), module inventory

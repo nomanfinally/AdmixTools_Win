@@ -1,5 +1,10 @@
 # T04 qpDstat defect corrections
 
+Scope notice (11 November 2026): this is historical audit evidence.
+Inherited-bug repairs described here are not the current porting baseline.
+See [the project-wide restoration](PORT_ONLY_SCOPE_RESTORATION.md) for
+active sources, retained Windows adaptations and new reference results.
+
 Status: **all 23 recorded findings corrected in their reproduced scopes**, plus
 new parser finding F073 corrected, 10 November 2026. The independent module and
 header audits remain incomplete; this is not a full-suite compatibility pass.

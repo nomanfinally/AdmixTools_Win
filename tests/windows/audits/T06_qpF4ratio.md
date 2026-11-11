@@ -1,5 +1,10 @@
 # T06 qpF4ratio
 
+Scope notice (11 November 2026): this is historical audit evidence.
+Inherited-bug repairs described here are not the current porting baseline.
+See [the project-wide restoration](PORT_ONLY_SCOPE_RESTORATION.md) for
+active sources, retained Windows adaptations and new reference results.
+
 Status: **reviewed with open defects**, 11 November 2026. This is not a tool
 pass or full-suite parity certification. One Windows presentation regression
 was corrected. Nine inherited finding groups remain open in this tool.

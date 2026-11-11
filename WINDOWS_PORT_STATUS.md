@@ -1,5 +1,10 @@
 # Windows port status
 
+The [11 November 2026 scope restoration](tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md) removes inherited
+Linux bug repairs from active sources/binaries. Windows porting and help
+presentation are retained. Historical corrected-Linux audit results do not
+certify this restored build; use the report's new pristine comparisons.
+
 Development baseline: DReichLab/AdmixTools commit
 `67bc219174a109951a9434e0a383ec464fb140ee` (upstream package 8.1.0).
 Development is published on the
@@ -10,19 +15,6 @@ The complete tool/module inventory and sequential hard-check queue are maintaine
 in [COMPATIBILITY_AUDIT.md](COMPATIBILITY_AUDIT.md), with machine-readable sources
 and dependencies in `tests/windows/audit_inventory.json`. No item is considered
 hard-audited solely because the earlier fixtures passed.
-
-The [T01 qpAdm report](tests/windows/audits/T01_qpAdm.md) now records the detailed
-mode/helper audit and source repairs. It covers upstream memory/UB defects,
-single-source results, output-write failures, compressed PLINK input, and
-Windows Unicode/path/temporary-file behavior. Its evidence distinguishes exact
-pristine parity from deliberate repairs to broken upstream cases. Other tools
-and complete shared-module audits remain in the queue.
-
-The requested [T01 follow-up](tests/windows/audits/T01_qpAdm.corrections.md)
-also fixes the retained help/version and inactive-parameter issues, the EOF
-diagnostic, unbounded positive-coefficient rejection sampling and fxtract
-installation order. The sampler's finite failure limit is documented explicitly;
-accepted-draw calculations and RNG behavior are preserved.
 
 ## Scope
 
@@ -168,10 +160,9 @@ The separate runners and reproduction commands are in `tests/windows/README.md`.
   and were not rewritten. Exercise Unicode/long paths and fatal-error behavior.
   Windows' native
   fatal termination codes need not equal Unix signal-derived shell codes.
-- Extend compressed-input failure tests beyond T01's fatal genotype-reader
-  cleanup, owned-name collisions, native stream errors and Linux `/dev/full`
-  checks to real full volumes, forced termination and very large expanded files.
-  Valid gzip parity is tested; arbitrary malformed-input diagnostics are
+- Extend compressed-input failure tests: cleanup after a fatal genotype-reader
+  error, temporary-name collisions, disk-full behavior, and very large expanded
+  files. Valid gzip parity is tested; arbitrary malformed-input diagnostics are
   not certified. zlib ignores trailing non-gzip bytes where GNU gzip may warn;
   pristine upstream also ignores positive `gunzip` exit statuses and invokes it
   twice. Neither behavior is a scientific calculation to copy into the port.

@@ -1,15 +1,10 @@
 #include <admix_types.h>
 #include <fcntl.h>
 #include <ctype.h>
-#include <errno.h>
-#include <limits.h>
 #include  <mcio.h>
 #include  <xsearch.h>
 #include  <ranmath.h>
 #include "geno.h"  
-#ifndef _WIN32
-#include <sys/wait.h>
-#endif
 
 /*! \file mcio.c 
  *
@@ -1095,8 +1090,6 @@ readinddata (Indiv ** indivmarkers, char *fname)
       indx->idnum = num;
       sx = spt[1];
       indx->gender = sx[0];
-      /* X: declared females are diploid; M/U retain the haploid convention. */
-      indx->hasxhets = (indx->gender == 'F');
       indx->affstatus = indx->ignore = NO;
       sx = spt[2];
       if (strcmp (sx, "Ignore") == 0)
@@ -1166,7 +1159,6 @@ readindpeddata (Indiv ** indivmarkers, char *fname)
       if (k == 2)
 	gender = 'F';
       indx->gender = gender;
-      indx->hasxhets = (gender == 'F');
       indx->affstatus = indx->ignore = NO;
 
       sx = spt[5];
@@ -1460,30 +1452,16 @@ getgenos (char *genoname, SNP ** snpmarkers, Indiv ** indivmarkers,
 
   // Unzip file if necessary
   if (gnlen >= 3 && strcmp (genoname + gnlen - 3, ".gz") == 0) {
-    /* PED/BED detection uses the suffix, so retain it on the plain file. */
-    const char *suffix = "";
-    if (gnlen >= 7 && !strcmp(genoname + gnlen - 7, ".ped.gz")) suffix = ".ped";
-    if (gnlen >= 7 && !strcmp(genoname + gnlen - 7, ".bed.gz")) suffix = ".bed";
-    if (gnlen >= 7 && !strcmp(genoname + gnlen - 7, ".fam.gz")) suffix = ".fam";
-    if (gnlen >= 10 && !strcmp(genoname + gnlen - 10, ".pedind.gz")) suffix = ".pedind";
 #ifdef _WIN32
     /* Re-enter the unchanged format readers with decompressed bytes. This
      * keeps cleanup common to their early returns (packed and text alike).
      */
     admix_long count;
-    char *with_suffix;
     genotmp = mytemp("genotmp");
-    with_suffix = realloc(genotmp, strlen(genotmp) + strlen(suffix) + 1);
-    if (with_suffix == NULL) { free(genotmp); fatalx("cannot allocate genotype temporary path\n"); }
-    genotmp = with_suffix;
-    strcat(genotmp, suffix);
     printf("unzip cmd: gunzip -c \"%s\" > \"%s\"\n", genoname, genotmp);
     if (admix_gunzip(genoname, genotmp)) {
       free(genotmp);
-      /* A child-format failure has no errno in the parent. MinGW calls zero
-       * "No error", whereas the upstream Linux perror text is "Success". */
-      if (errno == 0) fprintf(stderr, "gunzip failed\n: Success\n");
-      else perror("gunzip failed\n");
+      perror("gunzip failed\n");
       fatalx("gunzip failed... probably out of disk space\n");
     }
     printf("geno file unzipped\n");
@@ -1496,43 +1474,19 @@ getgenos (char *genoname, SNP ** snpmarkers, Indiv ** indivmarkers,
     free(genotmp);
     return count;
 #else
-    admix_long count;
-    int outfd, status;
-    pid_t child, waited;
     makedir (trashdir);
-    if (snprintf(line, sizeof(line), "%s/genotmp:%d.XXXXXX%s", trashdir, getpid(), suffix) >= sizeof(line))
-      fatalx("genotype temporary path too long\n");
+    sprintf (line, "%s/genotmp:%d", trashdir, getpid ());
     genotmp = strdup (line);
-    if (genotmp == NULL) fatalx("cannot allocate genotype temporary path\n");
-    outfd = mkstemps(genotmp, (int)strlen(suffix));
-    if (outfd < 0) fatalx("cannot create genotype temporary file\n");
-    if (track_temp(genotmp)) {
-      close(outfd); unlink(genotmp); free(genotmp);
-      fatalx("cannot track decompressed genotype file\n");
-    }
-    printf("unzip cmd: gunzip -c \"%s\" > \"%s\"\n", genoname, genotmp);
-    fflush(stdout);
-    child = fork();
-    if (child == 0) {
-      if (dup2(outfd, STDOUT_FILENO) < 0) _exit(127);
-      close(outfd);
-      execlp("gunzip", "gunzip", "-c", "--", genoname, (char *)NULL);
-      _exit(127);
-    }
-    close(outfd);
-    waited = -1;
-    if (child >= 0)
-      do { waited = waitpid(child, &status, 0); } while (waited < 0 && errno == EINTR);
-    if (waited < 0 || !WIFEXITED(status) || WEXITSTATUS(status) != 0) {
-      release_temp(genotmp, 0);
+    sprintf (cmd, "gunzip -c %s > %s", genoname, genotmp);
+    printf ("unzip cmd: %s\n", cmd);
+    system (cmd);
+    kret = system (cmd);
+    if (kret < 0) {
       perror ("gunzip failed\n");
       fatalx ("gunzip failed... probably out of disk space\n");
     }
     printf ("geno file unzipped\n");
-    count = getgenos(genotmp, snpmarkers, indivmarkers, numsnps, numindivs, nignore);
-    release_temp(genotmp, 0);
-    free(genotmp);
-    return count;
+    gname = genotmp;
 #endif
   }
 
@@ -1550,19 +1504,16 @@ getgenos (char *genoname, SNP ** snpmarkers, Indiv ** indivmarkers,
 
     if (snpord == NULL)
       fatalx ("snpord not allocated (no map file ?)");
-    getpedgenos (gname, snpmarkers, indivmarkers, numsnps, numindivs,
+    getpedgenos (genoname, snpmarkers, indivmarkers, numsnps, numindivs,
 		 nignore);
     freeped ();
-    if (genotmp != NULL) { unlink(genotmp); free(genotmp); }
     return numsnps * numindivs;
   }
 
   // Call routine to read PLINK format packed genotype file
   if (isbedfile (gname)) {
-    admix_long count = getbedgenos (gname, snpmarkers, indivmarkers, numsnps,
-                                   numindivs, nignore);
-    if (genotmp != NULL) { unlink(genotmp); free(genotmp); }
-    return count;
+    return getbedgenos (genoname, snpmarkers, indivmarkers, numsnps,
+			numindivs, nignore);
   }
 
   // Check whether file is packed ANCESTRYMAP format (packed EIGENSTRAT does not exist)
@@ -2499,16 +2450,7 @@ getblocks (char *fname, SNP ** snpm, int numsnps)
     if (skipit == NO) {
       if (nsplit > 1) {
 	sx = spt[1];
-        {
-          char *end;
-          long label;
-          errno = 0;
-          label = strtol(sx, &end, 10);
-          if (errno == ERANGE || end == sx || *end || label < INT_MIN ||
-              label >= numsnps)
-            fatalx("invalid block ID for SNP %s: %s\n", spt[0], sx);
-          block = (int)label;
-        }
+	block = atoi(sx);
         tmax = MAX(tmax, block) ;
 	snpm[k]->tagnumber = block;
 	++num;
@@ -2980,9 +2922,8 @@ bigread (int fdes, char *packg, admix_long numbytes)
       fatalx ("(bigread) bad data read");
     }
     if (t != xx) {
-      /* A short, successful read does not set errno. */
-      fputs("read failure (length mismatch): unexpected end of file\n", stderr);
-      fatalx ("(bigread) bad data read (length mismatch) %" ADMIX_PRIdLONG " %d\n", t, xx);
+      perror ("read failure (length mismatch)");
+      fatalx ("(bigread) bad data read (length mismatch) %" ADMIX_PRIdLONG " %" ADMIX_PRIdLONG "\n", t, xx);
     }
     nb -= xx;
     nr += xx;
@@ -3118,8 +3059,7 @@ inpackt (char *gname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind)
    lseek(fdes, offset,  SEEK_SET);
    t = read (fdes, buff, trlen);
    if (t != trlen) {
-    if (t < 0) perror ("read failure (genodata)" );
-    else fprintf(stderr, "read failure (genodata): unexpected end of file\n");
+    perror ("read failure (genodata)" );
     fatalx ("read failure (genodata) ID: %s\n",   indx -> ID) ;
    }
    ++numread ;
@@ -3207,7 +3147,7 @@ inpack (char *gname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind)
     fatalx ("(inpack) bad data read");
   }
   if (t != packlen) {
-    fputs("read failure (length mismatch): unexpected end of file\n", stderr);
+    perror ("read failure (length mismatch)");
     printf ("numsnps: %d  nsnp (from geno file): %d\n", numsnps, nsnp);
     fatalx ("(inpack) bad data read (length mismatch) %" ADMIX_PRIdLONG " %" ADMIX_PRIdLONG "\n", t, packlen);
   }
@@ -6259,7 +6199,7 @@ inprobx (char *pname, SNP ** snpm, Indiv ** indiv, int numsnps, int numind, char
     fatalx ("(inprob) bad data read");
   }
   if (t != plen) {
-    fputs("read failure (length mismatch): unexpected end of file\n", stderr);
+    perror ("read failure (length mismatch)");
     printf ("numsnps: %d  nsnp (from geno file): %d\n", numsnps, nsnp);
     fatalx ("(inprob) bad data read (length mismatch) %" ADMIX_PRIdLONG " %" ADMIX_PRIdLONG "\n", t, plen);
   }

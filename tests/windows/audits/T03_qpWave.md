@@ -1,5 +1,10 @@
 # T03 qpWave hard review
 
+Scope notice (11 November 2026): this is historical audit evidence.
+Inherited-bug repairs described here are not the current porting baseline.
+See [the project-wide restoration](PORT_ONLY_SCOPE_RESTORATION.md) for
+active sources, retained Windows adaptations and new reference results.
+
 Historical initial review. The requested repairs are completed in
 [T03 corrections](T03_qpWave.corrections.md), with current status **passed with
 limitations**. The observations below preserve the pre-repair evidence.

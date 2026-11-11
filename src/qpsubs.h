@@ -21,11 +21,6 @@ extern "C" {
 
 
 int loadindx(Indiv **xindlist, int *xindex, Indiv **indivmarkers, int numindivs) ;
-/* Make an owned helper fstats file. Caller frees the returned path; its file
- * lives through analysis and is removed at normal/fatal exit unless keep. */
-char *qpfstats_helper(char *parname, char **pops, int npops, char *output,
-                     char *logname, int keep, int graphcall);
-int qpfstats_inactive_parameter(const char *key);
 int loadsnpx(SNP **xsnplist, SNP **snpmarkers, int numsnps, Indiv **indivmarkers) ;
 int loadsnpxx(SNP **xsnplist, SNP **snpmarkers, int numsnps, Indiv **indivmarkers, int numind) ;
 void loadxdataind(double *xrow, SNP **snplist, int ind,  int ncols) ;           
@@ -331,8 +326,7 @@ counthets ( int *xhets, int *xvalids,
 
 
 int getegnum(int *egnum, char **spt, char **eglist, int numeg, int num)  ; 
-/* poplist must have capacity for 100 entries, as in the native callers. */
-int fstats2popl(char *fstatsname, char **poplist)  ;
+int fstats2popl(char *fstatsname, char **poplist)  ; 
 void  loadfstats(char *fstatsname, double *ff3, double *ff3var, char **eglist, int numeg) ; 
 void  loadfstatsx(char *fstatsname, double *ff3, double *ff3var, char **eglist, int numeg, char *fbline) ; 
 int mkcoeffs (double *yco, int **dd, int numpops, int numd)  ;

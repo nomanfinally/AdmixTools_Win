@@ -1,5 +1,10 @@
 # T03 qpWave corrections
 
+Scope notice (11 November 2026): this is historical audit evidence.
+Inherited-bug repairs described here are not the current porting baseline.
+See [the project-wide restoration](PORT_ONLY_SCOPE_RESTORATION.md) for
+active sources, retained Windows adaptations and new reference results.
+
 Status: **passed with limitations**, 10 November 2026. F045-F054 are fixed.
 F055, a malformed-header token-boundary defect found during these corrections,
 is also fixed. No requested T03 finding remains open. This closes the tested

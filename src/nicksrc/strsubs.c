@@ -223,13 +223,15 @@ fatalx (char *fmt, ...)
   va_list args;
 
   va_start (args, fmt);
-  vsnprintf (Estr, sizeof(Estr), fmt, args);
+  vsprintf (Estr, fmt, args);
   va_end (args);
   fflush (stdout);
 
   fprintf (stderr, "fatalx:\n%s", Estr);
   fflush (stderr);
-  cleanup_temps();
+#ifdef _WIN32
+  admix_cleanup_temps();
+#endif
   abort ();
 }
 
@@ -243,15 +245,6 @@ void setdump(int cdump)
 #endif
 
 
-}
-
-/* A buffered write may fail only when fclose flushes it. Also retain an
- * earlier stream error even if closing that stream subsequently succeeds. */
-void closeit_write(FILE *fff, const char *name)
-{
-  int failed = ferror(fff);
-  if (fclose(fff) != 0) failed = 1;
-  if (failed) fatalx("write failure: %s\n", name);
 }
 
 
@@ -1320,8 +1313,8 @@ like getxxnames but file already open
 }
 
 
-static int
-getss_capacity (char **ss, char *fname, int capacity)
+int
+getss (char **ss, char *fname)
 
 /** 
  get list of names 
@@ -1357,9 +1350,6 @@ getss_capacity (char **ss, char *fname, int capacity)
     if (nsplit < 1) {
       continue;
     }
-    if (num >= capacity)
-      fatalx ("(getss) list exceeds capacity %d: %s\n", capacity,
-              fname == NULL ? "stdin" : fname);
     ss[num] = strdup (spt[0]);
     freeup (spt, nsplit);
     ++num;
@@ -1367,12 +1357,6 @@ getss_capacity (char **ss, char *fname, int capacity)
   if (fname != NULL)
     fclose (fff);
   return num;
-}
-
-int
-getss (char **ss, char *fname)
-{
-  return getss_capacity (ss, fname, INT_MAX);
 }
 
 int
@@ -1405,17 +1389,11 @@ printdups (char **list, int n)
 
 int
 loadlist (char **list, char *listname)
-{
-  return loadlist_capacity (list, listname, INT_MAX);
-}
-
-int
-loadlist_capacity (char **list, char *listname, int capacity)
 // listname is just a list of names ... 
 // dup check made
 {
   int n, a, b, t;
-  n = getss_capacity (list, listname, capacity);
+  n = getss (list, listname);
   for (a = 0; a < n; ++a) {
     for (b = a + 1; b < n; ++b) {
       t = strcmp (list[a], list[b]);
@@ -2159,107 +2137,7 @@ int filehash(char *name)
   return abs(hash) ;
 }
 
-#ifndef _WIN32
-typedef struct owned_temp {
-  char *path;
-  struct owned_temp *next;
-} owned_temp;
-static owned_temp *owned_temps;
-static int temp_cleanup_registered;
-#endif
-
-int track_temp(const char *path)
-{
-#ifdef _WIN32
-  return admix_track_temp(path);
-#else
-  owned_temp *entry = malloc(sizeof(*entry));
-  if (entry == NULL) return -1;
-  entry->path = strdup(path);
-  if (entry->path == NULL) { free(entry); return -1; }
-  if (!temp_cleanup_registered) {
-    if (atexit(cleanup_temps) != 0) { free(entry->path); free(entry); return -1; }
-    temp_cleanup_registered = 1;
-  }
-  entry->next = owned_temps;
-  owned_temps = entry;
-  return 0;
-#endif
-}
-
-void release_temp(const char *path, int keep)
-{
-#ifdef _WIN32
-  admix_release_temp(path, keep);
-#else
-  owned_temp **link = &owned_temps;
-  while (*link) {
-    owned_temp *entry = *link;
-    if (!strcmp(path, entry->path)) {
-      if (!keep) unlink(entry->path);
-      *link = entry->next;
-      free(entry->path);
-      free(entry);
-      return;
-    }
-    link = &entry->next;
-  }
-#endif
-}
-
-void cleanup_temps(void)
-{
-#ifdef _WIN32
-  admix_cleanup_temps();
-#else
-  while (owned_temps) release_temp(owned_temps->path, 0);
-#endif
-}
-
-char *reserve_temp(char *prefix)
-{
-  char *candidate = mytemp(prefix), *path;
-#ifdef _WIN32
-  path = admix_reserve_temp(candidate);
-#else
-  size_t length = strlen(candidate);
-  unsigned int attempt;
-  int fd;
-  owned_temp *entry;
-  path = malloc(length + 32);
-  if (path == NULL) { free(candidate); return NULL; }
-  for (attempt = 0; attempt < 1000; ++attempt) {
-    if (attempt) snprintf(path, length + 32, "%s.%u", candidate, attempt);
-    else memcpy(path, candidate, length + 1);
-    fd = open(path, O_CREAT | O_EXCL | O_RDWR, 0600);
-    if (fd < 0) {
-      if (errno == EEXIST) continue;
-      break;
-    }
-    close(fd);
-    entry = malloc(sizeof(*entry));
-    if (entry == NULL || (entry->path = strdup(path)) == NULL) {
-      free(entry); unlink(path); errno = ENOMEM; break;
-    }
-    if (!temp_cleanup_registered) {
-      if (atexit(cleanup_temps) != 0) {
-        free(entry->path); free(entry); unlink(path); errno = ENOMEM; break;
-      }
-      temp_cleanup_registered = 1;
-    }
-    entry->next = owned_temps;
-    owned_temps = entry;
-    free(candidate);
-    return path;
-  }
-  free(path);
-  path = NULL;
-#endif
-  free(candidate);
-  return path;
-}
-
-char *mytemp (char *qqq)
+char *mytemp (char *qqq) 
 // make temporary file name.   qqq is header string, eg "junk1" 
 {
   char ss[MAXSTR] ; 

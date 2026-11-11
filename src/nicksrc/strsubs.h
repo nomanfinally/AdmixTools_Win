@@ -36,7 +36,6 @@ int numlines(char *name) ;
 void openitntry (char *name, FILE ** fff, char *type, int ntry) ;
 int openit_trap (char *name, FILE ** fff, char *type); 
 void openit(char *name, FILE **fff, char *type)  ;
-void closeit_write(FILE *fff, const char *name);
 int  ftest(char *aname) ;
 void fcheckr(char *name) ;
 void fcheckw(char *name) ; 
@@ -45,8 +44,6 @@ int getjj(int **xx, int maxrow, int numcol, char *fname) ;
 int getxx(double **xx, int maxrow, int numcol, char *fname) ;
 int getss(char  **ss, char *fname) ;
 int  loadlist(char **list, char *listname)    ;  // with dup check
-/* Same ordering/comment/duplicate rules; reject before exceeding the array. */
-int loadlist_capacity(char **list, char *listname, int capacity);
 void printdups(char **list, int n)  ;
 int checkdup(char **list, int n)  ;
 double clocktime() ;  // cpu time in seconds
@@ -97,12 +94,6 @@ char *fgetstrap(char *buff, int maxlen, FILE *fff, int *ret)  ;
 char readtonl(FILE *fff) ; 
 int  filehash(char *name) ;
 char *mytemp (char *qqq) ; 
-/* Caller owns the returned string; only registered files are cleaned up. */
-char *reserve_temp(char *prefix);
-void release_temp(const char *path, int keep);
-void cleanup_temps(void);
-/* Register an exclusively created file; never register a user-owned path. */
-int track_temp(const char *path);
 void randomname(char **ans) ;
 int getchromlist(char **list, char *bamname) ;
 int getreglist (char ***preglist, char *bamname)  ;

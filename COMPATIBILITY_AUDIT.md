@@ -10,6 +10,13 @@ Items start **pending**. Previous passing fixtures are evidence to extend,
 not a completed hard audit. Review results and their limitations are linked below;
 creating this inventory does not certify a tool/module.
 
+Scope restored on **11 November 2026**: Windows porting and presentation only.
+Inherited Linux bug corrections from T01-T05 are removed from active source
+and binaries; T06 already followed that scope. Scientific functions, defaults,
+parameter acceptance and runtime behavior use the pre-audit port and the
+unmodified pinned Linux oracle. Windows-only helpers and presentation changes
+remain. See the [current restoration report](tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md).
+
 The machine-readable counterpart is
 [`tests/windows/audit_inventory.json`](tests/windows/audit_inventory.json).
 It records every source/header path, snapshot hashes, direct native link inputs,
@@ -30,9 +37,9 @@ New items get new IDs; do not renumber the existing queue.
 | Shared C modules linked directly or available through libnick | 28 |
 | Additional C programs with main(), outside supported build | 5 |
 | Additional C modules outside supported links | 7 |
-| Validation runners/probes | 38 |
+| Validation runners/probes | 39 |
 
-Total: **211 audit items**, covering **78 production C sources and 40 headers** plus scripts and build/test controls.
+Total: **212 audit items**, covering **78 production C sources and 40 headers** plus scripts and build/test controls.
 I10 and Q07–Q08 were appended during T01; original snapshot hashes remain historical.
 Q09–Q10 were appended during T02; snapshot hashes remain historical.
 Q11–Q13 were appended during T03 and its corrections; snapshot hashes remain historical.
@@ -42,6 +49,7 @@ Q24-Q29 were appended during T05; original snapshot hashes remain historical.
 Q30 was appended during T05 corrections; original evidence is retained.
 Q31-Q37 were appended during T06; original snapshot hashes remain historical.
 Q38 was appended during T06 corrections; original evidence is retained.
+Q39 was appended for port-only restoration; original snapshot hashes remain historical.
 
 Data files, parameter templates (including `parsimp.templ` and
 `parsimp2.templ`), reference logs, manuals and generated binaries are fixtures or
@@ -64,80 +72,15 @@ sooner; record that dependency and resume the current tool afterward. T38 is
 blocked pending an established upstream algorithm/reference, not permission to
 guess the intended statistical expressions.
 
-Current remaining coverage-closure item: **T04 qpDstat**.
-Hard tool reviews recorded: **6**. T01-T03 and T05 passed with limitations;
-T04 retains independent coverage gaps; T06's inherited Linux defects are deferred.
-T05 and
-T06 were reviewed at the user's explicit request without closing T04's
-unfinished coverage. Clean/unqualified
-passes: **0**. This is not full-suite certification.
+Current compatibility baseline: **port-only restoration**, with rebuilt native
+binaries and new pinned-pristine comparisons. Earlier T01-T06 reviews remain
+historical evidence, not current hard-audit passes. Independent coverage and
+shared-module reviews remain open; full-suite parity is not certified.
 
-[T06 compatibility scope](tests/windows/audits/T06_scope_restoration.md) follows
-the user's clarification: **porting only; inherited Linux bugs are recorded and
-deferred**. The T06 scientific, parser, validation and shared-module bug repairs
-were removed from active source and binaries. The Windows-only getopt diagnostic
-fix remains. Earlier tools' changes are untouched. The
-[original review](tests/windows/audits/T06_qpF4ratio.md) records pinned-reference
-comparisons and Linux findings; the corrected-Linux experiment is historical,
-not the active compatibility baseline. All 37 supported binaries were rebuilt
-from the restored source. Independent module audits/full-suite parity remain open.
-
-[T05 corrections](tests/windows/audits/T05_qp3Pop.corrections.md) close all 14
-recorded finding groups in their reproduced scopes. The 167-case native,
-corrected Linux and sanitizer matrices pass; all 75 jointly successful
-result-producing cases agree at printed precision and independent oracles pass.
-The retained original Windows/pristine comparisons isolate changed seeded and
-X results explicitly. Shared 91 Windows / 89 Linux / 89 ASan cases, affected
-qpAdm/qpfstats/qpWave/qpDstat regressions and native PowerShell checks pass.
-All 37 supported binaries were rebuilt; the old bin bytes are backed up.
-The [original review](tests/windows/audits/T05_qp3Pop.md),
-[connected-module report](tests/windows/audits/T05_connected_modules.md) and
-1,102-function inventory remain historical. Independent M/H audits stay pending.
-
-[T04 qpDstat report](tests/windows/audits/T04_qpDstat.md) records 146-case
-Windows/pristine-Linux/Linux-port/sanitizer matrices, independent allele-count
-and jackknife oracles, 24 quartet permutations, focused haploid/tree and input
-checks, native PowerShell and shared-consumer probes. All 87 jointly successful
-full-matrix cases emitting scientific rows matched current Linux at printed precision
-before repairs. The [T04 corrections](tests/windows/audits/T04_qpDstat.corrections.md)
-close all 23 recorded findings and additional parser finding F073 in their tested
-scopes. Corrected Windows/Linux/ASan matrices have 147 cases each, and all 75
-jointly successful cases emitting scientific rows match at printed precision.
-The 91 Windows / 89 Linux module cases and 59 shared qpWave regressions on each
-platform pass their behavior checks. Original source/evidence hashes and the
-earlier F024/F044/F045/F048/F050/F051 repair scopes remain historical.
-
-The 18 independent module reports and their
-[1,096-function inventory](tests/windows/audits/T04_modules.inventory.json)
-record actual evidence and remaining contract/coverage gaps. Their M/H items
-remain pending; these are not complete independent module audits. The original
-T04 delivery changed no production behavior; the subsequently requested repairs
-identify and test their intentional upstream differences separately.
-
-[T03 qpWave corrections](tests/windows/audits/T03_qpWave.corrections.md) close
-F045–F054 and newly found header-boundary defect F055. Its 145-case Windows,
-corrected Linux and sanitizer matrices pass; all 73 jointly successful
-scientific results and generated files match exactly. The original review
-remains historical. Limited sampling and invalid-input/interface repairs
-intentionally differ from broken pristine behavior. Shared cached consumers,
-qpAdm block/transposed paths, native mapping failures, PowerShell/paths and the
-35-case integration suite pass their scoped regressions. Independent M/H/tool
-reviews remain pending.
-
-[T01 qpAdm report](tests/windows/audits/T01_qpAdm.md) records the mode/helper
-checks, findings F002–F025, changes and limits. Shared M/H items and qpfstats
-retain their separate audit status.
-The [T01 follow-up](tests/windows/audits/T01_qpAdm.corrections.md) closes retained
-F024/F025, bounds rejection sampling (F043), and fixes F001 installation order.
-
-[T02 qpfstats report](tests/windows/audits/T02_qpfstats.md) preserves the initial
-review. Its [corrections](tests/windows/audits/T02_qpfstats.corrections.md) close
-F034–F035/F039–F041 and add fixed duplicate-diagnostic finding F042. The final
-185 Windows / 183 corrected Linux / 183 sanitizer cases pass their behavior
-checks. All 106 jointly successful shared cases match terminal/helper streams
-exactly after documented metadata substitutions. Subsampling/seed corrections
-and restored qpfit fitting intentionally differ from broken pristine behavior;
-related tools/modules are not automatically closed.
+The [restoration report](tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md) records removed upstream corrections,
+retained Windows adapters/presentation, source and binary hashes, comparison
+results and remaining limitations. Resume the applicable coverage reviews against
+this restored baseline; do not use repaired-Linux expectations as the oracle.
 
 ## Native executable queue
 
@@ -149,12 +92,12 @@ and state its limits; it does not close related modules automatically.
 
 | Done | ID | Tool | Role | Target | Previous evidence |
 | --- | --- | --- | --- | --- | --- |
-| [x] | T01 | `qpAdm` | Admixture model fitting | Default | [Passed with limitations](tests/windows/audits/T01_qpAdm.md) |
-| [x] | T02 | `qpfstats` | F-statistic precomputation and helper process | Default | [Passed with limitations](tests/windows/audits/T02_qpfstats.corrections.md) |
-| [x] | T03 | `qpWave` | Rank/ancestry-stream tests | Default | [Passed with limitations](tests/windows/audits/T03_qpWave.corrections.md) |
-| [ ] | T04 | `qpDstat` | D/f4 statistics | Default | [Defects corrected; coverage incomplete](tests/windows/audits/T04_qpDstat.corrections.md) |
-| [x] | T05 | `qp3Pop` | Three-population statistics | Default | [Passed with limitations](tests/windows/audits/T05_qp3Pop.corrections.md) |
-| [ ] | T06 | `qpF4ratio` | F4-ratio estimation | Default | [Compatibility reviewed; Linux bugs deferred](tests/windows/audits/T06_scope_restoration.md) |
+| [ ] | T01 | `qpAdm` | Admixture model fitting | Default | [Restored; coverage pending](tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md) |
+| [ ] | T02 | `qpfstats` | F-statistic precomputation and helper process | Default | [Restored; coverage pending](tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md) |
+| [ ] | T03 | `qpWave` | Rank/ancestry-stream tests | Default | [Restored; coverage pending](tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md) |
+| [ ] | T04 | `qpDstat` | D/f4 statistics | Default | [Restored; coverage pending](tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md) |
+| [ ] | T05 | `qp3Pop` | Three-population statistics | Default | [Restored; coverage pending](tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md) |
+| [ ] | T06 | `qpF4ratio` | F4-ratio estimation | Default | [Restored; Linux bugs deferred](tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md) |
 | [ ] | T07 | `qp4diff` | Differences between four-population statistics | Default | Fixture |
 | [ ] | T08 | `qpGraph` | Admixture graph fitting | Default | Fixture |
 | [ ] | T09 | `qpreroot` | Graph rerooting, scripts and optional rendering | Default | Fixture |
@@ -437,6 +380,9 @@ Audit the oracle and test runner too: expected failures, missing cases/files, ti
 | [ ] | Q37 | `collect_t06_evidence.py` | `tests/windows/collect_t06_evidence.py`; source-checked evidence, raw differences and fresh tool-only coverage |
 | [ ] | Q38 | `verify_t06_corrections.py` | `tests/windows/verify_t06_corrections.py`; corrected matrices, independent oracles, original/pristine scientific differences, consumer and installed provenance |
 
+Q39: [`port_only_scope.py`](tests/windows/port_only_scope.py), pristine-reference
+builds and restoration cases; independent harness review pending.
+
 ## Hard-check procedure for each item
 
 1. **Freeze the evidence.** Record upstream commit, dirty-source hashes, actual
@@ -469,11 +415,14 @@ Audit the oracle and test runner too: expected failures, missing cases/files, ti
 7. **Classify every divergence.** Distinguish a Windows regression, existing
    upstream defect, dependency/platform difference, unsupported feature and
    harness defect. Keep raw failing input/output and a minimal reproducer.
-   Do not pass a Windows bug merely because Linux also has a bug; explicitly
-   track upstream defects and the compatibility consequences of any fix.
+   Fix additional Windows deviations. If the same defect occurs in pristine
+   Linux, record and defer it; preserving that behavior is the current scope.
+   Agreement with a separately repaired Linux build cannot close a pristine
+   compatibility difference.
 8. **Fix, regress and close.** Make the smallest guarded compatibility fix;
    preserve calculations, RNG order, defaults and terminal formatting. No new
-   optimizations. Re-run the reproducer, affected callers and relevant existing
+   optimizations or inherited Linux bug repairs. Re-run the reproducer, affected
+   callers and relevant existing
    parity cases. Attach the report before changing status. Residual gaps must be
    explicit; blockers/waivers are not a clean pass. Commit/push only if requested.
 
@@ -483,7 +432,21 @@ artifacts under ignored `validation-results/hard-check/<ID>/`. Only mark an item
 passed when the report's applicable checks and regression comparisons pass.
 Keep a completed-with-open-limitations state distinct from a clean pass.
 
-## Findings ledger
+## Current finding disposition
+
+Windows installation order (F001), native quoted/Unicode paths and manifest,
+owned Windows temporary handles, native helper execution and getopt/gzip
+presentation remain. Help text may describe inherited behavior accurately.
+Scientific, shared parser/validation, sampling/seed, X-counting, memory-safety,
+output-checking and runtime/option changes that corrected inherited Linux bugs
+are **deferred and removed from the active port**. The shared helper is now
+Windows-only; Unix retains its previous implementation.
+
+### Historical findings ledger
+
+The states below describe archived audit/repair revisions, not the restored
+source. Their corrections are superseded by the disposition above and the
+[restoration report](tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md). IDs and original evidence remain intact.
 
 | Finding | Item | State | Observation | Next action |
 | --- | --- | --- | --- | --- |

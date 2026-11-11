@@ -2,7 +2,6 @@
 #include <string.h>
 #include <unistd.h>
 #include <math.h>
-#include <limits.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -88,8 +87,6 @@ char *badsnpname = NULL;
 char *popfilename = NULL;
 char *outliername = NULL;
 char *snpdetailsname = NULL;
-/* One ordered details stream for all triples; direct dof3score calls own theirs. */
-FILE *snpdetailsfile = NULL;
 char *blockname = NULL;
 FILE *fff;
 
@@ -203,7 +200,6 @@ main (int argc, char **argv)
   printf ("## qp3Pop version: %s\n", WVERSION);
   if (parname == NULL)
     return 0;
-  SRAND((unsigned int)seed);
   setdump(coredump) ;
   if (xchrom == (numchrom + 1)) noxdata = NO;
   setjquart (pubjack, jackweight, jackquart);
@@ -217,7 +213,6 @@ main (int argc, char **argv)
     getsnps (snpname, &snpmarkers, 0.0, badsnpname, &nignore, numrisks);
 
   numindivs = getindivs (indivname, &indivmarkers);
-  inddupcheck(indivmarkers, numindivs);
   setindm (indivmarkers);
 
   if (popfilename != NULL) setgk(indivmarkers, numindivs, popfilename, NULL, NULL) ; 
@@ -250,7 +245,6 @@ main (int argc, char **argv)
     }
     nqlist =
       getnamesstripcolon (&qlist, nqlist, 3, popfilename, locount, hicount);
-    if (nqlist < 0) fatalx("malformed population triples in %s\n", popfilename);
     numeg = 0;
     printf ("number of triples %d\n", nqlist);
 
@@ -281,7 +275,6 @@ main (int argc, char **argv)
     return 1;
 
 
-  if (nplist > INT_MAX / 3) fatalx("too many population triples\n");
   ZALLOC (eglist, nplist * 3, char *);
   numeg = 0;
   for (trun = 0; trun < nplist; ++trun) {
@@ -309,15 +302,8 @@ main (int argc, char **argv)
   printf ("number of blocks for block jackknife: %d\n", nblocks);
   xnblocks = nblocks += 10 ; 
 
-  if (snpdetailsname != NULL) openit(snpdetailsname, &snpdetailsfile, "w");
   for (trun = 0; trun < nplist; ++trun) {
     dopop3 (plists[trun], xsnplist, ncols, nblocks);
-  }
-  if (snpdetailsfile != NULL) {
-    int failed = ferror(snpdetailsfile);
-    if (fclose(snpdetailsfile) != 0) failed = YES;
-    snpdetailsfile = NULL;
-    if (failed) fatalx("error writing SNP details: %s\n", snpdetailsname);
   }
 
   ymem = calcmem(1)/1.0e6 ;
@@ -446,6 +432,7 @@ readcommands (int argc, char **argv)
   int n, t;
 
   if (argc == 1) { usage(basename(argv[0]), 1); }
+
 #ifdef _WIN32
   while ((i = admix_getopt (argc, argv, "f:b:p:s:L:H:vVh")) != -1) {
 #else
@@ -479,12 +466,12 @@ readcommands (int argc, char **argv)
       break;
 
     case 'b':
-      fatalx("option -b is not supported by qp3Pop\n");
+      baseval = atof (optarg);
       break;
 
     case 'v':
       printf ("version: %s\n", WVERSION);
-      exit(0);
+      break;
 
     case 'V':
       verbose = YES;
@@ -547,23 +534,9 @@ readcommands (int argc, char **argv)
   getstring (ph, "blockname:", &blockname);
   getdbl (ph, "jackquart:", &jackquart);
 
-  if (!isfinite(blgsize) || blgsize <= 0)
-    fatalx("blgsize must be finite and positive\n");
-  if (numchrom < 1 || numchrom == INT_MAX) fatalx("invalid numchrom\n");
-  if (!isfinite(jackquart) || jackquart >= 0.5)
-    fatalx("jackquart must be finite and less than 0.5\n");
-
   printf ("### THE INPUT PARAMETERS\n");
   printf ("##PARAMETER NAME: VALUE\n");
   writepars (ph);
-  for (i = 0; i < ph->numpars; ++i)
-    if (!strcmp(ph->ppars[i], "gfromp:") || !strcmp(ph->ppars[i], "details:") ||
-        !strcmp(ph->ppars[i], "output:") || !strcmp(ph->ppars[i], "outputname:") ||
-        !strcmp(ph->ppars[i], "f3log:") || !strcmp(ph->ppars[i], "outpop:") ||
-        !strcmp(ph->ppars[i], "nostatslim:") || !strcmp(ph->ppars[i], "baseval:") ||
-        !strcmp(ph->ppars[i], "dumpname:") || !strcmp(ph->ppars[i], "loadname:"))
-      fatalx("parameter %s is not supported by qp3Pop\n", ph->ppars[i]);
-  closepars(ph);
 
 }
 
@@ -773,18 +746,15 @@ dof3score (double *f3score, double *f3scoresig, SNP ** xsnplist, int *xindex,
   double *w1, *w2, *ww, m1, m2;
   double weight ;
   int bnum, totnum;
-  FILE *fff = snpdetailsfile;
-  int own_details = NO, details_failed = NO, undefined_f3 = NO;
+  FILE *fff;
   double xn[3], xmean[3], xh[3];
   int ret ;  
 
   *f3score = 0;
   *f3scoresig = -1;
 
-  if (snpdetailsname != NULL && fff == NULL) {
+  if (snpdetailsname != NULL)
     openit (snpdetailsname, &fff, "w");
-    own_details = YES;
-  }
 
   if (nrows == 0)
     fatalx ("badbug\n");
@@ -821,6 +791,7 @@ dof3score (double *f3score, double *f3scoresig, SNP ** xsnplist, int *xindex,
 
 
   // printf("zzqqf3 %d %s %9.3f %9.3f :: %d\n", col, cupt -> ID, ytop, ybot, ret) ;
+    verbose = NO ;
 
 // -1 => no good, 0 => monomorphic 
     if (isnan (ytop)) fatalx ("zznan\n");
@@ -867,10 +838,8 @@ dof3score (double *f3score, double *f3scoresig, SNP ** xsnplist, int *xindex,
 
   }
 
-  if (totnum <= 1) {
-    totnum = -1;
-    goto cleanup;
-  }
+  if (totnum <= 1)
+    return -1;
 /**
    printf("totnum: %d ", totnum) ;
    printmat(wjack, 1, 10) ;
@@ -880,11 +849,6 @@ dof3score (double *f3score, double *f3scoresig, SNP ** xsnplist, int *xindex,
 
   gtop = asum (btop, nblocks);
   gbot = asum (bbot, nblocks);
-
-  if (!isfinite(gbot) || gbot <= 0) {
-    undefined_f3 = YES;
-    goto cleanup;
-  }
 
   *f3score = mean = gtop / gbot;
 
@@ -901,7 +865,6 @@ dof3score (double *f3score, double *f3scoresig, SNP ** xsnplist, int *xindex,
   *f3score = jest;
   *f3scoresig = jsig;
 
-cleanup:
   free (w1);
   free (w2);
   free (ww);
@@ -913,14 +876,8 @@ cleanup:
 
   free (btop);
   free (bbot);
-  if (snpdetailsname != NULL) {
-    details_failed = ferror(fff);
-    if (fflush(fff) != 0) details_failed = YES;
-    if (own_details && fclose(fff) != 0) details_failed = YES;
-    if (details_failed) fatalx("error writing SNP details: %s\n", snpdetailsname);
-  }
-  if (undefined_f3)
-    fatalx("undefined f3 denominator; use the applicable outgroupmode/inbreed settings\n");
+  if (snpdetailsname != NULL)
+    fclose (fff);
   return totnum;
 
 }
@@ -935,8 +892,7 @@ int usage (char *prog, int exval)
   (void)fprintf(stderr, "   -p <file>   ... use parameters from <file> .\n");
   (void)fprintf(stderr, "   -L <index>  ... locount -n popfilename.\n");
   (void)fprintf(stderr, "   -H <index>  ... hicount -n popfilename.\n");
-  (void)fprintf(stderr, "   -s <seed>   ... seed population subsampling.\n");
-  (void)fprintf(stderr, "   -v          ... print version and exit.\n");
+  (void)fprintf(stderr, "   -v          ... print version (continues normally).\n");
   (void)fprintf(stderr, "   -V          ... toggle verbose mode ON.\n");
 
   exit(exval);

@@ -1,5 +1,10 @@
 # T01 qpAdm: remaining-issue corrections
 
+Scope notice (11 November 2026): this is historical audit evidence.
+Inherited-bug repairs described here are not the current porting baseline.
+See [the project-wide restoration](PORT_ONLY_SCOPE_RESTORATION.md) for
+active sources, retained Windows adaptations and new reference results.
+
 This follow-up addresses the known issues retained by the initial T01 review,
 plus the separate F001 installation-order defect, at the user's request.
 The [initial report](T01_qpAdm.md) and its evidence remain historical records;

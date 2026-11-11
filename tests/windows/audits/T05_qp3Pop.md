@@ -1,5 +1,10 @@
 # T05 qp3Pop hard compatibility audit
 
+Scope notice (11 November 2026): this is historical audit evidence.
+Inherited-bug repairs described here are not the current porting baseline.
+See [the project-wide restoration](PORT_ONLY_SCOPE_RESTORATION.md) for
+active sources, retained Windows adaptations and new reference results.
+
 Status: **reviewed with open defects; not passed**, 10 November 2026.
 Historical review: the [11 November corrections](T05_qp3Pop.corrections.md)
 close all 14 recorded finding groups in their reproduced scopes. The original

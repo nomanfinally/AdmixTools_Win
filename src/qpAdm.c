@@ -85,8 +85,6 @@ int keeptmp = NO ;
 int oldmode = YES ;
 int newmode = -99 ;
 int positive_coeffs = NO ;
-/* Failure bound only: never substitute an incomplete/biased sample. */
-int maxreject = 1000000;
 
 int eigenanalysis = NO ;  
 
@@ -147,8 +145,10 @@ char *tmpdir = NULL ;
 
 int fancyf4 = YES;
 
+char *outputname = NULL;
 char *weightname = NULL;
 char *blockname = NULL;
+FILE *ofile;
 
 double **btop, **bbot, *gtop, *gbot;
 int bnblocks, bdim = 0;
@@ -333,17 +333,6 @@ main (int argc, char **argv)
   if (nleft<=0) fatalx("no pops in left!\n") ;
   if (nright<=0) fatalx("no pops in right!\n") ;
 
-  if (nleft < 2) fatalx("left must contain a target and at least one source\n");
-  if (nright < nleft)
-    fatalx ("nleft not less than or equal to nright\n");
-  if (nleft - 1 >= (int)(sizeof(int) * 8 - 1))
-    fatalx("too many sources for fixed-pattern indexing\n");
-  if (doratio && nleft < 3) fatalx("doratio requires at least two sources\n");
-  if (!isfinite(blgsize)) fatalx("blgsize must be finite\n");
-  if ((fstatsname != NULL || allsnps || doratio) && numboot < 2)
-    fatalx("numboot must be at least 2\n");
-  if (!oldmode && mctrials == 0) fatalx("mctrials must be positive or negative for the default\n");
-
   nr = nright - 1;
   nl = nleft - 1;
 
@@ -361,6 +350,9 @@ main (int argc, char **argv)
   if ((allsnps == YES) && (oldallsnpsmode == YES)) {
    printf("oldallsnpsmode deprecated!\n") ;
   }
+
+  if (outputname != NULL)
+    openit (outputname, &ofile, "w");
 
  if (fstatsname == NULL) { 
   numsnps =
@@ -450,6 +442,9 @@ main (int argc, char **argv)
   ivlmaxmin(popsize, numeg, NULL, &t) ; 
   if (popsize[t] == 0) fatalx("pop %s has zero samples!\n", eglist[t]) ;
 
+
+  if (nleft > nright)
+    fatalx ("nleft not less than or equal to nright\n");
 
   for (k = 0; k < nright; ++k) {
     j = indxindex (popllist, nleft, poprlist[k]);
@@ -628,7 +623,7 @@ main (int argc, char **argv)
   oascovar(yvar, yvar, effblocks, nl*nr) ;
  }
 
- if (diagonly) killoffdiag(yvar, nl*nr) ;
+ if (diagonly) killoffdiag(yvar, dd) ;
 
  retkode = checkmv(ymean, yvar, nl, nr) ; 
 
@@ -674,7 +669,7 @@ main (int argc, char **argv)
 
   for (x = rank; x <= maxrank; ++x) {
     f4pt = f4info[x];
-    f4pt->dofjack = effblocks;
+    f4pt->dofjack = y;
     doranktest (ymean, yvar, nl, nr, x, f4pt);
     if (x > 0) {
       f4pt2 = f4info[x - 1];
@@ -794,7 +789,6 @@ main (int argc, char **argv)
     fixit (zprint, ww, nl);
     printimatx(zprint, 1, nl);
     printf ("  ");
-    t = mktriang (ww, var, nl);
     if (longsummary) nlwidth = t ;
     if (nl == 3) nlwidth = t  ; 
     vst (ww, ww, 1.0e8, t);
@@ -825,8 +819,8 @@ main (int argc, char **argv)
   }
 
   t = mktriang (ww, var, nl);
-  nlwidth = 5 ;
   if (longsummary) nlwidth = t ;
+  nlwidth = 5 ;
   if (nl == 3) nlwidth = t  ; 
   vst (ww, ww, 1.0e6, t);
   fixitl (wkprint, ww, t);
@@ -834,10 +828,6 @@ main (int argc, char **argv)
   printnl ();
   
   if (nl == 1) { 
-   if (deletefstats) {
-    printf("removing %s\n", fstatsname);
-    remove(fstatsname);
-   }
    printf("single source. terminating\n") ; 
    printf("run qpDstat if you want Z scores for f4 stats\n") ;
    printf ("## end of run\n");
@@ -1113,13 +1103,14 @@ calcadmfix (double *ans, double *A, int n, int *vf)
   double *coeff, *rhs,  y, ytrace, *ctran, *prod, *fvals, *rr ;
   int t, baditer = 0, *vfix, nfix, k ;
 
-  if (n == 1) {
-    ans[0] = 1;
-    return;
-  }
   if (A == NULL) {
     vzero (ans, n);
     return;
+  }
+
+  if (n==1) { 
+   ans[0] = 1 ; 
+   return ; 
   }
   ZALLOC (coeff, n * n, double);
   ZALLOC (ctran, n * n, double);
@@ -1177,13 +1168,14 @@ calcadm (double *ans, double *A, int n)
   double *coeff, *rhs,  y, ytrace ;
   int t, baditer = 0 ;
 
-  if (n == 1) {
-    ans[0] = 1;
-    return;
-  }
   if (A == NULL) {
     vzero (ans, n);
     return;
+  }
+
+  if (n==1) { 
+   ans[0] = 1 ; 
+   return ; 
   }
   ZALLOC (coeff, n * n, double);
   ZALLOC (rhs, n, double);
@@ -1223,6 +1215,7 @@ readcommands (int argc, char **argv)
   int n;
 
   if (argc == 1) { usage(basename(argv[0]), 1); }
+
 #ifdef _WIN32
   while ((i = admix_getopt (argc, argv, "p:vVdh")) != -1) {
 #else
@@ -1241,7 +1234,7 @@ readcommands (int argc, char **argv)
 
     case 'v':
       printf ("version: %s\n", WVERSION);
-      exit(0);
+      break;
 
     case 'V':
       verbose = YES;
@@ -1276,12 +1269,8 @@ readcommands (int argc, char **argv)
   getstring (ph, "popright:", &popright);
   getstring (ph, "basepop:", &basepop);
 
-  for (i = 0; i < ph->numpars; ++i) {
-    if (!strcmp(ph->ppars[i], "output:") || !strcmp(ph->ppars[i], "outputname:"))
-      fatalx("parameter %s is not supported by qpAdm; redirect stdout or use Tee-Object to save results\n", ph->ppars[i]);
-    if (!strcmp(ph->ppars[i], "maxrank:"))
-      fatalx("parameter maxrank: is not supported by qpAdm; it fits the codimension-one and full ranks automatically\n");
-  }
+  getstring (ph, "output:", &outputname);
+  getstring (ph, "outputname:", &outputname);
   getstring (ph, "badsnpname:", &badsnpname);
   getstring (ph, "blockname:", &blockname);
   getstring (ph, "fstatsname:", &fstatsname);
@@ -1299,6 +1288,7 @@ readcommands (int argc, char **argv)
   getint (ph, "numchrom:", &numchrom);
   getint (ph, "lopos:", &lopos);
   getint (ph, "hipos:", &hipos);
+  getint (ph, "maxrank:", &maxrank);
   getint (ph, "hires:", &hires);
   getint (ph, "allsnps:", &allsnps);
   getint (ph, "inbreed:", &inbreed);
@@ -1315,8 +1305,6 @@ readcommands (int argc, char **argv)
   getint (ph, "oldmode:", &oldmode) ; 
   getint (ph, "newmode:", &newmode) ; 
   getint (ph, "positive_coeffs:", &positive_coeffs) ; 
-  getint (ph, "maxreject:", &maxreject);
-  if (maxreject <= 0) fatalx("maxreject must be positive\n");
   getdbl (ph, "diagplus:", &yscale);
   getdbl (ph, "diagvarplus:", &diagvarplus);
   getint (ph, "eigenanalysis:", &eigenanalysis);
@@ -1330,7 +1318,6 @@ readcommands (int argc, char **argv)
 printf ("### THE INPUT PARAMETERS\n");
 printf ("##PARAMETER NAME: VALUE\n");
 writepars (ph);
-closepars (ph);
 
 }
 
@@ -2041,7 +2028,7 @@ int usage (char *prog, int exval)
   (void)fprintf(stderr, "Usage: %s -p <file> [options]\n", prog);
   (void)fprintf(stderr, "   -h          ... Print this message and exit.\n");
   (void)fprintf(stderr, "   -p <file>   ... use parameters from <file> .\n");
-  (void)fprintf(stderr, "   -v          ... print version and exit.\n");
+  (void)fprintf(stderr, "   -v          ... print version (continues normally).\n");
   (void)fprintf(stderr, "   -V          ... toggle verbose mode ON.\n");
   (void)fprintf(stderr, "   -d          ... toggle details mode ON.\n");
 
@@ -2134,6 +2121,7 @@ void loadymv(double *ymean, double *yvar,  char *fstatsname, char **popllist, ch
 
 }
 
+#ifdef _WIN32
 int mkfstats(char *parname)
 {
   char **poplist, **popx, *path;
@@ -2143,14 +2131,128 @@ int mkfstats(char *parname)
   if (basepop != NULL) { poplist[0] = strdup(basepop); ++popx; ++npops; }
   copystrings(poprlist, popx, nright);
   copystrings(popllist, popx + nright, nleft);
-  path = qpfstats_helper(parname, poplist, npops, fstatsoutname, fstatslog, keeptmp, 0);
+  path = admix_qpfstats_helper(parname, poplist, npops, fstatsoutname, fstatslog, keeptmp, 0);
   freeup(poplist, npops);
   free(poplist);
   if (path == NULL) return -1;
   fstatsname = path;
-  deletefstats = !keeptmp;
+  deletefstats = YES;
   return 1;
 }
+#else
+int mkfstats(char *parname)  
+{
+ char sss[530] ; 
+ char fsx[256+10] ; 
+ char ppp[10000] ;
+ char pops[10000] ;
+ char tpar[10000] ;
+ char fslog[10000] ;
+ char **poplist, **popx ; 
+ int numeg ; 
+
+ int pid ; 
+ int k ; 
+
+ int retkode, trap ;
+
+ FILE *fff ; 
+
+ numeg = nleft + nright ; 
+ ZALLOC(poplist, numeg+1, char *) ; 
+
+ popx = poplist ; 
+
+ if (basepop != NULL) {  
+   poplist[0] = strdup(basepop) ;
+   ++popx ; 
+   ++numeg ;
+ }
+ 
+ copystrings(poprlist, popx, nright) ;
+ popx += nright ; 
+ copystrings(popllist, popx, nleft) ;
+
+ pid = getpid() ; 
+ strcpy(fsx, mytemp("fsx")) ; 
+ strcpy(ppp, mytemp("ppp")) ; 
+ strcpy(pops, mytemp("pops")) ; 
+ strcpy(tpar, mytemp("tpar")) ; 
+ strcpy(fslog, mytemp("fslog")) ; 
+ if (fstatslog != NULL) strcpy(fslog, fstatslog) ;
+
+/**
+ strcpy(pops, "tjunk") ; 
+ strcpy(ppp, "tppp") ; 
+*/
+
+ printf("tmp: %s\n", fsx) ;
+ fstatsname = strdup(fsx) ; 
+ deletefstats = YES ;  
+
+ openitntry(ppp, &fff, "w", 10) ; 
+ sprintf(sss, "cat %s", ppp) ;
+// system(sss) ;
+ sprintf(sss, "fgrep -v fstatsoutname: %s | fgrep -v poplistname: > %s", parname, tpar) ; 
+#ifdef _WIN32
+ if (admix_filter_fstats(parname, tpar)) fatalx("cannot prepare qpfstats parameters\n");
+#else
+ system(sss) ;
+#endif
+// printf("zz2 %s\n", sss) ; 
+ fflush(stdout) ; 
+ copyfs(tpar, fff) ; 
+ fprintf(fff, "fstatsoutname: " ADMIX_PARAMETER_PATH "\n", fsx) ;
+ writestrings(pops, poplist, numeg) ;
+ 
+ 
+// printf("cmd1: %s\n", sss) ; 
+ fprintf(fff, "poplistname: " ADMIX_PARAMETER_PATH "\n", pops) ;
+ fclose(fff) ; 
+
+ sprintf(sss, "qpfstats -p %s > %s", ppp, fslog) ; 
+#ifdef _WIN32
+ retkode = admix_run_qpfstats(ppp, fslog);
+ if (retkode != 0) retkode = -1;
+#else
+ retkode =  system(sss) ;
+#endif
+ trap = openit_trap(fsx, &fff, "r") ;
+#ifdef _WIN32
+ if (trap) fclose(fff);
+#else
+ fclose(fff) ;
+#endif
+ if (trap == NO) retkode = -88 ;
+//  printf("zz: %d\n", trap) ; 
+
+ 
+//  printf("exiting mkfstats\n") ; 
+ fflush(stdout) ;
+ if ((fstatsoutname != NULL) && (retkode >= 0)) { 
+  sprintf(sss, "cp %s %s", fsx, fstatsoutname) ; 
+#ifdef _WIN32
+  if (admix_copy_file(fsx, fstatsoutname)) fatalx("cannot copy qpfstats output\n");
+#else
+  system(sss) ;
+#endif
+  printf("fstats file: %s made\n", fstatsoutname) ;
+ } 
+ if (retkode < 0) return -1 ;
+ freeup(poplist, nleft + nright + 1) ;
+
+ if (keeptmp == YES) return 1  ; 
+
+ remove(ppp) ;
+ remove(pops) ;
+ remove(tpar) ; 
+
+ if (fstatslog == NULL) remove(fslog) ;
+ return 1 ; 
+
+}
+#endif
+
 
 double f4mean(int a, int b, int nl, int nr, double *mean, double *var, int *ktable)  
 
@@ -2248,7 +2350,7 @@ writemv(char *mvname, admix_long *kmean, admix_long *kvar, int n)
 
  printlmatwfile(kmean, 1, n, n, fff) ;
  printlmatwfile(kvar, n, n, n, fff) ;
- closeit_write(fff, mvname);
+ fclose(fff) ;
 }
 
 void setr1mat(int **r1mat, int al, int ar) 
@@ -2415,14 +2517,10 @@ void mcest(double *qcoeffs, double *qvar,
     int fsize, numc, t ; 
     double *yaprob, *yphi, *yweight, *yyweight ;
     int iter ;  
-    uint64_t numneg = 0;
-    int rejected;
+    int numneg = 0, numtrial = 0 ; 
 
 
-    if (nl < 2 || nr < 1 || mctrials < 1 || mctrials > INT_MAX / nl)
-      fatalx("invalid or excessive Bayesian sample dimensions\n");
-    if (maxreject <= 0) fatalx("maxreject must be positive\n");
-    fsize = nl*nr ;
+    fsize = nl*nr ;        
 
     r1mat = initarray_2Dint(nr, fsize, -1) ;
     x1mat = initarray_2Ddouble(nr, fsize, -1) ;
@@ -2455,8 +2553,8 @@ void mcest(double *qcoeffs, double *qvar,
    for (iter = 0; iter < mctrials; ++iter) { 
     verbose = NO ;
     ww = mzrvec + iter * nl ; 
-    rejected = 0;
     for (;;) { 
+     ++numtrial ; 
      genmultgauss(ww, 1, nl-1, mzvar) ; 
      vvp(ww, ww, coeffs, nl-1) ;  // add mean 
      yy = 1.0 - asum(ww, nl-1) ; 
@@ -2464,8 +2562,6 @@ void mcest(double *qcoeffs, double *qvar,
      vmaxmin(ww, nl,  NULL, &y) ; 
      if ((positive_coeffs == NO) || (y >= 0)) break ;
      ++numneg ;
-     if (++rejected >= maxreject)
-       fatalx("positive_coeffs: no accepted draw after %d rejected proposals for sample %d; check model fit or increase maxreject (no Bayesian estimate produced)\n", maxreject, iter + 1);
     } 
     yaprob[iter] = ylike = -0.5*scx(mzvar, NULL, ww, nl-1) ;
     
@@ -2511,7 +2607,7 @@ void mcest(double *qcoeffs, double *qvar,
    }
 
    if (positive_coeffs) { 
-    printf("(mcest): number of negative coeff trials: %" PRIu64 "\n", numneg) ;
+    printf("(mcest): number of negative coeff trials: %d\n", numneg) ;
    } 
 
    free(mz) ; 

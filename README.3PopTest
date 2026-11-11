@@ -37,24 +37,6 @@ happen in "outgroup f_3" mode.  In this case set:
 outgroupmode: YES
 when the f-3 denominator is set to an arbitrary .001
 
-outgroupmode does not bypass the target heterozygosity check. For an inbred
-or pseudo-diploid target without heterozygotes, also set inbreed: YES.
-inbreed_override: YES bypasses that check only when the user has established
-that the ordinary diploid correction is applicable. A zero normalized
-denominator is rejected; no automatic change to outgroupmode is made.
-
-On X (chromosome numchrom+1), individuals declared F are diploid. M and U
-retain the haploid convention: heterozygous calls are excluded and homozygous
-calls contribute one allele. U is not inferred to mean female. Supply correct
-sex labels before requesting X data; inbreed does not infer sex or change
-this ploidy convention.
-
-snpdetailsname (or -f) writes the existing per-SNP fields for every triple,
-in popfilename order, to one file. No additional headers separate triples.
-Write and close failures are fatal. Ordinary results remain on stdout;
-output, outputname, f3log and inactive legacy controls are rejected rather
-than silently ignored. Use shell redirection to save terminal results.
-
 
 
 

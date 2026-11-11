@@ -6,8 +6,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <libgen.h>
-#include <limits.h>
-#include <stdint.h>
 
 #include <nicklib.h>
 #include <getpars.h>
@@ -181,7 +179,6 @@ void load4(int *x, int a, int b, int c, int d)  ;
 void loadco(double *co, int *fs, int *fsb, int np) ;
 void  setinbreedlist(char **eglist, int numeg, char **inbreedlist, int numinbreed) ;
 void setinb(int *inbarr) ;  
-static void checkdimensions(int np);
 
 int
 main (int argc, char **argv)
@@ -282,11 +279,8 @@ main (int argc, char **argv)
     getsnps (snpname, &snpmarkers, 0.0, badsnpname, &nignore, numrisks);
 
   numindivs = getindivs (indivname, &indivmarkers);
-  inddupcheck(indivmarkers, numindivs);
 
-  if (poplistname == NULL) fatalx("qpfstats requires poplistname\n");
-
-   setgk(indivmarkers, numindivs, poplistname, NULL, NULL) ;
+   setgk(indivmarkers, numindivs, poplistname, NULL, NULL) ; 
 
    gkignore(indivmarkers, numindivs) ;
 
@@ -294,9 +288,8 @@ main (int argc, char **argv)
 		numsnps, numindivs, nignore);
 
   if (poplistname != NULL) {
-    t = numlines (poplistname);
-    ZALLOC (eglist, t, char *);
-    numeg = loadlist_capacity (eglist, poplistname, t);
+    ZALLOC (eglist, numindivs, char *);
+    numeg = loadlist (eglist, poplistname);
     seteglist (indivmarkers, numindivs, poplistname);
   }
 
@@ -306,7 +299,6 @@ main (int argc, char **argv)
     numeg = makeeglist (eglist, MAXPOPS, indivmarkers, numindivs);
   }
 
-  checkdimensions(numeg);
   ZALLOC(inbarr, numeg, int) ;
 
 
@@ -318,7 +310,7 @@ main (int argc, char **argv)
   else {                  
    t = numlines(inbreedlistname) ;
    ZALLOC(inbreedlist, t, char *) ; 
-   numinbreed = loadlist_capacity(inbreedlist, inbreedlistname, t) ;
+   numinbreed = loadlist(inbreedlist, inbreedlistname) ;
    setinbreedlist(eglist, numeg, inbreedlist, numinbreed) ;
    printf("inbreedlist set!\n") ; 
   }
@@ -446,12 +438,6 @@ main (int argc, char **argv)
   printf("valid snps: %d\n", n1) ; 
   if (n1==0) fatalx("no valid snps!\n") ;
 
-  /* Subsample before building any analysis index or estimating SNP weights.
-   * Seed zero retains glibc's implicit default state (equivalent to seed 1). */
-  SRAND((unsigned int) seed);
-  if (popsizelimit > 0)
-    setplimit(indivmarkers, numindivs, eglist, numeg, popsizelimit);
-
   ZALLOC (xindex, numindivs, int);
   ZALLOC (xindlist, numindivs, Indiv *);
   nrows = loadindx (xindlist, xindex, indivmarkers, numindivs);
@@ -519,6 +505,10 @@ main (int argc, char **argv)
   printf ("number of blocks for block jackknife: %d\n", nblocks);
 
   ZALLOC (xsnplist, numsnps, SNP *);
+
+  if (popsizelimit > 0) {
+    setplimit (indivmarkers, numindivs, eglist, numeg, popsizelimit);
+  }
 
   ZALLOC (popsizes, numeg, int);
   cntpops (popsizes, indivmarkers, numindivs, eglist, numeg);
@@ -597,7 +587,7 @@ main (int argc, char **argv)
     vst (f2sig, f2sig, lambdascale / scale, ng2);
   }
 
-  if (!isfinite(lambdascale)) fatalx("scaling bug!\n") ;
+  if (isnan(lambdascale)) fatalx("scaling bug!\n") ;
   printf ("lambdascale: %9.3f\n", lambdascale);
 
   printf("statistics multiplied by 1000\n") ;
@@ -991,11 +981,6 @@ readcommands (int argc, char **argv)
       lambdascale = atof (optarg);
       break;
 
-    case 'g':
-    case 'o':
-    case 'x':
-      fatalx("option -%c is not supported by qpfstats; use its parameter file\n", i);
-
     case 'v':
       printf ("version: %s\n", WVERSION);
       break;
@@ -1066,39 +1051,12 @@ readcommands (int argc, char **argv)
   getint (ph, "doscale:", &doscale);
   getint (ph, "sizeweight:", &sizeweight);
   getint (ph, "coredump:", &coredump);
-  if (!isfinite(blgsize) || blgsize <= 0)
-    fatalx("blgsize must be finite and positive\n");
   
 
   printf ("### THE INPUT PARAMETERS\n");
   printf ("##PARAMETER NAME: VALUE\n");
   writepars (ph);
-  for (i = 0; i < ph->numpars; ++i)
-    if (qpfstats_inactive_parameter(ph->ppars[i]))
-      fatalx("parameter %s is not supported by qpfstats\n", ph->ppars[i]);
-  closepars (ph);
 
-}
-
-/* The shared matrix/index APIs use int lengths on LP64 and LLP64 alike.
- * Check all products before allocating the quartic table. This changes no
- * statistic enumeration, matrix layout or calculation order for valid sizes. */
-static void checkdimensions(int np)
-{
-  int i;
-  int64_t power = 1, count, basiscount;
-  if (np < 2) fatalx("qpfstats requires at least two populations\n");
-  for (i = 0; i < 4; ++i) {
-    if (power > INT_MAX / np)
-      fatalx("too many populations for qpfstats integer dimensions: %d\n", np);
-    power *= np;
-  }
-  basiscount = (int64_t) np * (np - 1) / 2;
-  /* f2 + three f3 per triple + three f4 per quartet. */
-  count = basiscount + (int64_t) np * (np - 1) * (np - 2) / 2
-        + (int64_t) np * (np - 1) * (np - 2) * (np - 3) / 8;
-  if (count * basiscount > INT_MAX)
-    fatalx("too many populations for qpfstats coefficient dimensions: %d\n", np);
 }
 
 void
@@ -1472,17 +1430,17 @@ checkpd (double *a, int n)
 int usage (char *prog, int exval)
 {
 
-  (void)fprintf(stderr, "Usage: %s [options]\n", prog);
+  (void)fprintf(stderr, "Usage: %s [options] <file>\n", prog);
   (void)fprintf(stderr, "   -h          ... Print this message and exit.\n");
+  (void)fprintf(stderr, "   -b <val>    ... use <va> as base value.\n");
   (void)fprintf(stderr, "   -p <file>   ... use parameters from <file> .\n");
+  (void)fprintf(stderr, "   -g <>   ... .\n");
   (void)fprintf(stderr, "   -s <val>   ... use <val> as seed.\n");
+  (void)fprintf(stderr, "   -o <>   ... .\n");
   (void)fprintf(stderr, "   -l <val>    ... use <val> as lambda scale.\n");
-  (void)fprintf(stderr, "   -v          ... print version and continue.\n");
+  (void)fprintf(stderr, "   -v          ... print version (continues normally).\n");
   (void)fprintf(stderr, "   -V          ... toggle verbose mode ON.\n");
-  (void)fprintf(stderr, "   -g/-o/-x are unsupported legacy switches.\n");
-  (void)fprintf(stderr, "   Legacy parameter keys doanalysis, quartet, fstdmode, useweights,\n");
-  (void)fprintf(stderr, "   diag, minvar, nostatslim, f3log, root and output are unsupported.\n");
-  (void)fprintf(stderr, "   Use fstatsoutname for statistics and shell redirection for stdout.\n");
+  (void)fprintf(stderr, "   -x          ... toggle doAnalysis ON.\n");
 
   exit(exval);
 };

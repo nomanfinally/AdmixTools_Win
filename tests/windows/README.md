@@ -1,5 +1,26 @@
 # Reproducing Linux/Windows comparisons
 
+The current baseline is [port-only restoration](audits/PORT_ONLY_SCOPE_RESTORATION.md).
+Use `parity.py`, `compatibility.py`, `script_helpers.py` and the new
+`port_only_scope.py` for its recorded checks. For example:
+
+```powershell
+python tests/windows/port_only_scope.py --bin bin --output validation-results/port-only-new
+python tests/windows/port_only_scope.py --compare validation-results/pristine-new validation-results/port-only-new
+```
+
+Run the same cases against a fresh pinned Linux build. Comparison output retains
+all differences and must be reviewed; it does not silently accept mismatches.
+`--build-linux NEW_ROOT` under WSL creates isolated pristine and current-port
+builds, recording its build commands and the qpfit declaration-only exception.
+
+Earlier audit `--verify` scripts, corrective probes, statistical oracles and
+repair build commands below describe historical corrected-source experiments.
+They can require removed APIs or assert intentionally changed upstream behavior;
+do not run or count them as the current compatibility contract. Their source and
+evidence are preserved for deferred upstream work, not part of the native build.
+
+
 The [T01 qpAdm hard-check report](audits/T01_qpAdm.md) and its machine-readable
 evidence record expand the original fixtures to qpAdm modes, all six genotype
 formats, gzip, qpfstats, Windows paths/encoding, malformed inputs and sanitizer

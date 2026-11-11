@@ -1,5 +1,10 @@
 # T02 qpfstats: corrections to retained upstream defects
 
+Scope notice (11 November 2026): this is historical audit evidence.
+Inherited-bug repairs described here are not the current porting baseline.
+See [the project-wide restoration](PORT_ONLY_SCOPE_RESTORATION.md) for
+active sources, retained Windows adaptations and new reference results.
+
 Status: **passed with limitations**, 10 November 2026. Findings F034, F035,
 F039, F040 and F041 are corrected following the request to fix the defects
 retained in the initial review. F042, a duplicate-name diagnostic defect found

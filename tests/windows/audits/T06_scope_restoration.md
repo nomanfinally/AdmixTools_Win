@@ -1,5 +1,10 @@
 # T06 compatibility-only scope
 
+Scope notice (11 November 2026): this is historical audit evidence.
+Inherited-bug repairs described here are not the current porting baseline.
+See [the project-wide restoration](PORT_ONLY_SCOPE_RESTORATION.md) for
+active sources, retained Windows adaptations and new reference results.
+
 Current scope, clarified by the user on 11 November 2026: **address Windows
 porting differences; record and defer inherited Linux bugs**. Matching Linux
 behavior takes precedence over repairing its statistical or interface defects

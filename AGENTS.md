@@ -29,6 +29,18 @@
 - First deliver a direct, analogous port of the full suite. Defer new algorithms,
   optimizations, SIMD, parallelism, data formats, unified dispatchers, and changed
   statistical defaults until the compatibility baseline is validated.
+- This stage fixes Windows porting differences only. If a defect also occurs in
+  the pristine, pinned Linux version, record it as an inherited upstream issue
+  and defer its repair. Preserve inherited scientific results, CLI quirks,
+  parameter acceptance, defaults and exit behavior; a bug audit is not permission
+  to correct Linux behavior during this phase.
+- Presentation improvements may clarify help, documentation and Windows path or
+  OS diagnostics. Do not change runtime behavior to make it agree with help text,
+  and do not alter scientific result wording, ordering or precision.
+- Earlier upstream-bug repairs must be tracked separately from compatibility
+  work. Do not describe them as porting fixes or use their successful tests to
+  claim parity with unmodified Linux. Preserve their evidence and existing user
+  work when separating them from the compatibility baseline.
 - Other ports may inform the analysis of Windows APIs and build issues. Do not
   adopt their repository restructuring, optimizations, or claims of parity.
   Check licensing and preserve required attribution before reusing any code.
@@ -53,6 +65,10 @@
 - Compare a pristine, pinned Linux build and the Windows build on identical
   inputs, parameter files, fixed seeds, and controlled dependency/thread settings.
   Record compiler, flags, architecture, GSL/BLAS versions, and reference commit.
+- The pristine Linux build is the compatibility oracle. A separately repaired
+  Linux build may diagnose a finding, but agreement with it does not establish
+  compatibility with upstream. Record inherited failures without treating their
+  correction as a requirement for a Windows porting pass.
 - Compare scientific numbers and generated data, help/version text, stdout,
   stderr, and exit status. Test binary genotype round trips, memory mapping,
   random-dependent analyses, helper subprocesses, paths with spaces, and large

@@ -1,0 +1,3663 @@
+{
+  "date": "2026-11-11",
+  "working_head": "eaca8d9d1ba3bb974b98c5e1d740a63a937fa20e",
+  "uncommitted": true,
+  "scope": "Windows porting and presentation only; inherited Linux bug repairs removed",
+  "upstream_commit": "67bc219174a109951a9434e0a383ec464fb140ee",
+  "preaudit_port": "a8e87433a8e63008d0163314e84802538219d5c4",
+  "before_backup": "validation-results/port-only-restoration/before",
+  "restoration": {
+    "head": "eaca8d9d1ba3bb974b98c5e1d740a63a937fa20e",
+    "preaudit_port": "a8e87433a8e63008d0163314e84802538219d5c4",
+    "restored_or_guarded": [
+      "src/egsubs.c",
+      "src/egsubs.h",
+      "src/geno.c",
+      "src/geno.h",
+      "src/mapfile.c",
+      "src/mcio.c",
+      "src/nicksrc/getpars.c",
+      "src/nicksrc/sortit.c",
+      "src/nicksrc/strsubs.c",
+      "src/nicksrc/strsubs.h",
+      "src/nicksrc/xsearch.c",
+      "src/qp3Pop.c",
+      "src/qpAdm.c",
+      "src/qpDpart.c",
+      "src/qpDstat.c",
+      "src/qpF4ratio.c",
+      "src/qpGraph.c",
+      "src/qpWave.c",
+      "src/qpfit.c",
+      "src/qpfstats.c",
+      "src/qpmix.c",
+      "src/qpsubs.c",
+      "src/qpsubs.h",
+      "src/regsubs.c"
+    ],
+    "retained_windows_files": [
+      "src/build_windows.py",
+      "src/win32/admixtools.manifest",
+      "src/win32/admixtools.rc",
+      "src/win32/compat.c",
+      "src/win32/compat.h"
+    ],
+    "before_sha256": {
+      "src/build_windows.py": "54c93c40ab2593fb2f719905eead726207fbf2680f9f396016c63a29c6c98693",
+      "src/egsubs.c": "d65d279ccd86897723e7551dc64883f0cc0ba002cf56022b094b50482e9d3920",
+      "src/egsubs.h": "d6da94290717a7fe398aeac7960612a205ff4bc57233421a6b498c00ecd42bf6",
+      "src/geno.c": "f2e60a0a400a81ae6da55516be76a2cb04bf5fc57001e74ca3f355f8e0286457",
+      "src/geno.h": "bf865d770e915e59ed9a1281640c1a5d3e9b26e098c869cf32a67fc07ab00405",
+      "src/mapfile.c": "33c375527be3fabb80fcb1e55db8f3b69af1b27e002e4e8547aee87835c5af95",
+      "src/mcio.c": "376de15769c170b83a86b4224c3f4045d1d32b6a7555b001c2e5efc97907be0f",
+      "src/nicksrc/getpars.c": "f2b580a60e65897f89f6d1e7a654b03d932fcc6277e284674df7528ab4ef05c4",
+      "src/nicksrc/sortit.c": "6d332a8494a00230e0c780c964bb8c4f4b513eeca7578e95132d4657054a5361",
+      "src/nicksrc/strsubs.c": "9b79f5f5bc0fb0fd4497a350cb67ad8e36d5c24dcb4bf11871a6bd0513e4c995",
+      "src/nicksrc/strsubs.h": "b4336452b3eff477da172c814eaf7ff670851f0d82952fe32c3ba2ecd3c19867",
+      "src/nicksrc/xsearch.c": "57b5f826a51845993555af355ea85baecf0cd8f2e08634df3036d340e861f6ed",
+      "src/qp3Pop.c": "991e3c4c1d0449f793a94ed4a4398fcfe1dd230f953a1ff427ca780acd57a834",
+      "src/qpAdm.c": "4d5ba76dbf53e0a75071ce70de8923f30faae5d07414b7d47c8978c0fd5abc87",
+      "src/qpDpart.c": "029e77df957d38077c7cad734cfc7e5fe8e6e7fd251746164673abe69b5b00de",
+      "src/qpDstat.c": "1b2f1eecfcd7e9ae7c0f7566a5eeb9cbfa70db790b9ea0af4d899b1e03c570fc",
+      "src/qpF4ratio.c": "6cc422d09bc06877f184bda5f92d43cb02cfe3a65aa1e7eb78e8a6637ee1dadb",
+      "src/qpGraph.c": "698605d8131086de3e0ce671af47c21b37f93ae1f7c645f7bcdaacbb61481f8e",
+      "src/qpWave.c": "f91a3019da1351e64efaef85b3381841b9ac94e59e1f065f0e041c33edaa2d71",
+      "src/qpfit.c": "0597e930cabdd6d46aa46387a4cb11099900d0c4e78562e8d781475f8a8ff48c",
+      "src/qpfstats.c": "7d7672ae40e3e1a469405a9408f1f0c9ad92b64b08c57629677458ee8eb649ce",
+      "src/qpmix.c": "5b19989c23f8662121ecc5f1859d3c8861512aeeffc7692ebdae047eb759adca",
+      "src/qpsubs.c": "6e828b42817b6c9966ee4a4db06d087aa04258a77c49d892ce84c2bda271fd1a",
+      "src/qpsubs.h": "f5899ffd4c726060f65e789b1742133fc309ddcf36cb2376d4b141f43488faf8",
+      "src/regsubs.c": "af0e8151117e5e1d5dc3d57c6a87a241ca905df3cfe24d144c0d03f2f50b75f7",
+      "src/win32/admixtools.manifest": "43469be415f51c4ae3c728519ae1565d8a539c026ac15d5aef6aa862054690e0",
+      "src/win32/admixtools.rc": "1b06b2348be96c9b7e2aa57eeb09338c5750d81e8c6b4c28c96c3092f67df094",
+      "src/win32/compat.c": "947e0b3025918efc4363e8362f9af9f9daa0d81e14ed2b11845b08a8acebc69a",
+      "src/win32/compat.h": "97e89303abad8f12ee3d17153bbdcaf4047dd2381ca496e8deafc2b252f8fad6"
+    }
+  },
+  "exact_pre_audit_files": [
+    "src/egsubs.c",
+    "src/egsubs.h",
+    "src/geno.h",
+    "src/mapfile.c",
+    "src/nicksrc/sortit.c",
+    "src/nicksrc/strsubs.h",
+    "src/nicksrc/xsearch.c",
+    "src/qpDpart.c",
+    "src/qpmix.c",
+    "src/qpsubs.c",
+    "src/qpsubs.h",
+    "src/regsubs.c"
+  ],
+  "exact_pre_audit_main_functions": [
+    "src/qpAdm.c",
+    "src/qpfstats.c",
+    "src/qpWave.c",
+    "src/qpDstat.c",
+    "src/qp3Pop.c",
+    "src/qpF4ratio.c",
+    "src/qpfit.c",
+    "src/qpGraph.c"
+  ],
+  "changed_since_pre_audit": [
+    "src/build_windows.py",
+    "src/geno.c",
+    "src/mcio.c",
+    "src/nicksrc/getpars.c",
+    "src/nicksrc/strsubs.c",
+    "src/qp3Pop.c",
+    "src/qpAdm.c",
+    "src/qpDstat.c",
+    "src/qpF4ratio.c",
+    "src/qpGraph.c",
+    "src/qpWave.c",
+    "src/qpfit.c",
+    "src/qpfstats.c",
+    "src/win32/admixtools.manifest",
+    "src/win32/admixtools.rc",
+    "src/win32/compat.c",
+    "src/win32/compat.h"
+  ],
+  "matrices": {
+    "windows-final": {
+      "upstream": "67bc219174a109951a9434e0a383ec464fb140ee",
+      "binary_dir": "C:\\work\\AdmixTools_Win\\bin",
+      "platform": "win32",
+      "environment": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_CORETYPE": "NEHALEM",
+        "LC_ALL": "C",
+        "STMP": "tmp"
+      },
+      "executables": {
+        "qpAdm": "83901eabce23ba182a0fb6a860500d623772189eef2ed7bfe747350d957c3f8b",
+        "qpfstats": "7386081cc8c3d4c87ce3eb7ff2e824ba605442e2cb0bad246a55888c52465b35",
+        "qpWave": "c586b6508f8ec19965dbd3301a217fafb32cfb27f2e1237a5f7a75b2e1fa9246",
+        "qpDstat": "0cdbc8b5650eb356b661a57d0ab7d85585601df51d1aed2ac6c4fea6833c325f",
+        "qp3Pop": "4f58a5d5b6742f54339e03743d3e99fed7160b4694b0ee29e9e00d3e952d6de3",
+        "qpF4ratio": "ad1b2616821b041f5510e3638763364cd62be7e746603929e94c33c48b44e498",
+        "qpfit": "337eeb51944fd792c0e178c03ba0552c76aee28f250fa81aaa5d965c8021178c"
+      },
+      "cases": {
+        "qpAdm-ordinary": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-limited-77": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-limited-123": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-inactive-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "ignored.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "qpAdm-partial-number": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-duplicate-ids": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-x-mixed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-cli-v": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "files": {}
+        },
+        "qpAdm-cli-h": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "files": {}
+        },
+        "qpAdm-cli-invalid": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-?"
+          ],
+          "files": {}
+        },
+        "qpfstats-ordinary": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        },
+        "qpfstats-limited-77": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        },
+        "qpfstats-limited-123": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        },
+        "qpfstats-inactive-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        },
+        "qpfstats-partial-number": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        },
+        "qpfstats-duplicate-ids": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        },
+        "qpfstats-x-mixed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "edccb8f3162e0afc5262864b3a71b45213c995f39c4a814a46a0b454f08f0f06"
+          }
+        },
+        "qpfstats-cli-v": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "files": {}
+        },
+        "qpfstats-cli-h": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "files": {}
+        },
+        "qpfstats-cli-invalid": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-?"
+          ],
+          "files": {}
+        },
+        "qpWave-ordinary": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-limited-77": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-limited-123": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-inactive-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "ignored.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "qpWave-partial-number": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-duplicate-ids": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-x-mixed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-cli-v": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "files": {}
+        },
+        "qpWave-cli-h": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "files": {}
+        },
+        "qpWave-cli-invalid": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-?"
+          ],
+          "files": {}
+        },
+        "qpDstat-ordinary": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpDstat-limited-77": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpDstat-limited-123": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpDstat-inactive-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "ignored.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "qpDstat-partial-number": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpDstat-duplicate-ids": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpDstat-x-mixed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpDstat-cli-v": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "files": {}
+        },
+        "qpDstat-cli-h": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "files": {}
+        },
+        "qpDstat-cli-invalid": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-?"
+          ],
+          "files": {}
+        },
+        "qp3Pop-ordinary": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-limited-77": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-limited-123": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-inactive-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-partial-number": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-duplicate-ids": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-x-mixed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-cli-v": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "files": {}
+        },
+        "qp3Pop-cli-h": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "files": {}
+        },
+        "qp3Pop-cli-invalid": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-?"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-ordinary": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-limited-77": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-limited-123": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-inactive-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "ignored.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "qpF4ratio-partial-number": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-duplicate-ids": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-x-mixed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-cli-v": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-cli-h": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-cli-invalid": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-?"
+          ],
+          "files": {}
+        },
+        "qpAdm-maxrank": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-no-sampler-cap": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpfit-early-exit": {
+          "returncode": 3221226505,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-auto": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-auto": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-gzip": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-gzip": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-win-unicode": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-win-unicode-auto": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-win-long-temp": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-win-bom": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-win-crlf": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        }
+      },
+      "completed": true,
+      "raw_directory": "validation-results\\port-only-restoration\\windows-final",
+      "stream_sha256": {
+        "qp3Pop-cli-h.stderr": "6d500a3159e8ff7c0df1838c9a12b4607524a3645e42cd0d369ccc1754cc8920",
+        "qp3Pop-cli-h.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-cli-invalid.stderr": "f5fc75cb5ef3fae0dc943b08108c711b44c29d5737b6859b5ee56d71a4015db3",
+        "qp3Pop-cli-invalid.stdout": "14d4dfe0feaae23e331ee5ab2a9fe15ddab899e88604440b8d55ba592a7dc30a",
+        "qp3Pop-cli-v.stderr": "68acc4db667bdabd9415fab012f11ddcb5c304a9ee8a4764de4b0c7a6d7d286d",
+        "qp3Pop-cli-v.stdout": "e0b1c71c3768fe6fe3404979cf6201348e9c179807a0a788d296b8f355289333",
+        "qp3Pop-duplicate-ids.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-duplicate-ids.stdout": "0d1b2a0eea8740a57bd4fad26e44b4b5a4713c2b3645f16c6844cffdfb7e004b",
+        "qp3Pop-gzip.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-gzip.stdout": "f1ce8eb988020de2daa828fbe79c484de394094a596174d1d60921f8b06e55b4",
+        "qp3Pop-inactive-output.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-inactive-output.stdout": "41118793d7efb14cb8736709c5b260eeab4433005eaf933d5b18cc00be19311c",
+        "qp3Pop-limited-123.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-limited-123.stdout": "d4d5ccaff58d145f016f90f7c71bb1ed9e56710e93b8e32f611e45f8a16b548f",
+        "qp3Pop-limited-77.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-limited-77.stdout": "c903ec1ff4562dbcdc9923c148a1267b15ba23aa0997e200aa983c75db2fd7c4",
+        "qp3Pop-ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-ordinary.stdout": "a1babd0e6816b3c0c9d8c368e67ef90cee9a8a515fc65e602ac8ff78346600e3",
+        "qp3Pop-partial-number.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-partial-number.stdout": "758b55a94cb972620eb1e76298c83490acb6b432e3712717e7492948bfe30ab6",
+        "qp3Pop-x-mixed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-x-mixed.stdout": "323993d11e56265d5f51877baf495d9f8922fd125ab70d3d49de5b5046b557c7",
+        "qpAdm-auto.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-auto.stdout": "3e4b71bec35e87314081657cd45a6fc0a5c5bf5d358bdc721180947bc211fce8",
+        "qpAdm-cli-h.stderr": "9161d44ee7b237c25970c3cdeb0ce423a35a7a98ddb333f671e0a7b608e0560a",
+        "qpAdm-cli-h.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-cli-invalid.stderr": "6b9410f4ca3ff976844a400fa6bf8d6b51393fa217cb98cdcdefd462fdae080e",
+        "qpAdm-cli-invalid.stdout": "14d4dfe0feaae23e331ee5ab2a9fe15ddab899e88604440b8d55ba592a7dc30a",
+        "qpAdm-cli-v.stderr": "68acc4db667bdabd9415fab012f11ddcb5c304a9ee8a4764de4b0c7a6d7d286d",
+        "qpAdm-cli-v.stdout": "cdc8585f302739bac5f344f9a5407594bc6f18980ab0a0c2d3c9ac2f06b5cf2c",
+        "qpAdm-duplicate-ids.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-duplicate-ids.stdout": "137a0858712fe8d4e17ae824857d7a09232b3e9d368f32dac4351c9999cdb972",
+        "qpAdm-gzip.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-gzip.stdout": "efac42e45478724301ff47e531e68ebb3ff624fd91047b8dc46f3ea94b03c625",
+        "qpAdm-inactive-output.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-inactive-output.stdout": "ca5ca869fdb8efd2465acd5d0a7f69ae8176ac37f920b1eb2cdf8e0cb0f66045",
+        "qpAdm-limited-123.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-limited-123.stdout": "82af075cc254f13814bcb51dd4f27d6f9dc13c0aaa0c96cd3998cef127b0ef34",
+        "qpAdm-limited-77.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-limited-77.stdout": "e7cca828c04f2dda625e58a409b39e9d93faea085bca493163d5dd798173724e",
+        "qpAdm-maxrank.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-maxrank.stdout": "61982798e6a4297a868515802a7120aec6e1af57b4261b9000bbdeba37581cf5",
+        "qpAdm-no-sampler-cap.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-no-sampler-cap.stdout": "aabfdd7bb6c00d1c4866f72f758fb68dd708d8864c229e8fd274f894f55b1ff6",
+        "qpAdm-ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-ordinary.stdout": "7c90eb7cc8eb31874f3c1a94e2caa9a773e1f8383d4468e9ebe564a5cbfe1214",
+        "qpAdm-partial-number.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-partial-number.stdout": "e4e26cf4d251ab2f76cd7eecf036b24d92534b75d6c2280ccbfce4f3e824fcf9",
+        "qpAdm-win-bom.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-win-bom.stdout": "1befa2f4582fbbd17367ab6c86ff2fda0d757a37a0d700fa3fe6da52d93073ec",
+        "qpAdm-win-crlf.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-win-crlf.stdout": "0993a0d4a20a33bbf4ea986b214e8826b4bd2ef8f7aca4b681dfeed80a415abf",
+        "qpAdm-win-long-temp.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-win-long-temp.stdout": "e01e336c5ed2092a259ffed1933eeb04671928bab789f0d9c730ce1f941c1873",
+        "qpAdm-win-unicode-auto.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-win-unicode-auto.stdout": "0a4a801c5d9a79e16cb2133f5dd59b3ab807684bd32fb6cde7478563cacfe993",
+        "qpAdm-win-unicode.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-win-unicode.stdout": "58a54977acffa1445a13ccae05bdabc1f9f7435f18c5a430d8c8f7304809faa2",
+        "qpAdm-x-mixed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-x-mixed.stdout": "4c5030150bb341514c20b4ef1187d38f86f88ec90da926e47d327a93b3c0a367",
+        "qpDstat-cli-h.stderr": "87b6d47a2e1887b93d3d6376aae15c4dec564911d9b065904583a0c2bf686ea8",
+        "qpDstat-cli-h.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-cli-invalid.stderr": "d93d1a18dac0be4939dba9763f7115be19ede15743de0c9276faaf72d8929f10",
+        "qpDstat-cli-invalid.stdout": "14d4dfe0feaae23e331ee5ab2a9fe15ddab899e88604440b8d55ba592a7dc30a",
+        "qpDstat-cli-v.stderr": "68acc4db667bdabd9415fab012f11ddcb5c304a9ee8a4764de4b0c7a6d7d286d",
+        "qpDstat-cli-v.stdout": "d84aae782c09bcd70d08d766870af68c19255a4e323175ba924619b629530e19",
+        "qpDstat-duplicate-ids.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-duplicate-ids.stdout": "6e57893b541dfc81c94f3b723ae393ca66f64a81888e54fd960671e29e76dc4c",
+        "qpDstat-inactive-output.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-inactive-output.stdout": "73ca19e6bf45d462d1c3bb1c66b07d797268d26c8b9323ff1ab3317c44b6a8f8",
+        "qpDstat-limited-123.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-limited-123.stdout": "114c277c0cc48132505cccc0f7360afaf8bd557c16e23d341f2ae7154a6d5d7a",
+        "qpDstat-limited-77.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-limited-77.stdout": "67b7bb4a66fbef0a7f0216954e5d4bb2b117c8b83cd046539382d80d4b9def1f",
+        "qpDstat-ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-ordinary.stdout": "fadf5c6ca6bab9aee3eb00d322da9ee5de797d7e1c762d25b98be61f40707e25",
+        "qpDstat-partial-number.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-partial-number.stdout": "7dc644c37cbf2e42975610ae0ab38959a39a136b88b139440244c323881c2093",
+        "qpDstat-x-mixed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-x-mixed.stdout": "7162c8705e5b219db512b38602b2d5d628310a2f294073087a2f8232789850c3",
+        "qpF4ratio-cli-h.stderr": "a8f44f7d72ead509475e5be08ebf76af6a1447b0eb2c0622d9ce5fc62d1d8139",
+        "qpF4ratio-cli-h.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-cli-invalid.stderr": "ff8a0d31bbe7435e637f8e3233cc1b37caf9c0a1728718e470a14b8e4d960403",
+        "qpF4ratio-cli-invalid.stdout": "14d4dfe0feaae23e331ee5ab2a9fe15ddab899e88604440b8d55ba592a7dc30a",
+        "qpF4ratio-cli-v.stderr": "68acc4db667bdabd9415fab012f11ddcb5c304a9ee8a4764de4b0c7a6d7d286d",
+        "qpF4ratio-cli-v.stdout": "f888a94a81dbc7aa95842911e80d2eaf7c415388463f0b075fa2c84edcab6195",
+        "qpF4ratio-duplicate-ids.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-duplicate-ids.stdout": "cae709d0c2dbf5004ec04107f2c1c80ef5a21636a3037edce92d75b20a7691ba",
+        "qpF4ratio-inactive-output.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-inactive-output.stdout": "a0024933b1eb03a8ace22774390c156e4871a60b06902489537a422f7098df92",
+        "qpF4ratio-limited-123.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-limited-123.stdout": "85f212eddd0dfee3d3c2eba2f5d45fa324dbb53316b0bcc3c67381fee443bbdd",
+        "qpF4ratio-limited-77.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-limited-77.stdout": "3ca877bd3f386f036276f66385acd09e33c5a8e558e5c31317613529a15e6e06",
+        "qpF4ratio-ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-ordinary.stdout": "cae709d0c2dbf5004ec04107f2c1c80ef5a21636a3037edce92d75b20a7691ba",
+        "qpF4ratio-partial-number.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-partial-number.stdout": "2312f001419d5ff50d855344fa01b5bacb92377697e2dc6940ce069f3cc84343",
+        "qpF4ratio-x-mixed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-x-mixed.stdout": "4953e4bcba520a71b9e019ee11db966760e0110eb4844df49cb2099aa805d6bb",
+        "qpfit-early-exit.stderr": "223c7bb3d35da8abe78feb808092b6e7912cdb13fb1884c0fb06d0d05a097141",
+        "qpfit-early-exit.stdout": "db43e329ec1f1f4dfe8512eb47cc05e0ad4a04447ef9d594b1080e1256937db9",
+        "qpfstats-cli-h.stderr": "bcc5bc4ee38d8c82507fa259d285bb9d4399a631e97e950d7fa4e6b7c16b357f",
+        "qpfstats-cli-h.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-cli-invalid.stderr": "8e6d5c47c318fbc56eac172b59a37e34f0f4aca69d9c5a663a73b8dbd2f71eb7",
+        "qpfstats-cli-invalid.stdout": "14d4dfe0feaae23e331ee5ab2a9fe15ddab899e88604440b8d55ba592a7dc30a",
+        "qpfstats-cli-v.stderr": "68acc4db667bdabd9415fab012f11ddcb5c304a9ee8a4764de4b0c7a6d7d286d",
+        "qpfstats-cli-v.stdout": "8e7531db9d2d715c33e094e103c08affa04b4ea0e1d2d22a7b2b9b8deda4dda4",
+        "qpfstats-duplicate-ids.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-duplicate-ids.stdout": "e3f7b3eed789f3bf832d44dedae4bcc2b84ab4b210c1a3da42656d48b95454ae",
+        "qpfstats-inactive-output.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-inactive-output.stdout": "cc4fa785faea5f1822f43e760e09378a7e3d807bea13c37130379dd30098d89f",
+        "qpfstats-limited-123.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-limited-123.stdout": "d18e4f4c5403ecd8fbd99c34a1e3da716482619c9bc73b449a7367d8a7f5f1d5",
+        "qpfstats-limited-77.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-limited-77.stdout": "6073cc900283cade523e39b82cf6158eed16e7e54f9746ad80ee5e3be7bcf3ca",
+        "qpfstats-ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-ordinary.stdout": "19a69e5e1ddfef269322f45fa864fb0981c6257de6f0e07077d32f558dcbbea4",
+        "qpfstats-partial-number.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-partial-number.stdout": "5fc3a9153e865a468a946f2b2f1155903e18be8e89a98abb31eab3af2583ce66",
+        "qpfstats-x-mixed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-x-mixed.stdout": "ddcb531f62577f07efcabcd1833bfe5aeecbf687cc74618f60fc2be463dddc0d",
+        "qpWave-auto.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-auto.stdout": "051fdf5302f36114e15496e7bc5e6d5d900041a24de75c5cdc141f8a5194a987",
+        "qpWave-cli-h.stderr": "ffad18a6269aeea9bb5606f0f8bc517e9ef9081d01bbda9956b1fa5b98d056da",
+        "qpWave-cli-h.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-cli-invalid.stderr": "319107d935797f5f256906ba25d43ca767b0b5381347e306e5df10a2d2ea5f29",
+        "qpWave-cli-invalid.stdout": "14d4dfe0feaae23e331ee5ab2a9fe15ddab899e88604440b8d55ba592a7dc30a",
+        "qpWave-cli-v.stderr": "68acc4db667bdabd9415fab012f11ddcb5c304a9ee8a4764de4b0c7a6d7d286d",
+        "qpWave-cli-v.stdout": "a5e62ce0a58c93a913e12234f2b819ff5061f02e169a940872015a47e626b6c8",
+        "qpWave-duplicate-ids.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-duplicate-ids.stdout": "f0cdcc33457b96795ba7009561785fa759f007c77afbb76d01fc7ced76316862",
+        "qpWave-inactive-output.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-inactive-output.stdout": "6709b20639c5f1da626f31948bf0f8680cec3ca6addf60e6dafb8716fce6a55a",
+        "qpWave-limited-123.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-limited-123.stdout": "231c0b1f03d382268097db1143a378b3af4b13435e6d8327bb6dd3570212dc68",
+        "qpWave-limited-77.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-limited-77.stdout": "e5e4c393e8cf9c4991bb0cbe6b4ca850f893d4f655745a66ad6b36680380f7f2",
+        "qpWave-ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-ordinary.stdout": "b6be924fc3a26ed046b5c8485907d9b827c9bf8a2be34aa8de87af44e6975bbe",
+        "qpWave-partial-number.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-partial-number.stdout": "2ae92396c2b1f82893ca0d1d77268497e8b2c3acc31fabb5521f26408c589b29",
+        "qpWave-x-mixed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-x-mixed.stdout": "931671b209d71040866040dac33214c4a21978f691ee6be97924a2c4c3cd685b"
+      }
+    },
+    "pristine-final": {
+      "upstream": "67bc219174a109951a9434e0a383ec464fb140ee",
+      "binary_dir": "/home/user/admixtools-port-only-20261111-v2/pristine/src",
+      "platform": "linux",
+      "environment": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_CORETYPE": "NEHALEM",
+        "LC_ALL": "C",
+        "STMP": "tmp"
+      },
+      "executables": {
+        "qpAdm": "151659e36b85502267aa442eaa58a1c97000b4915df507693d015b9986675c5b",
+        "qpfstats": "23be04147f06117d6253050c65f564d289767cbeedf020d5c13507659a89016e",
+        "qpWave": "080d3f1105df0fa7d4385157822de12c93214a07e87b96e4f85599a2a2f659e2",
+        "qpDstat": "015e3841decf8a3a82979343f08dbb8c0b6ffc3e0ffe6cce8166fb0b98ea5b4d",
+        "qp3Pop": "a87647b09c02454e5e885702d26a377eb6c57560e1268a56fd958f57c349947e",
+        "qpF4ratio": "dd6d643d6f441165bc7d4926e657919e31cf11780eab4459dd55efc0cfdd5d3d",
+        "qpfit": "f3b2730e3753f7f4a99b168026b3675be4f5c9c085b67ba64447ed01a4831487"
+      },
+      "cases": {
+        "qpAdm-ordinary": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-limited-77": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-limited-123": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-inactive-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "ignored.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "qpAdm-partial-number": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-duplicate-ids": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-x-mixed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-cli-v": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "files": {}
+        },
+        "qpAdm-cli-h": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "files": {}
+        },
+        "qpAdm-cli-invalid": {
+          "returncode": -6,
+          "arguments": [
+            "-?"
+          ],
+          "files": {}
+        },
+        "qpfstats-ordinary": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        },
+        "qpfstats-limited-77": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        },
+        "qpfstats-limited-123": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        },
+        "qpfstats-inactive-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        },
+        "qpfstats-partial-number": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        },
+        "qpfstats-duplicate-ids": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        },
+        "qpfstats-x-mixed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "edccb8f3162e0afc5262864b3a71b45213c995f39c4a814a46a0b454f08f0f06"
+          }
+        },
+        "qpfstats-cli-v": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "files": {}
+        },
+        "qpfstats-cli-h": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "files": {}
+        },
+        "qpfstats-cli-invalid": {
+          "returncode": -6,
+          "arguments": [
+            "-?"
+          ],
+          "files": {}
+        },
+        "qpWave-ordinary": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-limited-77": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-limited-123": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-inactive-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "ignored.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "qpWave-partial-number": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-duplicate-ids": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-x-mixed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-cli-v": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "files": {}
+        },
+        "qpWave-cli-h": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "files": {}
+        },
+        "qpWave-cli-invalid": {
+          "returncode": -6,
+          "arguments": [
+            "-?"
+          ],
+          "files": {}
+        },
+        "qpDstat-ordinary": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpDstat-limited-77": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpDstat-limited-123": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpDstat-inactive-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "ignored.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "qpDstat-partial-number": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpDstat-duplicate-ids": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpDstat-x-mixed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpDstat-cli-v": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "files": {}
+        },
+        "qpDstat-cli-h": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "files": {}
+        },
+        "qpDstat-cli-invalid": {
+          "returncode": -6,
+          "arguments": [
+            "-?"
+          ],
+          "files": {}
+        },
+        "qp3Pop-ordinary": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-limited-77": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-limited-123": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-inactive-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-partial-number": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-duplicate-ids": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-x-mixed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-cli-v": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "files": {}
+        },
+        "qp3Pop-cli-h": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "files": {}
+        },
+        "qp3Pop-cli-invalid": {
+          "returncode": -6,
+          "arguments": [
+            "-?"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-ordinary": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-limited-77": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-limited-123": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-inactive-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "ignored.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "qpF4ratio-partial-number": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-duplicate-ids": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-x-mixed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-cli-v": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-cli-h": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-cli-invalid": {
+          "returncode": -6,
+          "arguments": [
+            "-?"
+          ],
+          "files": {}
+        },
+        "qpAdm-maxrank": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-no-sampler-cap": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpfit-early-exit": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-auto": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-auto": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-gzip": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-gzip": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        }
+      },
+      "completed": true,
+      "raw_directory": "validation-results\\port-only-restoration\\pristine-final",
+      "stream_sha256": {
+        "qp3Pop-cli-h.stderr": "cf0c80991fbca825b94ed0c8dc4cf8f8ea1143ec1e8355c681fc7981a46ef67c",
+        "qp3Pop-cli-h.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-cli-invalid.stderr": "5fcdce97a917eaaa6ade6391b13b80fdba5fca9dfe027016d49f0670262ba111",
+        "qp3Pop-cli-invalid.stdout": "14d4dfe0feaae23e331ee5ab2a9fe15ddab899e88604440b8d55ba592a7dc30a",
+        "qp3Pop-cli-v.stderr": "68acc4db667bdabd9415fab012f11ddcb5c304a9ee8a4764de4b0c7a6d7d286d",
+        "qp3Pop-cli-v.stdout": "6fd9dd00934434d9a56d8b55dd0133bb5e10c5c1ad89c827caabb6d11633fc6e",
+        "qp3Pop-duplicate-ids.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-duplicate-ids.stdout": "9dd4455dd2a011185a8d6b17031b2ae808af382e3cc6d7c9adeb1c025806a07b",
+        "qp3Pop-gzip.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-gzip.stdout": "b6993d4cdc3f85a9a6bb2c4314fbd070dcd8a26900a6b9b65043d317edbc6dc8",
+        "qp3Pop-inactive-output.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-inactive-output.stdout": "3dfb79049ff63db0e29c193989a4d61e557931212ebfcff6fc385fdbdf9b0684",
+        "qp3Pop-limited-123.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-limited-123.stdout": "a3b51cdf4a5b570669fcfafb16cb9a1dafb76cd215130f450e699e0c231d0134",
+        "qp3Pop-limited-77.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-limited-77.stdout": "4cc3a52e6a1d5b2ec50d260a5cade12fca93c56ffefbd32cc91574513c1797b4",
+        "qp3Pop-ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-ordinary.stdout": "5f073fcdfce267a8531665d619d3dd2a4fc7cc33290d71fed2cfa7c45087856a",
+        "qp3Pop-partial-number.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-partial-number.stdout": "b05dbb97ff721c9d2da52ba49234aea689d0e63c4b3ebc9f48cb149d4a09745a",
+        "qp3Pop-x-mixed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-x-mixed.stdout": "473af5aa3ee468943befe6994d26682a7c3bb0ff0a9a2b69242db13f96d5edde",
+        "qpAdm-auto.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-auto.stdout": "7a58b847e3a92998ac04fb0a3073255c6266a898a2850498516e933a9f6f8239",
+        "qpAdm-cli-h.stderr": "fe30b68c2d4e6fa7f254d38c5bfb934004ecbcf6f98540510ff7bfd641a38118",
+        "qpAdm-cli-h.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-cli-invalid.stderr": "be5864ec740866826dc17b17eb3b66b05d5411890ff92a8fd579c93c4bf4051a",
+        "qpAdm-cli-invalid.stdout": "14d4dfe0feaae23e331ee5ab2a9fe15ddab899e88604440b8d55ba592a7dc30a",
+        "qpAdm-cli-v.stderr": "68acc4db667bdabd9415fab012f11ddcb5c304a9ee8a4764de4b0c7a6d7d286d",
+        "qpAdm-cli-v.stdout": "3bfd396f86575b8e51cf2a4b5d192b1cbfc3bd317f5a350ca1246792bdbc3b20",
+        "qpAdm-duplicate-ids.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-duplicate-ids.stdout": "2a9cabf4a07923f18fff61c3c899a68c090189088981f17177ca55f54ffd7bd1",
+        "qpAdm-gzip.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-gzip.stdout": "aa0d2faa00d17d81aa619c791f954e17e416f85b02d809c7741ba3d8b798bf13",
+        "qpAdm-inactive-output.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-inactive-output.stdout": "07460018f390e5ff1fd0276e7a25ec4a7478593ef2bcc3611ccce778d980e825",
+        "qpAdm-limited-123.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-limited-123.stdout": "0497a055c842951adbf6cb6a35da829d0268c5a7befcb55012756e3831fadaa7",
+        "qpAdm-limited-77.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-limited-77.stdout": "be8d2d19d51c3bc999e9512c70fed4c085f537e3009e84ce6a7b10e2084d705a",
+        "qpAdm-maxrank.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-maxrank.stdout": "af588d2525ee1cb0b7308776e18a89c710fc8c1f61f962a847649d7c5c8cd7c7",
+        "qpAdm-no-sampler-cap.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-no-sampler-cap.stdout": "1abc759f4b833ea28c434359e4d4102dc73f37e62d9284eec442487dd8c008f2",
+        "qpAdm-ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-ordinary.stdout": "b796907a546279bf512dc0a3512387f6768888223503ac2adc3a795761821eb0",
+        "qpAdm-partial-number.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-partial-number.stdout": "f38e2a06098a5bd60a1a37f41ab0bc69855637025192967c351759779de98ac1",
+        "qpAdm-x-mixed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-x-mixed.stdout": "26742e31e923fe2ce352a0f4eeee7e5ade03331bceb68666237491fb56a90742",
+        "qpDstat-cli-h.stderr": "659686561af8af5377a97f1c8c9a8e7a9ce59b8d7d2846f15337a2a5445028c0",
+        "qpDstat-cli-h.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-cli-invalid.stderr": "5c82f1e448e455a57c1b4f01aa10302766676dd597dcb33c3788831e405bef16",
+        "qpDstat-cli-invalid.stdout": "14d4dfe0feaae23e331ee5ab2a9fe15ddab899e88604440b8d55ba592a7dc30a",
+        "qpDstat-cli-v.stderr": "68acc4db667bdabd9415fab012f11ddcb5c304a9ee8a4764de4b0c7a6d7d286d",
+        "qpDstat-cli-v.stdout": "76e76f0d75fb8c617b94cf0b2685c8f38cfecdaa8425419879ec42ae103cc29d",
+        "qpDstat-duplicate-ids.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-duplicate-ids.stdout": "f671fd1700d8ae727f5982e6bed6e29348df5deea76e81a921afe4d562d1063a",
+        "qpDstat-inactive-output.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-inactive-output.stdout": "74ef229ade208e034f225c4b79504b12bb94f609e837c91458d473689cc110ff",
+        "qpDstat-limited-123.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-limited-123.stdout": "c22721391c8f2a7f115b553de59670f36bb3a21daf35e01d1e368c2e8b3066bf",
+        "qpDstat-limited-77.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-limited-77.stdout": "f1027c35e7a9e36306a23f1634b37ad7d69865d87e5ae923a8e7d8ce12aa4c1d",
+        "qpDstat-ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-ordinary.stdout": "09e9a67bc3ea038549528ffa459d5bc281a932e00b10525751f6e2175b6db15e",
+        "qpDstat-partial-number.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-partial-number.stdout": "7e423abcb36629b68702259f7b5201679a421a24068bc1569ce0046099d1b023",
+        "qpDstat-x-mixed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-x-mixed.stdout": "28f3cc308af71060252389bfb758770cfe48a28c1200580cdee8fd62b9e20dd9",
+        "qpF4ratio-cli-h.stderr": "4c829bf1b048d3972ed3afea2dbbc01591a5abea9c5e399edddd505f4f93c8be",
+        "qpF4ratio-cli-h.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-cli-invalid.stderr": "ba3970bc6703ee3fa077838e3da1bf28aec74a750dbb371696b7bb3725297eaf",
+        "qpF4ratio-cli-invalid.stdout": "14d4dfe0feaae23e331ee5ab2a9fe15ddab899e88604440b8d55ba592a7dc30a",
+        "qpF4ratio-cli-v.stderr": "68acc4db667bdabd9415fab012f11ddcb5c304a9ee8a4764de4b0c7a6d7d286d",
+        "qpF4ratio-cli-v.stdout": "087e805f9a49f2fc031ab4dda6a08e244662cd136763fc0c142bd60c96e51b47",
+        "qpF4ratio-duplicate-ids.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-duplicate-ids.stdout": "0c528a4c2dad368c0649ab198f5e0e3c5d8d73f021bf0b28dc798d7423ebd306",
+        "qpF4ratio-inactive-output.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-inactive-output.stdout": "4d2b38f691a860f831cf80999b63dd41f8335cd14bcff5d6f8c02767744a6326",
+        "qpF4ratio-limited-123.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-limited-123.stdout": "e4c38efd087b74e411697b07b0d28419999b82f93d00e3ec62530892fe43e318",
+        "qpF4ratio-limited-77.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-limited-77.stdout": "cf0ee539abc17b8713e524811bab7a5309981555b72143363915e324e6873a8a",
+        "qpF4ratio-ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-ordinary.stdout": "0c528a4c2dad368c0649ab198f5e0e3c5d8d73f021bf0b28dc798d7423ebd306",
+        "qpF4ratio-partial-number.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-partial-number.stdout": "86cb3cc42d334709a846d66c342c7e74608319b39cc3aceb23a7551073f99de3",
+        "qpF4ratio-x-mixed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-x-mixed.stdout": "15fdbdede52ddc5374ca17e1b2373c932ae42b9361eb526789a639a7bfb8a8cb",
+        "qpfit-early-exit.stderr": "223c7bb3d35da8abe78feb808092b6e7912cdb13fb1884c0fb06d0d05a097141",
+        "qpfit-early-exit.stdout": "e4a44d9151e4220201d3d623404183c0c413ecaad8e82b7b045650b4f625be43",
+        "qpfstats-cli-h.stderr": "24b549f197c8f183652a2cc636a2ce7736d69d7b126fb6af6e6c2fe371b63cf8",
+        "qpfstats-cli-h.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-cli-invalid.stderr": "33d40b1e194bc0d132cbb32a5a52757c795985d89bd3042666b251956978299e",
+        "qpfstats-cli-invalid.stdout": "14d4dfe0feaae23e331ee5ab2a9fe15ddab899e88604440b8d55ba592a7dc30a",
+        "qpfstats-cli-v.stderr": "68acc4db667bdabd9415fab012f11ddcb5c304a9ee8a4764de4b0c7a6d7d286d",
+        "qpfstats-cli-v.stdout": "c4f4fafdc59d544c0f194e18cb58e489666d8bf68e4b403b2638b5ed816fc7f2",
+        "qpfstats-duplicate-ids.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-duplicate-ids.stdout": "700915fcf9f269f9405b8e6dcd0316978195083da75cf997b8ecde164f000f59",
+        "qpfstats-inactive-output.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-inactive-output.stdout": "93722226bba070e60264346179f8e49605a6005a3e991ba42d869a78b7ad2876",
+        "qpfstats-limited-123.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-limited-123.stdout": "2aa0ba9b7484bf9e851a70a0e71dd98cc134418563907b9b2dd0969205425a94",
+        "qpfstats-limited-77.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-limited-77.stdout": "7661fcfbb0638bc25455373b1d172272ee8d3df7e6d9287b508d26c3b946c7c4",
+        "qpfstats-ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-ordinary.stdout": "fef8c9405f57bad4e50c575fe037a407a6936e23b7ab065d9bd54bf6de5076b9",
+        "qpfstats-partial-number.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-partial-number.stdout": "adf382418eb8e274cade4c05c47ebaaf768796c753e2b132cf443575ea578f26",
+        "qpfstats-x-mixed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-x-mixed.stdout": "0f34f6105147f0334051ee7ec7a774fc986905efac83627422d1ecc3acb32f05",
+        "qpWave-auto.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-auto.stdout": "9350d88803af76516d224b798b3e0d6207ea94f5fe6a8676d28045fecda4d716",
+        "qpWave-cli-h.stderr": "14923d061b0537838a9f7328a284dc1ac2ffa86eb1678b41e0d585122e66025f",
+        "qpWave-cli-h.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-cli-invalid.stderr": "98c77a1ef0048c2fd6992a95aff86d1769ef5c6b191f93e94a14581785638482",
+        "qpWave-cli-invalid.stdout": "14d4dfe0feaae23e331ee5ab2a9fe15ddab899e88604440b8d55ba592a7dc30a",
+        "qpWave-cli-v.stderr": "68acc4db667bdabd9415fab012f11ddcb5c304a9ee8a4764de4b0c7a6d7d286d",
+        "qpWave-cli-v.stdout": "161edfb445eaca78e1ccfd3ad9f5daaf18620a62ec38748cebd3451d1d6286f8",
+        "qpWave-duplicate-ids.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-duplicate-ids.stdout": "7f686ff1d2b14df1612200cc50be19a4477b30d94655f23aa03d6320448c7d29",
+        "qpWave-inactive-output.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-inactive-output.stdout": "5708ff0afb4b42610f577db19fd63357d8414b2b44425667c3e86af70fd09aed",
+        "qpWave-limited-123.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-limited-123.stdout": "7da4caccfaa49041f4410ccab013bf2672a795aca0605dd95220cf5ed40fa0a6",
+        "qpWave-limited-77.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-limited-77.stdout": "732879cf398608299d59522d806c33d2929f65872e173066a42b110f0fd6b69e",
+        "qpWave-ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-ordinary.stdout": "eb47621d24de2915200c4b8b3082c36beb98b1a000571440c3d21b8d49652669",
+        "qpWave-partial-number.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-partial-number.stdout": "3ddcecf86467811978bb34baafe50756b8c92b2995329024e9181fbba344de18",
+        "qpWave-x-mixed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-x-mixed.stdout": "f9b07e801799e872e01e2da5855abf59cffa270b8e78ef528a8fb72e0d484ba3"
+      }
+    },
+    "port-linux-final": {
+      "upstream": "67bc219174a109951a9434e0a383ec464fb140ee",
+      "binary_dir": "/home/user/admixtools-port-only-20261111-v2/port/src",
+      "platform": "linux",
+      "environment": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_CORETYPE": "NEHALEM",
+        "LC_ALL": "C",
+        "STMP": "tmp"
+      },
+      "executables": {
+        "qpAdm": "0aa7c50bfb9ef569220ed46dd1488754d1b2dff6ab405d790edf873f1aac4530",
+        "qpfstats": "f4369157df4913b373b5ac48d2f71518a5223c70c5897981231249a8d6d8b75b",
+        "qpWave": "77870c54eb49d91003cd709f26c5547f07a121a35ef9b8d73b1e4fd1418306e8",
+        "qpDstat": "4b93cd51069e80cf5e8009d1af589eccc993571419f9453a8d9d4d84c7ef8d2a",
+        "qp3Pop": "2525a301bed9f9a449aee4df09f649e42b899e7a530d442166d17a4b97932189",
+        "qpF4ratio": "f5db73f6a5ccdec62b1a997af0877d536d68c7748931f47fb968d9e2399e9ecd",
+        "qpfit": "bd009dffe09c1b5e858f3a9631f2eae5433181fcc575880364c002d2d0052965"
+      },
+      "cases": {
+        "qpAdm-ordinary": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-limited-77": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-limited-123": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-inactive-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "ignored.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "qpAdm-partial-number": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-duplicate-ids": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-x-mixed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-cli-v": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "files": {}
+        },
+        "qpAdm-cli-h": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "files": {}
+        },
+        "qpAdm-cli-invalid": {
+          "returncode": -6,
+          "arguments": [
+            "-?"
+          ],
+          "files": {}
+        },
+        "qpfstats-ordinary": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        },
+        "qpfstats-limited-77": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        },
+        "qpfstats-limited-123": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        },
+        "qpfstats-inactive-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        },
+        "qpfstats-partial-number": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        },
+        "qpfstats-duplicate-ids": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        },
+        "qpfstats-x-mixed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "edccb8f3162e0afc5262864b3a71b45213c995f39c4a814a46a0b454f08f0f06"
+          }
+        },
+        "qpfstats-cli-v": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "files": {}
+        },
+        "qpfstats-cli-h": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "files": {}
+        },
+        "qpfstats-cli-invalid": {
+          "returncode": -6,
+          "arguments": [
+            "-?"
+          ],
+          "files": {}
+        },
+        "qpWave-ordinary": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-limited-77": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-limited-123": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-inactive-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "ignored.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "qpWave-partial-number": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-duplicate-ids": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-x-mixed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-cli-v": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "files": {}
+        },
+        "qpWave-cli-h": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "files": {}
+        },
+        "qpWave-cli-invalid": {
+          "returncode": -6,
+          "arguments": [
+            "-?"
+          ],
+          "files": {}
+        },
+        "qpDstat-ordinary": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpDstat-limited-77": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpDstat-limited-123": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpDstat-inactive-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "ignored.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "qpDstat-partial-number": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpDstat-duplicate-ids": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpDstat-x-mixed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpDstat-cli-v": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "files": {}
+        },
+        "qpDstat-cli-h": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "files": {}
+        },
+        "qpDstat-cli-invalid": {
+          "returncode": -6,
+          "arguments": [
+            "-?"
+          ],
+          "files": {}
+        },
+        "qp3Pop-ordinary": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-limited-77": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-limited-123": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-inactive-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-partial-number": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-duplicate-ids": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-x-mixed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-cli-v": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "files": {}
+        },
+        "qp3Pop-cli-h": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "files": {}
+        },
+        "qp3Pop-cli-invalid": {
+          "returncode": -6,
+          "arguments": [
+            "-?"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-ordinary": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-limited-77": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-limited-123": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-inactive-output": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "ignored.out": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        },
+        "qpF4ratio-partial-number": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-duplicate-ids": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-x-mixed": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-cli-v": {
+          "returncode": 0,
+          "arguments": [
+            "-v"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-cli-h": {
+          "returncode": 0,
+          "arguments": [
+            "-h"
+          ],
+          "files": {}
+        },
+        "qpF4ratio-cli-invalid": {
+          "returncode": -6,
+          "arguments": [
+            "-?"
+          ],
+          "files": {}
+        },
+        "qpAdm-maxrank": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-no-sampler-cap": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpfit-early-exit": {
+          "returncode": -6,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-auto": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpWave-auto": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-gzip": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qp3Pop-gzip": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        }
+      },
+      "completed": true,
+      "raw_directory": "validation-results\\port-only-restoration\\port-linux-final",
+      "stream_sha256": {
+        "qp3Pop-cli-h.stderr": "88aea6033e5c84da40382b6624ac4eb88ac1894e9a83ba53c5046aa87683629f",
+        "qp3Pop-cli-h.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-cli-invalid.stderr": "5fcdce97a917eaaa6ade6391b13b80fdba5fca9dfe027016d49f0670262ba111",
+        "qp3Pop-cli-invalid.stdout": "14d4dfe0feaae23e331ee5ab2a9fe15ddab899e88604440b8d55ba592a7dc30a",
+        "qp3Pop-cli-v.stderr": "68acc4db667bdabd9415fab012f11ddcb5c304a9ee8a4764de4b0c7a6d7d286d",
+        "qp3Pop-cli-v.stdout": "6fd9dd00934434d9a56d8b55dd0133bb5e10c5c1ad89c827caabb6d11633fc6e",
+        "qp3Pop-duplicate-ids.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-duplicate-ids.stdout": "9dd4455dd2a011185a8d6b17031b2ae808af382e3cc6d7c9adeb1c025806a07b",
+        "qp3Pop-gzip.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-gzip.stdout": "6f9068023c35d14c3846502350a3c311f6a3c8900cff473d2b9694181226b053",
+        "qp3Pop-inactive-output.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-inactive-output.stdout": "ae1fb3e7daabd293e86a0964cc23c632488e00869b2ad7a81454fa964502f9b8",
+        "qp3Pop-limited-123.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-limited-123.stdout": "1027128399a05dad384a745a603ab43afa6f287077ce1c20584f5671395b88f2",
+        "qp3Pop-limited-77.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-limited-77.stdout": "f5a17506385c870f85389e16a8e90dbc3eb10b9190d94e1d2ed59c8ca12d6ec9",
+        "qp3Pop-ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-ordinary.stdout": "4b3981c835d06c43771a8dd77ea73b762c7bc7b58f03dd4c9a96e23ee711c084",
+        "qp3Pop-partial-number.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-partial-number.stdout": "0d794566a935be2f61139db281690887718b2f49235021d6611d294a4ad8bf46",
+        "qp3Pop-x-mixed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qp3Pop-x-mixed.stdout": "307063f0dbe756dde3f71a5285464eca7e58b6fdff25518bf5662df032fcded0",
+        "qpAdm-auto.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-auto.stdout": "4cd3c8d0041d4d5fb5be1f0fb75e7ddd1deb100b17300ab64a325c4149d6c494",
+        "qpAdm-cli-h.stderr": "bab255363b5c591129860159c80fe35ba093af60219371506b591023448f1e24",
+        "qpAdm-cli-h.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-cli-invalid.stderr": "be5864ec740866826dc17b17eb3b66b05d5411890ff92a8fd579c93c4bf4051a",
+        "qpAdm-cli-invalid.stdout": "14d4dfe0feaae23e331ee5ab2a9fe15ddab899e88604440b8d55ba592a7dc30a",
+        "qpAdm-cli-v.stderr": "68acc4db667bdabd9415fab012f11ddcb5c304a9ee8a4764de4b0c7a6d7d286d",
+        "qpAdm-cli-v.stdout": "5f48b2ab542a3fe09c3f93041d3d931444787c2f7dd963a2efc5115252e50d5d",
+        "qpAdm-duplicate-ids.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-duplicate-ids.stdout": "a88529cb2c1679076012cce57f2d9266f0fd80ec57d93686acadee8e67ca83d5",
+        "qpAdm-gzip.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-gzip.stdout": "0be2d14929ed22eb66e2bad07b3ed51802dcd7b11da002c1d953e5cbaf6fb04f",
+        "qpAdm-inactive-output.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-inactive-output.stdout": "07460018f390e5ff1fd0276e7a25ec4a7478593ef2bcc3611ccce778d980e825",
+        "qpAdm-limited-123.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-limited-123.stdout": "4fad599f16f919547c5bdd3d903fd2158b6533b05ccf9c417972df5d8de4a7ec",
+        "qpAdm-limited-77.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-limited-77.stdout": "be8d2d19d51c3bc999e9512c70fed4c085f537e3009e84ce6a7b10e2084d705a",
+        "qpAdm-maxrank.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-maxrank.stdout": "6890344d0a6ff692401ff1887828314b3c43965ab2ee687c53a1e96b5d5ad695",
+        "qpAdm-no-sampler-cap.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-no-sampler-cap.stdout": "ba4ef8c9658025d9ee174460e8717597ed6193c76b0a9fc3b97a895f36bfede2",
+        "qpAdm-ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-ordinary.stdout": "10a4674065c99d8897fd7e48e0b6d3c5f6f3309b0e49f13cdd809e1310ffb98f",
+        "qpAdm-partial-number.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-partial-number.stdout": "be405bf62e2c4e064acf94f7b98b538958fe9c437b53fe1f71d04cb32ccb88bc",
+        "qpAdm-x-mixed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-x-mixed.stdout": "26742e31e923fe2ce352a0f4eeee7e5ade03331bceb68666237491fb56a90742",
+        "qpDstat-cli-h.stderr": "e87aeecbc7938d7f2fe964cbc47cd1eca04710cf4d767b324f8c3ed56b1ac15a",
+        "qpDstat-cli-h.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-cli-invalid.stderr": "5c82f1e448e455a57c1b4f01aa10302766676dd597dcb33c3788831e405bef16",
+        "qpDstat-cli-invalid.stdout": "14d4dfe0feaae23e331ee5ab2a9fe15ddab899e88604440b8d55ba592a7dc30a",
+        "qpDstat-cli-v.stderr": "68acc4db667bdabd9415fab012f11ddcb5c304a9ee8a4764de4b0c7a6d7d286d",
+        "qpDstat-cli-v.stdout": "76e76f0d75fb8c617b94cf0b2685c8f38cfecdaa8425419879ec42ae103cc29d",
+        "qpDstat-duplicate-ids.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-duplicate-ids.stdout": "5cd498025a596cd608ee6d15106b5c6cdd81212ef872dd4dd1d37a69a70191dc",
+        "qpDstat-inactive-output.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-inactive-output.stdout": "74ef229ade208e034f225c4b79504b12bb94f609e837c91458d473689cc110ff",
+        "qpDstat-limited-123.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-limited-123.stdout": "f1f9881b188873ec5fadd45ea8edbea90cab525c12f211793e64911e3ad042dc",
+        "qpDstat-limited-77.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-limited-77.stdout": "cd73f905357efc234a85a0e5ae30375348385f9357d12e3eafd6c0557bac003e",
+        "qpDstat-ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-ordinary.stdout": "09e9a67bc3ea038549528ffa459d5bc281a932e00b10525751f6e2175b6db15e",
+        "qpDstat-partial-number.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-partial-number.stdout": "f347cb8aa77b2afd3d50d6d4a3a78b62c583fc451cc656310c42824451bd430f",
+        "qpDstat-x-mixed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpDstat-x-mixed.stdout": "13b893d9e6e048ba585ed4c58c181f4a82287dca390e1fb36555d8c17a86a681",
+        "qpF4ratio-cli-h.stderr": "2f49310dcf830823a8d2c652cad41782c3198a39d86747996327f7b15b10f6d5",
+        "qpF4ratio-cli-h.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-cli-invalid.stderr": "ba3970bc6703ee3fa077838e3da1bf28aec74a750dbb371696b7bb3725297eaf",
+        "qpF4ratio-cli-invalid.stdout": "14d4dfe0feaae23e331ee5ab2a9fe15ddab899e88604440b8d55ba592a7dc30a",
+        "qpF4ratio-cli-v.stderr": "68acc4db667bdabd9415fab012f11ddcb5c304a9ee8a4764de4b0c7a6d7d286d",
+        "qpF4ratio-cli-v.stdout": "087e805f9a49f2fc031ab4dda6a08e244662cd136763fc0c142bd60c96e51b47",
+        "qpF4ratio-duplicate-ids.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-duplicate-ids.stdout": "0c528a4c2dad368c0649ab198f5e0e3c5d8d73f021bf0b28dc798d7423ebd306",
+        "qpF4ratio-inactive-output.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-inactive-output.stdout": "4d2b38f691a860f831cf80999b63dd41f8335cd14bcff5d6f8c02767744a6326",
+        "qpF4ratio-limited-123.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-limited-123.stdout": "e4c38efd087b74e411697b07b0d28419999b82f93d00e3ec62530892fe43e318",
+        "qpF4ratio-limited-77.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-limited-77.stdout": "cf0ee539abc17b8713e524811bab7a5309981555b72143363915e324e6873a8a",
+        "qpF4ratio-ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-ordinary.stdout": "0c528a4c2dad368c0649ab198f5e0e3c5d8d73f021bf0b28dc798d7423ebd306",
+        "qpF4ratio-partial-number.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-partial-number.stdout": "86cb3cc42d334709a846d66c342c7e74608319b39cc3aceb23a7551073f99de3",
+        "qpF4ratio-x-mixed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpF4ratio-x-mixed.stdout": "15fdbdede52ddc5374ca17e1b2373c932ae42b9361eb526789a639a7bfb8a8cb",
+        "qpfit-early-exit.stderr": "223c7bb3d35da8abe78feb808092b6e7912cdb13fb1884c0fb06d0d05a097141",
+        "qpfit-early-exit.stdout": "e4a44d9151e4220201d3d623404183c0c413ecaad8e82b7b045650b4f625be43",
+        "qpfstats-cli-h.stderr": "e72bdd634511f15cc63d0917625e68cb78ae92b6ea64995d50dbeefa4e71c926",
+        "qpfstats-cli-h.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-cli-invalid.stderr": "33d40b1e194bc0d132cbb32a5a52757c795985d89bd3042666b251956978299e",
+        "qpfstats-cli-invalid.stdout": "14d4dfe0feaae23e331ee5ab2a9fe15ddab899e88604440b8d55ba592a7dc30a",
+        "qpfstats-cli-v.stderr": "68acc4db667bdabd9415fab012f11ddcb5c304a9ee8a4764de4b0c7a6d7d286d",
+        "qpfstats-cli-v.stdout": "c4f4fafdc59d544c0f194e18cb58e489666d8bf68e4b403b2638b5ed816fc7f2",
+        "qpfstats-duplicate-ids.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-duplicate-ids.stdout": "87830d98ebfd4a6cba7342f25c4468e9dfe9babbc4871ffe48fb1754c48a408b",
+        "qpfstats-inactive-output.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-inactive-output.stdout": "f9741f22dda4a1a4e66f48f687ba8987a4b105647ef8e753757111d2fc97a0ce",
+        "qpfstats-limited-123.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-limited-123.stdout": "5682c9d769fec47e19ae690c30be92b916a2fd48ce1d50a8e819fcab7e7ce132",
+        "qpfstats-limited-77.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-limited-77.stdout": "5dba17a165dc5a28db157545304a396d63b95b4f104b2845ef62b1069bc31807",
+        "qpfstats-ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-ordinary.stdout": "1b89a2b746e4cba6a1566daf9571d9f6d0f10ecec1607fcb3efe08acbb8b2ce9",
+        "qpfstats-partial-number.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-partial-number.stdout": "adf382418eb8e274cade4c05c47ebaaf768796c753e2b132cf443575ea578f26",
+        "qpfstats-x-mixed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfstats-x-mixed.stdout": "14895252974f71ff435638978e2e6c0637546f316b2ccb7bf67ccfa5f58810c0",
+        "qpWave-auto.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-auto.stdout": "44a9d6271394632b54a0356696f0c5e89e5508b35151c657930ab7b35f1a6be8",
+        "qpWave-cli-h.stderr": "9896f93b97a1c79fcce7279695577702366eb47c7c1a497364f62f9b0e312551",
+        "qpWave-cli-h.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-cli-invalid.stderr": "98c77a1ef0048c2fd6992a95aff86d1769ef5c6b191f93e94a14581785638482",
+        "qpWave-cli-invalid.stdout": "14d4dfe0feaae23e331ee5ab2a9fe15ddab899e88604440b8d55ba592a7dc30a",
+        "qpWave-cli-v.stderr": "68acc4db667bdabd9415fab012f11ddcb5c304a9ee8a4764de4b0c7a6d7d286d",
+        "qpWave-cli-v.stdout": "161edfb445eaca78e1ccfd3ad9f5daaf18620a62ec38748cebd3451d1d6286f8",
+        "qpWave-duplicate-ids.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-duplicate-ids.stdout": "6e9c2345b135f676ef3a9d41a35c4de41ba8df68f66f1cae638120c89d4a41db",
+        "qpWave-inactive-output.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-inactive-output.stdout": "43935e23f7d72a01873eb0e9f61ae2b3db0e8f2f99d4f2a0fd08e74d786cadac",
+        "qpWave-limited-123.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-limited-123.stdout": "4773a31239d782a97376bffdcebc8255d56463b2c15b9cb0088ae17834676f16",
+        "qpWave-limited-77.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-limited-77.stdout": "6ae5722d414efbd91791821e96e93acfae40c9b35ae8f04a48b3910201c8dbd8",
+        "qpWave-ordinary.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-ordinary.stdout": "7f686ff1d2b14df1612200cc50be19a4477b30d94655f23aa03d6320448c7d29",
+        "qpWave-partial-number.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-partial-number.stdout": "ce939fbf68da335ac12f1a038b18164651e23329f826a501ccc624b28dbad0c1",
+        "qpWave-x-mixed.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpWave-x-mixed.stdout": "b144e9c818f89d009d090184b7226e11c664cfa2b8e6aaa45b1bccbf4d2b2888"
+      }
+    },
+    "qpfit-windows": {
+      "upstream": "67bc219174a109951a9434e0a383ec464fb140ee",
+      "binary_dir": "C:\\work\\AdmixTools_Win\\bin",
+      "platform": "win32",
+      "environment": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_CORETYPE": "NEHALEM",
+        "LC_ALL": "C",
+        "STMP": "tmp"
+      },
+      "executables": {
+        "qpfit": "337eeb51944fd792c0e178c03ba0552c76aee28f250fa81aaa5d965c8021178c"
+      },
+      "cases": {
+        "qpfit-early-exit": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        }
+      },
+      "completed": true,
+      "raw_directory": "validation-results\\port-only-restoration\\qpfit-windows",
+      "stream_sha256": {
+        "prepare-qpfit-early-exit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "prepare-qpfit-early-exit.stdout": "6d1d744bbce6d09b423e55ed7683f2edc73c3ecede517cfea2924a90acc49993",
+        "qpfit-early-exit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfit-early-exit.stdout": "40ccb03f236d291930f187276070aa93de2e9f000b1c7439c5f57cb04b22e912"
+      }
+    },
+    "qpfit-pristine": {
+      "upstream": "67bc219174a109951a9434e0a383ec464fb140ee",
+      "binary_dir": "/home/user/admixtools-port-only-20261111-v2/pristine/src",
+      "platform": "linux",
+      "environment": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_CORETYPE": "NEHALEM",
+        "LC_ALL": "C",
+        "STMP": "tmp"
+      },
+      "executables": {
+        "qpfit": "f3b2730e3753f7f4a99b168026b3675be4f5c9c085b67ba64447ed01a4831487"
+      },
+      "cases": {
+        "qpfit-early-exit": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        }
+      },
+      "completed": true,
+      "raw_directory": "validation-results\\port-only-restoration\\qpfit-pristine",
+      "stream_sha256": {
+        "prepare-qpfit-early-exit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "prepare-qpfit-early-exit.stdout": "5d06c6732bd241f3b3967baf64da946b33f8bf81f27db0d873a7eba0947c2fa9",
+        "qpfit-early-exit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfit-early-exit.stdout": "08d5fc99ed368d9806491ae6da5bb7b8132ae24c289bbd66939decdc9fa72503"
+      }
+    },
+    "qpfit-port": {
+      "upstream": "67bc219174a109951a9434e0a383ec464fb140ee",
+      "binary_dir": "/home/user/admixtools-port-only-20261111-v2/port/src",
+      "platform": "linux",
+      "environment": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_CORETYPE": "NEHALEM",
+        "LC_ALL": "C",
+        "STMP": "tmp"
+      },
+      "executables": {
+        "qpfit": "bd009dffe09c1b5e858f3a9631f2eae5433181fcc575880364c002d2d0052965"
+      },
+      "cases": {
+        "qpfit-early-exit": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {
+            "output.fstats": "3ca3181475fec9f2ae7204ee1086b07d1c9ff9cb8f315c8a74e08de93bf60cce"
+          }
+        }
+      },
+      "completed": true,
+      "raw_directory": "validation-results\\port-only-restoration\\qpfit-port",
+      "stream_sha256": {
+        "prepare-qpfit-early-exit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "prepare-qpfit-early-exit.stdout": "099a438e3f0c33db3ac373d13813d9d3bd7f35dedcfd4215d337fbd8a4be999e",
+        "qpfit-early-exit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpfit-early-exit.stdout": "08d5fc99ed368d9806491ae6da5bb7b8132ae24c289bbd66939decdc9fa72503"
+      }
+    },
+    "modes-windows": {
+      "upstream": "67bc219174a109951a9434e0a383ec464fb140ee",
+      "binary_dir": "C:\\work\\AdmixTools_Win\\bin",
+      "platform": "win32",
+      "environment": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_CORETYPE": "NEHALEM",
+        "LC_ALL": "C",
+        "STMP": "tmp"
+      },
+      "executables": {
+        "qpAdm": "83901eabce23ba182a0fb6a860500d623772189eef2ed7bfe747350d957c3f8b"
+      },
+      "cases": {
+        "qpAdm-bayes": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-bayes-positive": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-bayes-ignored-cap": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-single-auto": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        }
+      },
+      "completed": true,
+      "raw_directory": "validation-results\\port-only-restoration\\modes-windows",
+      "stream_sha256": {
+        "qpAdm-bayes-ignored-cap.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-bayes-ignored-cap.stdout": "e9464c180cfcbbf35b5f709e08adf6f0f63a0232c045e88c34d34258b9c9ebb3",
+        "qpAdm-bayes-positive.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-bayes-positive.stdout": "2e0bc9b040251ba10951cc9c4ff8a33222a736060b5b2f591efccb4f60a67703",
+        "qpAdm-bayes.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-bayes.stdout": "95d385ae449efeb0324b54660dcba9c375bdc169746714281ddde5c2e8d79ebf",
+        "qpAdm-single-auto.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-single-auto.stdout": "d0b2a1bc653f63074bfecc57852ec36feaa33f8353161db5c46b34f0dd503d88"
+      }
+    },
+    "modes-pristine": {
+      "upstream": "67bc219174a109951a9434e0a383ec464fb140ee",
+      "binary_dir": "/home/user/admixtools-port-only-20261111-v2/pristine/src",
+      "platform": "linux",
+      "environment": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_CORETYPE": "NEHALEM",
+        "LC_ALL": "C",
+        "STMP": "tmp"
+      },
+      "executables": {
+        "qpAdm": "151659e36b85502267aa442eaa58a1c97000b4915df507693d015b9986675c5b"
+      },
+      "cases": {
+        "qpAdm-bayes": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-bayes-positive": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-bayes-ignored-cap": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-single-auto": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        }
+      },
+      "completed": true,
+      "raw_directory": "validation-results\\port-only-restoration\\modes-pristine",
+      "stream_sha256": {
+        "qpAdm-bayes-ignored-cap.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-bayes-ignored-cap.stdout": "cc741bce42ef72bfc383f29daaaa4c22f4ec614814c496664bede7cf1e5e60a8",
+        "qpAdm-bayes-positive.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-bayes-positive.stdout": "1a16f8b88a3a0e0cb301d29563a86be536493a360def3807b7dd084f3610d342",
+        "qpAdm-bayes.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-bayes.stdout": "f59e394ba0424c69e91991721cde2b52c92005de0dab1aee41d22b985d403766",
+        "qpAdm-single-auto.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-single-auto.stdout": "fc2ff9e7a51644be2bff650405a7229ecd30d1e8d23dfbbe560e3cfb912e3938"
+      }
+    },
+    "modes-port": {
+      "upstream": "67bc219174a109951a9434e0a383ec464fb140ee",
+      "binary_dir": "/home/user/admixtools-port-only-20261111-v2/port/src",
+      "platform": "linux",
+      "environment": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_CORETYPE": "NEHALEM",
+        "LC_ALL": "C",
+        "STMP": "tmp"
+      },
+      "executables": {
+        "qpAdm": "0aa7c50bfb9ef569220ed46dd1488754d1b2dff6ab405d790edf873f1aac4530"
+      },
+      "cases": {
+        "qpAdm-bayes": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-bayes-positive": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-bayes-ignored-cap": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        },
+        "qpAdm-single-auto": {
+          "returncode": 0,
+          "arguments": [
+            "-p",
+            "audit.par"
+          ],
+          "files": {}
+        }
+      },
+      "completed": true,
+      "raw_directory": "validation-results\\port-only-restoration\\modes-port",
+      "stream_sha256": {
+        "qpAdm-bayes-ignored-cap.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-bayes-ignored-cap.stdout": "1d6a60d31f181d43d0b02505bb273ee62cfa18f2c339e09b573c8c3c741a7427",
+        "qpAdm-bayes-positive.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-bayes-positive.stdout": "63287c99894c0a64f10ab92e7c14ae47629d39f068b0f59726182ad3456def28",
+        "qpAdm-bayes.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-bayes.stdout": "c02ca4117f8bd85dc814ded5fb9614649e80587e004e365dedd0f162beb95ded",
+        "qpAdm-single-auto.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "qpAdm-single-auto.stdout": "ac03c83417d82329dfb6bbadad17ab3947ea3ef874a8185802499221e9fb2af1"
+      }
+    }
+  },
+  "comparisons": {
+    "pristine_windows": {
+      "shared_cases": 67,
+      "jointly_successful": 60,
+      "streams": 134,
+      "exact_streams": 128,
+      "stream_differences": {
+        "qp3Pop-cli-h": [
+          "stderr"
+        ],
+        "qpAdm-cli-h": [
+          "stderr"
+        ],
+        "qpDstat-cli-h": [
+          "stderr"
+        ],
+        "qpF4ratio-cli-h": [
+          "stderr"
+        ],
+        "qpWave-cli-h": [
+          "stderr"
+        ],
+        "qpfstats-cli-h": [
+          "stderr"
+        ]
+      },
+      "exit_codes": "zero/nonzero behavior identical; native abort representations retained",
+      "generated_files": "all recorded shared hashes identical"
+    },
+    "pristine_port_linux": {
+      "shared_cases": 67,
+      "jointly_successful": 60,
+      "streams": 134,
+      "exact_streams": 128,
+      "stream_differences": {
+        "qp3Pop-cli-h": [
+          "stderr"
+        ],
+        "qpAdm-cli-h": [
+          "stderr"
+        ],
+        "qpDstat-cli-h": [
+          "stderr"
+        ],
+        "qpF4ratio-cli-h": [
+          "stderr"
+        ],
+        "qpWave-cli-h": [
+          "stderr"
+        ],
+        "qpfstats-cli-h": [
+          "stderr"
+        ]
+      },
+      "exit_codes": "zero/nonzero behavior identical; native abort representations retained",
+      "generated_files": "all recorded shared hashes identical"
+    },
+    "cached_qpfit_pristine_windows": {
+      "shared_cases": 1,
+      "jointly_successful": 1,
+      "streams": 2,
+      "exact_streams": 2,
+      "stream_differences": {},
+      "exit_codes": "zero/nonzero behavior identical; native abort representations retained",
+      "generated_files": "all recorded shared hashes identical"
+    },
+    "cached_qpfit_pristine_port": {
+      "shared_cases": 1,
+      "jointly_successful": 1,
+      "streams": 2,
+      "exact_streams": 2,
+      "stream_differences": {},
+      "exit_codes": "zero/nonzero behavior identical; native abort representations retained",
+      "generated_files": "all recorded shared hashes identical"
+    },
+    "bayes_single_pristine_windows": {
+      "shared_cases": 4,
+      "jointly_successful": 4,
+      "streams": 8,
+      "exact_streams": 8,
+      "stream_differences": {},
+      "exit_codes": "zero/nonzero behavior identical; native abort representations retained",
+      "generated_files": "all recorded shared hashes identical"
+    },
+    "bayes_single_pristine_port": {
+      "shared_cases": 4,
+      "jointly_successful": 4,
+      "streams": 8,
+      "exact_streams": 8,
+      "stream_differences": {},
+      "exit_codes": "zero/nonzero behavior identical; native abort representations retained",
+      "generated_files": "all recorded shared hashes identical"
+    }
+  },
+  "regressions": {
+    "windows-regression": {
+      "matched": [
+        "convertf.stdout",
+        "convertf.stderr",
+        "diffmean.stdout",
+        "diffmean.stderr",
+        "dowtjack.stdout",
+        "dowtjack.stderr",
+        "easycheck.stdout",
+        "easycheck.stderr",
+        "easylite.stdout",
+        "easylite.stderr",
+        "easystats.stdout",
+        "easystats.stderr",
+        "geno_single.stdout",
+        "geno_single.stderr",
+        "grabpars.stdout",
+        "grabpars.stderr",
+        "merge_transpose.stdout",
+        "merge_transpose.stderr",
+        "merge_transpose-help.stdout",
+        "merge_transpose-help.stderr",
+        "mergeit.stdout",
+        "mergeit.stderr",
+        "nickhash.stdout",
+        "nickhash.stderr",
+        "qp3Pop.stdout",
+        "qp3Pop.stderr",
+        "qp4diff.stdout",
+        "qp4diff.stderr",
+        "qpAdm.stdout",
+        "qpAdm.stderr",
+        "qpAdm-allsnps.stdout",
+        "qpAdm-allsnps.stderr",
+        "qpDstat.stdout",
+        "qpDstat.stderr",
+        "qpDstat-f4.stdout",
+        "qpDstat-f4.stderr",
+        "qpDstat-random.stdout",
+        "qpDstat-random.stderr",
+        "qpF4ratio.stdout",
+        "qpF4ratio.stderr",
+        "qpGraph.stdout",
+        "qpGraph.stderr",
+        "qpWave.stdout",
+        "qpWave.stderr",
+        "qpWave-allsnps.stdout",
+        "qpWave-allsnps.stderr",
+        "qpff3base.stdout",
+        "qpff3base.stderr",
+        "qpfmv.stdout",
+        "qpfmv.stderr",
+        "qpfstats.stdout",
+        "qpfstats.stderr",
+        "qpreroot.stdout",
+        "qpreroot.stderr",
+        "rolloff.stdout",
+        "rolloff.stderr",
+        "rolloffp.stdout",
+        "rolloffp.stderr",
+        "simpjack2.stdout",
+        "simpjack2.stderr",
+        "transpose.stdout",
+        "transpose.stderr",
+        "transpose-help.stdout",
+        "transpose-help.stderr",
+        "transpose-invalid.stdout",
+        "transpose-invalid.stderr",
+        "transpose-lowmem.stdout",
+        "transpose-lowmem.stderr",
+        "transpose-roundtrip.stdout",
+        "transpose-roundtrip.stderr",
+        "graph.out",
+        "merged.geno",
+        "merged.ind",
+        "merged.snp",
+        "merged.tgeno",
+        "output.fmv",
+        "output.fstats",
+        "output.geno",
+        "output.ind",
+        "output.snp",
+        "reroot.out",
+        "rolloff.out",
+        "rolloffp.out",
+        "roundtrip.tgeno",
+        "single.tgeno",
+        "transposed-lowmem.geno",
+        "transposed.geno",
+        "weighted.out"
+      ],
+      "mismatches": [],
+      "unsuccessful_cases": [],
+      "linux_roundtrip_exact": true,
+      "windows_roundtrip_exact": true
+    },
+    "port-linux-regression": {
+      "matched": [
+        "convertf.stdout",
+        "convertf.stderr",
+        "diffmean.stdout",
+        "diffmean.stderr",
+        "dowtjack.stdout",
+        "dowtjack.stderr",
+        "easycheck.stdout",
+        "easycheck.stderr",
+        "easylite.stdout",
+        "easylite.stderr",
+        "easystats.stdout",
+        "easystats.stderr",
+        "geno_single.stdout",
+        "geno_single.stderr",
+        "grabpars.stdout",
+        "grabpars.stderr",
+        "merge_transpose.stdout",
+        "merge_transpose.stderr",
+        "merge_transpose-help.stdout",
+        "merge_transpose-help.stderr",
+        "mergeit.stdout",
+        "mergeit.stderr",
+        "nickhash.stdout",
+        "nickhash.stderr",
+        "qp3Pop.stdout",
+        "qp3Pop.stderr",
+        "qp4diff.stdout",
+        "qp4diff.stderr",
+        "qpAdm.stdout",
+        "qpAdm.stderr",
+        "qpAdm-allsnps.stdout",
+        "qpAdm-allsnps.stderr",
+        "qpDstat.stdout",
+        "qpDstat.stderr",
+        "qpDstat-f4.stdout",
+        "qpDstat-f4.stderr",
+        "qpDstat-random.stdout",
+        "qpDstat-random.stderr",
+        "qpF4ratio.stdout",
+        "qpF4ratio.stderr",
+        "qpGraph.stdout",
+        "qpGraph.stderr",
+        "qpWave.stdout",
+        "qpWave.stderr",
+        "qpWave-allsnps.stdout",
+        "qpWave-allsnps.stderr",
+        "qpff3base.stdout",
+        "qpff3base.stderr",
+        "qpfmv.stdout",
+        "qpfmv.stderr",
+        "qpfstats.stdout",
+        "qpfstats.stderr",
+        "qpreroot.stdout",
+        "qpreroot.stderr",
+        "rolloff.stdout",
+        "rolloff.stderr",
+        "rolloffp.stdout",
+        "rolloffp.stderr",
+        "simpjack2.stdout",
+        "simpjack2.stderr",
+        "transpose.stdout",
+        "transpose.stderr",
+        "transpose-help.stdout",
+        "transpose-help.stderr",
+        "transpose-invalid.stdout",
+        "transpose-invalid.stderr",
+        "transpose-lowmem.stdout",
+        "transpose-lowmem.stderr",
+        "transpose-roundtrip.stdout",
+        "transpose-roundtrip.stderr",
+        "graph.out",
+        "merged.geno",
+        "merged.ind",
+        "merged.snp",
+        "merged.tgeno",
+        "output.fmv",
+        "output.fstats",
+        "output.geno",
+        "output.ind",
+        "output.snp",
+        "reroot.out",
+        "rolloff.out",
+        "rolloffp.out",
+        "roundtrip.tgeno",
+        "single.tgeno",
+        "transposed-lowmem.geno",
+        "transposed.geno",
+        "weighted.out"
+      ],
+      "mismatches": [],
+      "unsuccessful_cases": [],
+      "linux_roundtrip_exact": true,
+      "windows_roundtrip_exact": true
+    }
+  },
+  "compatibility": {
+    "shared_cases": [
+      "convert-ancestry",
+      "convert-packed",
+      "convert-text",
+      "convert-transpose",
+      "gzip-ancestry",
+      "gzip-packed",
+      "gzip-text",
+      "gzip-transpose",
+      "prepare-packed",
+      "prepare-transpose"
+    ],
+    "exact_files": [
+      "ancestry.geno",
+      "ancestry.ind",
+      "ancestry.snp",
+      "packed.geno",
+      "packed.ind",
+      "packed.snp",
+      "text.geno",
+      "text.ind",
+      "text.snp",
+      "transpose.geno",
+      "transpose.ind",
+      "transpose.snp"
+    ],
+    "differences": [],
+    "gzip_results_identical": true
+  },
+  "scripts": {
+    "windows-scripts": {
+      "platform": "win32",
+      "files": {
+        "helper-transpose.geno": "0add5b332f5f3e29c9573099a01f038daab18232db5f8d133ca64b14896b61e6",
+        "helper-transpose.ind": "5d6f476357b786c5f5565fc8b892d1dc4755fc2361f0850f80d77aac8b15a3ad",
+        "helper-transpose.snp": "e0712bd529386286e073a3e6ae1b5a90283994914c41cb30262ee80fa9add822",
+        "left-subset.geno": "a79ef3a61062e62ff7d86b995f070bcc14784bea53d52307bc0cb17df1a45e2a",
+        "left-subset.ind": "f0deb1ed2cb65636f298715aa0f52f5269bb78eff4374ed9d419186f6d79fa47",
+        "left-subset.snp": "e0712bd529386286e073a3e6ae1b5a90283994914c41cb30262ee80fa9add822",
+        "right-subset.geno": "63edda789edfc862e7f665b239c9c5a52c5ad990c64807215f567f6f728e198f",
+        "right-subset.ind": "fb784c773fc5e63990d3461fbb5eb396d95be83e25bb3993e6a9a2094c172941",
+        "right-subset.snp": "e0712bd529386286e073a3e6ae1b5a90283994914c41cb30262ee80fa9add822",
+        "helper-merged.geno": "cd940e64e7a1689a2bf99107a0f9c2bc5358d72b16fb26d88617600c44a25e89",
+        "helper-merged.ind": "b4ab07b72281932e4d0855c0228467323d89df2b540dcaa4476f0c59c06af433",
+        "helper-merged.snp": "e0712bd529386286e073a3e6ae1b5a90283994914c41cb30262ee80fa9add822"
+      }
+    },
+    "pristine-scripts": {
+      "platform": "linux",
+      "files": {
+        "helper-transpose.geno": "0add5b332f5f3e29c9573099a01f038daab18232db5f8d133ca64b14896b61e6",
+        "helper-transpose.ind": "5d6f476357b786c5f5565fc8b892d1dc4755fc2361f0850f80d77aac8b15a3ad",
+        "helper-transpose.snp": "e0712bd529386286e073a3e6ae1b5a90283994914c41cb30262ee80fa9add822",
+        "left-subset.geno": "a79ef3a61062e62ff7d86b995f070bcc14784bea53d52307bc0cb17df1a45e2a",
+        "left-subset.ind": "f0deb1ed2cb65636f298715aa0f52f5269bb78eff4374ed9d419186f6d79fa47",
+        "left-subset.snp": "e0712bd529386286e073a3e6ae1b5a90283994914c41cb30262ee80fa9add822",
+        "right-subset.geno": "63edda789edfc862e7f665b239c9c5a52c5ad990c64807215f567f6f728e198f",
+        "right-subset.ind": "fb784c773fc5e63990d3461fbb5eb396d95be83e25bb3993e6a9a2094c172941",
+        "right-subset.snp": "e0712bd529386286e073a3e6ae1b5a90283994914c41cb30262ee80fa9add822",
+        "helper-merged.geno": "cd940e64e7a1689a2bf99107a0f9c2bc5358d72b16fb26d88617600c44a25e89",
+        "helper-merged.ind": "b4ab07b72281932e4d0855c0228467323d89df2b540dcaa4476f0c59c06af433",
+        "helper-merged.snp": "e0712bd529386286e073a3e6ae1b5a90283994914c41cb30262ee80fa9add822"
+      }
+    }
+  },
+  "powershell_51_native_qpadm_exit": 0,
+  "positive_sampler_ignored_cap_same_scientific_tail": true,
+  "single_source_upstream_zero_reproduced": true,
+  "windows_build": {
+    "upstream_commit": "67bc219174a109951a9434e0a383ec464fb140ee",
+    "working_head": "eaca8d9d1ba3bb974b98c5e1d740a63a937fa20e",
+    "compiler": "gcc.exe (Rev6, Built by MSYS2 project) 16.2.0",
+    "zlib_header_version": "1.4",
+    "flags": [
+      "-std=gnu11",
+      "-fno-common",
+      "-ffp-contract=off",
+      "-fno-fast-math",
+      "-D__USE_MINGW_ANSI_STDIO=1",
+      "-D_FILE_OFFSET_BITS=64",
+      "-I.",
+      "-Inicksrc",
+      "-IC:\\work\\AdmixTools_Win\\src\\.windows\\argp\\include",
+      "-include",
+      "win32/compat.h"
+    ],
+    "link_flags": [
+      "-Wl,--stack,8388608"
+    ],
+    "optimization": {
+      "nicksrc": "-O3",
+      "other": "-O2"
+    },
+    "executables": [
+      "ascore",
+      "convertf",
+      "diffmean",
+      "dowtjack",
+      "easycheck",
+      "easylite",
+      "easystats",
+      "gcount",
+      "geno_single",
+      "grabpars",
+      "kimf",
+      "merge_transpose",
+      "mergeit",
+      "mkweights",
+      "multimerge",
+      "nickhash",
+      "qp3Pop",
+      "qp4diff",
+      "qpAdm",
+      "qpBound",
+      "qpDpart",
+      "qpDstat",
+      "qpF4ratio",
+      "qpGraph",
+      "qpWave",
+      "qpdslow",
+      "qpff3base",
+      "qpfit",
+      "qpfmv",
+      "qpfstats",
+      "qpmix",
+      "qpreroot",
+      "rolloff",
+      "rolloffp",
+      "simpjack2",
+      "snpunion",
+      "transpose"
+    ],
+    "runtime_dlls": [
+      "libgcc_s_seh-1.dll",
+      "libgfortran-5.dll",
+      "libgomp-1.dll",
+      "libgsl-28.dll",
+      "libgslcblas-0.dll",
+      "libopenblas.dll",
+      "libquadmath-0.dll",
+      "libwinpthread-1.dll",
+      "libz-1.dll"
+    ],
+    "runtime_sha256": {
+      "libgcc_s_seh-1.dll": "791ebf66e99c7c1b4ed3666468cec45a0172b4c8942ac6c84c3e9cab3e1b5270",
+      "libgfortran-5.dll": "c6efba147926b0897a791d081cbc3c266967e7d63c5b325df5f8f14a3e91b62f",
+      "libgomp-1.dll": "ccaf59dc8cff15ace88ab47acd68a5b014167cad8f960e7683466a4c821e41c4",
+      "libgsl-28.dll": "d0f7e108ffbb958b551c798ce733104632002ff5d03f2a1988b8f6bb65cf6552",
+      "libgslcblas-0.dll": "de35388e089cbcd723ad7ec968ea4ff1d3811f5b0f5c66606bfeb7d7906631f9",
+      "libopenblas.dll": "4b5cbee2aba54a599a031023dcc0d99ebd24988954fe094cf59ed76c004781f6",
+      "libquadmath-0.dll": "802010365378b7421a7c3d61dabf2a46d8a3c8b71950ddeb4b5fefb32f117f4c",
+      "libwinpthread-1.dll": "94a9a4e2fe27b4bc827a4b209e9deb4cc3dc34bc025df06b849144f9d4c588f8",
+      "libz-1.dll": "934103c50623302548a1cf66fbc22f0029e4eb4556343252a505e2fc005e835f"
+    },
+    "source_sha256": {
+      "admutils.c": "a45283ec0160dd1d21647fc9e66d9c560c810ac2621da54adc0fb120ca24f818",
+      "ascore.c": "f77147a4e3696a6637727482fb8a8e182e69cb41d4b1344e1c8e7e0d00ebbb8a",
+      "convertf.c": "7fa538461d8cbf4716fe5cc5bc75ae8d3fd6e24b460bddfbc1a713584443e81f",
+      "diffmean.c": "be5eadb4feab45af6e8c50af0b2b500e62acac252a0a7f6781cfa8bd126b4374",
+      "dowtjack.c": "bcbd88c81ae2f697ff0df5541b94c9d5a949b13fc859294be87b891ed2ce6ec9",
+      "easycheck.c": "8d6b1b58a3f8653ce04a9cdce99bdc1a97f1321698aec071adb19d080b792c59",
+      "easylite.c": "8bf4d99469089a4afe0b0c6d06624828f6d8eec9e4430de18681751bacb8a601",
+      "easystats.c": "e7ddfa8901431184608a301c863716547e5cf1b5a3883f9c7ec066bc1aa8cb38",
+      "egsubs.c": "dd24df0702279396708504d5fa3c1389161de4dbdf9f9b7c7759e012b71a34c6",
+      "eigsubs.c": "8a43d6dd4b7e77ba03cfa8e14b50174ba53899a569e210e6e716837573d663d1",
+      "eigx.c": "299a9f72999e46469a70eb4a94f9530b579c470f4e86cdf1e4ddc4a0770349aa",
+      "exclude.c": "046e0dc0c988813d96b61aa40fb2d222f66778ed40348bc6df41bfaf4b27ce11",
+      "f4rank.c": "4f9111aa95f6f4059a9e6b58e8376e05e0edfaca7947357c3537c327ca1cb574",
+      "gcount.c": "09fcf6c313a57b387590867a46605efec07880745703077efccd667c02f67c4e",
+      "geno.c": "324432ca09812b09226d5dc0f554be9063b768c2fbb6ccd58b5c1d9a700418cc",
+      "geno_single.c": "0913ab8b6e2a025ad44cc31470336f66b5cca59766271cef8e5b2b7b5bbc7ed1",
+      "grabpars.c": "995e62a78fe9f98462332575796e86fa98fe6b24f4955845e9cd1eef888e4ff6",
+      "gslkim.c": "10598e009ea15149dcfe9748c690a4b173186e74e1dd681a84d93fc70029a924",
+      "gslqp.c": "a5548452784b1613935df1e505923b34a6b46be2ea39d59aa3f237637250867f",
+      "gslrank1.c": "67a5cec623ec368cc2933531a10dc2e7af69b9b2be0be570f1cfdf32b4911c5f",
+      "h2d.c": "b09a3a8a6f590e1aa4fc7a32b4e34278a6e0df5285e5f70e99d8c9212539345c",
+      "kimf.c": "c86e0d901f68ac195d97375111982fad61b3c71199ec5749ebb052d63aba4c3d",
+      "ldsubs.c": "0b024b63c75b2e4988d3d90e48582baf5aa6f5cc3ec9d8e5fdd83539d08c790c",
+      "mapfile.c": "596ac12d487603aa08f6120a8b5992a19bb4fee960c582e6059e3a8504945226",
+      "mcio.c": "f3d8058a8834395cbbbc5dd668833e7b9df227ec1269bf8bfbc6d1a57c734eb1",
+      "merge_transpose.c": "2f3bcec8e9563379310d35f6776ddee8d760d67fcff16992b9e817ed9404a306",
+      "mergeit.c": "734bae002b533e07fc3296df748992d825d5661a0073672413a6640a6fb33c65",
+      "mkweights.c": "42a977560ff26cff17a07095da47c91f7fd2ce718e133603a4c7838948796e7a",
+      "multimerge.c": "4eea21e30db6e6a0ad178c8c11e1a6c1513296d3fad58eea4adf0172e510594f",
+      "nickhash.c": "2e9c397b620f1ca7c322f9b6437ee75f58e0ab99745844f7b8011319752db818",
+      "nicksrc/gauss.c": "9a63a6b728441ae536a7a069d3b4e8573982285128a8f13dd96761aa51805527",
+      "nicksrc/gds.c": "329f54fa44b37ac5d662629c5aade9e5392b0a981fdd246a1d9ccbec1fc8fda3",
+      "nicksrc/getpars.c": "2e3396d0174efc11885de96f952e5ea1df27501d53b8007f830d2f11dc78dd51",
+      "nicksrc/linsubs.c": "a8f6fd1143673caf79e1e1b4050dbbb4eda93fd9ca0b966a5c72d9653d35bf6c",
+      "nicksrc/sortit.c": "fbdb91aa7dc850bb9d1d87809ce4dd75fa047ab7f9096c1278fab1188ab4062a",
+      "nicksrc/statsubs.c": "592a5000521cb33e3aa51fabb1bba5f7a800bd8b23d726851d686eafc3f8c8cf",
+      "nicksrc/strsubs.c": "5ad37e0452fc458d2f3a9d0dbc6998c21eb849c052f7c4df9a4a423234c589d8",
+      "nicksrc/vsubs.c": "63be25e4209f80ede8516a78133a1a88ee7c2fd93f260ce27b46e35d88995d78",
+      "nicksrc/xsearch.c": "41461b26705304c4c43c46a0d0c974bf3ce3713cde2e2a758932c6f945ecb6ae",
+      "qp3Pop.c": "bbc4ffe00fa72a4c9140bdb7585494f82657848e00eebb631df1f207f9331659",
+      "qp4diff.c": "a13ae22d2e91a6ce76a41db388c95414a09b98afc7045794b74cc587e8ab0a41",
+      "qpAdm.c": "3e9f3a2babf8edccd9b10d07649b22e31ba4343e8b84bcb660283318d78af50e",
+      "qpBound.c": "f717d53cf60744f0e0e986a34fe6b894f7325019c4ca156d22f1ed9f6f0e444c",
+      "qpDpart.c": "613c5b3b990ea5e99349288b6c98f0e971fd460d8cfc1ad657612400252801c9",
+      "qpDstat.c": "311ff850739bbeb94441e4c3dba93d9be2a18cc45e869ee2e8d820ce696e6574",
+      "qpF4ratio.c": "6483ae3832119ac9195b7467238d4aa720e4c8ff9de28cfca99ba4ea84302ae7",
+      "qpGraph.c": "6f9eb1a337233b201994092589cb98a7df59cadb54e3caa97570b5e100a619ac",
+      "qpWave.c": "26172d0deff69e6c12f44e1682c2629f6af2694572a5ecbe9d547ef756ccb002",
+      "qpdslow.c": "ddbb6e36b121a81daa86192341f4c3c80d420b6add991f4ba97f7b128ec5c5b1",
+      "qpff3base.c": "df89c49cfdd445a81a903c97eeb715d1c80bd7d05206e4aa4736f17dc75d5f9f",
+      "qpfit.c": "e219e61c2e82d1c375d96e4edc3b132b34de127566f892dd4c70716c408d0058",
+      "qpfitr1.c": "522d3225dedbd2595290d3f40ffa72a09a4bdfbbdffc7426e247abbb9b4edb5c",
+      "qpfmv.c": "d699e06c832fa2a87cf5d39a678c4321cda93df586b70dbd93fba0cca8a0db7b",
+      "qpfstats.c": "d90d2a645b7db1efe915d3aa900b749f4f44ac35ee85c8f64ea6f826761b62b2",
+      "qpgsubs.c": "8215da1d472a8fef661c2f7ae753ef10c3853f47d93c6f3359b258c669306de0",
+      "qpmix.c": "a4a860b3ca66f11fefdd36c72581ae258ba01e306682cf581103714e237f10be",
+      "qpreroot.c": "924b41b63c41c22383a126c08eb2cbd2f62b01c8d509943fbabb3b1a28b8295c",
+      "qpsubs.c": "cca149c813af9faa6e08a382e190cb62d6feb6a293ea5a24448161e6442af22c",
+      "regsubs.c": "6bb5463abb8ff8a643c90306487153f9b7709577f9f55f4024fdf8665db5bf1d",
+      "rolloff.c": "083c8cab6cebd7f6e793143c72c15f9ab1007ef24e9928f1e1c495f07d8d1ea1",
+      "rolloffp.c": "bfbe9f2599ee36f5caadc7a52d712f583211f42f6d7d129b2c0c5acd0e8315d7",
+      "simpjack2.c": "1fca67603d4cd0e05a10f9232728e3e6ace46cc42e83ff89f63a585427fd292d",
+      "snpunion.c": "131d9511000c157afe578e35d0073b44c8fac370304f5ab245d6da873afe98a3",
+      "transpose.c": "efac29468a635a290054f4d55419214d0c19b043da6c54e0f10faa57ca6864a8",
+      "win32/compat.c": "5266690b1bd44288dda82af5dadf0dd57387180a1b6445f2b2cbf534ff041f71"
+    },
+    "header_signature": "c51a977f3f486668bfc193a973f9ec3d6aaacad886b160af8fb80727c7586ec9",
+    "manifest_sha256": "43469be415f51c4ae3c728519ae1565d8a539c026ac15d5aef6aa862054690e0",
+    "script_sha256": {
+      "convertf.py": "bb11ad4f3f859812358646f0704794e9f9da9d74c8dbb06cf52ef24c1b410d88",
+      "extract_individuals.py": "101036e00e377c9c46bc497bb86679ef78db4c643f6ef6c9a2e2543477a80a80",
+      "geno_header.py": "cdd66e6b29c6a8762d9b8c52d5917f45ae7bee0a21ab5683a87b7182e0074ecb",
+      "hash_checks.py": "5be6a7591109e7ea35b0c2b02690d635f04a6d521501d05bf95ab7a6ab71c546",
+      "link_identical_files.py": "a883ecba8287bea153e58e8d3356b696cca528196b1c3f970ba29710301f2911",
+      "merge_transpose.py": "bd07677e2a938faa8618909aa7a086c44e73bbfb5c60ea005edce5444c7172f4",
+      "nick_hash_file.py": "0549c9726dd2bf7f6aa42fabfe906a651e28ba40bb5e532a89d7d09263d74937",
+      "platform_compat.py": "d6073b81eed0cd6164fe8eb47d3966d6dd48e48843d8faf36eeba551ae4b45ce",
+      "read_group_categories.py": "f73cd95404c127910cd700f410cc0907e6772d940aa8a8b69adb4bfbab9c3659",
+      "test_hash_merge.py": "af5d9a8deef87dde66edeef2feacfdd3384370d924a91b270d465a4d4de840dd"
+    },
+    "parity_validated": false
+  },
+  "linux_builds": {
+    "pristine": {
+      "upstream": "67bc219174a109951a9434e0a383ec464fb140ee",
+      "root": "/home/user/admixtools-port-only-20261111-v2/pristine",
+      "commands": [
+        [
+          "make",
+          "-j2",
+          "CFLAGS=-std=gnu11 -ffp-contract=off -fno-fast-math"
+        ],
+        [
+          "make",
+          "-j4",
+          "convertf",
+          "diffmean",
+          "dowtjack",
+          "easycheck",
+          "easylite",
+          "easystats",
+          "geno_single",
+          "grabpars",
+          "merge_transpose",
+          "mergeit",
+          "nickhash",
+          "qp3Pop",
+          "qp4diff",
+          "qpAdm",
+          "qpDstat",
+          "qpF4ratio",
+          "qpGraph",
+          "qpWave",
+          "qpff3base",
+          "qpfmv",
+          "qpfstats",
+          "qpreroot",
+          "rolloff",
+          "rolloffp",
+          "simpjack2",
+          "transpose",
+          "CFLAGS=-std=gnu11 -ffp-contract=off -fno-fast-math",
+          "LDLIBS=-lnick"
+        ]
+      ],
+      "sources": {
+        "src/kimqpg.c": "300405017bd3dde7ac2831d0f4b3dc2c1e93f55ca078e2e58ade05bc02fd7896",
+        "src/qpfit.c": "217fdac55d5ac1a776f0f43ebbf26191031c04da3f98c53b509aac4714cb22ab",
+        "src/mapfile.h": "100f7432659fec2e699de73a613703906ba1731068cb4e728de4247a2fa1ae3e",
+        "src/gslkim.c": "568121294dbd1883849adda83e80a383a152e599a727193cff4e58999fd35f81",
+        "src/merge_transpose.c": "4da22b21657adc1cca618bdb54faea61e869d216d374a32df51dd44dd1ea45bb",
+        "src/fitsubs.h": "7cc9f4ed0f363637e5bfd5a1c59932f8229e73ad3facada4fb9c4bf86e3fd84b",
+        "src/admutils.c": "b1740ea125d795a43637e80ffb9ac1c5d0d24ba2fc7ee74a543d16b4fb3728f3",
+        "src/qpfmvmix.c": "390759eea5ad34b9a264ba37d4ceda55114fedaf1614c92da94a45c6b2bb0ed6",
+        "src/geno.h": "bb56279c0da3fe901538ef68daa88828190cb2e95dc55fb8b329841a52256c09",
+        "src/simpjack2.c": "b1e75bc42ff697498249b1df9561301260bc2344d6f8d4416fa1e75ed045e222",
+        "src/snpunion.c": "9d51474c03ec1dfcfc556796bde0e552ee37af4ecf383eb9578e71f2e713b1cc",
+        "src/mcio.h": "d10664855291f044f3c31bef37a2202c4fed3a6d6365effd432a24b9a56be672",
+        "src/exclude.h": "2257936a6b08b52626fb757cd30eb8d8c62bc6511519525fa864e00474d7d3a4",
+        "src/globals.h": "ae674d3b422a63cc206b6ba4b7cda8681ed4801e881e274434db726632020a47",
+        "src/regsubs.h": "1eb96434b6325c8ff3ed88b715d4a2dfaecd26d9edd21dfb23f8efef7bd6b721",
+        "src/qpsubsarti.c": "2ebd93cae4047a83e671f78a17c4d8e3b9316c08e588c4c1115fd02f359e5d41",
+        "src/f4rank.c": "1d7c6178b3f96b28f71ecd9f05b3d78034bc44390eaf44499d9437b9752741e7",
+        "src/easystats.c": "ec3e280bc3fc76b5c51b83622b882cacd25b331dcf1e701281b35b4f5177e94b",
+        "src/qpfmv.c": "f5a8a8cd7216edd99d17e1a6ab0624a5b8e6132c4fb9c138dae256f55b39e3bb",
+        "src/gslqp.c": "c8d694e4b1ae249859c6c39afdd914610eb30159cf7766e9a052a6449375d27d",
+        "src/eigsubs.c": "4c400f118e8df9e3f3cd90901663a8cb7315f13baac01bb774d6f06377f45edc",
+        "src/gcount.c": "3cbc81188f0aad47c1c1eb9c69ada37454fd96334f2e66d3a16108f5d0bfff4b",
+        "src/xqpsubs.c": "abdf8c4812f7b950f325c4fb33bd485ea668c3a416d9938d7d2a1c5c5a918cef",
+        "src/rolloffp.c": "b40c1065f12b9eca3f8bdf16726be6bcb82a2d6c468266803b627c11c144c43a",
+        "src/faidx.h": "aadc78b410d7c72ede866ff55cd52057053da9ca52c221d4ac7689e1ffad0f1a",
+        "src/qpF4ratio.c": "00c2ced1dbb94f38477c63b96ea2992a435ebc92f77a47248b6e78e3f36893e3",
+        "src/qpgsubs.c": "70c99eddf6e223daa9b24549b10a1b9e815f061c1aea8fb5d7f54e2aba7e3aaf",
+        "src/egsubs.h": "a68e7e526d643a4a9335460eab71714fd479555e82f72380132a04447b95586b",
+        "src/kimqpr.c": "6d319e02443c7b01eecf8e51c6d69404adff696096931db61b79ebbe04475b9a",
+        "src/ldsubs.c": "aa41d0cc3329fb9f30416a9b9097d651bf4aa418c786afdb99865ddd5879affb",
+        "src/ascore.c": "5391d429fc93a5234d45fd6b8e7daa0f2223cc192711c0f0a92655f10fc7f763",
+        "src/nickhash.c": "e934afd17ef7a8669617c8b114452cb149d2a061c794006a2e7f9a80c5541053",
+        "src/transpose.c": "a6a31df3af69f41dadeb11f5af64d6fe35bd6899e0b1cb69c5b5231e8b41c180",
+        "src/fourier.c": "f7ea1b773d6672ee4fcb32abcb292f7fb34f1d25699fee849c00f5d15fd21ce9",
+        "src/qpfitr1.c": "c97cbeed3dba51734baef4b48b5ae72dbc54335ba7ecf5d1984d64221112c9d8",
+        "src/qpWave.c": "d033e97d3111692673b65fba0147ebc5cac095c130b6af553b39fbcc40a64477",
+        "src/qpfstats.c": "b7369a823d794a7aad804f4f73bc8db3d1c9586e0ce114d9111bb7778a4a8f49",
+        "src/grabpars.c": "4bc468f25cee8e04b8dd1d66c1b6696f08ac9aee6c93b768fccbb1236fb12b40",
+        "src/tmcio.h": "3a5ffd93aa6269fa885455044c94e85de61fa114d88c5887dc69854796acdcf8",
+        "src/gslrank1.c": "9b5c835a2dc90dea4dd6ab4b60848d358c1b49d11134e0e63c6d1c189a14aa56",
+        "src/qpBound.c": "eb4a9622884fd912cc4dbf76254f66775b5aa4c42dcde4343bfb1eede9c23cd2",
+        "src/regsubs.c": "6bb5463abb8ff8a643c90306487153f9b7709577f9f55f4024fdf8665db5bf1d",
+        "src/xpsubs.h": "15875bce4f43ff5cb234cde588793b1238fb51e21bad8b4f1f04e865dd900272",
+        "src/geno.c": "848450718bf277ace35a59050e3da8935deff56d2b17bb42a4ef604c95081e66",
+        "src/ldsubs.h": "47033c8de2dfee02061032f5763dbaede98e63a52520474453460bab50f0c643",
+        "src/easycheck.c": "5a19aeebdd9a939aca631a17a83e42793f87ebcc82e15993cac3701fb89ce1bf",
+        "src/multimerge.c": "5da1df9741fbae1c755abb923502012177c37ea51d0c99776bf57096ab624ee6",
+        "src/nicklib.h": "7e244f3201409a101fc8ecfd5abb4d83629be9d588cc3c7e792eab7b95f2b35d",
+        "src/qsubs.h": "97d9b993e12e94d108c92ca4f22e7f1515f238e51d6d58676abd5bf69465bcd9",
+        "src/testr1.c": "8716b145c4f981fa6913d5cecd4df4b842d2395b98456e6f0b5bf4615605e836",
+        "src/mcio.c": "4a427222ed6b1b975f17df961ea3fc1be41279c0977f6c1b25dfb86a248e4cc2",
+        "src/qpsubs.h": "9632ab3eaa2ebb73e257c88e11363f730d72ffe4eb6d3ddada5475a5f6b0604e",
+        "src/exclude.c": "0d0f029cd2e05ec3ab2dce398135c499e0c30cbba17d4071a19c6e7eb483af3b",
+        "src/geno_single.c": "938a8f7bff72ec2e6237cee3c4a99451edcbb761aaee76b9b9f08c58da4efa82",
+        "src/mergeit.c": "45e4e14d7f2b4dd3c4f70cc222696e39cb68c6d821ceb0b38c0d366a2bfd0dd6",
+        "src/qpAdm.c": "284a5456f188c08839655c2fd363c7ec591da3b9e2ce62b448b9071b37d6c1a5",
+        "src/mkweights.c": "3db455181a82b34ad0671e15b1f85332b74e2e7d573b49845657e28c9cbe3a7c",
+        "src/easylite.c": "e297124baa63ebea32e3ec09c3706f4a87ab8b2d7a70f51fc7ac4ab472f9acde",
+        "src/kimf.c": "1bac79838c077cd997a3fac6a080366ebf03c7dc61426305a1629c80fddf28d2",
+        "src/badpairs.h": "d1d3214e3b2f71625be4e1f80fd9bfced5163ca33ba4bfa7f4c0fcb2b257a830",
+        "src/mcmcpars.h": "45bdccc5537e90f92758a6361d2cd80b26ba8d2d1f0b7e21959bf2e286f2cfbf",
+        "src/fstats.c": "e23d989830b5fbf560045d88907abec1fb72f6c76f96c6bc7fd30854054c03b5",
+        "src/eigx.c": "c840c694392d0e83965c07f811a21c0b23cfef6893ba5aec35af1663703221ed",
+        "src/convertf.c": "f2f0b3f9db12467ab23ee22dd1231455959fb25a60cc98e8913402f6c4501e0b",
+        "src/qp4diff.c": "b57ab2970ef051b9682c3dd2cf71b34514c8b7aa609ccd6359e40dffd9c9c82e",
+        "src/h2d.h": "ca5afc300304e4e62cd1f72ea86721edf3ee85f97c9d07faf1f466c89555f627",
+        "src/qp3Pop.c": "27dcb41ceff005c0b79a4e49a271ed6dbde999ef86ca6aca83b66b8f3b56bc4b",
+        "src/qpGraph.c": "8341fad1c6e1f1acda945e8134f5d2715b3bae8ba43ff165ef184b0c258901c7",
+        "src/egsubs.c": "dd24df0702279396708504d5fa3c1389161de4dbdf9f9b7c7759e012b71a34c6",
+        "src/qpff3base.c": "f6ed9674412fc2f6f0a331f7c363318397ee93c33cb13fb8063727189aa4d8ac",
+        "src/mapfile.c": "54a9db67ef1e8452097d810e20309bfe4442b992d8e8f4e5dd457800fe2d24a0",
+        "src/qpreroot.c": "3d248ac6ec5350c245423a9ed76c6bbcb683c89f7b2cb33f186d8e850f959ad8",
+        "src/dowtjack.c": "42f4b6d3561eeb74784070cc1456e5f7e4ee6dd4402465e4d7052b9b57000aa8",
+        "src/eigsubs.h": "650195968bd08c55ecadeaa1006fafac6a858c6243f7346bd808f9112e53a636",
+        "src/admutils.h": "4755bbe1c699afa1a1de26f1f976805e737edf6a6b8d12e7114059802efc8efd",
+        "src/qpdslow.c": "022d8f379d960e985be9c26f213498261caa549b3ccfe88e50e6f1a93c31c606",
+        "src/empr.c": "46d152f7c2cabd046a0d5c1f9d971838e1f95a4b984dd65b4846d9e624d757f3",
+        "src/qpDstat.c": "7be064512c8cd05a700fc70d79f30073aba634f32ca7f689cf3ee6157eca4881",
+        "src/qpmix.c": "5928f34dc41854b7db4643562e3218441434ecaf7e724b82adeb39c6639609fe",
+        "src/qpsubs.c": "5ccd5f5e4342b7a890d13088c2978692bb59523f783319807c6682e760620d01",
+        "src/nicksam.h": "72e458dc66e90a624feaf3b322a6e8a4d26c65d8a0c7e9c077ea9fd8e290162c",
+        "src/f4rank.h": "1da8f82442a4b894727a252687104a833bb11e76dab66cde19bf5579f4e201dc",
+        "src/qpgsubs.h": "512979ceded1fabc6e8192d66431710498213eca2541c07ec238d684a79195c2",
+        "src/qpDpart.c": "f0ffe4cbbb88d89ca1b3f204499832cac1d2ab085418c790d3de8d3df466363d",
+        "src/packit.h": "5ba46e70c813d4e22aa1894e45c6d5421e06a09dea2fac4ee6f8adc3e8efceb3",
+        "src/rolloff.c": "789c5c94f36b3c5056d16671779c82dc482358786f8e688a4782c8f4fa6bebed",
+        "src/diffmean.c": "d0c439c0cc2d67b7aa434aa588301b3ce3e73db5b552346ceb6ba58fcdc920d7",
+        "src/h2d.c": "96d8de947147c095052d5c8219341f374e17bd029aed63cd40c6b7f22ffb07d3",
+        "src/nicksrc/strsubs.h": "247ded677e771b48332ddb6e95568ff7d2b61281788abe1429d05dbda12209f7",
+        "src/nicksrc/gauss.c": "660af0ae4fe74846d44324b486a8cf11556c1d6d19596de13ca1e69014b52cb4",
+        "src/nicksrc/vsubs.c": "d21a209e4144823c89b2e60a2564bfd13ac228399d4e16ee54f62e35da4faf25",
+        "src/nicksrc/xsearch.h": "80f414c58ab5ea240f00f5832a73fdbf3fa098906a630b9db3e149c0503442d0",
+        "src/nicksrc/twtable.h": "8bf6461a0329e8b83cf4a115d3ace1a7a7ad0a72ee76115a320b7d4b9cc8377c",
+        "src/nicksrc/getpars.h": "04b72a1dd534fba50c283731680a05cdbcfc711c0f3aa9d484db4ecff398a881",
+        "src/nicksrc/linsubs.c": "983ec84a2fb0a7baa13bfbea3b8a93caafbfce38a0617222b7e30a7f87eca26d",
+        "src/nicksrc/linsubs.h": "7f81b4e4b78aa6c45c04694d4a0feaada2378bc799f8099e64c4912f28bad0a6",
+        "src/nicksrc/ranmath.h": "2f1c5d3d225d7d8d635b66fa11f4610a90c719dec48cfc30fcbb1bffe91e203e",
+        "src/nicksrc/vsubs.h": "e2cbd7a7b8190df95f3ba1d25768d4a74190de6c13c506385300d4b337dd9fdc",
+        "src/nicksrc/statsubs.h": "d0b4d7d768b4135cb48a043c543168c6a2526f9b0e48742818879e0b4576df59",
+        "src/nicksrc/nicklib.h": "e07a0cd777caed3c7d0e0b42893a82cf039fbae4badb292f8c7cef300a269df9",
+        "src/nicksrc/sortit.c": "d462804089d87ff71cf7786e653ddb0ad50866116a10f34636992ba214dbe4a6",
+        "src/nicksrc/sortit.h": "2fa09f7470856be2bddcc082fc872a17fe8be6c15c39dc98c2e003573a995735",
+        "src/nicksrc/mptable.h": "b075e4a39a6d170637e5d771f3ba186766e9511da951f0bbfe2b1b7893a97ea4",
+        "src/nicksrc/kimf.c": "f9014a650e5cf42c799ffc419c8f427a7b0599baa5255127dc4591c5b0aacc42",
+        "src/nicksrc/strsubs.c": "413cc6535bd066898c8d6df69f67cab2d0927f308562cd442881ddcb517ac2de",
+        "src/nicksrc/getpars.c": "ec95b67da29b5cd84192585029394e2c6e6a748d4c6a9d45637c9531db27b0ae",
+        "src/nicksrc/xsearch.c": "32b3399ac692afe1ab114037458099c3cbbeb6e51a0621eb9eca25ca4162c8c5",
+        "src/nicksrc/statsubs.c": "598e4d4328a28c1cb2e1ea378338c0da1bc11452f234855ef6f129547c813727",
+        "src/nicksrc/gcd.c": "abab4fa0f1c01b3bdb9b1551018b057a50fde95d01ea4a42b48e146848838a1a",
+        "src/nicksrc/linsolve.c": "4760fe368f4654a50db46fdd0ffb11d1c956bd473bada4088d679733728975b0",
+        "src/nicksrc/esttime2.c": "b39bc3ccbfb07247de30446b03d35363a231b6ff91ffd3d81d30aeb2cd50eabe",
+        "src/nicksrc/gds.c": "4a17159b00015c79b3ca23e4915a61b38082078ec78fd782cccfc4275c35695f"
+      },
+      "executables": {
+        "convertf": "60c667e02111b74aefd9921a81469f6981027ac4fff8aab1f2d70fd53146be73",
+        "diffmean": "de51655503cda1e5cb267a73abe0d7ad6f4b8dc0d26e77c823ad2c58ef150a10",
+        "dowtjack": "63b0e33ded707e2c0a59a537860f72900de4e6ea320b09ddf478c1c52280aa61",
+        "easycheck": "62dd93676976213d2b1ee24085c6d5d67094c49aaddcd7389e16f2cd98313e1c",
+        "easylite": "2a08438cb7187544168f1ec31144d77af7523ca5716b66d9f064c87efcc2527a",
+        "easystats": "5e6589b4a3ee24cb7ac364804768a3bc81b62936c0db377ff55abc24e9c7a388",
+        "geno_single": "58e5b6548b83d4b1f507048bb7ba1864bc39cdf4328b74a7f58fa9e5c6e9c853",
+        "grabpars": "750b9dd43572fe96586a4c570e1af47fc49bc2c1245dc2d5b185e3b652c0332a",
+        "merge_transpose": "a873a3fd56e398355edb7ce268c508c45afbce46e9e08a1bd174c967b038baaf",
+        "mergeit": "1207bfea9153ab444e4130cbaeb90dab585ecffa058b4c28291e2d79a9f16e74",
+        "nickhash": "968e2b0203014fe1516baa5f8ce7ed9477f961c4a6f75c6509a05e7c98a9b1cd",
+        "qp3Pop": "a87647b09c02454e5e885702d26a377eb6c57560e1268a56fd958f57c349947e",
+        "qp4diff": "5f9cc4e50892800294bcac82bb994146ff790bdd535fd3936bf00adc097782c5",
+        "qpAdm": "151659e36b85502267aa442eaa58a1c97000b4915df507693d015b9986675c5b",
+        "qpDstat": "015e3841decf8a3a82979343f08dbb8c0b6ffc3e0ffe6cce8166fb0b98ea5b4d",
+        "qpF4ratio": "dd6d643d6f441165bc7d4926e657919e31cf11780eab4459dd55efc0cfdd5d3d",
+        "qpGraph": "656a17b2dc9bdaaf4a7e2e75af3471fe1c374da2ea7288041721f887039dbe99",
+        "qpWave": "080d3f1105df0fa7d4385157822de12c93214a07e87b96e4f85599a2a2f659e2",
+        "qpff3base": "7bd08a88bb30e4d219993066ccd211ef41bbd2ed8526564ff9868d0f0480fad9",
+        "qpfmv": "f95dac4ad733cc27ed038cb66470518d19c2606b156eaf09dcf7ea405e4b16ba",
+        "qpfstats": "23be04147f06117d6253050c65f564d289767cbeedf020d5c13507659a89016e",
+        "qpreroot": "7a226238ba9c6569a0c653e2cbd4d8ec84791f936cc827da7457093124f056b1",
+        "rolloff": "b531517d48fc089148f29894d37ae846e43039258316e084c67ac70be2b58f51",
+        "rolloffp": "fa65672920adf017e45603bb9d0b632c461ce7f295bb0d1209e3c5047fc33e32",
+        "simpjack2": "a4fac8dd445f53c44b3bb95a0e78dd317df771fccd738eaa88c2d5af5512b38f",
+        "transpose": "45e28d9e688106c4a2547034268afc6ecfee8b68cb7874c3d652355a33ff096b",
+        "qpfit": "f3b2730e3753f7f4a99b168026b3675be4f5c9c085b67ba64447ed01a4831487"
+      },
+      "qpfit_only_build_exception": "void -> int addscaldiag declaration; upstream exit before fitting retained"
+    },
+    "port": {
+      "upstream": "67bc219174a109951a9434e0a383ec464fb140ee",
+      "root": "/home/user/admixtools-port-only-20261111-v2/port",
+      "commands": [
+        [
+          "make",
+          "-j2",
+          "CFLAGS=-std=gnu11 -ffp-contract=off -fno-fast-math"
+        ],
+        [
+          "make",
+          "-j4",
+          "convertf",
+          "diffmean",
+          "dowtjack",
+          "easycheck",
+          "easylite",
+          "easystats",
+          "geno_single",
+          "grabpars",
+          "merge_transpose",
+          "mergeit",
+          "nickhash",
+          "qp3Pop",
+          "qp4diff",
+          "qpAdm",
+          "qpDstat",
+          "qpF4ratio",
+          "qpGraph",
+          "qpWave",
+          "qpff3base",
+          "qpfmv",
+          "qpfstats",
+          "qpreroot",
+          "rolloff",
+          "rolloffp",
+          "simpjack2",
+          "transpose",
+          "CFLAGS=-std=gnu11 -ffp-contract=off -fno-fast-math",
+          "LDLIBS=-lnick"
+        ]
+      ],
+      "sources": {
+        "src/kimqpg.c": "0d9a320c707766958713796bb59e864231a39c55e633ff7b403271acf5b365f4",
+        "src/qpfit.c": "e219e61c2e82d1c375d96e4edc3b132b34de127566f892dd4c70716c408d0058",
+        "src/mapfile.h": "a9b9c904b9fabd1975da4f316ae600f5088b6a599b15c95ae289ae2d4b2e5f77",
+        "src/gslkim.c": "10598e009ea15149dcfe9748c690a4b173186e74e1dd681a84d93fc70029a924",
+        "src/merge_transpose.c": "2f3bcec8e9563379310d35f6776ddee8d760d67fcff16992b9e817ed9404a306",
+        "src/fitsubs.h": "c52d3b396f0de3e9b031b0e51eb55536f0ef50950da7a6dd25d91a4959c6ff2b",
+        "src/admutils.c": "a45283ec0160dd1d21647fc9e66d9c560c810ac2621da54adc0fb120ca24f818",
+        "src/qpfmvmix.c": "a9a69949c451ddf2e32211e98f0f7e39fb45cc99cd80ae23acec9543fba9e0ce",
+        "src/geno.h": "bb56279c0da3fe901538ef68daa88828190cb2e95dc55fb8b329841a52256c09",
+        "src/simpjack2.c": "1fca67603d4cd0e05a10f9232728e3e6ace46cc42e83ff89f63a585427fd292d",
+        "src/snpunion.c": "131d9511000c157afe578e35d0073b44c8fac370304f5ab245d6da873afe98a3",
+        "src/mcio.h": "95a0292f0db101f5084ad86c07b49df865da12fe3a0acddf3d014f6f4fca7cf2",
+        "src/exclude.h": "4c97aa9bc68d14b9e16d8c49729e342754a6d6679715689cb4621be6500a2dc1",
+        "src/globals.h": "27183657b91d0374f774be35816e667d32a5153855b9b86f8176d221ad7525bf",
+        "src/regsubs.h": "3b186a2a31dee8b794e0aebebeb55ac8d3c10dfc478b8df82b4feaba4b392f0a",
+        "src/qpsubsarti.c": "bfb4bb3849e6074ca985a1012f99c2570d802acd1478595f82859ef2c548a5e4",
+        "src/f4rank.c": "4f9111aa95f6f4059a9e6b58e8376e05e0edfaca7947357c3537c327ca1cb574",
+        "src/easystats.c": "e7ddfa8901431184608a301c863716547e5cf1b5a3883f9c7ec066bc1aa8cb38",
+        "src/qpfmv.c": "d699e06c832fa2a87cf5d39a678c4321cda93df586b70dbd93fba0cca8a0db7b",
+        "src/gslqp.c": "a5548452784b1613935df1e505923b34a6b46be2ea39d59aa3f237637250867f",
+        "src/eigsubs.c": "8a43d6dd4b7e77ba03cfa8e14b50174ba53899a569e210e6e716837573d663d1",
+        "src/gcount.c": "09fcf6c313a57b387590867a46605efec07880745703077efccd667c02f67c4e",
+        "src/xqpsubs.c": "990a51f7732e396aa7b254db7283235c590defb4f5e2290d88d0713e43b85fdd",
+        "src/rolloffp.c": "bfbe9f2599ee36f5caadc7a52d712f583211f42f6d7d129b2c0c5acd0e8315d7",
+        "src/faidx.h": "674989a3392e696ffa02ae0018050296778e375357aa96953a0ad8537780c82c",
+        "src/qpF4ratio.c": "6483ae3832119ac9195b7467238d4aa720e4c8ff9de28cfca99ba4ea84302ae7",
+        "src/qpgsubs.c": "8215da1d472a8fef661c2f7ae753ef10c3853f47d93c6f3359b258c669306de0",
+        "src/egsubs.h": "a68e7e526d643a4a9335460eab71714fd479555e82f72380132a04447b95586b",
+        "src/kimqpr.c": "35ee484e43cbc984f0b0802b7f0769504bc8c3065e8d52b2ef2d5e5a28cc712b",
+        "src/ldsubs.c": "0b024b63c75b2e4988d3d90e48582baf5aa6f5cc3ec9d8e5fdd83539d08c790c",
+        "src/ascore.c": "f77147a4e3696a6637727482fb8a8e182e69cb41d4b1344e1c8e7e0d00ebbb8a",
+        "src/nickhash.c": "2e9c397b620f1ca7c322f9b6437ee75f58e0ab99745844f7b8011319752db818",
+        "src/transpose.c": "efac29468a635a290054f4d55419214d0c19b043da6c54e0f10faa57ca6864a8",
+        "src/fourier.c": "cb19fa1c869439b78edd2e074b1b16607b5d7ef8c1ef9aee97b910cadf62631e",
+        "src/qpfitr1.c": "522d3225dedbd2595290d3f40ffa72a09a4bdfbbdffc7426e247abbb9b4edb5c",
+        "src/qpWave.c": "26172d0deff69e6c12f44e1682c2629f6af2694572a5ecbe9d547ef756ccb002",
+        "src/qpfstats.c": "d90d2a645b7db1efe915d3aa900b749f4f44ac35ee85c8f64ea6f826761b62b2",
+        "src/grabpars.c": "995e62a78fe9f98462332575796e86fa98fe6b24f4955845e9cd1eef888e4ff6",
+        "src/tmcio.h": "a4e4ca13b57a8baa95f16ce541d1c9ddffb701010cf8c03c1f65d69ea77f2746",
+        "src/gslrank1.c": "67a5cec623ec368cc2933531a10dc2e7af69b9b2be0be570f1cfdf32b4911c5f",
+        "src/qpBound.c": "f717d53cf60744f0e0e986a34fe6b894f7325019c4ca156d22f1ed9f6f0e444c",
+        "src/regsubs.c": "6bb5463abb8ff8a643c90306487153f9b7709577f9f55f4024fdf8665db5bf1d",
+        "src/xpsubs.h": "548ed87ee542db9ac8f0cf85ec556bc2ab5fecba5ea1bd3e4de521d33451c15c",
+        "src/geno.c": "324432ca09812b09226d5dc0f554be9063b768c2fbb6ccd58b5c1d9a700418cc",
+        "src/ldsubs.h": "1856386361c79b95c699063a497ab81e4c426ecdf1c29dff18ed81c196d158e9",
+        "src/easycheck.c": "8d6b1b58a3f8653ce04a9cdce99bdc1a97f1321698aec071adb19d080b792c59",
+        "src/multimerge.c": "4eea21e30db6e6a0ad178c8c11e1a6c1513296d3fad58eea4adf0172e510594f",
+        "src/nicklib.h": "bf32ae4d5e15bc8f3729938b89011018b9c5bce24faf00f202c4c1e66bf6f6c2",
+        "src/qsubs.h": "b06e54f053e31309fdd611667aa1a7146e38e20538590593433e740590529d2d",
+        "src/testr1.c": "2f2e58d9b6fd91a142e7abaf64ef64e356022fbddee2f1cc4832664aa18d01be",
+        "src/mcio.c": "f3d8058a8834395cbbbc5dd668833e7b9df227ec1269bf8bfbc6d1a57c734eb1",
+        "src/qpsubs.h": "9632ab3eaa2ebb73e257c88e11363f730d72ffe4eb6d3ddada5475a5f6b0604e",
+        "src/exclude.c": "046e0dc0c988813d96b61aa40fb2d222f66778ed40348bc6df41bfaf4b27ce11",
+        "src/geno_single.c": "0913ab8b6e2a025ad44cc31470336f66b5cca59766271cef8e5b2b7b5bbc7ed1",
+        "src/mergeit.c": "734bae002b533e07fc3296df748992d825d5661a0073672413a6640a6fb33c65",
+        "src/qpAdm.c": "3e9f3a2babf8edccd9b10d07649b22e31ba4343e8b84bcb660283318d78af50e",
+        "src/mkweights.c": "42a977560ff26cff17a07095da47c91f7fd2ce718e133603a4c7838948796e7a",
+        "src/easylite.c": "8bf4d99469089a4afe0b0c6d06624828f6d8eec9e4430de18681751bacb8a601",
+        "src/kimf.c": "c86e0d901f68ac195d97375111982fad61b3c71199ec5749ebb052d63aba4c3d",
+        "src/badpairs.h": "093cd9c3d88f73446f75a2d9bc6985785909801442363f0e4a5beb74092a0697",
+        "src/mcmcpars.h": "be6627b88ce2502479e8dfd124deb60baff7e32a5b76f71a1c9936554c1cd93a",
+        "src/fstats.c": "08bd290c30028a0951e009446d5d382c1a3b2501760bc7fd92f95c00b0e6648d",
+        "src/eigx.c": "299a9f72999e46469a70eb4a94f9530b579c470f4e86cdf1e4ddc4a0770349aa",
+        "src/convertf.c": "7fa538461d8cbf4716fe5cc5bc75ae8d3fd6e24b460bddfbc1a713584443e81f",
+        "src/qp4diff.c": "a13ae22d2e91a6ce76a41db388c95414a09b98afc7045794b74cc587e8ab0a41",
+        "src/h2d.h": "9e3ddbb1128f257d3888db5d3301ac116bb5d75e7712dcfc4b02ea522eea3a34",
+        "src/qp3Pop.c": "bbc4ffe00fa72a4c9140bdb7585494f82657848e00eebb631df1f207f9331659",
+        "src/qpGraph.c": "6f9eb1a337233b201994092589cb98a7df59cadb54e3caa97570b5e100a619ac",
+        "src/egsubs.c": "dd24df0702279396708504d5fa3c1389161de4dbdf9f9b7c7759e012b71a34c6",
+        "src/qpff3base.c": "df89c49cfdd445a81a903c97eeb715d1c80bd7d05206e4aa4736f17dc75d5f9f",
+        "src/mapfile.c": "596ac12d487603aa08f6120a8b5992a19bb4fee960c582e6059e3a8504945226",
+        "src/qpreroot.c": "924b41b63c41c22383a126c08eb2cbd2f62b01c8d509943fbabb3b1a28b8295c",
+        "src/dowtjack.c": "bcbd88c81ae2f697ff0df5541b94c9d5a949b13fc859294be87b891ed2ce6ec9",
+        "src/eigsubs.h": "dca25a1b79e6627ccd3de343e30bfe2f3c05256421ceb0e9465bc01629307db9",
+        "src/admutils.h": "6986f27211e2025a7998bff1b88627c82fe97704e844331061c3206926e98b45",
+        "src/qpdslow.c": "ddbb6e36b121a81daa86192341f4c3c80d420b6add991f4ba97f7b128ec5c5b1",
+        "src/empr.c": "7f440763f6cd0cb7923cc2fdc6c782adb92e9098f2bf1a04c4e2bb0a85d32702",
+        "src/qpDstat.c": "311ff850739bbeb94441e4c3dba93d9be2a18cc45e869ee2e8d820ce696e6574",
+        "src/qpmix.c": "a4a860b3ca66f11fefdd36c72581ae258ba01e306682cf581103714e237f10be",
+        "src/qpsubs.c": "cca149c813af9faa6e08a382e190cb62d6feb6a293ea5a24448161e6442af22c",
+        "src/nicksam.h": "0a0db80576afd30c593cdbb7ad0e763abc2ef0bc1aeb7b2215cac31d67a5df3c",
+        "src/f4rank.h": "d6b6b9f393d7ec615a787669835956b14ba50651522cad5fc2774134e4b562e5",
+        "src/qpgsubs.h": "7e8c057df18904fe96cf29dcb4fbbe703a2c1bd54ec5594824dea52ef2b46efa",
+        "src/qpDpart.c": "613c5b3b990ea5e99349288b6c98f0e971fd460d8cfc1ad657612400252801c9",
+        "src/packit.h": "89dcaa1fb7c35eb2655a2f9f1961e1863047f9ad37c50a78c47e4cb5fbf8f8a9",
+        "src/rolloff.c": "083c8cab6cebd7f6e793143c72c15f9ab1007ef24e9928f1e1c495f07d8d1ea1",
+        "src/diffmean.c": "be5eadb4feab45af6e8c50af0b2b500e62acac252a0a7f6781cfa8bd126b4374",
+        "src/h2d.c": "b09a3a8a6f590e1aa4fc7a32b4e34278a6e0df5285e5f70e99d8c9212539345c",
+        "src/nicksrc/strsubs.h": "1a781a09301c8045d540a0c4cabc9b85a5d7ec0f9e8a8fdb7dd6ffa7faecdc88",
+        "src/nicksrc/gauss.c": "9a63a6b728441ae536a7a069d3b4e8573982285128a8f13dd96761aa51805527",
+        "src/nicksrc/vsubs.c": "63be25e4209f80ede8516a78133a1a88ee7c2fd93f260ce27b46e35d88995d78",
+        "src/nicksrc/xsearch.h": "6cbbb92e854ec12bd56df2645ab4d9649ac857cf16a4e45457ecff3df258d820",
+        "src/nicksrc/twtable.h": "3069a2ef5a9feae426cbd584ef7009b0d65d248f5640bea488b62f53e021b0bb",
+        "src/nicksrc/getpars.h": "a90d147f93f62ddd90832e15ed09b2ea78b710981ee12af33703eb278506bf3f",
+        "src/nicksrc/linsubs.c": "a8f6fd1143673caf79e1e1b4050dbbb4eda93fd9ca0b966a5c72d9653d35bf6c",
+        "src/nicksrc/linsubs.h": "6c5a822515049995a1ac90858eef9ea0328aa30117fbb65fd1f615b8aa587eba",
+        "src/nicksrc/admix_types.h": "c42b320c848bb98fbff352b2df1d4246e435cb49e340efc3c3fa6385c65c6a05",
+        "src/nicksrc/ranmath.h": "243a7ff80a294c29ae3c7f7875d31a89a3208f6a4cb8f03c643ba67e3c0ccfa4",
+        "src/nicksrc/vsubs.h": "dc1108cdb1b31b096a87dd6a2310f884211556971fbf833742d5b5b483401e46",
+        "src/nicksrc/statsubs.h": "3031707f9331f52f7ddd702865048e27f338e96644884ff254b02ab8d9538581",
+        "src/nicksrc/nicklib.h": "4f8a2ae1c4e2c02cf7bfabe995db3ce144488df32b98c664a12d86103e57cb1a",
+        "src/nicksrc/sortit.c": "fbdb91aa7dc850bb9d1d87809ce4dd75fa047ab7f9096c1278fab1188ab4062a",
+        "src/nicksrc/sortit.h": "dcdfdf3f8151b797935fb070187d01cc83e8fea537574d6bf0e1383b1bdf67b5",
+        "src/nicksrc/mptable.h": "04834a9526179d4cdc92dc280b5a84dd70c0c05127b63c763b1df52872d10375",
+        "src/nicksrc/kimf.c": "f6214072260aef25b72c24bdd6cf1d29eefc6f9ab45d27980465f8f78cbdd6f5",
+        "src/nicksrc/strsubs.c": "5ad37e0452fc458d2f3a9d0dbc6998c21eb849c052f7c4df9a4a423234c589d8",
+        "src/nicksrc/getpars.c": "2e3396d0174efc11885de96f952e5ea1df27501d53b8007f830d2f11dc78dd51",
+        "src/nicksrc/xsearch.c": "41461b26705304c4c43c46a0d0c974bf3ce3713cde2e2a758932c6f945ecb6ae",
+        "src/nicksrc/statsubs.c": "592a5000521cb33e3aa51fabb1bba5f7a800bd8b23d726851d686eafc3f8c8cf",
+        "src/nicksrc/gcd.c": "c5a10209fdb85ee20586b85668c7ea855623cb3e395da8a33880e2b0b9beef87",
+        "src/nicksrc/admix_platform.h": "04ee846ff81409e908d82fecf2280b59506bc5b7b6de6579acaec8d5feb413f5",
+        "src/nicksrc/linsolve.c": "224b2a2ee5e7aec70646bb450a8072bc97964abc51f051d49e69e438ad86b4fe",
+        "src/nicksrc/esttime2.c": "dabe86211945c071c7cfa351fd516878b4486af2196bbba9dfe416448347a251",
+        "src/nicksrc/gds.c": "329f54fa44b37ac5d662629c5aade9e5392b0a981fdd246a1d9ccbec1fc8fda3",
+        "src/win32/compat.h": "2213af6106371385d33ddfc72f8c595e30b174f18dbf13938f5032101c2eeff6",
+        "src/win32/compat.c": "5266690b1bd44288dda82af5dadf0dd57387180a1b6445f2b2cbf534ff041f71",
+        "src/win32/argp.h": "f06486cbbbad9f0f84ef2a2d5cc90d2f63ee07aa7125953bd936f3e455d87b2a",
+        "src/win32/mman.h": "eaef6bf4bc5b9c6a75841907bb671d1113f4cb767df95c569f0fb875b1ccf8ec"
+      },
+      "executables": {
+        "convertf": "0ce5a3e33553327c4a68a23b165841c83c4106ad3560532b73002b80307d1bf1",
+        "diffmean": "feb737d253a35f2abb48b061b25b40fd321e4e975f5d6d99b9b185351434e5a1",
+        "dowtjack": "309c7e12906abf18358fbab4197b2b3ada1806c0ecf2edd94d77210bfc3392a9",
+        "easycheck": "9eda700fd89ce14dcb1dd0a83b2ea85a4abedf2172b0c75072e70d57a7dde837",
+        "easylite": "e34b31d567e0e224677a5b70d9de33f6a53739435c2f54725e4c94a9d20c28bc",
+        "easystats": "0503be041c1f97568db0441e4e1c3e2e878d673e62d7e945a7dbeab6e31bf593",
+        "geno_single": "37dec86d88616d5e02213d500c9fddf17078105187a630080e481380a7f070c2",
+        "grabpars": "5928060f2599a442ec5bfecbff8e31f42123e3843306f41e4d7ddf75132513b7",
+        "merge_transpose": "04fdd49f89ddfb925a2b5b73a75ea00d7d095b500ba433c6bfa055efd740ec98",
+        "mergeit": "ddd1baef75e0682e3cda8334388f8329cbb9323f1f6a6e4b24aa442bd15ea4c8",
+        "nickhash": "d28216bf44f41161f89d74f9144d6fbb80a0cb98a3ceb9b0f097a947dac69401",
+        "qp3Pop": "2525a301bed9f9a449aee4df09f649e42b899e7a530d442166d17a4b97932189",
+        "qp4diff": "83a97f86801b187cc677648d4df3b2e2db8235c92faf677cd5518bfe67ad9c6d",
+        "qpAdm": "0aa7c50bfb9ef569220ed46dd1488754d1b2dff6ab405d790edf873f1aac4530",
+        "qpDstat": "4b93cd51069e80cf5e8009d1af589eccc993571419f9453a8d9d4d84c7ef8d2a",
+        "qpF4ratio": "f5db73f6a5ccdec62b1a997af0877d536d68c7748931f47fb968d9e2399e9ecd",
+        "qpGraph": "902a91a7f0aa5d97db282cc4978062b9b026ff761682a981febe97ff04e21119",
+        "qpWave": "77870c54eb49d91003cd709f26c5547f07a121a35ef9b8d73b1e4fd1418306e8",
+        "qpff3base": "a16f859cafb8cbdfead0b247be606bba4f05a5b5c11b0565f2b7c8337ad2ffad",
+        "qpfmv": "1e2ffc7f014b0b0bf743b5ba2254edb3956c021b09fbebb8b71e186ba198becb",
+        "qpfstats": "f4369157df4913b373b5ac48d2f71518a5223c70c5897981231249a8d6d8b75b",
+        "qpreroot": "d2062ae73e576c8d3a6284e0388763b180d25dc679e62a6a9d6fbd7296d23584",
+        "rolloff": "c304fcf2429aab23902ed2f6e1590f96cd0f69ab674f47ac4e1367fd69e51beb",
+        "rolloffp": "ab4ce2483c276e7321352bc881c90278dffcbc51fa05e8597fc2bca6a310b737",
+        "simpjack2": "1558273db6fd4cfe9dfbeafee9ae34d0d7ec247d5efe7f464bcd748fd029cf1e",
+        "transpose": "bf51b05dc7857b2617853e1e449a89fd83b85aecd56172f27dd07ff49b65d9be",
+        "qpfit": "bd009dffe09c1b5e858f3a9631f2eae5433181fcc575880364c002d2d0052965"
+      },
+      "qpfit_only_build_exception": null
+    }
+  },
+  "linux_environment": {
+    "['gcc', '--version']": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+    "['pkg-config', '--modversion', 'gsl', 'openblas']": "2.8\n0.3.32",
+    "['uname', '-m']": "x86_64"
+  },
+  "pristine_source_hash_mismatches": [],
+  "exe_sha256": {
+    "ascore": "50accf1c06b7575878e5ed5f32a89526322053876fe75d5f8e393d471a380454",
+    "convertf": "a5568ed33bd43b4414a894904c332432baa899d4a3b4e0fd1bc873cc143fc329",
+    "diffmean": "cddf119a8081382baec952e4fd15697ef6ef9c4be7d93de66fce0b5a5bac8150",
+    "dowtjack": "d6aeddede636f711cf7bcb10ba322d074a6d6e9533ca0d10905e47d8f8c2f38f",
+    "easycheck": "4884b028e7e03172dcfaa2f15f0f3722423484f755d5fc61fddbb935ec9ae540",
+    "easylite": "90e7dcb377bc625d7047e2f613b31919575885d23a33eac3290a4d50f0d7ca3b",
+    "easystats": "596bb1c3bdfc39d6f663117c26a195ed6124142813a2742680395d250aa2c340",
+    "gcount": "9b963cb7b7c05b2079d5a8f49ddbeb61a5ae5c478d5b563ba2b66cfbc7d57b16",
+    "geno_single": "6f9c94b5682032fde0d6ca05e5b2ccfba61c87974ef9f2ac8b0bdb626772fb3f",
+    "grabpars": "36943d8903213be7ec461ede70eccd67355ac058cd9528de1d076e8b1bada9cf",
+    "kimf": "7932149bfe826fcfc46b8a656ca42e694a232892758a02b5818a082817b89cd4",
+    "merge_transpose": "70f6672fa5e51a173b7f05084e8c5caa9901bf0f7633dee61ca7917a0811bbdb",
+    "mergeit": "5c5eac63f609b2fbd34260585238fc1bae61a070c9aa58e907f20e1cabfc5040",
+    "mkweights": "3f636e7b564b28a2a90ba1f9c7d6a18de7c733cfd93169c4487ada1b28178452",
+    "multimerge": "36d7896139bfc335dfd391fe02213b0bf0f7d344ec0e0c01bb8e44e74e4d7a52",
+    "nickhash": "f49645566d909f2df59c70e444465f8b4eabaafdfa82dac81862f5db92475051",
+    "qp3Pop": "4f58a5d5b6742f54339e03743d3e99fed7160b4694b0ee29e9e00d3e952d6de3",
+    "qp4diff": "14bad9f96f274d6c8b63e47f1886064bc91809c5be52219e7dc6da5ae43ca9cf",
+    "qpAdm": "83901eabce23ba182a0fb6a860500d623772189eef2ed7bfe747350d957c3f8b",
+    "qpBound": "9fd0f7bda94b48c45d5d30b80211ea8a1b2a484db5b19d637e342e402470e4ee",
+    "qpDpart": "12063fd883f05e37e2ad555c0aff69a27170636875cb79a40ec87076e2bb2276",
+    "qpDstat": "0cdbc8b5650eb356b661a57d0ab7d85585601df51d1aed2ac6c4fea6833c325f",
+    "qpF4ratio": "ad1b2616821b041f5510e3638763364cd62be7e746603929e94c33c48b44e498",
+    "qpGraph": "9503243e0639e1919b866855ce05a618cc3da5cf88cd2fb0cc74eabb74cde438",
+    "qpWave": "c586b6508f8ec19965dbd3301a217fafb32cfb27f2e1237a5f7a75b2e1fa9246",
+    "qpdslow": "4c4ee87a70a2da73a048888783140fbc4cbbd8afd2e7576445cbcea7ab7af488",
+    "qpff3base": "957e9706da3d3933ff1320fa83075c1ef2c0368adeefcad779177f55763ed238",
+    "qpfit": "337eeb51944fd792c0e178c03ba0552c76aee28f250fa81aaa5d965c8021178c",
+    "qpfmv": "0b30d5677cc5186556057ddde1a71a089dad8f5062a562286890dc32b1a4d134",
+    "qpfstats": "7386081cc8c3d4c87ce3eb7ff2e824ba605442e2cb0bad246a55888c52465b35",
+    "qpmix": "b6c9da92d75b4b5d9633d26406f72b28bb8c86b487cf8c8e20a2e411fbdc7481",
+    "qpreroot": "4b339d70d6a3fb6e38e8112f1e4904a951a9e7c2c1e5128fdd18d7595dbdc9e7",
+    "rolloff": "3d3924d2d205809d6d997d2f638f02b6b5b06e2b36427d1e0b6a3bc1dad2bffc",
+    "rolloffp": "3a9689ce8a6275b75761b42da7ae0291f7990d139d944e3e6175845a405d40a6",
+    "simpjack2": "0b6c3d7731fb0ec205883969a3b686e74f9b868364028a20033bc7c81aa1a019",
+    "snpunion": "e744c866a4d668bea1862702cb5440d823c9377e0408df3dd9c94481107dc55e",
+    "transpose": "7d071761a39252a4f57b8b47c496f8cfe7576c4178ba23001ce449db560ac2f8"
+  },
+  "current_source_sha256": {
+    "src/admutils.c": "a45283ec0160dd1d21647fc9e66d9c560c810ac2621da54adc0fb120ca24f818",
+    "src/admutils.h": "6986f27211e2025a7998bff1b88627c82fe97704e844331061c3206926e98b45",
+    "src/ascore.c": "f77147a4e3696a6637727482fb8a8e182e69cb41d4b1344e1c8e7e0d00ebbb8a",
+    "src/badpairs.h": "093cd9c3d88f73446f75a2d9bc6985785909801442363f0e4a5beb74092a0697",
+    "src/build_windows.py": "54c93c40ab2593fb2f719905eead726207fbf2680f9f396016c63a29c6c98693",
+    "src/convertf.c": "7fa538461d8cbf4716fe5cc5bc75ae8d3fd6e24b460bddfbc1a713584443e81f",
+    "src/diffmean.c": "be5eadb4feab45af6e8c50af0b2b500e62acac252a0a7f6781cfa8bd126b4374",
+    "src/dowtjack.c": "bcbd88c81ae2f697ff0df5541b94c9d5a949b13fc859294be87b891ed2ce6ec9",
+    "src/easycheck.c": "8d6b1b58a3f8653ce04a9cdce99bdc1a97f1321698aec071adb19d080b792c59",
+    "src/easylite.c": "8bf4d99469089a4afe0b0c6d06624828f6d8eec9e4430de18681751bacb8a601",
+    "src/easystats.c": "e7ddfa8901431184608a301c863716547e5cf1b5a3883f9c7ec066bc1aa8cb38",
+    "src/egsubs.c": "dd24df0702279396708504d5fa3c1389161de4dbdf9f9b7c7759e012b71a34c6",
+    "src/egsubs.h": "a68e7e526d643a4a9335460eab71714fd479555e82f72380132a04447b95586b",
+    "src/eigsubs.c": "8a43d6dd4b7e77ba03cfa8e14b50174ba53899a569e210e6e716837573d663d1",
+    "src/eigsubs.h": "dca25a1b79e6627ccd3de343e30bfe2f3c05256421ceb0e9465bc01629307db9",
+    "src/eigx.c": "299a9f72999e46469a70eb4a94f9530b579c470f4e86cdf1e4ddc4a0770349aa",
+    "src/empr.c": "7f440763f6cd0cb7923cc2fdc6c782adb92e9098f2bf1a04c4e2bb0a85d32702",
+    "src/exclude.c": "046e0dc0c988813d96b61aa40fb2d222f66778ed40348bc6df41bfaf4b27ce11",
+    "src/exclude.h": "4c97aa9bc68d14b9e16d8c49729e342754a6d6679715689cb4621be6500a2dc1",
+    "src/f4rank.c": "4f9111aa95f6f4059a9e6b58e8376e05e0edfaca7947357c3537c327ca1cb574",
+    "src/f4rank.h": "d6b6b9f393d7ec615a787669835956b14ba50651522cad5fc2774134e4b562e5",
+    "src/faidx.h": "674989a3392e696ffa02ae0018050296778e375357aa96953a0ad8537780c82c",
+    "src/fitsubs.h": "c52d3b396f0de3e9b031b0e51eb55536f0ef50950da7a6dd25d91a4959c6ff2b",
+    "src/fourier.c": "cb19fa1c869439b78edd2e074b1b16607b5d7ef8c1ef9aee97b910cadf62631e",
+    "src/fstats.c": "08bd290c30028a0951e009446d5d382c1a3b2501760bc7fd92f95c00b0e6648d",
+    "src/gcount.c": "09fcf6c313a57b387590867a46605efec07880745703077efccd667c02f67c4e",
+    "src/geno.c": "324432ca09812b09226d5dc0f554be9063b768c2fbb6ccd58b5c1d9a700418cc",
+    "src/geno.h": "bb56279c0da3fe901538ef68daa88828190cb2e95dc55fb8b329841a52256c09",
+    "src/geno_single.c": "0913ab8b6e2a025ad44cc31470336f66b5cca59766271cef8e5b2b7b5bbc7ed1",
+    "src/globals.h": "27183657b91d0374f774be35816e667d32a5153855b9b86f8176d221ad7525bf",
+    "src/grabpars.c": "995e62a78fe9f98462332575796e86fa98fe6b24f4955845e9cd1eef888e4ff6",
+    "src/gslkim.c": "10598e009ea15149dcfe9748c690a4b173186e74e1dd681a84d93fc70029a924",
+    "src/gslqp.c": "a5548452784b1613935df1e505923b34a6b46be2ea39d59aa3f237637250867f",
+    "src/gslrank1.c": "67a5cec623ec368cc2933531a10dc2e7af69b9b2be0be570f1cfdf32b4911c5f",
+    "src/h2d.c": "b09a3a8a6f590e1aa4fc7a32b4e34278a6e0df5285e5f70e99d8c9212539345c",
+    "src/h2d.h": "9e3ddbb1128f257d3888db5d3301ac116bb5d75e7712dcfc4b02ea522eea3a34",
+    "src/kimf.c": "c86e0d901f68ac195d97375111982fad61b3c71199ec5749ebb052d63aba4c3d",
+    "src/kimqpg.c": "0d9a320c707766958713796bb59e864231a39c55e633ff7b403271acf5b365f4",
+    "src/kimqpr.c": "35ee484e43cbc984f0b0802b7f0769504bc8c3065e8d52b2ef2d5e5a28cc712b",
+    "src/ldsubs.c": "0b024b63c75b2e4988d3d90e48582baf5aa6f5cc3ec9d8e5fdd83539d08c790c",
+    "src/ldsubs.h": "1856386361c79b95c699063a497ab81e4c426ecdf1c29dff18ed81c196d158e9",
+    "src/mapfile.c": "596ac12d487603aa08f6120a8b5992a19bb4fee960c582e6059e3a8504945226",
+    "src/mapfile.h": "a9b9c904b9fabd1975da4f316ae600f5088b6a599b15c95ae289ae2d4b2e5f77",
+    "src/mcio.c": "f3d8058a8834395cbbbc5dd668833e7b9df227ec1269bf8bfbc6d1a57c734eb1",
+    "src/mcio.h": "95a0292f0db101f5084ad86c07b49df865da12fe3a0acddf3d014f6f4fca7cf2",
+    "src/mcmcpars.h": "be6627b88ce2502479e8dfd124deb60baff7e32a5b76f71a1c9936554c1cd93a",
+    "src/mergeit.c": "734bae002b533e07fc3296df748992d825d5661a0073672413a6640a6fb33c65",
+    "src/merge_transpose.c": "2f3bcec8e9563379310d35f6776ddee8d760d67fcff16992b9e817ed9404a306",
+    "src/mkweights.c": "42a977560ff26cff17a07095da47c91f7fd2ce718e133603a4c7838948796e7a",
+    "src/multimerge.c": "4eea21e30db6e6a0ad178c8c11e1a6c1513296d3fad58eea4adf0172e510594f",
+    "src/nickhash.c": "2e9c397b620f1ca7c322f9b6437ee75f58e0ab99745844f7b8011319752db818",
+    "src/nicklib.h": "bf32ae4d5e15bc8f3729938b89011018b9c5bce24faf00f202c4c1e66bf6f6c2",
+    "src/nicksam.h": "0a0db80576afd30c593cdbb7ad0e763abc2ef0bc1aeb7b2215cac31d67a5df3c",
+    "src/packit.h": "89dcaa1fb7c35eb2655a2f9f1961e1863047f9ad37c50a78c47e4cb5fbf8f8a9",
+    "src/qp3Pop.c": "bbc4ffe00fa72a4c9140bdb7585494f82657848e00eebb631df1f207f9331659",
+    "src/qp4diff.c": "a13ae22d2e91a6ce76a41db388c95414a09b98afc7045794b74cc587e8ab0a41",
+    "src/qpAdm.c": "3e9f3a2babf8edccd9b10d07649b22e31ba4343e8b84bcb660283318d78af50e",
+    "src/qpBound.c": "f717d53cf60744f0e0e986a34fe6b894f7325019c4ca156d22f1ed9f6f0e444c",
+    "src/qpDpart.c": "613c5b3b990ea5e99349288b6c98f0e971fd460d8cfc1ad657612400252801c9",
+    "src/qpdslow.c": "ddbb6e36b121a81daa86192341f4c3c80d420b6add991f4ba97f7b128ec5c5b1",
+    "src/qpDstat.c": "311ff850739bbeb94441e4c3dba93d9be2a18cc45e869ee2e8d820ce696e6574",
+    "src/qpF4ratio.c": "6483ae3832119ac9195b7467238d4aa720e4c8ff9de28cfca99ba4ea84302ae7",
+    "src/qpff3base.c": "df89c49cfdd445a81a903c97eeb715d1c80bd7d05206e4aa4736f17dc75d5f9f",
+    "src/qpfit.c": "e219e61c2e82d1c375d96e4edc3b132b34de127566f892dd4c70716c408d0058",
+    "src/qpfitr1.c": "522d3225dedbd2595290d3f40ffa72a09a4bdfbbdffc7426e247abbb9b4edb5c",
+    "src/qpfmv.c": "d699e06c832fa2a87cf5d39a678c4321cda93df586b70dbd93fba0cca8a0db7b",
+    "src/qpfmvmix.c": "a9a69949c451ddf2e32211e98f0f7e39fb45cc99cd80ae23acec9543fba9e0ce",
+    "src/qpfstats.c": "d90d2a645b7db1efe915d3aa900b749f4f44ac35ee85c8f64ea6f826761b62b2",
+    "src/qpGraph.c": "6f9eb1a337233b201994092589cb98a7df59cadb54e3caa97570b5e100a619ac",
+    "src/qpgsubs.c": "8215da1d472a8fef661c2f7ae753ef10c3853f47d93c6f3359b258c669306de0",
+    "src/qpgsubs.h": "7e8c057df18904fe96cf29dcb4fbbe703a2c1bd54ec5594824dea52ef2b46efa",
+    "src/qpmix.c": "a4a860b3ca66f11fefdd36c72581ae258ba01e306682cf581103714e237f10be",
+    "src/qpreroot.c": "924b41b63c41c22383a126c08eb2cbd2f62b01c8d509943fbabb3b1a28b8295c",
+    "src/qpsubs.c": "cca149c813af9faa6e08a382e190cb62d6feb6a293ea5a24448161e6442af22c",
+    "src/qpsubs.h": "9632ab3eaa2ebb73e257c88e11363f730d72ffe4eb6d3ddada5475a5f6b0604e",
+    "src/qpsubsarti.c": "bfb4bb3849e6074ca985a1012f99c2570d802acd1478595f82859ef2c548a5e4",
+    "src/qpWave.c": "26172d0deff69e6c12f44e1682c2629f6af2694572a5ecbe9d547ef756ccb002",
+    "src/qsubs.h": "b06e54f053e31309fdd611667aa1a7146e38e20538590593433e740590529d2d",
+    "src/regsubs.c": "6bb5463abb8ff8a643c90306487153f9b7709577f9f55f4024fdf8665db5bf1d",
+    "src/regsubs.h": "3b186a2a31dee8b794e0aebebeb55ac8d3c10dfc478b8df82b4feaba4b392f0a",
+    "src/rolloff.c": "083c8cab6cebd7f6e793143c72c15f9ab1007ef24e9928f1e1c495f07d8d1ea1",
+    "src/rolloffp.c": "bfbe9f2599ee36f5caadc7a52d712f583211f42f6d7d129b2c0c5acd0e8315d7",
+    "src/simpjack2.c": "1fca67603d4cd0e05a10f9232728e3e6ace46cc42e83ff89f63a585427fd292d",
+    "src/snpunion.c": "131d9511000c157afe578e35d0073b44c8fac370304f5ab245d6da873afe98a3",
+    "src/testr1.c": "2f2e58d9b6fd91a142e7abaf64ef64e356022fbddee2f1cc4832664aa18d01be",
+    "src/tmcio.h": "a4e4ca13b57a8baa95f16ce541d1c9ddffb701010cf8c03c1f65d69ea77f2746",
+    "src/transpose.c": "efac29468a635a290054f4d55419214d0c19b043da6c54e0f10faa57ca6864a8",
+    "src/xpsubs.h": "548ed87ee542db9ac8f0cf85ec556bc2ab5fecba5ea1bd3e4de521d33451c15c",
+    "src/xqpsubs.c": "990a51f7732e396aa7b254db7283235c590defb4f5e2290d88d0713e43b85fdd",
+    "src/nicksrc/admix_platform.h": "04ee846ff81409e908d82fecf2280b59506bc5b7b6de6579acaec8d5feb413f5",
+    "src/nicksrc/admix_types.h": "c42b320c848bb98fbff352b2df1d4246e435cb49e340efc3c3fa6385c65c6a05",
+    "src/nicksrc/esttime2.c": "dabe86211945c071c7cfa351fd516878b4486af2196bbba9dfe416448347a251",
+    "src/nicksrc/gauss.c": "9a63a6b728441ae536a7a069d3b4e8573982285128a8f13dd96761aa51805527",
+    "src/nicksrc/gcd.c": "c5a10209fdb85ee20586b85668c7ea855623cb3e395da8a33880e2b0b9beef87",
+    "src/nicksrc/gds.c": "329f54fa44b37ac5d662629c5aade9e5392b0a981fdd246a1d9ccbec1fc8fda3",
+    "src/nicksrc/getpars.c": "2e3396d0174efc11885de96f952e5ea1df27501d53b8007f830d2f11dc78dd51",
+    "src/nicksrc/getpars.h": "a90d147f93f62ddd90832e15ed09b2ea78b710981ee12af33703eb278506bf3f",
+    "src/nicksrc/kimf.c": "f6214072260aef25b72c24bdd6cf1d29eefc6f9ab45d27980465f8f78cbdd6f5",
+    "src/nicksrc/linsolve.c": "224b2a2ee5e7aec70646bb450a8072bc97964abc51f051d49e69e438ad86b4fe",
+    "src/nicksrc/linsubs.c": "a8f6fd1143673caf79e1e1b4050dbbb4eda93fd9ca0b966a5c72d9653d35bf6c",
+    "src/nicksrc/linsubs.h": "6c5a822515049995a1ac90858eef9ea0328aa30117fbb65fd1f615b8aa587eba",
+    "src/nicksrc/mptable.h": "04834a9526179d4cdc92dc280b5a84dd70c0c05127b63c763b1df52872d10375",
+    "src/nicksrc/nicklib.h": "4f8a2ae1c4e2c02cf7bfabe995db3ce144488df32b98c664a12d86103e57cb1a",
+    "src/nicksrc/ranmath.h": "243a7ff80a294c29ae3c7f7875d31a89a3208f6a4cb8f03c643ba67e3c0ccfa4",
+    "src/nicksrc/sortit.c": "fbdb91aa7dc850bb9d1d87809ce4dd75fa047ab7f9096c1278fab1188ab4062a",
+    "src/nicksrc/sortit.h": "dcdfdf3f8151b797935fb070187d01cc83e8fea537574d6bf0e1383b1bdf67b5",
+    "src/nicksrc/statsubs.c": "592a5000521cb33e3aa51fabb1bba5f7a800bd8b23d726851d686eafc3f8c8cf",
+    "src/nicksrc/statsubs.h": "3031707f9331f52f7ddd702865048e27f338e96644884ff254b02ab8d9538581",
+    "src/nicksrc/strsubs.c": "5ad37e0452fc458d2f3a9d0dbc6998c21eb849c052f7c4df9a4a423234c589d8",
+    "src/nicksrc/strsubs.h": "1a781a09301c8045d540a0c4cabc9b85a5d7ec0f9e8a8fdb7dd6ffa7faecdc88",
+    "src/nicksrc/twtable.h": "3069a2ef5a9feae426cbd584ef7009b0d65d248f5640bea488b62f53e021b0bb",
+    "src/nicksrc/vsubs.c": "63be25e4209f80ede8516a78133a1a88ee7c2fd93f260ce27b46e35d88995d78",
+    "src/nicksrc/vsubs.h": "dc1108cdb1b31b096a87dd6a2310f884211556971fbf833742d5b5b483401e46",
+    "src/nicksrc/xsearch.c": "41461b26705304c4c43c46a0d0c974bf3ce3713cde2e2a758932c6f945ecb6ae",
+    "src/nicksrc/xsearch.h": "6cbbb92e854ec12bd56df2645ab4d9649ac857cf16a4e45457ecff3df258d820",
+    "src/script/convertf.py": "bb11ad4f3f859812358646f0704794e9f9da9d74c8dbb06cf52ef24c1b410d88",
+    "src/script/extract_individuals.py": "101036e00e377c9c46bc497bb86679ef78db4c643f6ef6c9a2e2543477a80a80",
+    "src/script/geno_header.py": "cdd66e6b29c6a8762d9b8c52d5917f45ae7bee0a21ab5683a87b7182e0074ecb",
+    "src/script/hash_checks.py": "5be6a7591109e7ea35b0c2b02690d635f04a6d521501d05bf95ab7a6ab71c546",
+    "src/script/link_identical_files.py": "a883ecba8287bea153e58e8d3356b696cca528196b1c3f970ba29710301f2911",
+    "src/script/merge_transpose.py": "bd07677e2a938faa8618909aa7a086c44e73bbfb5c60ea005edce5444c7172f4",
+    "src/script/nick_hash_file.py": "0549c9726dd2bf7f6aa42fabfe906a651e28ba40bb5e532a89d7d09263d74937",
+    "src/script/platform_compat.py": "d6073b81eed0cd6164fe8eb47d3966d6dd48e48843d8faf36eeba551ae4b45ce",
+    "src/script/read_group_categories.py": "f73cd95404c127910cd700f410cc0907e6772d940aa8a8b69adb4bfbab9c3659",
+    "src/script/test_hash_merge.py": "af5d9a8deef87dde66edeef2feacfdd3384370d924a91b270d465a4d4de840dd",
+    "src/win32/admixtools.manifest": "43469be415f51c4ae3c728519ae1565d8a539c026ac15d5aef6aa862054690e0",
+    "src/win32/admixtools.rc": "1b06b2348be96c9b7e2aa57eeb09338c5750d81e8c6b4c28c96c3092f67df094",
+    "src/win32/argp.h": "f06486cbbbad9f0f84ef2a2d5cc90d2f63ee07aa7125953bd936f3e455d87b2a",
+    "src/win32/compat.c": "5266690b1bd44288dda82af5dadf0dd57387180a1b6445f2b2cbf534ff041f71",
+    "src/win32/compat.h": "2213af6106371385d33ddfc72f8c595e30b174f18dbf13938f5032101c2eeff6",
+    "src/win32/mman.h": "eaef6bf4bc5b9c6a75841907bb671d1113f4cb767df95c569f0fb875b1ccf8ec"
+  },
+  "validation_harness_sha256": "8f19a016539596b5c47b0b3ab861d859a5c21242bab4d8cefc1dad60d9329134",
+  "whitespace_check": {
+    "exit": 2,
+    "note": "Restored upstream trailing whitespace only; no new unmatched trailing-whitespace lines",
+    "raw_output": "validation-results/port-only-restoration/diff-check.txt"
+  },
+  "limits": [
+    "synthetic fixtures and recorded toolchains",
+    "not a clean sanitizer audit of inherited bugs",
+    "old correction verify/probes require archived source",
+    "macOS/UNC/fault-injection/forced termination not certified",
+    "pristine qpfit needs a declaration-only compiler fix; source restored after compilation",
+    "initial full-matrix qpfit missing-fstats failure retained; separate cached probe proves early exit"
+  ]
+}

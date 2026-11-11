@@ -1,7 +1,6 @@
 #include <admix_types.h>
 #include <stdio.h>
 #include <limits.h>
-#include <stdint.h>
 #include <math.h>
 #include <nicklib.h>
 #include "xsearch.h"
@@ -163,7 +162,7 @@ stringhash (char *key)
   int xpack[MAXKEYLEN];
   int len, wlen, w;
   unsigned char t;
-  uint32_t thash = 7;
+  int thash = 7;
   int jmax, jmin;
   int i, j;
 
@@ -189,7 +188,7 @@ stringhash (char *key)
     w = 0;
     for (j = jmin; j <= jmax; ++j) {
       t = (unsigned char) key[j];
-      w = (int32_t)(((uint32_t)w << 8) ^ t);
+      w = (w << 8) ^ t;
     }
     xpack[i] = xcshift (w, i);
   }
@@ -201,7 +200,7 @@ stringhash (char *key)
     thash = xcshift (thash, 3);
   }
 
-  return (int32_t)thash;
+  return thash ; 
 
 }
 
@@ -223,10 +222,10 @@ xhash1 (int ww)
   int k, w, w1, w2;
   w = xcshift (ww, 17);
   if (fancyhash == NO)
-    return (int32_t)(17U * (uint32_t)w);
+    return 17 * w;
   for (k = 0; k < 3; ++k) {
     w1 = w >> 16;
-    w2 = (int32_t)((uint32_t)w << 16);
+    w2 = w << 16;
     w = w2 ^ xhash2 (w1) ^ (w2 >> 16);
   }
   return w;
@@ -244,11 +243,7 @@ xhash2 (int x)
   if (x == xmax)
     return 0;
 
-  /* Preserve the historical 32-bit wrapping product without signed UB. */
-  {
-    uint32_t bits = (uint32_t)x * UINT32_C(11);
-    memcpy(&t, &bits, sizeof(t));
-  }
+  t = x * 11;
   return t % xmax;
 
 }
@@ -256,21 +251,14 @@ xhash2 (int x)
 int
 xcshift (int x, int shft)
 {
-  uint32_t a;
-  int32_t b;
+  int a, b;
 
-  /* Keep upstream's arithmetic right shift and x86 masked shift count.
-   * Unsigned left shifts define its existing 32-bit wraparound. */
   if (shft == 0)
     return x;
-  shft &= 31;
-  /* A nonzero multiple of 32 made both machine shifts return x, hence x^x.
-   * Keep that established hash value for keys longer than 128 bytes. */
-  if (shft == 0) return 0;
-  a = (uint32_t)x << shft;
-  b = (int32_t)x >> (32 - shft);
+  a = x << shft;
+  b = x >> (32 - shft);
 
-  return (int32_t)(a ^ (uint32_t)b);
+  return a ^ b;
 
 }
 
@@ -393,7 +381,7 @@ finddupalt (char **sss, int n)
    ttt = strcmp(s1, s2)  ;
 //  printf("zzz %d %d %d %s %s\n", t1, t2, ttt, s1, s2) ;
     if (ttt == 0) { 
-    t = t1 ;
+    t = k ; 
     break ;
    }
   }
@@ -445,7 +433,7 @@ admix_long xlhash (admix_long x)
   b1 = w >> 61 ; 
   a2 = modinv(a1, bigp) ; 
   b2 = (a2 >> 7) & 7 ; 
-  w  = (admix_long) ((uint64_t) a2 << 3) ;
+  w  = a2 << 3 ; 
   b2 = b2 ^ b1 ; 
   w  = w ^ b2 ; 
   w ^= addpat[k] ; 
@@ -457,7 +445,7 @@ admix_long xlhash (admix_long x)
 int fnv_hash(char *strng) 
 {
 // from fnv.c fnv.h on net.  Modified
-    uint32_t h;
+    int h ; 
     char *p  ; 
 
     h = FNV_OFFSET_BASIS;
@@ -470,6 +458,6 @@ int fnv_hash(char *strng)
         h ^= *p;
         ++p ; 
     }
-    return (int32_t)h;
+    return h ;
 }
 

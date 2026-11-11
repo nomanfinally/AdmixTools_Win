@@ -3,8 +3,6 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdarg.h>
-#include <errno.h>
-#include <limits.h>
 
 #define MAXSTR  5000
 #define MAXPARS 400
@@ -24,33 +22,11 @@ void stripcomment (char *str);
 int findpname (phandle * pp, char *parname);
 int indxstring (char **ppars, int npars, char *ww);
 
+static int plusloopcheck = 0 ;
+
 static int parchange = 0;
 static int debug = NO;
-
-/* Retain the existing decimal syntax and floating conversion, but never
- * silently turn a malformed/out-of-range token into a scientific setting. */
-static admix_long parse_integer(const char *text, const char *name, admix_long low, admix_long high)
-{
-  char *end;
-  errno = 0;
-  long long value = strtoll(text, &end, 10);
-  if (errno == ERANGE || end == text || *end || value < low || value > high)
-    fatalx("invalid integer parameter %s: %s\n", name, text);
-  return (admix_long)value;
-}
-
-static double parse_real(const char *text, const char *name)
-{
-  char *end;
-  errno = 0;
-  double value = strtod(text, &end);
-  if (end == text || *end || errno == ERANGE)
-    fatalx("invalid real parameter %s: %s\n", name, text);
-  /* NaN/Inf are syntactically real tokens. Scientific callers validate their
-   * domain, rather than changing shared parser policy for unrelated tools. */
-  return value;
-}
-static int readpars(phandle *pp, char *fname, char **ppars, char **pdata, int capacity, int depth);
+static int readpars(phandle *pp, char *fname, char **ppars, char **pdata) ;
 
 
 
@@ -96,52 +72,48 @@ int fixpars(phandle  *pp,  char *tag)
 }
 
 int
-readpars(phandle *pp, char *fname, char **ppars, char **pdata, int capacity, int depth)
+readpars(phandle *pp, char *fname, char **ppars, char **pdata) 
 {
 
-  char *line = NULL;
-  size_t linecap = 0;
-  ssize_t linelen;
-  int firstline = YES;
+  char line[MAXSTR + 1];
   char str[MAXSTR];
   char ww[MAXSTR];
   char rest[MAXSTR];
 
   int npars = 0, i;
+#ifdef _WIN32
+  int firstline = YES;
+#endif
   int len, plen, t;
 
   FILE *ff;
 
-  if (depth >= 99) fatalx("+++ include files looping\n");
+  ++plusloopcheck ; 
+  if (plusloopcheck >= 100) fatalx("+++ include files looping\n") ;
 
-  ff = fopen (fname, "r");
-  if (depth == 0) pp->fx = ff;
+  ff = pp->fx = fopen (fname, "r");
   if (ff == NULL) {
     perror ("(getpars) Can't open file \n");
     fatalx ("can't open %s\n", fname);
   }
 
-  while ((linelen = getline(&line, &linecap, ff)) >= 0) {
-    if (memchr(line, '\0', (size_t)linelen) != NULL)
-      fatalx("NUL byte in parameter file %s; save as UTF-8 text\n", fname);
-#ifdef _WIN32
-    if (firstline && linelen >= 2 &&
-        (((unsigned char)line[0] == 0xff && (unsigned char)line[1] == 0xfe) ||
-         ((unsigned char)line[0] == 0xfe && (unsigned char)line[1] == 0xff)))
-      fatalx("UTF-16 parameter file %s; save as UTF-8 text\n", fname);
-    if (firstline && linelen >= 3 && !memcmp(line, "\xef\xbb\xbf", 3)) {
-      memmove(line, line + 3, (size_t)linelen - 2);
-      linelen -= 3;
-    }
-#endif
-    firstline = NO;
-    if (linelen >= MAXSTR - 1) fatalx("parameter line too long in %s\n", fname);
+  line[MAXSTR] = '\0';          // defensive programmming
+  while (fgets (line, MAXSTR, ff) != NULL) {
 
+#ifdef _WIN32
+    if (firstline && !strncmp(line, "\xef\xbb\xbf", 3))
+      memmove(line, line + 3, strlen(line + 3) + 1);
+    firstline = NO;
+#endif
     len = strlen (line);
 
-    /* Consume both bytes of CRLF before storing macro values. */
+#ifdef _WIN32
     while (len > 0 && (line[len - 1] == '\n' || line[len - 1] == '\r'))
       line[--len] = '\0';
+#else
+    if (isspace (line[len - 1]))
+      line[len - 1] = '\0';
+#endif
 
     if (first_word (line, ww, rest) > 0) {
 
@@ -152,7 +124,7 @@ readpars(phandle *pp, char *fname, char **ppars, char **pdata, int capacity, int
       if (t==0) { 
         stripcomment (rest);
         striptrail (rest, ' ');   /* no trailing blanks */
-        npars += readpars(pp, rest, ppars+npars, pdata+npars, capacity-npars, depth+1);
+        npars += readpars(pp, rest, ppars+npars, pdata + npars) ;
         continue ;
       }
       plen = strlen (ww);
@@ -163,7 +135,6 @@ readpars(phandle *pp, char *fname, char **ppars, char **pdata, int capacity, int
       t = indxstring (ppars, npars, ww);
       if (t >= 0)
         fatalx ("duplicate parameter: %s\n", ww);
-      if (npars >= capacity) fatalx("too many parameters (maximum %d)\n", MAXPARS);
       ppars[npars] = strdup (ww);
       stripcomment (rest);
       striptrail (rest, ' ');   /* no trailing blanks */
@@ -178,9 +149,6 @@ readpars(phandle *pp, char *fname, char **ppars, char **pdata, int capacity, int
   }
 
 
-  if (ferror(ff)) fatalx("error reading parameter file %s\n", fname);
-  free(line);
-  if (depth > 0) fclose(ff);
   return npars ;
 
 
@@ -200,10 +168,7 @@ openpars (char *fname)
 
   pp = (phandle *) malloc (sizeof (phandle));
 
-  npars = readpars(pp, fname, ppars, pdata, MAXPARS, 0);
-  for (i = 0; i < npars; ++i)
-    if (indxstring(ppars, i, ppars[i]) >= 0)
-      fatalx("duplicate parameter: %s\n", ppars[i]);
+  npars = readpars(pp, fname, ppars, pdata) ;
   pp->numpars = npars;
 
     if (npars>MAXPARS) fatalx("too many parameters: %d\n", npars) ;
@@ -310,9 +275,7 @@ getstring (phandle * pp, char *parname, char **strng)
    * retain upstream's first-token semantics. */
   if (pp->pdata[kode][0] == '"') {
     char *end = strchr(pp->pdata[kode] + 1, '"');
-    if (end == NULL) fatalx("unterminated quoted parameter: %s\n", parname);
-    if (end == pp->pdata[kode] + 1) fatalx("empty parameter: %s\n", parname);
-    {
+    if (end != NULL) {
       size_t length = (size_t)(end - pp->pdata[kode] - 1);
       *strng = malloc(length + 1);
       if (*strng == NULL) fatalx("Unable to allocate parameter string\n");
@@ -323,7 +286,6 @@ getstring (phandle * pp, char *parname, char **strng)
   }
 #endif
   n = splitup (pp->pdata[kode], field, MAXFIELD);
-  if (n == 0) fatalx("empty parameter: %s\n", parname);
   *strng = strdup (field[0]);
   freeup (field, n);
   return 1;
@@ -342,7 +304,6 @@ getint (phandle * pp, char *parname, int *kret)
   if (kode < 0)
     return kode;
   n = splitup (pp->pdata[kode], field, MAXFIELD);
-  if (n == 0) fatalx("empty parameter: %s\n", parname);
   strcpy (str, field[0]);
   freeup (field, n);
   if (strcmp (str, "YES") == 0) {
@@ -363,7 +324,7 @@ getint (phandle * pp, char *parname, int *kret)
     return 1;
   }
 
-  *kret = (int)parse_integer(str, parname, INT_MIN, INT_MAX);
+  *kret = atoi (str);
   return 1;
 }
 
@@ -379,7 +340,6 @@ getlong (phandle * pp, char *parname, admix_long *kret)
   if (kode < 0)
     return kode;
   n = splitup (pp->pdata[kode], field, MAXFIELD);
-  if (n == 0) fatalx("empty parameter: %s\n", parname);
   strcpy (str, field[0]);
   freeup (field, n);
   if (strcmp (str, "YES") == 0) {
@@ -391,7 +351,11 @@ getlong (phandle * pp, char *parname, admix_long *kret)
     return 1;
   }
 
-  *kret = parse_integer(str, parname, INT64_MIN, INT64_MAX);
+  #ifdef _WIN32
+  *kret = strtoll(str, NULL, 10);
+#else
+  *kret = atol (str);
+#endif
   return 1;
 }
 
@@ -415,7 +379,7 @@ getints (phandle * pp, char *parname, int *aint, int nint)
     fatalx ("(getints) wrong number of ints in line\n");
 
   for (i = 0; i < n; i++) {
-    aint[i] = (int)parse_integer(field[i], parname, INT_MIN, INT_MAX);
+    aint[i] = atoi (field[i]);
   }
   freeup (field, n);
   return n;
@@ -438,7 +402,7 @@ getintss (phandle * pp, char *parname, int *aint, int *xint)
   subcolon (str);
   n = splitup (str, field, MAXFIELD);
   for (i = 0; i < n; i++) {
-    aint[i] = (int)parse_integer(field[i], parname, INT_MIN, INT_MAX);
+    aint[i] = atoi (field[i]);
   }
   freeup (field, n);
   *xint = n;
@@ -461,7 +425,7 @@ getdbls (phandle * pp, char *parname, double *dbl, int ndbl)
   if (ndbl != n)
     fatalx ("(getdbls) wrong number of dbls in line\n");
   for (i = 0; i < n; i++) {
-    dbl[i] = parse_real(field[i], parname);
+    dbl[i] = atof (field[i]);
   }
   freeup (field, n);
   return 1;
@@ -484,7 +448,7 @@ getdblss (phandle * pp, char *parname, double *dbl, int *ndbl)
   subcolon (str);
   n = splitup (str, field, MAXFIELD);
   for (i = 0; i < n; i++) {
-    dbl[i] = parse_real(field[i], parname);
+    dbl[i] = atof (field[i]);
   }
   freeup (field, n);
   *ndbl = n;
@@ -517,8 +481,7 @@ getdbl (phandle * pp, char *parname, double *dbl)
   if (kode < 0)
     return kode;
   n = splitup (pp->pdata[kode], field, MAXFIELD);
-  if (n == 0) fatalx("empty parameter: %s\n", parname);
-  *dbl = parse_real(field[0], parname);
+  *dbl = atof (field[0]);
   freeup (field, n);
   return 1;
 }

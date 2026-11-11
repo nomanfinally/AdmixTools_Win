@@ -1,5 +1,10 @@
 # M12: Genotype matrices — independent review
 
+Scope notice (11 November 2026): this is historical audit evidence.
+Inherited-bug repairs described here are not the current porting baseline.
+See [the project-wide restoration](PORT_ONLY_SCOPE_RESTORATION.md) for
+active sources, retained Windows adaptations and new reference results.
+
 Follow-up: [requested T04 repairs](T04_qpDstat.corrections.md) correct the
 recorded defects in their reproduced scopes; current source hashes and regression
 evidence are linked there. The review below describes the original snapshot.

@@ -430,7 +430,7 @@ int main(int argc, char **argv)
    printf("best corank1 matrix: chisq: %9.3f\n", ychi) ; 
    printmatwl(ff, d, d, d) ;
    printnl() ; 
-   printf("zzyy:") ; printmatwl(yy, 1, MIN(6, d*d), 6) ;
+   printf("zzyy:") ; printmatwl(yy, 1, 6, 6) ;  
    ZALLOC(evals, d, double) ;
    ZALLOC(evecs, d*d, double) ;
 

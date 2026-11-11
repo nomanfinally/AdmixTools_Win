@@ -1,5 +1,10 @@
 # T02 — qpfstats and its data/helper connections
 
+Scope notice (11 November 2026): this is historical audit evidence.
+Inherited-bug repairs described here are not the current porting baseline.
+See [the project-wide restoration](PORT_ONLY_SCOPE_RESTORATION.md) for
+active sources, retained Windows adaptations and new reference results.
+
 Status: **passed with limitations**, following the explicitly requested
 [corrections](T02_qpfstats.corrections.md) on 10 November 2026. Findings
 F034–F035/F039–F041 are fixed; F042 is a further fixed duplicate-name diagnostic

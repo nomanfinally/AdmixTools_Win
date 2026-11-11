@@ -11,6 +11,86 @@
 #include <zlib.h>
 #include <unistd.h>
 #include <stdarg.h>
+#include "../nicksrc/admix_platform.h"
+
+static void helper_fail(const char *message) __attribute__((noreturn));
+static void helper_fail(const char *message)
+{
+    fflush(stdout);
+    fputs("fatalx:\n", stderr);
+    fputs(message, stderr);
+    fflush(stderr);
+    admix_cleanup_temps();
+    abort();
+}
+
+/* Native helper preparation replaces the POSIX shell pipeline only. Statistical
+ * routines, accepted parameters and the Unix implementation remain upstream. */
+char *admix_qpfstats_helper(char *parameters, char **pops, int npops,
+                           char *output, char *logfile, int keep, int graphcall)
+{
+    char *paths[5], *prefixes[] = {"fsx", "ppp", "pops", "tpar", "fslog"};
+    char buffer[32768];
+    size_t count;
+    int i, failed;
+    FILE *input, *file;
+    if (graphcall) prefixes[3] = "fstpar";
+    for (i = 0; i < 5; ++i) {
+        if (i == 4 && logfile != NULL && !graphcall) paths[i] = strdup(logfile);
+        else {
+            const char *directory = admix_tempdir();
+            size_t length = strlen(directory) + strlen(prefixes[i]) + 40;
+            char *candidate = malloc(length), *character;
+            if (!candidate) helper_fail("cannot allocate qpfstats temporary path\n");
+            snprintf(candidate, length, "%s\\%s.%u", directory, prefixes[i], (unsigned int)GetCurrentProcessId());
+            for (character = candidate; *character; ++character)
+                if (*character == '/') *character = '\\';
+            paths[i] = admix_reserve_temp(candidate);
+            free(candidate);
+            if (paths[i] && keep) admix_release_temp(paths[i], 1);
+        }
+        if (!paths[i]) helper_fail("cannot create qpfstats temporary file\n");
+    }
+    printf("tmp: %s\n", paths[0]);
+    if (admix_filter_fstats(parameters, paths[3]))
+        helper_fail("cannot prepare qpfstats parameters\n");
+    input = fopen(paths[3], "rb");
+    file = fopen(paths[1], "wb");
+    if (!input || !file) helper_fail("cannot prepare qpfstats parameters\n");
+    while ((count = fread(buffer, 1, sizeof(buffer), input)) != 0)
+        if (fwrite(buffer, 1, count, file) != count)
+            helper_fail("cannot prepare qpfstats parameters\n");
+    if (ferror(input)) helper_fail("cannot read qpfstats parameters\n");
+    fclose(input);
+    fprintf(file, "fstatsoutname: " ADMIX_PARAMETER_PATH "\n", paths[0]);
+    fprintf(file, "poplistname: " ADMIX_PARAMETER_PATH "\n", paths[2]);
+    failed = ferror(file);
+    if (fclose(file) != 0 || failed) helper_fail("cannot write qpfstats parameters\n");
+    file = fopen(paths[2], "wb");
+    if (!file) helper_fail("cannot write qpfstats population file\n");
+    for (i = 0; i < npops; ++i) fprintf(file, "%s\n", pops[i]);
+    failed = ferror(file);
+    if (fclose(file) != 0 || failed) helper_fail("cannot write qpfstats population file\n");
+    if (graphcall) printf("qpfstatscall:: qpfstats -p %s > %s \n", paths[1], paths[4]);
+    fflush(stdout);
+    failed = admix_run_qpfstats(paths[1], paths[4]) != 0;
+    if (!failed && graphcall && logfile && admix_copy_file(paths[4], logfile))
+        helper_fail("cannot copy qpfstats log\n");
+    if (!failed && output) {
+        if (admix_copy_file(paths[0], output)) helper_fail("cannot copy qpfstats output\n");
+        printf("fstats file: %s made\n", output);
+    }
+    for (i = 1; i < 5; ++i) {
+        admix_release_temp(paths[i], keep);
+        free(paths[i]);
+    }
+    if (failed) {
+        admix_release_temp(paths[0], keep);
+        free(paths[0]);
+        return NULL;
+    }
+    return paths[0];
+}
 
 /* MinGW parses the same short options but its diagnostics differ from glibc.
  * Keep error wording in the compatibility layer rather than in each tool. */

@@ -16,7 +16,7 @@
     "shared_c_module": 28,
     "source_only_program": 5,
     "unbuilt_c_module": 7,
-    "validation_harness": 38
+    "validation_harness": 39
   },
   "c_sources": 78,
   "headers": 40,
@@ -3562,7 +3562,7 @@
       "paths": [
         "src/qpAdm.c"
       ],
-      "hard_check": "passed with limitations",
+      "hard_check": "compatibility restored; coverage review pending",
       "role": "Admixture model fitting",
       "build": "built",
       "blocked_reason": null,
@@ -3605,9 +3605,6 @@
       "audit_date": "2026-11-10",
       "audit_report": "tests/windows/audits/T01_qpAdm.md",
       "audit_evidence": "tests/windows/audits/T01_qpAdm.evidence.json",
-      "audited_sha256": {
-        "src/qpAdm.c": "4d5ba76dbf53e0a75071ce70de8923f30faae5d07414b7d47c8978c0fd5abc87"
-      },
       "partial_audit_evidence": [
         "T02 corrections: automatic helper success/failure, output/log, Unicode and long-path regressions; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged",
         "T03 found shared block-index, cached-data integrity and failed-mapping defects in paths also used by qpAdm. Historical T01 pass-with-limitations does not cover these new findings.",
@@ -3615,17 +3612,28 @@
       ],
       "correction_report": "tests/windows/audits/T01_qpAdm.corrections.md",
       "correction_evidence": "tests/windows/audits/T01_qpAdm.corrections.evidence.json",
-      "corrected_findings": [
-        "F024",
-        "F025",
-        "F043"
-      ],
-      "open_or_retained_findings": [],
       "t03_rechecked_findings": [
         "F046",
         "F049",
         "F054"
-      ]
+      ],
+      "historical_hard_check": "passed with limitations",
+      "active_scope_report": "tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md",
+      "active_scope_evidence": "tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.evidence.json",
+      "inherited_bug_repairs": "deferred; removed from active source",
+      "historical_audited_sha256": {
+        "src/qpAdm.c": "4d5ba76dbf53e0a75071ce70de8923f30faae5d07414b7d47c8978c0fd5abc87"
+      },
+      "scope_restored_sha256": {
+        "src/qpAdm.c": "3e9f3a2babf8edccd9b10d07649b22e31ba4343e8b84bcb660283318d78af50e"
+      },
+      "historical_corrected_findings": [
+        "F024",
+        "F025",
+        "F043"
+      ],
+      "historical_open_or_retained_findings": [],
+      "upstream_findings_disposition": "Inherited Linux defects are deferred, not fixed or certified absent; see the active scope report and historical finding ledger"
     },
     {
       "id": "T02",
@@ -3634,7 +3642,7 @@
       "paths": [
         "src/qpfstats.c"
       ],
-      "hard_check": "passed with limitations",
+      "hard_check": "compatibility restored; coverage review pending",
       "role": "F-statistic precomputation and helper process",
       "build": "built",
       "blocked_reason": null,
@@ -3676,20 +3684,28 @@
       "audit_date": "2026-11-10",
       "audit_report": "tests/windows/audits/T02_qpfstats.md",
       "audit_evidence": "tests/windows/audits/T02_qpfstats.evidence.json",
-      "audited_sha256": {
-        "src/qpfstats.c": "7d7672ae40e3e1a469405a9408f1f0c9ad92b64b08c57629677458ee8eb649ce"
-      },
-      "open_or_retained_findings": [],
       "audit_corrections": "tests/windows/audits/T02_qpfstats.corrections.md",
       "audit_corrections_evidence": "tests/windows/audits/T02_qpfstats.corrections.evidence.json",
-      "corrected_findings": [
+      "historical_hard_check": "passed with limitations",
+      "active_scope_report": "tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md",
+      "active_scope_evidence": "tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.evidence.json",
+      "inherited_bug_repairs": "deferred; removed from active source",
+      "historical_audited_sha256": {
+        "src/qpfstats.c": "7d7672ae40e3e1a469405a9408f1f0c9ad92b64b08c57629677458ee8eb649ce"
+      },
+      "scope_restored_sha256": {
+        "src/qpfstats.c": "d90d2a645b7db1efe915d3aa900b749f4f44ac35ee85c8f64ea6f826761b62b2"
+      },
+      "historical_corrected_findings": [
         "F034",
         "F035",
         "F039",
         "F040",
         "F041",
         "F042"
-      ]
+      ],
+      "historical_open_or_retained_findings": [],
+      "upstream_findings_disposition": "Inherited Linux defects are deferred, not fixed or certified absent; see the active scope report and historical finding ledger"
     },
     {
       "id": "T03",
@@ -3698,7 +3714,7 @@
       "paths": [
         "src/qpWave.c"
       ],
-      "hard_check": "passed with limitations",
+      "hard_check": "compatibility restored; coverage review pending",
       "role": "Rank/ancestry-stream tests",
       "build": "built",
       "blocked_reason": null,
@@ -3745,10 +3761,22 @@
       "audit_date": "2026-11-10",
       "audit_report": "tests/windows/audits/T03_qpWave.corrections.md",
       "audit_evidence": "tests/windows/audits/T03_qpWave.corrections.evidence.json",
-      "audited_sha256": {
+      "closure_note": "145 Windows / corrected Linux / sanitizer behavior checks pass. All 73 jointly successful scientific results/files match exactly. Intentional broken-upstream repairs and platform/coverage limits are documented; independent modules remain pending.",
+      "initial_audited_sha256": {
+        "src/qpWave.c": "1e27246a0542e44131d8ca2e3c707e52032d952a8df4696bcb6586121753145f"
+      },
+      "initial_audit_report": "tests/windows/audits/T03_qpWave.md",
+      "historical_hard_check": "passed with limitations",
+      "active_scope_report": "tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md",
+      "active_scope_evidence": "tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.evidence.json",
+      "inherited_bug_repairs": "deferred; removed from active source",
+      "historical_audited_sha256": {
         "src/qpWave.c": "f91a3019da1351e64efaef85b3381841b9ac94e59e1f065f0e041c33edaa2d71"
       },
-      "corrected_findings": [
+      "scope_restored_sha256": {
+        "src/qpWave.c": "26172d0deff69e6c12f44e1682c2629f6af2694572a5ecbe9d547ef756ccb002"
+      },
+      "historical_corrected_findings": [
         "F044",
         "F045",
         "F046",
@@ -3762,12 +3790,8 @@
         "F054",
         "F055"
       ],
-      "open_or_retained_findings": [],
-      "closure_note": "145 Windows / corrected Linux / sanitizer behavior checks pass. All 73 jointly successful scientific results/files match exactly. Intentional broken-upstream repairs and platform/coverage limits are documented; independent modules remain pending.",
-      "initial_audited_sha256": {
-        "src/qpWave.c": "1e27246a0542e44131d8ca2e3c707e52032d952a8df4696bcb6586121753145f"
-      },
-      "initial_audit_report": "tests/windows/audits/T03_qpWave.md"
+      "historical_open_or_retained_findings": [],
+      "upstream_findings_disposition": "Inherited Linux defects are deferred, not fixed or certified absent; see the active scope report and historical finding ledger"
     },
     {
       "id": "T04",
@@ -3776,7 +3800,7 @@
       "paths": [
         "src/qpDstat.c"
       ],
-      "hard_check": "reviewed; recorded defects corrected; independent coverage incomplete",
+      "hard_check": "compatibility restored; coverage review pending",
       "role": "D/f4 statistics",
       "build": "built",
       "blocked_reason": null,
@@ -3872,7 +3896,15 @@
           "F072",
           "F073"
         ]
-      }
+      },
+      "historical_hard_check": "reviewed; recorded defects corrected; independent coverage incomplete",
+      "active_scope_report": "tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md",
+      "active_scope_evidence": "tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.evidence.json",
+      "inherited_bug_repairs": "deferred; removed from active source",
+      "scope_restored_sha256": {
+        "src/qpDstat.c": "311ff850739bbeb94441e4c3dba93d9be2a18cc45e869ee2e8d820ce696e6574"
+      },
+      "upstream_findings_disposition": "Inherited Linux defects are deferred, not fixed or certified absent; see the active scope report and historical finding ledger"
     },
     {
       "id": "T05",
@@ -3881,7 +3913,7 @@
       "paths": [
         "src/qp3Pop.c"
       ],
-      "hard_check": "passed with limitations",
+      "hard_check": "compatibility restored; coverage review pending",
       "role": "Three-population statistics",
       "build": "built",
       "blocked_reason": null,
@@ -3920,9 +3952,6 @@
       "audit_working_head": "05780fbcbaa509fbe17be140999b1224bfdfa7ba",
       "t05_open_findings": [],
       "audit_limits": "Recorded T05 defects corrected with independent oracles and Windows/Linux/ASan comparisons; full research datasets/macOS and independent M/H contracts remain uncompleted.",
-      "audited_sha256": {
-        "src/qp3Pop.c": "f64af5a2b49af229bc3e8952649f871d31d69e6b2ef7b4c3f385bbfecc11ffe1"
-      },
       "t05_findings_at_original_review": [
         "F044",
         "F045",
@@ -3964,7 +3993,18 @@
           "src/qpsubs.c": "6e828b42817b6c9966ee4a4db06d087aa04258a77c49d892ce84c2bda271fd1a",
           "src/mcio.c": "376de15769c170b83a86b4224c3f4045d1d32b6a7555b001c2e5efc97907be0f"
         }
-      }
+      },
+      "historical_hard_check": "passed with limitations",
+      "active_scope_report": "tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md",
+      "active_scope_evidence": "tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.evidence.json",
+      "inherited_bug_repairs": "deferred; removed from active source",
+      "historical_audited_sha256": {
+        "src/qp3Pop.c": "f64af5a2b49af229bc3e8952649f871d31d69e6b2ef7b4c3f385bbfecc11ffe1"
+      },
+      "scope_restored_sha256": {
+        "src/qp3Pop.c": "bbc4ffe00fa72a4c9140bdb7585494f82657848e00eebb631df1f207f9331659"
+      },
+      "upstream_findings_disposition": "Inherited Linux defects are deferred, not fixed or certified absent; see the active scope report and historical finding ledger"
     },
     {
       "id": "T06",
@@ -3973,7 +4013,7 @@
       "paths": [
         "src/qpF4ratio.c"
       ],
-      "hard_check": "reviewed with deferred upstream defects",
+      "hard_check": "compatibility restored; coverage review pending",
       "role": "F4-ratio estimation",
       "build": "built",
       "blocked_reason": null,
@@ -4025,9 +4065,6 @@
         "F044"
       ],
       "audit_limits": "Compatibility-only scope. Inherited Linux bugs are deferred; original T06 scientific behavior restored, Windows getopt fix retained. Earlier audits unchanged; no full-suite pristine parity claim.",
-      "audited_sha256": {
-        "src/qpF4ratio.c": "6cc422d09bc06877f184bda5f92d43cb02cfe3a65aa1e7eb78e8a6637ee1dadb"
-      },
       "t06_findings_at_original_review": [
         "F048",
         "F050",
@@ -4079,7 +4116,18 @@
         "report": "tests/windows/audits/T06_scope_restoration.md",
         "evidence": "tests/windows/audits/T06_scope_restoration.evidence.json",
         "date": "2026-11-11"
-      }
+      },
+      "historical_hard_check": "reviewed with deferred upstream defects",
+      "active_scope_report": "tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md",
+      "active_scope_evidence": "tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.evidence.json",
+      "inherited_bug_repairs": "deferred; removed from active source",
+      "historical_audited_sha256": {
+        "src/qpF4ratio.c": "6cc422d09bc06877f184bda5f92d43cb02cfe3a65aa1e7eb78e8a6637ee1dadb"
+      },
+      "scope_restored_sha256": {
+        "src/qpF4ratio.c": "6483ae3832119ac9195b7467238d4aa720e4c8ff9de28cfca99ba4ea84302ae7"
+      },
+      "upstream_findings_disposition": "Inherited Linux defects are deferred, not fixed or certified absent; see the active scope report and historical finding ledger"
     },
     {
       "id": "T07",
@@ -5484,7 +5532,7 @@
       "sha256": {
         "tests/windows/qpadm_probe.c": "ea8e28580715f49cb0c884c3b4870fa380d47be44c823c7c35aca3f4a468f42f"
       },
-      "prior_evidence": "T01 hash/block/ownership and PROBE_SAMPLER rejection/reset/allocation boundaries; independent audit pending"
+      "prior_evidence": "Historical corrected-source probe; PROBE_SAMPLER is not a current port requirement"
     },
     {
       "id": "Q09",
@@ -5927,30 +5975,26 @@
         "tests/windows/verify_t06_corrections.py": "081ed218f901efbcb8a676792815dd911a655bd8e3741af498fbb7d6043e2c32"
       },
       "prior_evidence": "T06 correction evidence; independent harness audit remains pending."
+    },
+    {
+      "id": "Q39",
+      "category": "validation_harness",
+      "name": "port_only_scope.py",
+      "paths": [
+        "tests/windows/port_only_scope.py"
+      ],
+      "hard_check": "pending",
+      "prior_evidence": "Port-only restoration reference builder and compatibility cases; independent harness audit pending",
+      "sha256": {
+        "tests/windows/port_only_scope.py": "8f19a016539596b5c47b0b3ab861d859a5c21242bab4d8cefc1dad60d9329134"
+      }
     }
   ],
   "last_audit_date": "2026-11-11",
   "last_audit_working_head": "ecbed635d74d89908b53d21f5cf0caa9d778a50d",
   "active_audit": "T04",
   "next_queued_item": "T04",
-  "completed_hard_audits": [
-    {
-      "id": "T01",
-      "status": "passed with limitations"
-    },
-    {
-      "id": "T02",
-      "status": "passed with limitations"
-    },
-    {
-      "id": "T03",
-      "status": "passed with limitations"
-    },
-    {
-      "id": "T05",
-      "status": "passed with limitations"
-    }
-  ],
+  "completed_hard_audits": [],
   "reviewed_with_open_defects": [
     {
       "id": "T04",
@@ -5968,5 +6012,30 @@
     "T05",
     "T06"
   ],
-  "compatibility_scope_clarification": "2026-11-11: record/defer inherited Linux bugs; fix Windows porting differences. Applied to T06 restoration; earlier tool changes are not automatically reverted."
+  "compatibility_scope_clarification": "2026-11-11: project-wide porting/presentation only. Inherited Linux repairs removed from active source and binaries; historical evidence retained.",
+  "port_only_scope_reconciliation": {
+    "status": "restored; pristine-reference comparisons recorded",
+    "report": "tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md",
+    "source_baseline": "a8e87433a8e63008d0163314e84802538219d5c4",
+    "note": "Presentation and Windows-only port improvements reapplied; old hard passes are historical, not current certifications.",
+    "evidence": "tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.evidence.json"
+  },
+  "historical_completed_hard_audits": [
+    {
+      "id": "T01",
+      "status": "passed with limitations"
+    },
+    {
+      "id": "T02",
+      "status": "passed with limitations"
+    },
+    {
+      "id": "T03",
+      "status": "passed with limitations"
+    },
+    {
+      "id": "T05",
+      "status": "passed with limitations"
+    }
+  ]
 }

@@ -1,5 +1,10 @@
 # T05 connected modules and tools
 
+Scope notice (11 November 2026): this is historical audit evidence.
+Inherited-bug repairs described here are not the current porting baseline.
+See [the project-wide restoration](PORT_ONLY_SCOPE_RESTORATION.md) for
+active sources, retained Windows adaptations and new reference results.
+
 Status: **scoped review with open findings; independent M/H items pending**,
 10 November 2026. See [T05](T05_qp3Pop.md) for the mode contract, defects, build
 settings and raw artifact locations. This report does not inherit a module pass
