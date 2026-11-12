@@ -1,5 +1,37 @@
 # ADMIXTOOLS on Windows
 
+This guide takes a new Windows installation from prerequisites to a compiled
+suite, a first PowerShell analysis, PATH configuration and verification.
+Documentation checked on **12 November 2026** against this checkout's scripts.
+The recorded development environment uses x64 Windows 11, Windows PowerShell
+5.1, Python 3.13 and MSYS2 UCRT64; PowerShell 7 can also invoke the scripts.
+A fresh installation on every supported Windows version has not been retested.
+
+## Choose your starting point
+
+| Your situation | Start here |
+| --- | --- |
+| New computer, no compiler installed | [1. Prerequisites](#1-prerequisites) |
+| Dependencies installed, source not downloaded | [2. Obtain the source](#2-obtain-the-source-and-choose-a-branch) |
+| Existing checkout, ready to build | [3. Prepare GNU argument parsing](#3-prepare-gnu-argument-parsing), then [4. Compile](#4-compile-the-suite) |
+| Complete built suite already available | [5. Run from PowerShell](#5-run-from-powershell) |
+| Want commands available from any folder | [6. Configure PATH](#6-add-the-suite-to-your-user-path) |
+| Want to check the installation | [7. Verify](#7-verify-the-build) |
+| An installation or command fails | [8. Troubleshooting](#8-troubleshooting) |
+| Updating, moving or uninstalling | [9. Updates and removal](#9-updates-and-removal) |
+
+Use the terminal named above each command block:
+
+| Terminal | What runs there |
+| --- | --- |
+| **MSYS2 UCRT64**, from the Start menu | `pacman` dependency installation and updates |
+| **Windows PowerShell 5.1 / PowerShell 7** | Git checkout, preparation/build scripts, analyses and PATH setup |
+| **WSL/Linux**, optional | The pristine Linux reference and comparison runs |
+
+Do not type the Markdown fences or shell prompt characters. Run the sections
+in order; variables such as `$Repo` and `$Msys2Root` belong to the current
+PowerShell session. Reassign them after opening a new terminal.
+
 Current scope: Windows porting and presentation only. Earlier upstream bug
 repairs have been removed from active code and binaries. Calculations, sampling,
 defaults, parameter acceptance and version behavior follow the unmodified pinned
@@ -37,17 +69,53 @@ not count as a completed hard audit.
 
 ## 1. Prerequisites
 
+### What you need to build, and what you need to run
+
+| Component | Build the suite | Run an already built native tool |
+| --- | --- | --- |
+| x64 Windows and PowerShell | Required | Required |
+| Git for Windows | Required by preparation/source checkout | Not required |
+| Native Windows Python 3.10 or later, with `venv`/pip | Required | Only for Python helpers and validation |
+| MSYS2 UCRT64 GCC, binutils, GSL, OpenBLAS, zlib | Required | MSYS2 itself is not required; copied runtime DLLs are |
+| GNU argp | Prepared automatically in section 3 | Statically linked into the relevant tools |
+| Graphviz/Ghostscript | Optional | Only for the optional graph-rendering workflow |
+| Perl/R or other helper dependencies | Optional | Only for the corresponding interpreter scripts |
+
 Use 64-bit Windows 10 version 1903 or later, or Windows 11, PowerShell,
 Git for Windows and Python 3.10 or later. The process manifest enables UTF-8
 paths; long-path support also depends on Windows policy. Windows 11 and
 PowerShell 5.1 were used for the recorded checks.
-The initial development build was tested with Python 3.13 and MSYS2 UCRT64 GCC
-16.2.0. Check that the real Python interpreter is available:
+The build produces **x86-64** executables. Native ARM64 and 32-bit Windows builds
+are not covered by this tutorial. Required RAM and temporary disk space depend
+on your dataset and analysis; `.gz` inputs also require space for their expanded
+contents. Keep analysis data outside the source checkout.
+
+Install [Git for Windows](https://git-scm.com/install/windows) with its command-line
+tools available to PowerShell. Install a normal native Windows Python from the
+[official Windows downloads](https://www.python.org/downloads/windows/); Python
+3.13 is the tested series. If using its traditional installer, enable its PATH
+option. With another installation method, ensure the resulting `python` command
+actually launches an interpreter. The embeddable Python ZIP is not the intended
+build environment because preparation needs `venv` and pip.
+
+Open a **new PowerShell window** after installing them and check:
 
 ```powershell
 git --version
 python --version
+python -m pip --version
+python -c "import sys, struct, venv; print(sys.executable); print('Python bits:', struct.calcsize('P') * 8)"
+Get-Command git, python -All
+$PSVersionTable.PSVersion
 ```
+
+Use a 64-bit native Windows Python; its executable should be a Windows path.
+If `python` opens a Store page or is not found, fix its installation/PATH or App
+execution alias before continuing. `py` working alone is insufficient: the
+repository scripts invoke **`python`**. You do not need Visual Studio, CMake,
+Linux `make`, WSL, Git Bash or a global Meson/Ninja installation for this build.
+
+### Install the matching MSYS2 libraries
 
 Install [MSYS2](https://www.msys2.org/) following its
 [official installer instructions](https://www.msys2.org/docs/installer/).
@@ -59,25 +127,80 @@ pacman -Syu
 ```
 
 If the updater closes the terminal or asks you to restart it, reopen UCRT64 and
-run that command again. Install the native compiler and scientific libraries:
+run that command again until the full update completes. MSYS2 supports
+[full system upgrades](https://www.msys2.org/docs/updating/); avoid updating one
+library in isolation with a partially updated package database. Install:
 
 ```bash
-pacman -S --needed mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-gsl mingw-w64-ucrt-x86_64-openblas mingw-w64-ucrt-x86_64-zlib
+pacman -S --needed mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-binutils mingw-w64-ucrt-x86_64-gsl mingw-w64-ucrt-x86_64-openblas mingw-w64-ucrt-x86_64-zlib
+echo "$MSYSTEM"
+which gcc
+gcc -dumpmachine
 ```
+
+The last three commands should show `UCRT64`, `/ucrt64/bin/gcc`, and
+`x86_64-w64-mingw32`. [UCRT64](https://www.msys2.org/docs/environments/) is the
+environment used by this repository. The
+[binutils package](https://packages.msys2.org/packages/mingw-w64-ucrt-x86_64-binutils)
+provides tools including `ar`, `objdump` and `windres`; the build uses `windres`
+to embed the Windows application manifest.
 
 Use the UCRT64 packages together. Do not substitute the MSYS `/usr/bin/gcc`
 compiler or mix MINGW64/CLANG64 libraries with UCRT64. The build runs from
 PowerShell; MSYS2 supplies the compiler and libraries. The resulting programs
 run without an MSYS shell or WSL.
 
-## 2. Obtain the source and choose a branch
-
-For this existing workspace:
+Return to **PowerShell** and set your MSYS2 root, not its `ucrt64\bin` subfolder:
 
 ```powershell
-Set-Location C:\work\AdmixTools_Win
-git switch windows-port
+$Msys2Root = 'C:\msys64'  # Change this if you chose another installation folder.
+foreach ($Name in 'gcc.exe', 'ar.exe', 'objdump.exe', 'windres.exe') {
+    $ToolPath = Join-Path $Msys2Root "ucrt64\bin\$Name"
+    if (-not (Test-Path -LiteralPath $ToolPath -PathType Leaf)) {
+        throw "Required UCRT64 tool not found: $ToolPath"
+    }
+}
+& (Join-Path $Msys2Root 'ucrt64\bin\gcc.exe') --version
 ```
+
+The build scripts temporarily add the compiler folder to their process PATH and
+restore it afterwards. You do not need to add MSYS2's `usr\bin` or the compiler
+folder permanently to your user/system PATH to build or run native analyses.
+
+## 2. Obtain the source and choose a branch
+
+### Fresh checkout
+
+```powershell
+$Repo = Join-Path $env:USERPROFILE 'source\AdmixTools_Win'
+New-Item -ItemType Directory -Path (Split-Path -Parent $Repo) -Force | Out-Null
+git clone --branch windows-port https://github.com/nomanfinally/AdmixTools_Win.git $Repo
+if ($LASTEXITCODE -ne 0) { throw 'Clone failed; read the Git error above.' }
+Set-Location -LiteralPath $Repo
+git branch --show-current
+git remote -v
+```
+
+The destination must not already contain another checkout. A short local path
+is convenient; the repository does not need to be installed under `Program Files`
+or run as Administrator. The `$Repo` example above expands to your own Windows
+profile. Keep this variable for the later commands.
+
+### Existing checkout
+
+Use its actual location instead of cloning again:
+
+```powershell
+$Repo = 'C:\work\AdmixTools_Win'  # Or your checkout.
+Set-Location -LiteralPath $Repo
+git status --short
+git branch --show-current
+```
+
+Preserve existing work before switching branches. If the tree is clean and you
+intend to use the maintained port branch, `git switch windows-port` selects it.
+A topic branch may contain local work that is not on the published branch; this
+guide does not automatically switch, reset or overwrite it.
 
 Use `windows-port` for the maintained port and keep `master` as the upstream
 tracking line. Create small topic branches from `windows-port` for later fixes.
@@ -86,13 +209,6 @@ The configured remotes are:
 ```text
 origin    https://github.com/nomanfinally/AdmixTools_Win.git
 upstream  https://github.com/DReichLab/AdmixTools.git
-```
-
-A fresh Windows checkout of the published port can use:
-
-```powershell
-git clone --branch windows-port https://github.com/nomanfinally/AdmixTools_Win.git
-Set-Location AdmixTools_Win
 ```
 
 The port branch contains the narrow filename renames needed for a Windows
@@ -106,8 +222,16 @@ line, so select `windows-port` explicitly when cloning or browsing this fork.
 From the repository root in PowerShell:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\prepare-windows.ps1 -Msys2Root C:\msys64
+Set-Location -LiteralPath $Repo
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\prepare-windows.ps1 -Msys2Root $Msys2Root
+if ($LASTEXITCODE -ne 0) { throw 'Preparation failed; resolve its error before building.' }
 ```
+
+This invocation also works when your current terminal is PowerShell 7; it starts
+Windows PowerShell for the script. `-ExecutionPolicy Bypass` applies to that
+process. It does not permanently weaken the user or machine execution policy.
+Managed computers may enforce policy separately; use the organization's permitted
+method if the script remains blocked.
 
 This creates a local Python environment under `src/.windows/`, installs pinned
 Meson/Ninja build tools, fetches a pinned GNU argp source revision, builds it and
@@ -119,10 +243,18 @@ The preparation step needs internet access. Build dependencies and objects under
 `src/.windows/` are generated and ignored by Git. See the pinned revision and
 small diagnostic compatibility adjustment in `prepare-windows.ps1`.
 
+Expected generated files include `src\.windows\venv\Scripts\python.exe` and
+`src\.windows\argp\lib\libargp.a`. Do not activate this private Python
+environment to run the native tools. A successful repeat preparation reuses the
+pinned checkout and reconfigures its build. A reported unexpected argp revision
+needs investigation; do not replace the pin with a random newer source.
+
 ## 4. Compile the suite
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\build-windows.ps1 -Msys2Root C:\msys64
+Set-Location -LiteralPath $Repo
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\build-windows.ps1 -Msys2Root $Msys2Root
+if ($LASTEXITCODE -ne 0) { throw 'Build failed; read the compiler/linker output above.' }
 ```
 
 For a different MSYS2 installation, pass its root directory, for example
@@ -133,6 +265,11 @@ List the inventory without compiling:
 python src/build_windows.py --list
 ```
 
+The equivalent PowerShell inventory command is
+`powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\build-windows.ps1 -ListTools`.
+It does not require an installed compiler. The build should finish with a
+`Built 37 executables ...` line for the full supported target list.
+
 All 28 upstream default executables and 9 additional buildable targets are
 installed in `bin/`. `qpfmvmix` is listed as blocked because its upstream source
 is malformed. It is never silently replaced with a different implementation.
@@ -142,6 +279,31 @@ the executables. It also copies upstream Perl/R/Python helpers into their usual
 installed locations. Those scripts still need their respective interpreters;
 they are not native executable conversions. `bin/windows-build.json` records
 the baseline, compiler, flags, source hashes and runtime DLL hashes.
+
+Inspect your actual build rather than assuming it used another machine's versions:
+
+```powershell
+$AdmixBin = (Resolve-Path -LiteralPath (Join-Path $Repo 'bin')).Path
+$BuildInfo = Get-Content -LiteralPath (Join-Path $AdmixBin 'windows-build.json') -Raw | ConvertFrom-Json
+$BuildInfo.compiler
+$BuildInfo.upstream_commit
+$BuildInfo.executables.Count
+Get-ChildItem -LiteralPath $AdmixBin -Filter '*.exe' | Select-Object Name
+Get-ChildItem -LiteralPath $AdmixBin -Filter '*.dll' | Select-Object Name
+```
+
+Use **`$Repo\bin`**, not another port's `build\bin\separate` folder. Each program
+has its own `.exe`; there is no combined dispatcher. Build metadata covers the
+selected targets, so inspect `executables` if you previously built only a subset.
+The metadata's `parity_validated` flag is not a substitute for recorded Linux
+comparisons; a successful compilation alone does not certify numerical parity.
+
+For a portable local copy, copy the complete contents of `bin` to a user-writable
+folder, retaining the adjacent DLLs, `script` and `licenses` directories and
+metadata. Keep `qpAdm.exe` and `qpfstats.exe` together. The native tools can then
+run without MSYS2, but helper scripts still need their own interpreters. This is
+manual deployment of a development build, not an MSI installer or a published
+binary release.
 
 Each tool reserves an 8 MiB main-thread stack, matching the tested Linux
 reference's allowance. The compatibility-method review and its exclusions are
@@ -157,9 +319,15 @@ those platforms.
 Before changing PATH, use an explicit path:
 
 ```powershell
-.\bin\qpAdm.exe -h
-.\bin\qpWave.exe -h
+$AdmixBin = (Resolve-Path -LiteralPath (Join-Path $Repo 'bin')).Path
+& (Join-Path $AdmixBin 'qpAdm.exe') -h
+& (Join-Path $AdmixBin 'qpWave.exe') -h
 ```
+
+PowerShell does not search the current directory for an executable automatically.
+Use `./` or `.\` for a local executable, or the call operator `&` for a quoted
+path/variable. For example, `$Exe = Join-Path $AdmixBin 'qpAdm.exe'` followed by
+`& $Exe -p 'qpAdm.par'` invokes the actual binary.
 
 Use each program's upstream help and parameter documentation. Some older tools
 have different options and do not implement `-h`. Version codes retain their
@@ -177,21 +345,36 @@ damaged or truncated streams are rejected before analysis.
 The upstream `unzip cmd: gunzip -c ...` terminal line is retained for output
 compatibility; Windows performs that decompression internally. Generated paths
 use native backslashes. Temporary decompressed files are removed after a
-successful read or decompression failure. Cleanup after a fatal error inside a
-genotype reader remains unverified. For large inputs, ensure the temporary
-directory has space for the uncompressed file. To select an existing directory:
+successful read or detected decompression failure. Owned-file cleanup also has
+recorded fatal-reader checks; forced process termination or power loss cannot
+guarantee cleanup. Open edge cases in individual tools' audits remain separate.
+For large inputs, ensure the temporary directory has space for the uncompressed
+file. To create and select a directory for this PowerShell session:
 
 ```powershell
-$env:STMP = 'D:\AdmixToolsTemp'
+$TempDir = Join-Path $env:LOCALAPPDATA 'AdmixTools\temp'
+New-Item -ItemType Directory -Path $TempDir -Force -ErrorAction Stop | Out-Null
+$env:STMP = $TempDir
 ```
+
+You can choose a folder on another existing drive if it has more free space.
+`STMP` is an environment variable inherited by the native processes, not a
+dataset prefix. Closing this terminal discards this session-only setting.
 
 For an analysis, put your data and parameter files in an analysis directory:
 
 ```powershell
-Set-Location C:\genomics\analysis
-& 'C:\work\AdmixTools_Win\bin\qpAdm.exe' -p .\par.qpAdm
+$AnalysisDir = 'C:\genomics\analysis'  # Change to your existing analysis folder.
+Set-Location -LiteralPath $AnalysisDir
+& (Join-Path $AdmixBin 'qpAdm.exe') -p .\par.qpAdm
 $LASTEXITCODE
 ```
+
+The source download does not include your genotype dataset. For an EIGENSTRAT
+prefix `D:\genomics\cohort`, expect **three files**: `cohort.geno`, `cohort.snp`
+and `cohort.ind`. The prefix has no extension. Ensure Windows Explorer is showing
+file extensions so `qpAdm.par` is not accidentally saved as `qpAdm.par.txt`.
+Population names must match the dataset exactly, including punctuation/case.
 
 A minimal parameter file has the usual upstream keys:
 
@@ -221,9 +404,18 @@ genotypename: "C:/genomics/my data/cohort.geno"
 
 Quoted string parameters are a Windows compatibility extension; upstream's
 unquoted parser reads the first whitespace-separated token. Forward slashes
-work in native Windows paths. Full Unicode and extended-length paths have not
-yet been validated. `allsnps: YES` precomputation locates `qpfstats.exe` beside
+work in native Windows paths. Recorded Windows checks cover Unicode/quoted and
+long temporary paths; they do not certify every reader, UNC share or machine
+policy. The manifest opts into long paths, but
+[Windows policy also applies](https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation).
+This build does not change your registry or system code page.
+`allsnps: YES` precomputation locates `qpfstats.exe` beside
 the parent program; keep the suite together when copying it.
+
+For a parameter file shared directly with pristine Linux, prefer short relative
+filenames without spaces or Windows-only quoting, and stage the same inputs on
+each platform. A Windows drive path is not automatically translated into a WSL
+or Linux path.
 
 Generated temporary paths use native Windows backslashes, for example
 `tmp: C:\Users\USERNAME\AppData\Local\Temp\fsx.12345`, including when a temporary
@@ -232,7 +424,7 @@ directory override was supplied with forward slashes.
 Ordinary text log redirection:
 
 ```powershell
-qpAdm -p .\par.qpAdm > .\qpAdm.log 2> .\qpAdm.err
+& (Join-Path $AdmixBin 'qpAdm.exe') -p .\par.qpAdm > .\qpAdm.log 2> .\qpAdm.err
 $LASTEXITCODE
 ```
 
@@ -241,10 +433,134 @@ logs in Windows PowerShell 5.1, use command-shell redirection:
 
 ```powershell
 cmd.exe /d /c 'qpAdm -p par.qpAdm > qpAdm.log 2> qpAdm.err'
+$LASTEXITCODE
 ```
+
+The last example assumes `qpAdm` is on PATH as described in section 6. It saves
+stdout and stderr separately without PowerShell's text-file re-encoding.
+Windows PowerShell 5.1 typically writes redirected/Tee text logs as UTF-16;
+PowerShell versions have different encoding behavior, and PowerShell 7.4+ has
+specific native byte-preserving redirection rules. See Microsoft's
+[redirection documentation](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_redirection).
+Do not assume a text pipeline preserves native bytes in every version.
 
 Program-generated genotype files are written directly in binary mode. Do not
 pipe binary output through PowerShell text commands such as `Out-File`.
+
+### Write parameters as UTF-8
+
+For parameters/population lists, use UTF-8 without a BOM so the same files can
+also be used with pristine Linux. Windows accepts an initial UTF-8 BOM, but that
+is a Windows extension. Avoid PowerShell 5.1's default `Out-File` for these inputs:
+it writes UTF-16. VS Code's **Save with Encoding → UTF-8** is one option; the
+complete example below uses the .NET API explicitly. Do not assume `-Encoding
+utf8` means the same BOM behavior in Windows PowerShell 5.1 and PowerShell 7.
+
+For non-ASCII terminal text in a normal PowerShell console, you can set:
+
+```powershell
+$Utf8Console = New-Object System.Text.UTF8Encoding $false
+[Console]::OutputEncoding = $Utf8Console
+$OutputEncoding = $Utf8Console
+```
+
+This changes the current console/pipeline encoding, not the encoding of existing
+files or the machine locale. Native output still goes to stdout/stderr without
+an automatic application log.
+
+### Complete qpAdm job example
+
+Edit **the binary folder, dataset prefix and population names** first. The names
+below are placeholders, not a recommended scientific model. LEFT starts with
+the target, followed by sources; RIGHT contains the reference populations.
+The model and switches must be chosen for your analysis. `allsnps: YES` and
+`inbreed: NO` are explicit example choices, not changed program defaults.
+
+This block works before PATH configuration. It checks inputs, creates a fresh
+job directory, writes UTF-8 inputs, runs from the directory containing the
+relative population filenames, displays/saves text output, measures elapsed
+time and checks the native exit code. It does not overwrite an existing job.
+
+```powershell
+# Native Windows PowerShell 5.1 / PowerShell 7
+$AdmixBin = Join-Path $env:USERPROFILE 'source\AdmixTools_Win\bin'
+$DataPrefix = 'D:\genomics\data\cohort'  # No .geno/.snp/.ind extension here.
+$JobRoot = Join-Path $env:USERPROFILE 'AdmixToolsJobs'
+$JobName = 'qpAdm_demo'
+
+$AdmixBin = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($AdmixBin)
+$DataPrefix = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($DataPrefix)
+$JobRoot = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($JobRoot)
+$Exe = Join-Path $AdmixBin 'qpAdm.exe'
+$JobDir = Join-Path $JobRoot (('{0}_{1}' -f (Get-Date -Format 'yyyyMMdd_HHmmss_fff'), $JobName))
+
+foreach ($InputFile in @(
+    $Exe
+    (Join-Path $AdmixBin 'qpfstats.exe')
+    "${DataPrefix}.geno"
+    "${DataPrefix}.snp"
+    "${DataPrefix}.ind"
+)) {
+    if (-not (Test-Path -LiteralPath $InputFile -PathType Leaf)) {
+        throw "File not found: $InputFile"
+    }
+}
+
+New-Item -ItemType Directory -Path $JobRoot -Force -ErrorAction Stop | Out-Null
+New-Item -ItemType Directory -Path $JobDir -ErrorAction Stop | Out-Null
+$Utf8NoBom = New-Object System.Text.UTF8Encoding $false
+[System.IO.File]::WriteAllLines((Join-Path $JobDir 'LEFT.pops'), @(
+    'Target'
+    'Source1'
+    'Source2'
+), $Utf8NoBom)
+[System.IO.File]::WriteAllLines((Join-Path $JobDir 'RIGHT.pops'), @(
+    'Outgroup'
+    'Right1'
+    'Right2'
+    'Right3'
+), $Utf8NoBom)
+[System.IO.File]::WriteAllLines((Join-Path $JobDir 'qpAdm.par'), @(
+    ('genotypename: "{0}.geno"' -f $DataPrefix)
+    ('snpname: "{0}.snp"' -f $DataPrefix)
+    ('indivname: "{0}.ind"' -f $DataPrefix)
+    'popleft: LEFT.pops'
+    'popright: RIGHT.pops'
+    'seed: 77'
+    'details: YES'
+    'allsnps: YES'
+    'inbreed: NO'
+), $Utf8NoBom)
+
+Push-Location -LiteralPath $JobDir -ErrorAction Stop
+try {
+    Write-Host "Job folder: $JobDir"
+    $Timer = [System.Diagnostics.Stopwatch]::StartNew()
+    try {
+        & $Exe -p 'qpAdm.par' 2>&1 | Tee-Object -FilePath 'result.txt'
+        $RunExitCode = $LASTEXITCODE
+    }
+    finally {
+        $Timer.Stop()
+        Write-Host "Elapsed: $($Timer.Elapsed)"
+    }
+    if ($RunExitCode -ne 0) {
+        throw "qpAdm exited with code $RunExitCode. Read $JobDir\result.txt"
+    }
+}
+finally {
+    Pop-Location
+}
+```
+
+The `.par`/population files use UTF-8 without a BOM; adapt the Windows paths and
+quoting before reusing parameters on pristine Linux. `result.txt` is a PowerShell
+text log and can use a different encoding. `$LASTEXITCODE` must be captured immediately
+after the native run/pipeline; another native command can replace it. Inherited
+Linux errors or invalid models are not fixed by this tutorial. Error text can
+appear as a PowerShell `NativeCommandError`; inspect the tool's diagnostic and
+exit code, not only the console color. For separate raw streams, use the
+command-shell redirection shown above.
 
 ## 6. Add the suite to your user PATH
 
@@ -252,14 +568,27 @@ From the repository root, these commands update your user PATH, retaining other
 entries, and make it available in the current PowerShell session:
 
 ```powershell
-$admixBin = (Resolve-Path .\bin).Path
+$AdmixBin = (Resolve-Path -LiteralPath (Join-Path $Repo 'bin')).Path
 $userPath = [Environment]::GetEnvironmentVariable('Path', 'User')
-$otherEntries = @($userPath -split ';' | Where-Object { $_ -and $_ -ne $admixBin })
-[Environment]::SetEnvironmentVariable('Path', (@($admixBin) + $otherEntries -join ';'), 'User')
-$env:Path = "$admixBin;$env:Path"
+$BackupDir = Join-Path $env:LOCALAPPDATA 'AdmixTools\path-backups'
+New-Item -ItemType Directory -Path $BackupDir -Force -ErrorAction Stop | Out-Null
+$PathBackup = Join-Path $BackupDir (('user-path-{0}.txt' -f (Get-Date -Format 'yyyyMMdd_HHmmss_fff')))
+[System.IO.File]::WriteAllText($PathBackup, [string]$userPath, (New-Object System.Text.UTF8Encoding $false))
+$otherEntries = @($userPath -split ';' | Where-Object {
+    $_ -and $_.Trim().TrimEnd('\') -ine $AdmixBin.TrimEnd('\')
+})
+[Environment]::SetEnvironmentVariable('Path', ((@($AdmixBin) + $otherEntries) -join ';'), 'User')
+$env:Path = "$AdmixBin;$env:Path"
+Write-Host "Previous user PATH saved to: $PathBackup"
 Get-Command qpAdm -All
 qpAdm -h
 ```
+
+Add the **`bin` directory**, not an individual `.exe`, the repository root or
+MSYS2's directory. This changes the user PATH only and does not require an
+Administrator terminal. Running this again replaces the matching user entry
+rather than accumulating case/trailing-backslash duplicates. The temporary
+`$env:Path` assignment above is what makes it work in the already open terminal.
 
 New terminals inherit the saved user PATH. `Get-Command qpAdm -All` reveals
 competing installations. Check that it resolves to this checkout; an older
@@ -267,22 +596,76 @@ system-wide installation can take precedence. An explicit executable path
 always selects the intended build. If you later move the checkout, update PATH
 to the new `bin` location.
 
+If a terminal is launched by an already running VS Code or another terminal
+application, restart that parent application if it still inherits the old PATH.
+An older System PATH entry can also take precedence over a User PATH entry;
+inspect `Get-Command qpAdm -All` and use the explicit executable path until the
+conflict is resolved.
+
+If you prefer the Windows interface, search Start for **Edit environment variables
+for your account**, edit the user's **Path**, add a new entry containing the full
+`bin` path, save, and reopen your terminal. Do not replace the entire PATH with
+just the AdmixTools folder.
+
 ## 7. Verify the build
+
+### Check that the expected binary launches
+
+```powershell
+$AdmixBin = (Resolve-Path -LiteralPath (Join-Path $Repo 'bin')).Path
+& (Join-Path $AdmixBin 'qpAdm.exe') -h
+$LASTEXITCODE
+```
+
+A successful help invocation confirms the executable can load its basic runtime
+dependencies. It does not verify the scientific calculations or all helper tools.
+Use a complete build; metadata from a selected-target build is not evidence that
+all 37 binaries were rebuilt.
+
+### Run the self-contained synthetic cases
 
 The self-contained integration suite creates synthetic data and records raw
 streams and generated files:
 
 ```powershell
-python tests/windows/parity.py --bin bin --output validation-results/windows
+Set-Location -LiteralPath $Repo
+$CheckId = Get-Date -Format 'yyyyMMdd_HHmmss_fff'
+$WindowsCheck = Join-Path $Repo "validation-results\windows-$CheckId"
+python tests/windows/parity.py --bin bin --output $WindowsCheck
+$LASTEXITCODE
 ```
+
+A fixture runner completing is not sufficient on its own: inspect its manifest
+for missing executables, timeouts and unsuccessful runs. The suite has an
+intentional `transpose-invalid` failure case (exit 64). Its comparison step checks
+the expected statuses, output streams, generated files and binary round trips.
+This does not download or modify your analysis dataset.
 
 A run on Windows alone is a functional check, not proof of Linux parity. Follow
 [tests/windows/README.md](tests/windows/README.md) to build the pinned pristine
 Linux reference and compare:
 
 ```powershell
-python tests/windows/parity.py --compare validation-results/linux validation-results/windows
+$LinuxCheck = 'C:\path\to\the\retained\pristine-linux-results'  # Replace this.
+python tests/windows/parity.py --compare $LinuxCheck $WindowsCheck
+$LASTEXITCODE
 ```
+
+The Linux results must come from the same fixture runner, upstream commit and
+controlled seed/thread settings. They are not any arbitrary qpAdm log. Read the
+generated `comparison.json` and `comparison.diff`; do not hide scientific
+differences with a tolerance or substitute a repaired Linux build for pristine
+upstream. WSL is optional for ordinary installation/running and only needed if
+you choose it to produce the Linux reference locally.
+
+For the current port-only scope, the reference builder and further cases are in
+`tests/windows/port_only_scope.py`. Its `--build-linux` option belongs in WSL and
+requires Linux compiler/library dependencies described by the validation docs.
+Its comparison command retains differences for review and does not itself turn
+every mismatch into a nonzero process exit. Older corrective-audit `--verify`
+runners can require archived, beyond-scope fixes; they are not the current
+compatibility contract. See the
+[scope restoration report](tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md).
 
 Scientific results and generated files are compared exactly, without numerical
 tolerances. The allowed platform metadata exceptions and tested tool list are
@@ -292,6 +675,16 @@ are release work, not implied by the initial passing cases.
 
 ## 8. Troubleshooting
 
+- **`python`/`git` is not recognized or opens an unexpected application:** reopen
+  PowerShell after installation, use `Get-Command python, git -All`, and correct
+  PATH/App execution aliases. The private argp environment does not replace the
+  normal `python` command used by the build entry point.
+- **`pacman` is not recognized:** you are probably in PowerShell. Run package
+  installation/update commands in **MSYS2 UCRT64**, then return to PowerShell.
+- **The script cannot run / execution policy error:** use the section 3/4
+  `powershell.exe -NoProfile -ExecutionPolicy Bypass -File ...` invocation after
+  reviewing the local script. Do not change the permanent machine execution
+  policy as a prerequisite. Organization policy can still apply.
 - **GCC not found:** check `C:\msys64\ucrt64\bin\gcc.exe` and the
   `-Msys2Root` argument. Install the UCRT64 GCC package in the MSYS2 terminal.
 - **Missing GSL/OpenBLAS headers or libraries:** install both matching UCRT64
@@ -299,6 +692,12 @@ are release work, not implied by the initial passing cases.
 - **Missing zlib header/library or its DLL:** install the UCRT64 zlib package
   listed above and rebuild. Keep the copied DLL beside the executables.
 - **GNU argp missing:** run `prepare-windows.ps1` before the full build.
+- **`windres`/`ar`/`objdump` missing:** install UCRT64 binutils and use the same
+  `-Msys2Root` value for preparation and compilation.
+- **pip/download/TLS errors during preparation:** verify normal internet access,
+  proxy/certificate settings and the complete error log. Preparation downloads
+  pinned Python build dependencies and an argp Git checkout. Do not disable TLS
+  checks or silently change the pinned revision to get past the error.
 - **A missing-DLL message when starting a program:** rebuild and keep the copied
   DLLs beside the `.exe` files. Adding just the source directory to PATH is not
   sufficient.
@@ -307,6 +706,25 @@ are release work, not implied by the initial passing cases.
 - **A file cannot be opened:** check the current directory, parameter spelling,
   quoted paths with spaces, and actual data filenames. The example data are not
   bundled with the source; see upstream's `README` for its download link.
+- **`LEFT.pops` / `RIGHT.pops` cannot be opened although `-p` names an absolute
+  file:** change into the job directory before running. Relative values inside
+  the parameter file resolve against the working directory. Check for hidden
+  `.txt` extensions and UTF-16 encoding too.
+- **`qpfstats failure` in an all-SNP run:** check that the sibling `qpfstats.exe`
+  and DLLs exist, the data/population paths are valid, and the temporary directory
+  exists and is writable. Use an upstream-supported helper-log parameter where
+  available and consult that tool's audit for known error-path limitations.
+- **A path containing spaces or `#` is cut off:** quote the entire string value
+  in the parameter file. Quoting only the executable invocation does not quote
+  filenames written inside `.par` files.
+- **Garbled text, suspicious parameter names or empty input:** save parameters
+  and lists as UTF-8 without BOM. The console setting does not convert a file
+  previously written as UTF-16. Prefer the .NET write example above.
+- **The run appears idle:** large genotype reads, qpfstats precomputation and
+  upstream rejection sampling can take time without progress updates. Inspect
+  Task Manager, the active output and disk space. This port does not add an
+  automatic sampling cap or progress banner; an inherited Linux problem is
+  documented separately from a Windows porting regression.
 - **Different results:** record both upstream commits, seeds, compiler/library
   versions, flags, inputs and thread settings. Use the comparison runner and
   inspect its diff before changing any computation or tolerance.
@@ -326,12 +744,13 @@ install from the **UCRT64 terminal**:
 pacman -S --needed mingw-w64-ucrt-x86_64-graphviz
 ```
 
-That package pulls native Ghostscript and its runtime dependencies. In the
+The [UCRT64 Graphviz package](https://packages.msys2.org/packages/mingw-w64-ucrt-x86_64-graphviz)
+pulls native Ghostscript and its runtime dependencies. In the
 PowerShell session used for rendering, add their directory to the process PATH:
 
 ```powershell
-$env:PATH = "C:\msys64\ucrt64\bin;$env:PATH"
-& 'C:\work\AdmixTools_Win\bin\qpreroot.exe' -g .\graph -d .\graph.dot
+$env:PATH = "$(Join-Path $Msys2Root 'ucrt64\bin');$env:PATH"
+& (Join-Path $AdmixBin 'qpreroot.exe') -g .\graph -d .\graph.dot
 ```
 
 Adjust the MSYS2 directory if necessary. Separate Windows installations also
@@ -424,27 +843,90 @@ calculation defaults, input acceptance or exit behavior to repair Linux bugs.
 
 ## 9. Updates and removal
 
-Keep your analysis data outside the source tree. Before synchronizing upstream,
-finish or preserve local changes, fetch `upstream`, and merge the upstream
-tracking revision into `windows-port`. Resolve compatibility changes explicitly,
-update `UPSTREAM_BASELINE`, rebuild, and rerun the Linux comparison. Keep
-`master` available as the upstream tracking line. Upstream's historical illegal
-filenames require special handling on Windows when switching to a pristine
-upstream branch; a separate Linux/WSL reference checkout is convenient.
+### Update an installed source checkout
+
+Keep your analysis data outside the source tree. Inspect the checkout first:
+
+```powershell
+Set-Location -LiteralPath $Repo
+git status --short
+git branch --show-current
+```
+
+If you are on `windows-port`, have no local changes to preserve, and intend to
+update from that published branch, use:
+
+```powershell
+git fetch origin
+if ($LASTEXITCODE -ne 0) { throw 'Fetch failed.' }
+git pull --ff-only origin windows-port
+if ($LASTEXITCODE -ne 0) { throw 'Update did not fast-forward; preserve and review local work.' }
+```
+
+Do not use a hard reset or `git clean` as an update step. If you are on a topic
+branch or have local commits/edits, preserve and review that work separately.
+Updating source does **not** automatically replace the executables. Stop running
+analyses, repeat preparation when needed, rebuild with section 4, then rerun
+verification and inspect the new build metadata. Existing job folders are not
+rebuilt or modified by a source update.
+
+For dependency updates, use the full MSYS2 update in section 1. A new dependency
+combination needs its own validation; packages are rolling releases and are not
+all pinned by this repository. For a fully fresh generated build, close running
+jobs and rename **only `src\.windows`** to a backup name in File Explorer, then
+repeat sections 3 and 4. That directory contains generated objects, argp and its
+private Python environment; keep your source and dataset files. Preserve old
+build metadata if you need to reproduce an earlier analysis.
+
+Upstream synchronization is a separate maintainer task: preserve local work,
+fetch `upstream`, merge the selected tracking revision into `windows-port`,
+resolve compatibility changes, update `UPSTREAM_BASELINE` and rerun pristine
+Linux comparisons. Keep `master` as the upstream tracking line. Its historical
+illegal Windows filenames require special handling; a separate reference tree
+on the Linux/WSL filesystem is convenient. Do not switch an ordinary Windows
+checkout to upstream `master` as part of a routine install.
+
+### Move or remove this manual installation
 
 There is currently no installer or uninstall entry. To remove your PATH entry:
 
 ```powershell
-$admixBin = 'C:\work\AdmixTools_Win\bin'
+$AdmixBin = Join-Path $env:USERPROFILE 'source\AdmixTools_Win\bin'  # Use the OLD installed path.
 $userPath = [Environment]::GetEnvironmentVariable('Path', 'User')
-$remaining = @($userPath -split ';' | Where-Object { $_ -and $_ -ne $admixBin })
+$remaining = @($userPath -split ';' | Where-Object {
+    $_ -and $_.Trim().TrimEnd('\') -ine $AdmixBin.TrimEnd('\')
+})
 [Environment]::SetEnvironmentVariable('Path', ($remaining -join ';'), 'User')
+$env:Path = (($env:Path -split ';' | Where-Object {
+    $_ -and $_.Trim().TrimEnd('\') -ine $AdmixBin.TrimEnd('\')
+}) -join ';')
 ```
 
-Close programs using this build before removing its generated files or checkout.
+Reopen other terminals afterwards and inspect `Get-Command qpAdm -All`. For a
+move, remove the old entry, copy the complete suite to its new folder, and add
+that new `bin`/runtime folder using section 6. A user PATH backup was saved under
+`%LOCALAPPDATA%\AdmixTools\path-backups` when using the scripted setup above;
+review it before using it to restore an entire old PATH, since later unrelated
+PATH changes could otherwise be lost.
+
+Close programs using this build before removing its generated files or checkout
+through File Explorer. Keep analysis data, parameters, logs and any build
+metadata/backups you still need. Do not uninstall a shared MSYS2/Python/Git
+installation just to remove AdmixTools; other software can depend on it.
 The MSI milestone will add a chosen installation location, build/dependency
 provisioning, PATH integration, upgrades, repair and uninstall after the numerical
 compatibility baseline is ready.
+
+## What was checked for this guide
+
+The commands were reviewed against `prepare-windows.ps1`, `build-windows.ps1`
+and `src/build_windows.py`. PowerShell examples were syntax-checked with Windows
+PowerShell 5.1, and the complete job example was exercised using synthetic
+fixture data and this checkout's existing native binaries. No fresh MSYS2 or
+Windows installation was performed for this documentation change, and no
+machine/user PATH or execution-policy setting was changed while validating it.
+Dependency installation follows the official pages linked above; the historical
+compiler/library and Linux comparison evidence remains in the audit reports.
 
 ## Windows filename mapping and recovery history
 

@@ -1,3 +1,7 @@
+Native Windows setup: see README.WINDOWS.md for the detailed build, PowerShell,
+PATH, verification, update and uninstall guide. The Linux/Mac instructions below
+are retained from upstream.
+
 ADMIXTOOLS version 5.0  6/28/18 (for Linux and Mac)
 
 Best is to recompile on your system. 
