@@ -641,3 +641,74 @@ recorded directory names, checks source/fixture/oracle/RNG/native invariants,
 retains all differences, and creates the hashed raw archive. Incomplete
 `windows-before`/`asan` runs are diagnostic history, not completed matrices.
 Independent module/header/harness audits and T07 closure remain pending.
+
+## T08 qpGraph
+
+The [report](audits/T08_qpGraph.md), [evidence](audits/T08_qpGraph.evidence.json)
+and [connected modules](audits/T08_connected_modules.md) describe the pinned
+pristine comparisons and open gaps. The native validated binary is under
+`validation-results/hard-check/T08/verified-build/snapshot/bin`; installed `bin`
+is preserved. No inherited scientific fix is part of this audit.
+
+Example reproduction in a **new** output root, from the repository directory:
+
+```powershell
+$taskToolchain = "$env:LOCALAPPDATA\AdmixTools-build\msys64\ucrt64\bin"
+python tests/windows/build_t08_audit.py --output validation-results/hard-check/T08-new/builds --toolchain $taskToolchain
+wsl python3 tests/windows/build_t08_audit.py --output validation-results/hard-check/T08-new/builds --linux-root /home/user/t08-new
+python tests/windows/audit_qpgraph.py --bin validation-results/hard-check/T08-new/builds/snapshot/bin --output validation-results/hard-check/T08-new/windows
+wsl python3 tests/windows/audit_qpgraph.py --bin /home/user/t08-new/pristine/src --output validation-results/hard-check/T08-new/pristine
+wsl python3 tests/windows/audit_qpgraph.py --bin /home/user/t08-new/linux/src --output validation-results/hard-check/T08-new/port-linux
+wsl python3 tests/windows/audit_qpgraph.py --bin /home/user/t08-new/asan/src --output validation-results/hard-check/T08-new/asan --ubsan-recover
+python tests/windows/audit_qpgraph.py --compare validation-results/hard-check/T08-new/pristine validation-results/hard-check/T08-new/windows
+```
+
+Adjust the compiler path and Linux home for your installation. The compiler on
+the audited machine is under LOCALAPPDATA, not `C:\msys64`. The pristine build
+extracts the recorded upstream commit without source repairs. Build logs retain
+flags and `LDLIBS=-lnick`, used to resolve the upstream Unix link order.
+
+The runner now includes interior/two-mixture models and asserts that NaN input
+was really substituted. The archived initial main matrices contained an
+unmutated NaN case; supplements and corrected `nan-*` matrices retain that
+history explicitly. Therefore a fresh full matrix has **103 Windows / 102
+Linux cases**, combining what was tested separately in the recorded audit.
+`--only interior-admix two-admix` runs those modes plus preparation/CLI smoke
+cases; `--only nan-fstats` repeats the corrected nonfinite-input case.
+
+The comparator returns nonzero for retained differences, including literal
+Unix signal/native abort statuses and upstream half-score timeouts. Inspect
+the JSON/diff rather than treating expected failures as successful analyses.
+No scientific rows or NaN signs are normalized away. The main successful
+controlled fixture uses `diag: .0001`; `no-diag` tests the original zero default.
+
+```powershell
+python tests/windows/probe_t08.py --tree validation-results/hard-check/T08-new/builds/snapshot --output validation-results/hard-check/T08-new/direct-windows --toolchain $taskToolchain
+wsl python3 tests/windows/probe_t08.py --tree /home/user/t08-new/pristine --output validation-results/hard-check/T08-new/direct-pristine
+wsl python3 tests/windows/probe_t08.py --tree /home/user/t08-new/asan --output validation-results/hard-check/T08-new/direct-asan --sanitizer
+powershell -NoProfile -File tests/windows/t08_native_checks.ps1 -Bin validation-results/hard-check/T08-new/builds/snapshot/bin -Fixtures validation-results/hard-check/T08-new/windows/fixtures -Output validation-results/hard-check/T08-new/native
+python tests/windows/helper_t08.py --bin validation-results/hard-check/T08-new/builds/snapshot/bin --fixtures validation-results/hard-check/T08-new/windows/fixtures --output validation-results/hard-check/T08-new/helper --toolchain $taskToolchain
+```
+
+Direct probes record inherited leaks with LeakSanitizer enabled; they do not
+rewrite the solver/graph/GSL lifecycle. `helper_t08.py` builds an isolated fake
+child that copies valid fstats, emits a diagnostic and returns 7, then executes
+the real parent. It never replaces an installed qpfstats binary.
+
+For coverage, run `build_t08_audit.py --coverage --linux-root NEW_ROOT` with
+the Windows snapshot as `--output`, run the matrix with the coverage binaries,
+then collect `gcov --json-format --branch-probabilities --branch-counts` for the
+tool, graph/GSL/shared modules and nick sources in that source directory.
+Shared counters include helper/preparation paths. Compiler inventory can be
+reproduced with `inventory_t04_modules.run`, setting `IDS` to T08/T09/T02,
+M01-M14, M17-M20, M24-M25; this does not close their independent audit items.
+
+`collect_t08_evidence.py` is a verifier for the **recorded directory layout**:
+`windows-before`, `windows-final`, `windows-verified`, `pristine-final`,
+`port-linux-final`, `asan-recover`, `coverage`, `supplement-*`, `nan-*`,
+`direct-*`, `helper-*`, `native-corrected` and build/static/counter directories.
+It checks pinned-source/fixture hashes, actual scientific artifacts, independent
+solver/graph paths, native behavior and differences, and produces a hashed
+raw archive. Its recorded 56+2 successful-fit invariant includes the explicitly
+identified original no-op NaN fixture; adapt the layout/count for a new combined
+matrix rather than overwriting the historical evidence.

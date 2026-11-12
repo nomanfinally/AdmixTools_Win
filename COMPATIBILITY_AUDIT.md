@@ -37,9 +37,9 @@ New items get new IDs; do not renumber the existing queue.
 | Shared C modules linked directly or available through libnick | 28 |
 | Additional C programs with main(), outside supported build | 5 |
 | Additional C modules outside supported links | 7 |
-| Validation runners/probes | 46 |
+| Validation runners/probes | 55 |
 
-Total: **219 audit items**, covering **78 production C sources and 40 headers** plus scripts and build/test controls.
+Total: **228 audit items**, covering **78 production C sources and 40 headers** plus scripts and build/test controls.
 I10 and Q07–Q08 were appended during T01; original snapshot hashes remain historical.
 Q09–Q10 were appended during T02; snapshot hashes remain historical.
 Q11–Q13 were appended during T03 and its corrections; snapshot hashes remain historical.
@@ -51,6 +51,7 @@ Q31-Q37 were appended during T06; original snapshot hashes remain historical.
 Q38 was appended during T06 corrections; original evidence is retained.
 Q39 was appended for port-only restoration; original snapshot hashes remain historical.
 Q40-Q46 were appended during T07; original snapshot hashes remain historical.
+Q47-Q55 were appended during T08; original snapshot hashes remain historical.
 
 Data files, parameter templates (including `parsimp.templ` and
 `parsimp2.templ`), reference logs, manuals and generated binaries are fixtures or
@@ -103,7 +104,7 @@ and state its limits; it does not close related modules automatically.
 | [ ] | T05 | `qp3Pop` | Three-population statistics | Default | [Restored; coverage pending](tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md) |
 | [ ] | T06 | `qpF4ratio` | F4-ratio estimation | Default | [Restored; Linux bugs deferred](tests/windows/audits/PORT_ONLY_SCOPE_RESTORATION.md) |
 | [ ] | T07 | `qp4diff` | Differences between four-population statistics | Default | [Reviewed; open compatibility gaps](tests/windows/audits/T07_qp4diff.md) |
-| [ ] | T08 | `qpGraph` | Admixture graph fitting | Default | Fixture |
+| [ ] | T08 | `qpGraph` | Admixture graph fitting | Default | [Reviewed; open compatibility gaps](tests/windows/audits/T08_qpGraph.md) |
 | [ ] | T09 | `qpreroot` | Graph rerooting, scripts and optional rendering | Default | Fixture |
 | [ ] | T10 | `convertf` | Genotype format conversion | Default | Fixture |
 | [ ] | T11 | `transpose` | Packed genotype transpose | Default | Fixture |
@@ -399,6 +400,20 @@ T07 validation additions (independent harness checks remain pending):
 | [ ] | Q45 | `t07_native_checks.ps1` | PowerShell/redirection/Tee/gzip/native and long-temp paths |
 | [ ] | Q46 | `collect_t07_evidence.py` | Source/fixture/oracle invariants, explicit differences and hashed raw archive |
 
+T08 validation additions (independent harness checks remain pending):
+
+| Done | ID | Runner/probe | Scope |
+| --- | --- | --- | --- |
+| [ ] | Q47 | `build_t08_audit.py` | Isolated native/pristine/Linux/sanitizer/coverage builds |
+| [ ] | Q48 | `audit_qpgraph.py` | Graph/fitting/CLI/fstats/helper mode matrix and strict streams/files/status comparisons |
+| [ ] | Q49 | `qpgraph_probe.c` | Actual constrained solver, graph paths, simplify/delete and reload lifetime |
+| [ ] | Q50 | `gslqp_probe.c` | Independent convex objective through the production GSL bridge |
+| [ ] | Q51 | `probe_t08.py` | Direct production/platform/RNG/>4 GiB build and execution evidence |
+| [ ] | Q52 | `t08_native_checks.ps1` | Native PowerShell, streams/Tee, Unicode/spaces, gzip/helper paths and cleanup |
+| [ ] | Q53 | `helper_t08.py` | Parent behavior when a child produces valid fstats then exits nonzero |
+| [ ] | Q54 | `t08_helper_child.c` | Fault-injection child, valid data and exit 7 |
+| [ ] | Q55 | `collect_t08_evidence.py` | Source/fixture/oracle/native invariants, differences and raw archive |
+
 ## Hard-check procedure for each item
 
 1. **Freeze the evidence.** Record upstream commit, dirty-source hashes, actual
@@ -449,6 +464,21 @@ passed when the report's applicable checks and regression comparisons pass.
 Keep a completed-with-open-limitations state distinct from a clean pass.
 
 ## Current finding disposition
+
+T08 was reviewed on **12 November 2026** against pristine upstream. Its
+[report](tests/windows/audits/T08_qpGraph.md),
+[evidence](tests/windows/audits/T08_qpGraph.evidence.json) and
+[connected-module review](tests/windows/audits/T08_connected_modules.md) record
+58 successful fitting fixtures with exact printed scores and exact generated
+scientific artifacts, including two supplemental admixture models. Initial
+no-op NaN input is explicitly identified and superseded by real mutation tests.
+F044 getopt diagnostics, **F091** NTFS temporary-file naming and **F092** graph
+helper child/copy-status behavior are corrected in source and isolated builds.
+**F088** damaged gzip and **F093** failed-child/missing-output failure behavior
+remain open Windows differences. **F037/F094-F096** and other inherited
+Linux defects remain deferred. Coverage is 30/44 qpGraph, 55/110 qpgsubs and
+4/5 gslqp functions; independent module/header/harness checks remain pending.
+T08 is not a clean pass. Installed binaries remain unchanged.
 
 T07 was reviewed on **12 November 2026** against pristine upstream. Its
 [report](tests/windows/audits/T07_qp4diff.md),

@@ -1455,7 +1455,13 @@ gsimplify (int n)
     node->eleft = node->eright = NULL;
   }
   free (ecount);
+#ifdef _WIN32
+  /* ':' selects an NTFS alternate data stream and leaves its base file behind.
+   * Keep the upstream current-directory/PID scheme with a legal component. */
+  sprintf (tmpqq, "graphtt_%d", (int) getpid());
+#else
   sprintf (tmpqq, "graphtt:%d", (int) getpid());
+#endif
   dumpgraph (tmpqq);
   loadgraph (tmpqq, NULL);
   unlink (tmpqq);

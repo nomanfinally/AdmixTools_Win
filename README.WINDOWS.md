@@ -391,6 +391,37 @@ These are deferred upstream findings, not new Windows behavior. The
 [T07 audit](tests/windows/audits/T07_qp4diff.md) records exact tested modes,
 comparisons, remaining coverage and the isolated validated executable location.
 
+### qpGraph
+
+Run the native executable directly and redirect its scientific output:
+
+```powershell
+& .\bin\qpGraph.exe -p '.\graph parameters' > .\qpGraph.log 2> .\qpGraph.err
+$LASTEXITCODE
+```
+
+Use `graphname:` for the graph and `fstatsname:` for an existing qpfstats file.
+With no `fstatsname`, qpGraph runs its sibling `qpfstats.exe` using the genotype,
+SNP and individual paths in the parameter file; keep both executables and their
+DLLs together. Graph populations and the fstats base population must agree.
+Use the same explicit seed, inputs, parameters and dependency/thread settings
+when comparing with Linux. Windows accepts quoted parameter paths with spaces
+and either slash direction; generated Windows temporary paths use backslashes.
+
+`graphoutname`, `graphdotname`, `dumpname`, `admixout`, `f3log` and `outliername`
+select their upstream output files. qpGraph writes DOT source; optional rendering
+is a separate qpreroot workflow. `output:` truncates its file without placing
+the terminal results there; use PowerShell redirection. Inherited CLI quirks
+remain: `-h` is advertised but rejected, and `-v` continues when `-p` is supplied.
+Parameter-file values override corresponding command-line values.
+
+The [T08 audit](tests/windows/audits/T08_qpGraph.md) records successful finite
+fits matching pristine Linux, the isolated validated binary, and the remaining
+limits. Half-score currently fails in the pinned upstream and is not validated
+for scientific use. Damaged gzip and failed-child/missing-output paths retain
+open Windows compatibility differences. These findings do not change upstream
+calculation defaults, input acceptance or exit behavior to repair Linux bugs.
+
 ## 9. Updates and removal
 
 Keep your analysis data outside the source tree. Before synchronizing upstream,

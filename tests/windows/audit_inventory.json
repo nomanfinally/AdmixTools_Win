@@ -16,7 +16,7 @@
     "shared_c_module": 28,
     "source_only_program": 5,
     "unbuilt_c_module": 7,
-    "validation_harness": 46
+    "validation_harness": 55
   },
   "c_sources": 78,
   "headers": 40,
@@ -1170,7 +1170,8 @@
         "T02 corrections: Windows native helper execution and temporary ownership exercised through callers; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged",
         "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
         "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending.",
-        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M01_compat.md; remaining functions/contracts are explicit and this item is not closed."
+        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M01_compat.md; remaining functions/contracts are explicit and this item is not closed.",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
       ],
       "t03_corrected_findings": [
         "F053"
@@ -1209,7 +1210,10 @@
         "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       },
       "t07_scoped_review": "tests/windows/audits/T07_connected_modules.md",
-      "t07_contract_status": "scoped production-context review; independent item remains pending"
+      "t07_contract_status": "scoped production-context review; independent item remains pending",
+      "t08_audited_sha256": {
+        "src/win32/compat.c": "08fa702675e0166c789b20218b3c64d4395f9370130a70c257ee8f09d65bf02c"
+      }
     },
     {
       "id": "M02",
@@ -1269,7 +1273,8 @@
         "T02 corrections: exclusive temporary reservation, fatal/normal cleanup and keep behavior; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged",
         "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
         "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending.",
-        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M02_strsubs.md; remaining functions/contracts are explicit and this item is not closed."
+        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M02_strsubs.md; remaining functions/contracts are explicit and this item is not closed.",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
       ],
       "t03_corrected_findings": [
         "F051"
@@ -1304,7 +1309,10 @@
         "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       },
       "t07_scoped_review": "tests/windows/audits/T07_connected_modules.md",
-      "t07_contract_status": "scoped production-context review; independent item remains pending"
+      "t07_contract_status": "scoped production-context review; independent item remains pending",
+      "t08_audited_sha256": {
+        "src/nicksrc/strsubs.c": "5ad37e0452fc458d2f3a9d0dbc6998c21eb849c052f7c4df9a4a423234c589d8"
+      }
     },
     {
       "id": "M03",
@@ -1363,7 +1371,8 @@
         "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
         "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
         "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending.",
-        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M03_getpars.md; remaining functions/contracts are explicit and this item is not closed."
+        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M03_getpars.md; remaining functions/contracts are explicit and this item is not closed.",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
       ],
       "t03_corrected_findings": [
         "F051"
@@ -1403,7 +1412,10 @@
         "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       },
       "t07_scoped_review": "tests/windows/audits/T07_connected_modules.md",
-      "t07_contract_status": "scoped production-context review; independent item remains pending"
+      "t07_contract_status": "scoped production-context review; independent item remains pending",
+      "t08_audited_sha256": {
+        "src/nicksrc/getpars.c": "2e3396d0174efc11885de96f952e5ea1df27501d53b8007f830d2f11dc78dd51"
+      }
     },
     {
       "id": "M04",
@@ -1459,7 +1471,8 @@
       },
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
-        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M04_gauss.md; remaining functions/contracts are explicit and this item is not closed."
+        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M04_gauss.md; remaining functions/contracts are explicit and this item is not closed.",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
       ],
       "t04_independent_review": {
         "status": "reviewed; independent contract coverage incomplete; not passed",
@@ -1488,7 +1501,10 @@
         "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       },
       "t07_scoped_review": "tests/windows/audits/T07_connected_modules.md",
-      "t07_contract_status": "scoped production-context review; independent item remains pending"
+      "t07_contract_status": "scoped production-context review; independent item remains pending",
+      "t08_audited_sha256": {
+        "src/nicksrc/gauss.c": "9a63a6b728441ae536a7a069d3b4e8573982285128a8f13dd96761aa51805527"
+      }
     },
     {
       "id": "M05",
@@ -1544,7 +1560,8 @@
       },
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
-        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M05_gds.md; remaining functions/contracts are explicit and this item is not closed."
+        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M05_gds.md; remaining functions/contracts are explicit and this item is not closed.",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
       ],
       "t04_independent_review": {
         "status": "reviewed; independent contract coverage incomplete; not passed",
@@ -1573,7 +1590,10 @@
         "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       },
       "t07_scoped_review": "tests/windows/audits/T07_connected_modules.md",
-      "t07_contract_status": "scoped production-context review; independent item remains pending"
+      "t07_contract_status": "scoped production-context review; independent item remains pending",
+      "t08_audited_sha256": {
+        "src/nicksrc/gds.c": "329f54fa44b37ac5d662629c5aade9e5392b0a981fdd246a1d9ccbec1fc8fda3"
+      }
     },
     {
       "id": "M06",
@@ -1629,7 +1649,8 @@
       },
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
-        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M06_sortit.md; remaining functions/contracts are explicit and this item is not closed."
+        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M06_sortit.md; remaining functions/contracts are explicit and this item is not closed.",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
       ],
       "t04_independent_review": {
         "status": "reviewed; independent contract coverage incomplete; not passed",
@@ -1662,7 +1683,10 @@
         "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       },
       "t07_scoped_review": "tests/windows/audits/T07_connected_modules.md",
-      "t07_contract_status": "scoped production-context review; independent item remains pending"
+      "t07_contract_status": "scoped production-context review; independent item remains pending",
+      "t08_audited_sha256": {
+        "src/nicksrc/sortit.c": "fbdb91aa7dc850bb9d1d87809ce4dd75fa047ab7f9096c1278fab1188ab4062a"
+      }
     },
     {
       "id": "M07",
@@ -1719,7 +1743,8 @@
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
         "T02 corrections: finddupalt original-index diagnostic correction; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged",
-        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M07_xsearch.md; remaining functions/contracts are explicit and this item is not closed."
+        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M07_xsearch.md; remaining functions/contracts are explicit and this item is not closed.",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
       ],
       "t04_independent_review": {
         "status": "reviewed; independent contract coverage incomplete; not passed",
@@ -1752,7 +1777,10 @@
         "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       },
       "t07_scoped_review": "tests/windows/audits/T07_connected_modules.md",
-      "t07_contract_status": "scoped production-context review; independent item remains pending"
+      "t07_contract_status": "scoped production-context review; independent item remains pending",
+      "t08_audited_sha256": {
+        "src/nicksrc/xsearch.c": "41461b26705304c4c43c46a0d0c974bf3ce3713cde2e2a758932c6f945ecb6ae"
+      }
     },
     {
       "id": "M08",
@@ -1809,7 +1837,8 @@
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
         "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
-        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M08_vsubs.md; remaining functions/contracts are explicit and this item is not closed."
+        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M08_vsubs.md; remaining functions/contracts are explicit and this item is not closed.",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
       ],
       "t04_independent_review": {
         "status": "reviewed; independent contract coverage incomplete; not passed",
@@ -1844,7 +1873,10 @@
         "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       },
       "t07_scoped_review": "tests/windows/audits/T07_connected_modules.md",
-      "t07_contract_status": "scoped production-context review; independent item remains pending"
+      "t07_contract_status": "scoped production-context review; independent item remains pending",
+      "t08_audited_sha256": {
+        "src/nicksrc/vsubs.c": "63be25e4209f80ede8516a78133a1a88ee7c2fd93f260ce27b46e35d88995d78"
+      }
     },
     {
       "id": "M09",
@@ -1903,7 +1935,8 @@
         "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
         "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
         "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending.",
-        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M09_statsubs.md; remaining functions/contracts are explicit and this item is not closed."
+        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M09_statsubs.md; remaining functions/contracts are explicit and this item is not closed.",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
       ],
       "t03_corrected_findings": [
         "F048"
@@ -1938,7 +1971,10 @@
         "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       },
       "t07_scoped_review": "tests/windows/audits/T07_connected_modules.md",
-      "t07_contract_status": "scoped production-context review; independent item remains pending"
+      "t07_contract_status": "scoped production-context review; independent item remains pending",
+      "t08_audited_sha256": {
+        "src/nicksrc/statsubs.c": "592a5000521cb33e3aa51fabb1bba5f7a800bd8b23d726851d686eafc3f8c8cf"
+      }
     },
     {
       "id": "M10",
@@ -1995,7 +2031,8 @@
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
         "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
-        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M10_linsubs.md; remaining functions/contracts are explicit and this item is not closed."
+        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M10_linsubs.md; remaining functions/contracts are explicit and this item is not closed.",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
       ],
       "t04_independent_review": {
         "status": "reviewed; independent contract coverage incomplete; not passed",
@@ -2024,7 +2061,10 @@
         "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       },
       "t07_scoped_review": "tests/windows/audits/T07_connected_modules.md",
-      "t07_contract_status": "scoped production-context review; independent item remains pending"
+      "t07_contract_status": "scoped production-context review; independent item remains pending",
+      "t08_audited_sha256": {
+        "src/nicksrc/linsubs.c": "a8f6fd1143673caf79e1e1b4050dbbb4eda93fd9ca0b966a5c72d9653d35bf6c"
+      }
     },
     {
       "id": "M11",
@@ -2075,7 +2115,8 @@
         "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
         "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
         "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending.",
-        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M11_mcio.md; remaining functions/contracts are explicit and this item is not closed."
+        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M11_mcio.md; remaining functions/contracts are explicit and this item is not closed.",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
       ],
       "t03_corrected_findings": [
         "F046",
@@ -2123,7 +2164,10 @@
         "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       },
       "t07_scoped_review": "tests/windows/audits/T07_connected_modules.md",
-      "t07_contract_status": "scoped production-context review; independent item remains pending"
+      "t07_contract_status": "scoped production-context review; independent item remains pending",
+      "t08_audited_sha256": {
+        "src/mcio.c": "f3d8058a8834395cbbbc5dd668833e7b9df227ec1269bf8bfbc6d1a57c734eb1"
+      }
     },
     {
       "id": "M12",
@@ -2175,7 +2219,8 @@
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
         "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
-        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M12_geno.md; remaining functions/contracts are explicit and this item is not closed."
+        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M12_geno.md; remaining functions/contracts are explicit and this item is not closed.",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
       ],
       "t04_independent_review": {
         "status": "reviewed; independent contract coverage incomplete; not passed",
@@ -2214,7 +2259,10 @@
         "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       },
       "t07_scoped_review": "tests/windows/audits/T07_connected_modules.md",
-      "t07_contract_status": "scoped production-context review; independent item remains pending"
+      "t07_contract_status": "scoped production-context review; independent item remains pending",
+      "t08_audited_sha256": {
+        "src/geno.c": "324432ca09812b09226d5dc0f554be9063b768c2fbb6ccd58b5c1d9a700418cc"
+      }
     },
     {
       "id": "M13",
@@ -2264,7 +2312,8 @@
         "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
         "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
         "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending.",
-        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M13_mapfile.md; remaining functions/contracts are explicit and this item is not closed."
+        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M13_mapfile.md; remaining functions/contracts are explicit and this item is not closed.",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
       ],
       "t03_corrected_findings": [
         "F054"
@@ -2299,7 +2348,10 @@
         "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       },
       "t07_scoped_review": "tests/windows/audits/T07_connected_modules.md",
-      "t07_contract_status": "scoped production-context review; independent item remains pending"
+      "t07_contract_status": "scoped production-context review; independent item remains pending",
+      "t08_audited_sha256": {
+        "src/mapfile.c": "596ac12d487603aa08f6120a8b5992a19bb4fee960c582e6059e3a8504945226"
+      }
     },
     {
       "id": "M14",
@@ -2351,7 +2403,8 @@
         "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
         "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
         "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending.",
-        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M14_admutils.md; remaining functions/contracts are explicit and this item is not closed."
+        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M14_admutils.md; remaining functions/contracts are explicit and this item is not closed.",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
       ],
       "t03_corrected_findings": [
         "F045",
@@ -2395,7 +2448,10 @@
         "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       },
       "t07_scoped_review": "tests/windows/audits/T07_connected_modules.md",
-      "t07_contract_status": "scoped production-context review; independent item remains pending"
+      "t07_contract_status": "scoped production-context review; independent item remains pending",
+      "t08_audited_sha256": {
+        "src/admutils.c": "a45283ec0160dd1d21647fc9e66d9c560c810ac2621da54adc0fb120ca24f818"
+      }
     },
     {
       "id": "M15",
@@ -2482,7 +2538,8 @@
         "T02 corrections: shared qpfstats helper preparation/execution/copy/ownership and inactive-key filtering; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged",
         "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
         "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending.",
-        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M17_qpsubs.md; remaining functions/contracts are explicit and this item is not closed."
+        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M17_qpsubs.md; remaining functions/contracts are explicit and this item is not closed.",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
       ],
       "t03_corrected_findings": [
         "F046",
@@ -2530,7 +2587,10 @@
         "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       },
       "t07_scoped_review": "tests/windows/audits/T07_connected_modules.md",
-      "t07_contract_status": "scoped production-context review; independent item remains pending"
+      "t07_contract_status": "scoped production-context review; independent item remains pending",
+      "t08_audited_sha256": {
+        "src/qpsubs.c": "cca149c813af9faa6e08a382e190cb62d6feb6a293ea5a24448161e6442af22c"
+      }
     },
     {
       "id": "M18",
@@ -2581,7 +2641,8 @@
         "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
         "T03: exercised qpWave dependency paths; see tests/windows/audits/T03_qpWave.md. Independent module hard check remains open.",
         "T03 corrections: tests/windows/audits/T03_qpWave.corrections.md; shared consumer, invalid-input and failure probes pass in the tested scope. Independent module audit remains pending.",
-        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M18_egsubs.md; remaining functions/contracts are explicit and this item is not closed."
+        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M18_egsubs.md; remaining functions/contracts are explicit and this item is not closed.",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
       ],
       "t03_corrected_findings": [
         "F047"
@@ -2622,7 +2683,10 @@
         "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       },
       "t07_scoped_review": "tests/windows/audits/T07_connected_modules.md",
-      "t07_contract_status": "scoped production-context review; independent item remains pending"
+      "t07_contract_status": "scoped production-context review; independent item remains pending",
+      "t08_audited_sha256": {
+        "src/egsubs.c": "dd24df0702279396708504d5fa3c1389161de4dbdf9f9b7c7759e012b71a34c6"
+      }
     },
     {
       "id": "M19",
@@ -2666,7 +2730,8 @@
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
         "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
-        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M19_ldsubs.md; remaining functions/contracts are explicit and this item is not closed."
+        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M19_ldsubs.md; remaining functions/contracts are explicit and this item is not closed.",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
       ],
       "t04_independent_review": {
         "status": "reviewed; independent contract coverage incomplete; not passed",
@@ -2695,7 +2760,10 @@
         "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       },
       "t07_scoped_review": "tests/windows/audits/T07_connected_modules.md",
-      "t07_contract_status": "scoped production-context review; independent item remains pending"
+      "t07_contract_status": "scoped production-context review; independent item remains pending",
+      "t08_audited_sha256": {
+        "src/ldsubs.c": "0b024b63c75b2e4988d3d90e48582baf5aa6f5cc3ec9d8e5fdd83539d08c790c"
+      }
     },
     {
       "id": "M20",
@@ -2739,7 +2807,8 @@
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
         "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
-        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M20_regsubs.md; remaining functions/contracts are explicit and this item is not closed."
+        "T04: direct/module and qpDstat/consumer evidence; tests/windows/audits/M20_regsubs.md; remaining functions/contracts are explicit and this item is not closed.",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
       ],
       "t04_independent_review": {
         "status": "reviewed; independent contract coverage incomplete; not passed",
@@ -2772,7 +2841,10 @@
         "corrections": "tests/windows/audits/T05_qp3Pop.corrections.md"
       },
       "t07_scoped_review": "tests/windows/audits/T07_connected_modules.md",
-      "t07_contract_status": "scoped production-context review; independent item remains pending"
+      "t07_contract_status": "scoped production-context review; independent item remains pending",
+      "t08_audited_sha256": {
+        "src/regsubs.c": "6bb5463abb8ff8a643c90306487153f9b7709577f9f55f4024fdf8665db5bf1d"
+      }
     },
     {
       "id": "M21",
@@ -2880,8 +2952,12 @@
       },
       "partial_audit_evidence": [
         "T01: see report for scope; this does not close this item",
-        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md"
-      ]
+        "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
+      ],
+      "t08_audited_sha256": {
+        "src/qpgsubs.c": "746aaf0c9d6e0d8b6134e912900010f4413ab97080cc1f1f9d246b10124de0d5"
+      }
     },
     {
       "id": "M25",
@@ -2897,6 +2973,12 @@
       ],
       "link_kind": "direct object",
       "sha256": {
+        "src/gslqp.c": "a5548452784b1613935df1e505923b34a6b46be2ea39d59aa3f237637250867f"
+      },
+      "partial_audit_evidence": [
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
+      ],
+      "t08_audited_sha256": {
         "src/gslqp.c": "a5548452784b1613935df1e505923b34a6b46be2ea39d59aa3f237637250867f"
       }
     },
@@ -3753,7 +3835,8 @@
         "src/qpfstats.c": "076e058dfc6cd90601f54acdd642187e27bb2c3a4e7bd17af08c7d4927724eec"
       },
       "partial_audit_evidence": [
-        "T01: see report for scope; this does not close this item"
+        "T01: see report for scope; this does not close this item",
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
       ],
       "audit_date": "2026-11-10",
       "audit_report": "tests/windows/audits/T02_qpfstats.md",
@@ -3779,7 +3862,10 @@
         "F042"
       ],
       "historical_open_or_retained_findings": [],
-      "upstream_findings_disposition": "Inherited Linux defects are deferred, not fixed or certified absent; see the active scope report and historical finding ledger"
+      "upstream_findings_disposition": "Inherited Linux defects are deferred, not fixed or certified absent; see the active scope report and historical finding ledger",
+      "t08_audited_sha256": {
+        "src/qpfstats.c": "d90d2a645b7db1efe915d3aa900b749f4f44ac35ee85c8f64ea6f826761b62b2"
+      }
     },
     {
       "id": "T03",
@@ -4292,7 +4378,7 @@
       "paths": [
         "src/qpGraph.c"
       ],
-      "hard_check": "pending",
+      "hard_check": "reviewed with open compatibility differences",
       "role": "Admixture graph fitting",
       "build": "built",
       "blocked_reason": null,
@@ -4333,7 +4419,34 @@
       "partial_audit_evidence": [
         "T02: qpfstats execution/consumer paths reviewed; independent item remains pending; see tests/windows/audits/T02_qpfstats.md",
         "T02 corrections: automatic helper success/failure and explicit output/log cleanup; see tests/windows/audits/T02_qpfstats.corrections.md; independent scope remains unchanged"
-      ]
+      ],
+      "audit_report": "tests/windows/audits/T08_qpGraph.md",
+      "audit_evidence": "tests/windows/audits/T08_qpGraph.evidence.json",
+      "audit_working_head": "5c26fee6beb110b2611cda3999b367274ef47d7c",
+      "audit_date": "2026-11-12",
+      "t08_corrected_findings": [
+        "F044",
+        "F091",
+        "F092"
+      ],
+      "t08_open_compatibility_findings": [
+        "F088",
+        "F093"
+      ],
+      "t08_deferred_upstream_findings": [
+        "F017",
+        "F037",
+        "F048",
+        "F051",
+        "F086",
+        "F094",
+        "F095",
+        "F096"
+      ],
+      "t08_audited_sha256": {
+        "src/qpGraph.c": "aa3a08f65a64789a2da8a9dea74c74f13ddbf83159fda4c9148fe27ad7b8b8d2"
+      },
+      "audit_limits": "58 successful fitting fixture scores and all generated scientific artifacts exact against pristine (includes original explicitly identified no-op NaN fixture; corrected NaN tests separate). 30/44 qpGraph, 55/110 qpgsubs, 4/5 gslqp functions exercised. Gzip and missing-output helper differences open; inherited failures deferred; independent M/H/Q pending. Installed binaries preserved."
     },
     {
       "id": "T09",
@@ -4377,6 +4490,12 @@
       "links_nick_archive": true,
       "sha256": {
         "src/qpreroot.c": "924b41b63c41c22383a126c08eb2cbd2f62b01c8d509943fbabb3b1a28b8295c"
+      },
+      "partial_audit_evidence": [
+        "T08: scoped graph/fstats/helper/solver/native checks; independent item remains open. See tests/windows/audits/T08_connected_modules.md"
+      ],
+      "t08_audited_sha256": {
+        "src/qpreroot.c": "543e5ed308e55316bbf04402feb8fcbf5c8038911c5f94f345531aada92ebc93"
       }
     },
     {
@@ -6193,12 +6312,129 @@
         "tests/windows/collect_t07_evidence.py": "85721e0e71cea95361d484f6c298fedc8f482d3c505aee6ae37580f2654deaec"
       },
       "prior_evidence": "Exercised under T07; independent harness audit pending. See tests/windows/audits/T07_qp4diff.md"
+    },
+    {
+      "id": "Q47",
+      "category": "validation_harness",
+      "name": "build_t08_audit.py",
+      "paths": [
+        "tests/windows/build_t08_audit.py"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/build_t08_audit.py": "9f2b6712d2467d49f6c61f3ad00562112c3b36fc2b564bce0768afa9f9af5573"
+      },
+      "prior_evidence": "Exercised under T08; independent harness audit pending. See tests/windows/audits/T08_qpGraph.md"
+    },
+    {
+      "id": "Q48",
+      "category": "validation_harness",
+      "name": "audit_qpgraph.py",
+      "paths": [
+        "tests/windows/audit_qpgraph.py"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/audit_qpgraph.py": "eea00098a956b169f8c934475a1c87d33c8c680b3c45f389d17dd5c61e80c6b6"
+      },
+      "prior_evidence": "Exercised under T08; independent harness audit pending. See tests/windows/audits/T08_qpGraph.md"
+    },
+    {
+      "id": "Q49",
+      "category": "validation_harness",
+      "name": "qpgraph_probe.c",
+      "paths": [
+        "tests/windows/qpgraph_probe.c"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/qpgraph_probe.c": "018934775a748c79c275bf14bd90c3772ea2c9197b674fa5a8d2219dab3bcf3f"
+      },
+      "prior_evidence": "Exercised under T08; independent harness audit pending. See tests/windows/audits/T08_qpGraph.md"
+    },
+    {
+      "id": "Q50",
+      "category": "validation_harness",
+      "name": "gslqp_probe.c",
+      "paths": [
+        "tests/windows/gslqp_probe.c"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/gslqp_probe.c": "ea82957ae2102ff775cf5162d39cf1e9ad68071a04770e50cf2668d4900fa64c"
+      },
+      "prior_evidence": "Exercised under T08; independent harness audit pending. See tests/windows/audits/T08_qpGraph.md"
+    },
+    {
+      "id": "Q51",
+      "category": "validation_harness",
+      "name": "probe_t08.py",
+      "paths": [
+        "tests/windows/probe_t08.py"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/probe_t08.py": "aa8cddf0c9e7da7825676b794900b80a5cfa6dee3599e37f77af6ef4520cd512"
+      },
+      "prior_evidence": "Exercised under T08; independent harness audit pending. See tests/windows/audits/T08_qpGraph.md"
+    },
+    {
+      "id": "Q52",
+      "category": "validation_harness",
+      "name": "t08_native_checks.ps1",
+      "paths": [
+        "tests/windows/t08_native_checks.ps1"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/t08_native_checks.ps1": "2d37facb842c3603f02924305b4b10adaa119f2128ed7f25a2287553ca9823b0"
+      },
+      "prior_evidence": "Exercised under T08; independent harness audit pending. See tests/windows/audits/T08_qpGraph.md"
+    },
+    {
+      "id": "Q53",
+      "category": "validation_harness",
+      "name": "helper_t08.py",
+      "paths": [
+        "tests/windows/helper_t08.py"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/helper_t08.py": "e24c5a21a5bf9a931d56af08ca99a3b95eda77cc1a639c7c2c87b5c009a3d550"
+      },
+      "prior_evidence": "Exercised under T08; independent harness audit pending. See tests/windows/audits/T08_qpGraph.md"
+    },
+    {
+      "id": "Q54",
+      "category": "validation_harness",
+      "name": "t08_helper_child.c",
+      "paths": [
+        "tests/windows/t08_helper_child.c"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/t08_helper_child.c": "9dc7238b1ab296f62836b5a8420efbf1f8ba55908047d3589eee473b8b329d2e"
+      },
+      "prior_evidence": "Exercised under T08; independent harness audit pending. See tests/windows/audits/T08_qpGraph.md"
+    },
+    {
+      "id": "Q55",
+      "category": "validation_harness",
+      "name": "collect_t08_evidence.py",
+      "paths": [
+        "tests/windows/collect_t08_evidence.py"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/collect_t08_evidence.py": "d8c6fc2f96df6a4692d0ff0736e1244aa0fb0ed265efe77f4ff380f60484508f"
+      },
+      "prior_evidence": "Exercised under T08; independent harness audit pending. See tests/windows/audits/T08_qpGraph.md"
     }
   ],
   "last_audit_date": "2026-11-12",
-  "last_audit_working_head": "37ed02b13c61c5e44a9e2d1ba3fce0217799e29a",
-  "active_audit": "T07",
-  "next_queued_item": "T07",
+  "last_audit_working_head": "5c26fee6beb110b2611cda3999b367274ef47d7c",
+  "active_audit": "T08",
+  "next_queued_item": "T08",
   "completed_hard_audits": [],
   "reviewed_with_open_defects": [
     {
@@ -6215,13 +6451,19 @@
       "id": "T07",
       "status": "reviewed with open compatibility differences",
       "report": "tests/windows/audits/T07_qp4diff.md"
+    },
+    {
+      "id": "T08",
+      "status": "reviewed with open compatibility differences and deferred upstream defects",
+      "report": "tests/windows/audits/T08_qpGraph.md"
     }
   ],
   "reviewed_with_coverage_limits": [
     "T04",
     "T05",
     "T06",
-    "T07"
+    "T07",
+    "T08"
   ],
   "compatibility_scope_clarification": "2026-11-11: project-wide porting/presentation only. Inherited Linux repairs removed from active source and binaries; historical evidence retained.",
   "port_only_scope_reconciliation": {

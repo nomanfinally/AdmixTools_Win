@@ -74,17 +74,23 @@ char *admix_qpfstats_helper(char *parameters, char **pops, int npops,
     if (graphcall) printf("qpfstatscall:: qpfstats -p %s > %s \n", paths[1], paths[4]);
     fflush(stdout);
     failed = admix_run_qpfstats(paths[1], paths[4]) != 0;
-    if (!failed && graphcall && logfile && admix_copy_file(paths[4], logfile))
-        helper_fail("cannot copy qpfstats log\n");
-    if (!failed && output) {
-        if (admix_copy_file(paths[0], output)) helper_fail("cannot copy qpfstats output\n");
+    /* qpGraph's upstream shell calls ignore child/cp status and continue to
+     * load the selected fstats file. Preserve that contract for graph callers;
+     * a failed optional log copy must not discard an otherwise valid fit. */
+    if (graphcall && logfile && admix_copy_file(paths[4], logfile))
+        perror(logfile);
+    if ((!failed || graphcall) && output) {
+        if (admix_copy_file(paths[0], output)) {
+            if (graphcall) perror(output);
+            else helper_fail("cannot copy qpfstats output\n");
+        }
         printf("fstats file: %s made\n", output);
     }
     for (i = 1; i < 5; ++i) {
         admix_release_temp(paths[i], keep);
         free(paths[i]);
     }
-    if (failed) {
+    if (failed && !graphcall) {
         admix_release_temp(paths[0], keep);
         free(paths[0]);
         return NULL;
