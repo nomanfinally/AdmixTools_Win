@@ -71,7 +71,7 @@ a standard MSI installer are later milestones.
 tools have been compared with a pinned Linux reference. Full-suite parity has
 not yet been established. See [WINDOWS_PORT_STATUS.md](WINDOWS_PORT_STATUS.md)
 for exact coverage and remaining work. Development is published on the
-[`windows-port` branch](https://github.com/nomanfinally/AdmixTools_Win/tree/windows-port).
+[`main` branch](https://github.com/nomanfinally/AdmixTools_Win/tree/main).
 The per-tool hard compatibility audit is still pending; this is a development
 source publication, with no release or MSI installer yet.
 
@@ -186,7 +186,7 @@ folder permanently to your user/system PATH to build or run native analyses.
 ```powershell
 $Repo = Join-Path $env:USERPROFILE 'source\AdmixTools_Win'
 New-Item -ItemType Directory -Path (Split-Path -Parent $Repo) -Force | Out-Null
-git clone --branch windows-port https://github.com/nomanfinally/AdmixTools_Win.git $Repo
+git clone --branch main https://github.com/nomanfinally/AdmixTools_Win.git $Repo
 if ($LASTEXITCODE -ne 0) { throw 'Clone failed; read the Git error above.' }
 Set-Location -LiteralPath $Repo
 git branch --show-current
@@ -210,12 +210,13 @@ git branch --show-current
 ```
 
 Preserve existing work before switching branches. If the tree is clean and you
-intend to use the maintained port branch, `git switch windows-port` selects it.
+intend to use the maintained port branch, `git switch main` selects it.
 A topic branch may contain local work that is not on the published branch; this
 guide does not automatically switch, reset or overwrite it.
 
-Use `windows-port` for the maintained port and keep `master` as the upstream
-tracking line. Create small topic branches from `windows-port` for later fixes.
+Use `main` for the maintained port; it is this fork's default branch and the
+place to commit ongoing porting work. Keep `master` as the separate upstream
+tracking line. Optional topic branches can start from `main` for individual fixes.
 The configured remotes are:
 
 ```text
@@ -227,7 +228,26 @@ The port branch contains the narrow filename renames needed for a Windows
 checkout. The original upstream revision contains 11 names with colons, which
 ordinary Windows checkouts cannot create. The mapping is listed below; the
 upstream directory layout is retained. `master` remains the upstream tracking
-line, so select `windows-port` explicitly when cloning or browsing this fork.
+line; `main` contains the Windows-compatible checkout and is the default when
+cloning or browsing this fork.
+
+The former `windows-port` branch was renamed to `main` with its commit history
+preserved. In an older clean clone that still uses that branch, migrate with:
+
+```powershell
+git fetch origin --prune
+git branch -m windows-port main
+git branch --set-upstream-to=origin/main main
+git switch main
+git pull --ff-only
+git remote set-head origin -a
+```
+
+Use these commands only if the local `windows-port` branch exists and `main`
+does not. Preserve local edits first. If that branch contains unpushed commits,
+review them before any push; a fast-forward refusal is a reason to investigate,
+not to reset or force-push. Clones predating the privacy-history cleanup should
+be replaced with a fresh clone as described in [PRIVACY.md](PRIVACY.md).
 
 ## 3. Prepare GNU argument parsing
 
@@ -865,13 +885,13 @@ git status --short
 git branch --show-current
 ```
 
-If you are on `windows-port`, have no local changes to preserve, and intend to
+If you are on `main`, have no local changes to preserve, and intend to
 update from that published branch, use:
 
 ```powershell
 git fetch origin
 if ($LASTEXITCODE -ne 0) { throw 'Fetch failed.' }
-git pull --ff-only origin windows-port
+git pull --ff-only origin main
 if ($LASTEXITCODE -ne 0) { throw 'Update did not fast-forward; preserve and review local work.' }
 ```
 
@@ -891,7 +911,7 @@ private Python environment; keep your source and dataset files. Preserve old
 build metadata if you need to reproduce an earlier analysis.
 
 Upstream synchronization is a separate maintainer task: preserve local work,
-fetch `upstream`, merge the selected tracking revision into `windows-port`,
+fetch `upstream`, merge the selected tracking revision into `main`,
 resolve compatibility changes, update `UPSTREAM_BASELINE` and rerun pristine
 Linux comparisons. Keep `master` as the upstream tracking line. Its historical
 illegal Windows filenames require special handling; a separate reference tree

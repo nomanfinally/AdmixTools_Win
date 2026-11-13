@@ -44,8 +44,9 @@
 - Other ports may inform the analysis of Windows APIs and build issues. Do not
   adopt their repository restructuring, optimizations, or claims of parity.
   Check licensing and preserve required attribution before reusing any code.
-- Keep `master` as the upstream tracking line and develop the port on
-  `windows-port`; use small topic branches for later changes. Record the upstream
+- Develop and commit the port on this fork's default branch, `main`. Keep
+  `master` as the separate upstream tracking line; optional topic branches may
+  be used for individual changes. Record the upstream
   commit for each release and merge upstream updates instead of rewriting history.
 - Windows-incompatible upstream filenames may be renamed narrowly in place;
   preserve file bytes and update references. Document the mapping and rationale.

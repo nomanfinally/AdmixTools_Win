@@ -8,7 +8,7 @@ certify this restored build; use the report's new pristine comparisons.
 Development baseline: DReichLab/AdmixTools commit
 `67bc219174a109951a9434e0a383ec464fb140ee` (upstream package 8.1.0).
 Development is published on the
-[`windows-port` branch](https://github.com/nomanfinally/AdmixTools_Win/tree/windows-port).
+[`main` branch](https://github.com/nomanfinally/AdmixTools_Win/tree/main).
 No release or MSI exists yet.
 
 The complete tool/module inventory and sequential hard-check queue are maintained
@@ -166,7 +166,7 @@ The separate runners and reproduction commands are in `tests/windows/README.md`.
   not certified. zlib ignores trailing non-gzip bytes where GNU gzip may warn;
   pristine upstream also ignores positive `gunzip` exit statuses and invokes it
   twice. Neither behavior is a scientific calculation to copy into the port.
-- Continue the per-item hard audit on the published `windows-port` branch.
+- Continue the per-item hard audit on the published `main` branch.
   Keep `master` as the upstream tracking line; update `UPSTREAM_BASELINE` and
   rerun comparisons for each upstream synchronization.
 - After the compatibility baseline is release-ready, implement the MSI milestone:
