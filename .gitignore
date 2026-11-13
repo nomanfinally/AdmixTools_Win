@@ -5,6 +5,9 @@
 src/.windows/
 validation-results/
 __pycache__/
+/dist/
+/packaging/windows/.build/
+/.wix/
 
 # Personal setup guides, machine-specific settings and private recovery copies
 /.private/

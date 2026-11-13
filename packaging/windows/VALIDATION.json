@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "date": "2026-11-14",
+  "artifact": "AdmixTools-8.1.0-windows-x64.msi",
+  "sha256": "ffacdf6f019320758cdfda11057054a98d9b4ce41060769d086a43f0a3231310",
+  "size_bytes": 55383652,
+  "environment": {
+    "windows_build": "26300",
+    "architecture": "x64",
+    "powershell": "5.1",
+    "wix": "6.0.2"
+  },
+  "payload_files": 506,
+  "native_tools": 37,
+  "lifecycle": {
+    "architecture": "x64",
+    "cases": [
+      {
+        "add_to_path": "0",
+        "installed_file_hashes": "exact",
+        "repair": "passed",
+        "uninstall": "passed",
+        "preserved_user_file": true,
+        "path_restored": true,
+        "ps_pdf_rendering": "passed",
+        "sibling_renderers_without_path": "passed"
+      },
+      {
+        "add_to_path": "1",
+        "installed_file_hashes": "exact",
+        "repair": "passed",
+        "uninstall": "passed",
+        "preserved_user_file": true,
+        "path_restored": true,
+        "ps_pdf_rendering": "passed",
+        "sibling_renderers_without_path": "passed"
+      }
+    ],
+    "passed": true
+  },
+  "integration": {
+    "cases": 35,
+    "matched_streams_and_files": 88,
+    "mismatches": [],
+    "unsuccessful_cases": [],
+    "linux_binary_roundtrip_exact": true,
+    "windows_binary_roundtrip_exact": true,
+    "reference_commit": "67bc219174a109951a9434e0a383ec464fb140ee"
+  },
+  "runtime_import_closure": {
+    "pe_files": 98,
+    "system_imports": [
+      "advapi32.dll",
+      "api-ms-win-crt-conio-l1-1-0.dll",
+      "api-ms-win-crt-convert-l1-1-0.dll",
+      "api-ms-win-crt-environment-l1-1-0.dll",
+      "api-ms-win-crt-filesystem-l1-1-0.dll",
+      "api-ms-win-crt-heap-l1-1-0.dll",
+      "api-ms-win-crt-locale-l1-1-0.dll",
+      "api-ms-win-crt-math-l1-1-0.dll",
+      "api-ms-win-crt-multibyte-l1-1-0.dll",
+      "api-ms-win-crt-private-l1-1-0.dll",
+      "api-ms-win-crt-process-l1-1-0.dll",
+      "api-ms-win-crt-runtime-l1-1-0.dll",
+      "api-ms-win-crt-stdio-l1-1-0.dll",
+      "api-ms-win-crt-string-l1-1-0.dll",
+      "api-ms-win-crt-time-l1-1-0.dll",
+      "api-ms-win-crt-utility-l1-1-0.dll",
+      "dnsapi.dll",
+      "dwrite.dll",
+      "gdi32.dll",
+      "iphlpapi.dll",
+      "kernel32.dll",
+      "msimg32.dll",
+      "ole32.dll",
+      "rpcrt4.dll",
+      "shell32.dll",
+      "shlwapi.dll",
+      "user32.dll",
+      "usp10.dll",
+      "winspool.drv",
+      "ws2_32.dll"
+    ]
+  },
+  "unverified": [
+    "live wizard walkthrough",
+    "high DPI and accessibility",
+    "separate clean machine",
+    "other Windows versions",
+    "major upgrade and downgrade",
+    "full-suite numerical parity",
+    "dependency source redistribution review"
+  ],
+  "signed": false,
+  "published": false
+}

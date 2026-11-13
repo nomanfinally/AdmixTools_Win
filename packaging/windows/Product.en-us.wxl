@@ -1,0 +1,8 @@
+<WixLocalization xmlns="http://wixtoolset.org/schemas/v4/wxl" Culture="en-US">
+  <String Id="WelcomeDlgTitle" Value="{\WixUI_Font_Bigger}AdmixTools for Windows" />
+  <String Id="WelcomeDlgDescription" Value="Install the native 64-bit AdmixTools suite on this computer. Choose your destination folder and command-line options in the next steps.&#13;&#10;&#13;&#10;All native runtime libraries are included. No compiler, MSYS2 or online download is needed to install." />
+  <String Id="InstallDirDlgTitle" Value="{\WixUI_Font_Title}Choose installation folder" />
+  <String Id="InstallDirDlgDescription" Value="Install for your Windows account in the folder below." />
+  <String Id="ExitDialogTitle" Value="{\WixUI_Font_Bigger}AdmixTools is ready" />
+  <String Id="ExitDialogDescription" Value="Open a new PowerShell window to use commands added to PATH. Keep datasets and analysis results in a separate working folder. Click Finish to close setup." />
+</WixLocalization>

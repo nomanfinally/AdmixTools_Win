@@ -103,6 +103,8 @@
   paths, output redirection, persistent user PATH, verification, troubleshooting,
   upgrades, and uninstall instructions. Label unverified steps clearly.
 - Keep Windows build and validation instructions current with implementation.
-- A standard MSI installer is a later milestone after parity: user-selected
-  installation location, dependency/build provisioning, PATH integration, repair,
-  upgrade, and clean uninstall. Do not claim an installer exists before it does.
+- Development MSI packaging is explicitly requested. Maintain user-selected
+  installation location, bundled native dependencies, optional user PATH, repair,
+  upgrade, and clean uninstall. Keep compilation on the build machine; offline
+  recipients must not need build tools. Packaging does not establish full-suite
+  parity or authorize publishing. Record validation and unsigned-build limits.

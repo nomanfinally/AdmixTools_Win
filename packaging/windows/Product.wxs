@@ -1,0 +1,92 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+  <Package Name="AdmixTools Windows" Manufacturer="AdmixTools Windows project"
+           Version="$(var.ProductVersion)" Language="1033" Scope="perUser"
+           UpgradeCode="75FD6BD3-47A1-45DF-A0BA-E9ED4B5B701E" InstallerVersion="500"
+           Compressed="yes">
+    <SummaryInformation Description="Native x64 AdmixTools development build" />
+    <MajorUpgrade DowngradeErrorMessage="A newer AdmixTools Windows version is already installed."
+                  Schedule="afterInstallInitialize" />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+    <!-- Never restart the user's computer or close running applications. -->
+    <Property Id="REBOOT" Value="ReallySuppress" />
+    <Property Id="MSIRESTARTMANAGERCONTROL" Value="Disable" />
+    <Launch Condition="VersionNT64" Message="This package requires 64-bit Windows." />
+    <Property Id="WINDOWSBUILD">
+      <RegistrySearch Id="WindowsBuild" Root="HKLM" Key="SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+                      Name="CurrentBuildNumber" Type="raw" Bitness="always64" />
+    </Property>
+    <Launch Condition="WINDOWSBUILD &gt;= 18362" Message="This package requires Windows 10 version 1903 or later, or Windows 11." />
+    <Property Id="ARPCOMMENTS" Value="Development compatibility port; see the installed validation notes for tested scope." />
+    <Property Id="ARPURLINFOABOUT" Value="https://github.com/nomanfinally/AdmixTools_Win" />
+    <Icon Id="ProductIcon" SourceFile="$(var.Artwork)/product.ico" />
+    <Property Id="ARPPRODUCTICON" Value="ProductIcon" />
+
+    <!-- AppSearch also preserves the chosen location across upgrades. HKMU
+         follows the package's per-user scope; no machine PATH is changed. -->
+    <Property Id="INSTALLFOLDER" Secure="yes">
+      <RegistrySearch Id="PreviousLocation" Root="HKCU" Key="Software\AdmixToolsWindows"
+                      Name="InstallLocation" Type="raw" />
+    </Property>
+    <Property Id="ADDTOPATH" Secure="yes">
+      <RegistrySearch Id="PreviousPathChoice" Root="HKCU" Key="Software\AdmixToolsWindows"
+                      Name="AddToPath" Type="raw" />
+    </Property>
+    <StandardDirectory Id="LocalAppDataFolder">
+      <Directory Id="ProgramsFolder" Name="Programs">
+        <Directory Id="INSTALLFOLDER" Name="AdmixTools">
+          <Component Id="InstallRecord" Guid="1F776796-A87C-4BA5-9B84-D96DFF309D1D">
+            <RegistryValue Root="HKCU" Key="Software\AdmixToolsWindows" Name="InstallLocation"
+                           Type="string" Value="[INSTALLFOLDER]" KeyPath="yes" />
+            <RegistryValue Root="HKCU" Key="Software\AdmixToolsWindows" Name="Version"
+                           Type="string" Value="[ProductVersion]" />
+            <RemoveFolder Id="RemoveInstallFolder" On="uninstall" />
+          </Component>
+          <Component Id="UserPath" Guid="6CAFB2B4-AB72-4CF7-8172-7AAD3D5009F1" Condition="ADDTOPATH = &quot;1&quot;">
+            <Environment Id="CommandPath" Name="PATH" Value="[INSTALLFOLDER]bin"
+                         Action="set" Part="last" System="no" Permanent="no" />
+            <RegistryValue Root="HKCU" Key="Software\AdmixToolsWindows" Name="AddToPath"
+                           Type="string" Value="1" KeyPath="yes" />
+          </Component>
+        </Directory>
+      </Directory>
+    </StandardDirectory>
+    <Feature Id="Complete" Title="AdmixTools Windows" Level="1" AllowAbsent="no">
+      <ComponentGroupRef Id="Payload" />
+      <ComponentRef Id="InstallRecord" />
+      <ComponentRef Id="UserPath" />
+    </Feature>
+
+    <ui:WixUI Id="WixUI_InstallDir" InstallDirectory="INSTALLFOLDER" />
+    <WixVariable Id="WixUILicenseRtf" Value="$(var.LicenseRtf)" />
+    <WixVariable Id="WixUIBannerBmp" Value="$(var.Artwork)/banner.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="$(var.Artwork)/dialog.bmp" />
+    <UI>
+      <Dialog Id="CommandOptionsDlg" Width="370" Height="270" Title="AdmixTools Windows setup">
+        <Control Id="Banner" Type="Bitmap" X="0" Y="0" Width="370" Height="44" Text="WixUI_Bmp_Banner" />
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="290" Height="22" Transparent="yes"
+                 Text="{\WixUI_Font_Title}PowerShell command access" />
+        <Control Id="Description" Type="Text" X="20" Y="60" Width="325" Height="40"
+                 Text="Choose whether AdmixTools commands should be available from any folder in your Windows account." />
+        <Control Id="PathChoice" Type="CheckBox" X="20" Y="100" Width="325" Height="20"
+                 Property="ADDTOPATH" CheckBoxValue="1" Text="Add AdmixTools to my user PATH" />
+        <Control Id="Note" Type="Text" X="20" Y="134" Width="325" Height="64"
+                 Text="Existing PATH entries are preserved. Open a new PowerShell window after installation. The installer includes the native analysis tools, graph rendering utilities and runtime libraries." />
+        <Control Id="Line" Type="Line" X="0" Y="234" Width="370" Height="0" />
+        <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="&amp;Back">
+          <Publish Event="NewDialog" Value="InstallDirDlg" />
+        </Control>
+        <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="&amp;Next">
+          <Publish Event="NewDialog" Value="VerifyReadyDlg" />
+        </Control>
+        <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="Cancel">
+          <Publish Event="SpawnDialog" Value="CancelDlg" />
+        </Control>
+      </Dialog>
+      <Publish Dialog="InstallDirDlg" Control="Next" Event="NewDialog" Value="CommandOptionsDlg" Order="10" />
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="CommandOptionsDlg"
+               Order="10" Condition="NOT Installed" />
+    </UI>
+  </Package>
+</Wix>

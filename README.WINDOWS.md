@@ -14,7 +14,7 @@ to this public guide. Do not force-add it or private recovery files to Git.
 
 This guide takes a new Windows installation from prerequisites to a compiled
 suite, a first PowerShell analysis, PATH configuration and verification.
-Documentation checked on **13 November 2026** against this checkout's scripts.
+Documentation checked on **14 November 2026** against this checkout's scripts.
 The recorded development environment uses x64 Windows 11, Windows PowerShell
 5.1, Python 3.13 and MSYS2 UCRT64; PowerShell 7 can also invoke the scripts.
 A fresh installation on every supported Windows version has not been retested.
@@ -23,6 +23,7 @@ A fresh installation on every supported Windows version has not been retested.
 
 | Your situation | Start here |
 | --- | --- |
+| Have the standalone MSI; want to run analyses | [Standalone installer](#standalone-installer) |
 | New computer, no compiler installed | [1. Prerequisites](#1-prerequisites) |
 | Dependencies installed, source not downloaded | [2. Obtain the source](#2-obtain-the-source-and-choose-a-branch) |
 | Existing checkout, ready to build | [3. Prepare GNU argument parsing](#3-prepare-gnu-argument-parsing), then [4. Compile](#4-compile-the-suite) |
@@ -65,8 +66,8 @@ No `maxreject` option or automatic rejection-sampling cap is implemented.
 This is a native 64-bit Windows compatibility port of
 [DReichLab/AdmixTools](https://github.com/DReichLab/AdmixTools), keeping the
 upstream source layout, separate program names and numerical algorithms.
-The first goal is matching Linux results and terminal output. Optimizations and
-a standard MSI installer are later milestones.
+The first goal is matching Linux results and terminal output. Optimizations
+remain deferred. A development MSI can now be built using the packaging scripts.
 
 **Development status:** 37 executables build; 35 integration cases across 26
 tools have been compared with a pinned Linux reference. Full-suite parity has
@@ -74,11 +75,74 @@ not yet been established. See [WINDOWS_PORT_STATUS.md](WINDOWS_PORT_STATUS.md)
 for exact coverage and remaining work. Development is published on the
 [`main` branch](https://github.com/nomanfinally/AdmixTools_Win/tree/main).
 The per-tool hard compatibility audit is still pending; this is a development
-source publication, with no release or MSI installer yet.
+source publication. Building an installer does not certify full-suite parity;
+no installer is published to GitHub Releases by the build command.
 
 For the sequential per-tool/module bug and compatibility review, see
 [COMPATIBILITY_AUDIT.md](COMPATIBILITY_AUDIT.md). Existing fixture coverage does
 not count as a completed hard audit.
+
+## Standalone installer
+
+Download the MSI from [GitHub Releases](https://github.com/nomanfinally/AdmixTools_Win/releases).
+The first package is a development pre-release, not a full-suite parity certification.
+Use `AdmixTools-<version>-windows-x64.msi` from the release's **Assets** section.
+The MSI
+contains its payload in one file: no companion ZIP, compiler, MSYS2, Python, WSL
+or internet connection is required on the destination computer. It targets x64
+Windows 10 version 1903 or later and Windows 11. ARM64 and 32-bit Windows have
+not been validated.
+
+1. Double-click the MSI and read the license and development-build notice.
+2. Choose an installation directory writable by your account. The default is
+   `%LOCALAPPDATA%\Programs\AdmixTools`. Installation is for the current user.
+3. Select **Add AdmixTools to my user PATH** to run commands from any folder.
+   Existing PATH entries are preserved; machine PATH is not changed.
+4. Complete installation, then open a new PowerShell window. Restart VS Code
+   if its terminals still have the previous PATH. Run:
+
+   ```powershell
+   Get-Command qpAdm -All
+   qpAdm -h
+   ```
+
+If you leave PATH unchecked, run the executable by its full path:
+
+```powershell
+$InstallDir = Join-Path $env:LOCALAPPDATA 'Programs\AdmixTools'
+& (Join-Path $InstallDir 'bin\qpAdm.exe') -h
+```
+
+The package includes the **37 currently supported native executables**, runtime
+DLLs, Graphviz and Ghostscript for native graph rendering, documentation and
+license notices. It excludes interpreter-based Perl/R/Python workflows and the
+blocked legacy `qpfmvmix` target; those are not claimed as working offline tools.
+Keep installed DLLs beside the executables. Keep datasets and results in a
+separate analysis folder; use [the PowerShell examples](#5-run-from-powershell).
+
+This development package is unsigned. Windows may show an unknown-publisher
+warning; verify its source and SHA256 checksum before installing. For example:
+
+```powershell
+Get-FileHash -LiteralPath '.\AdmixTools-8.1.0-windows-x64.msi' -Algorithm SHA256
+```
+
+Compare the result with the maintainer's `.sha256` file. Checksums distributed
+alongside an installer detect corruption; they do not replace a trusted source.
+
+Close running tools before maintenance. Reopen the MSI for repair/removal, or
+use Windows Settings **Apps > Installed apps > AdmixTools Windows > Uninstall**.
+Uninstall removes installer-managed files and its PATH entry, preserving other
+PATH entries and user-created files. Installation never forces a system restart.
+For a newer MSI, keep the same account and installation folder; the package
+supports major upgrades and blocks version downgrades. Use a higher numeric
+package version for every distributed build; this is separate from each tool's
+upstream `.w` executable version.
+
+To build the MSI yourself, follow [packaging/windows/README.md](packaging/windows/README.md).
+The portable ZIP beside it contains the same native payload, without installer
+registration or automatic PATH integration. Distribution testing and limitations
+are recorded in that packaging guide.
 
 ## Automated batch build and installation
 
@@ -174,7 +238,8 @@ Program Files and its copied source/build area are administrator-managed.
 This script is not a repair/uninstall service. To remove it manually, first
 remove its exact `bin` entry from the selected PATH scope, then remove only its
 installation/backup folders when no tools are running. Preserve needed analysis
-data and provenance. A proper MSI lifecycle remains a later milestone.
+data and provenance. For registered repair and uninstall, use the separate
+[standalone MSI](#standalone-installer) instead of this source-build helper.
 
 Functional build checks do not certify full-suite numerical parity with pristine
 Linux. The source build uses the same scientific code and build flags; no new

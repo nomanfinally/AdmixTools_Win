@@ -9,7 +9,11 @@ Development baseline: DReichLab/AdmixTools commit
 `67bc219174a109951a9434e0a383ec464fb140ee` (upstream package 8.1.0).
 Development is published on the
 [`main` branch](https://github.com/nomanfinally/AdmixTools_Win/tree/main).
-No release or MSI exists yet.
+Development MSI and portable ZIP packaging are implemented; see
+[the packaging guide](packaging/windows/README.md). The package contains the
+37 supported native tools and their runtime/rendering dependencies. No GitHub
+Release is created by building it. An installer does not certify full-suite
+parity, and the development package is unsigned.
 
 The complete tool/module inventory and sequential hard-check queue are maintained
 in [COMPATIBILITY_AUDIT.md](COMPATIBILITY_AUDIT.md), with machine-readable sources

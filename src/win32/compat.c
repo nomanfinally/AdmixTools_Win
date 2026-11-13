@@ -500,6 +500,16 @@ static int find_program(const char *name, char *path, size_t capacity)
 {
     const char *search = getenv("PATH");
     DWORD length;
+    char *separator;
+    /* A packaged offline installation keeps rendering helpers beside the
+     * analysis binaries. This also works when the user opts out of PATH. */
+    length = GetModuleFileNameA(NULL, path, (DWORD)capacity);
+    if (length && length < capacity && (separator = strrchr(path, '\\')) != NULL) {
+        size_t prefix = (size_t)(separator + 1 - path);
+        if (snprintf(path + prefix, capacity - prefix, "%s.exe", name) < capacity - prefix &&
+            GetFileAttributesA(path) != INVALID_FILE_ATTRIBUTES)
+            return 0;
+    }
     if (!search || !*search) { errno = ENOENT; return -1; }
     length = SearchPathA(search, name, ".exe", (DWORD)capacity, path, NULL);
     if (!length || length >= capacity) { errno = ENOENT; return -1; }
