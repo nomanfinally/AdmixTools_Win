@@ -47,7 +47,11 @@ def main():
     parser.add_argument("--toolchain", type=Path)
     parser.add_argument("--tools", nargs="+")
     parser.add_argument("--list", action="store_true")
+    parser.add_argument("--source-revision", help="Git revision for a copied build tree without .git")
+    parser.add_argument("--source-dirty", action="store_true", help="The source snapshot includes local changes")
     args = parser.parse_args()
+    if args.source_revision and not re.fullmatch(r"[0-9a-fA-F]{40}", args.source_revision):
+        parser.error("--source-revision must be a full 40-character Git commit hash")
     defaults, rules = inventory()
     if args.list:
         for program in rules:
@@ -159,9 +163,15 @@ def main():
         if notice.is_file():
             (BIN / "licenses/argp").mkdir(parents=True, exist_ok=True)
             shutil.copy2(notice, BIN / "licenses/argp" / notice.name)
+    source_dirty = args.source_dirty
+    if not args.source_revision:
+        source_dirty = source_dirty or bool(subprocess.check_output(
+            ["git", "status", "--porcelain", "--", "src", "perlsrc", "build-windows.ps1", "prepare-windows.ps1"],
+            cwd=ROOT, text=True).strip())
     metadata = {
         "upstream_commit": (ROOT / "UPSTREAM_BASELINE").read_text().strip(),
-        "working_head": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+        "working_head": args.source_revision or subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+        "source_snapshot_dirty": source_dirty,
         "compiler": compiler_version,
         "zlib_header_version": re.search(r'^#define ZLIB_VERSION "([^"]+)"',
             (args.toolchain.parent / "include/zlib.h").read_text(), re.M)[1],

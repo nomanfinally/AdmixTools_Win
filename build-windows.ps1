@@ -2,7 +2,9 @@
 param(
     [string]$Msys2Root = 'C:\msys64',
     [string[]]$Tools = @(),
-    [switch]$ListTools
+    [switch]$ListTools,
+    [string]$SourceRevision = '',
+    [switch]$SourceDirty
 )
 $ErrorActionPreference = 'Stop'
 $taskCompiler = Join-Path $Msys2Root 'ucrt64\bin\gcc.exe'
@@ -16,6 +18,8 @@ try {
     if ($ListTools) { $taskArgs += '--list' }
     else { $taskArgs += @('--toolchain', (Join-Path $Msys2Root 'ucrt64\bin')) }
     if ($Tools.Count) { $taskArgs += @('--tools') + $Tools }
+    if ($SourceRevision) { $taskArgs += @('--source-revision', $SourceRevision) }
+    if ($SourceDirty) { $taskArgs += '--source-dirty' }
     & python @taskArgs
     if ($LASTEXITCODE -ne 0) { throw "Windows build failed (exit $LASTEXITCODE)." }
 }

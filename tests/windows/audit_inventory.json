@@ -7,7 +7,7 @@
   "first_queued_item": "T01",
   "scope_note": "All hard checks start pending. Prior fixtures are not hard-audit completion. Link inputs are not a verified function call graph. Assign new IDs by appending; never renumber existing items.",
   "counts": {
-    "build_or_maintenance": 10,
+    "build_or_maintenance": 11,
     "example_workflow": 7,
     "header_contract": 40,
     "historical_rule": 10,
@@ -16,7 +16,7 @@
     "shared_c_module": 28,
     "source_only_program": 5,
     "unbuilt_c_module": 7,
-    "validation_harness": 55
+    "validation_harness": 56
   },
   "c_sources": 78,
   "headers": 40,
@@ -6429,6 +6429,36 @@
         "tests/windows/collect_t08_evidence.py": "d8c6fc2f96df6a4692d0ff0736e1244aa0fb0ed265efe77f4ff380f60484508f"
       },
       "prior_evidence": "Exercised under T08; independent harness audit pending. See tests/windows/audits/T08_qpGraph.md"
+    },
+    {
+      "id": "I11",
+      "category": "build_or_maintenance",
+      "name": "Automated native Windows source build and installation",
+      "paths": [
+        "build-install-windows.bat",
+        "build-install-windows.ps1"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "build-install-windows.bat": "b170897e354d2025511d2c9535a377c75ea4f25a8008e2817db3834ba2a37201",
+        "build-install-windows.ps1": "9f33c0f00595672b922666343ce70066e0d50460663a012429f36f539aa2fdd8"
+      },
+      "prior_evidence": "Functional checks recorded, administrator/bootstrap deployment checks remain; see tests/windows/audits/I11_build_install.md",
+      "audit_report": "tests/windows/audits/I11_build_install.md"
+    },
+    {
+      "id": "Q56",
+      "category": "validation_harness",
+      "name": "Build/install failure, rollback and PATH-boundary checks",
+      "paths": [
+        "tests/windows/test_build_install.ps1"
+      ],
+      "hard_check": "pending",
+      "sha256": {
+        "tests/windows/test_build_install.ps1": "7651154fba20535c3016def3a6f3b30a4712a0d206ce79ebfac87f10973cfa30"
+      },
+      "prior_evidence": "Functional checks recorded, administrator/bootstrap deployment checks remain; see tests/windows/audits/I11_build_install.md",
+      "audit_report": "tests/windows/audits/I11_build_install.md"
     }
   ],
   "last_audit_date": "2026-11-12",

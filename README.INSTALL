@@ -2,6 +2,10 @@ Native Windows setup: see README.WINDOWS.md for the detailed build, PowerShell,
 PATH, verification, update and uninstall guide. The Linux/Mac instructions below
 are retained from upstream.
 
+For an automated Windows source build and Program Files installation, see
+build-install-windows.bat and the automated-build section in README.WINDOWS.md.
+Run the batch file as administrator for the default machine-wide installation.
+
 ADMIXTOOLS version 5.0  6/28/18 (for Linux and Mac)
 
 Best is to recompile on your system. 

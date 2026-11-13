@@ -13,8 +13,17 @@ $taskOldPath = $env:PATH
 $taskOldCC = $env:CC
 function Invoke-BuildStep {
     param([string]$Program, [string[]]$Arguments)
-    & $Program @Arguments
-    if ($LASTEXITCODE -ne 0) { throw "$Program failed (exit $LASTEXITCODE)." }
+    $taskStepPreference = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
+    try {
+        & $Program @Arguments 2>&1 | ForEach-Object {
+            if ($_ -is [Management.Automation.ErrorRecord]) { Write-Host $_.Exception.Message }
+            else { Write-Host $_ }
+        }
+        $taskStepExit = $LASTEXITCODE
+    }
+    finally { $ErrorActionPreference = $taskStepPreference }
+    if ($taskStepExit -ne 0) { throw "$Program failed (exit $taskStepExit)." }
 }
 try {
     New-Item -ItemType Directory -Force -Path $taskBuild | Out-Null

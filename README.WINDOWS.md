@@ -14,7 +14,7 @@ to this public guide. Do not force-add it or private recovery files to Git.
 
 This guide takes a new Windows installation from prerequisites to a compiled
 suite, a first PowerShell analysis, PATH configuration and verification.
-Documentation checked on **12 November 2026** against this checkout's scripts.
+Documentation checked on **13 November 2026** against this checkout's scripts.
 The recorded development environment uses x64 Windows 11, Windows PowerShell
 5.1, Python 3.13 and MSYS2 UCRT64; PowerShell 7 can also invoke the scripts.
 A fresh installation on every supported Windows version has not been retested.
@@ -26,6 +26,7 @@ A fresh installation on every supported Windows version has not been retested.
 | New computer, no compiler installed | [1. Prerequisites](#1-prerequisites) |
 | Dependencies installed, source not downloaded | [2. Obtain the source](#2-obtain-the-source-and-choose-a-branch) |
 | Existing checkout, ready to build | [3. Prepare GNU argument parsing](#3-prepare-gnu-argument-parsing), then [4. Compile](#4-compile-the-suite) |
+| Want an automated Program Files build/install | [Automated batch build and installation](#automated-batch-build-and-installation) |
 | Complete built suite already available | [5. Run from PowerShell](#5-run-from-powershell) |
 | Want commands available from any folder | [6. Configure PATH](#6-add-the-suite-to-your-user-path) |
 | Want to check the installation | [7. Verify](#7-verify-the-build) |
@@ -78,6 +79,115 @@ source publication, with no release or MSI installer yet.
 For the sequential per-tool/module bug and compatibility review, see
 [COMPATIBILITY_AUDIT.md](COMPATIBILITY_AUDIT.md). Existing fixture coverage does
 not count as a completed hard audit.
+
+## Automated batch build and installation
+
+`build-install-windows.bat` automates a **local source build and manual
+installation**. It is not an MSI and does not create a Windows uninstall entry.
+Use a Git checkout of this repository first (a source ZIP without `.git` does
+not provide the revision required by this helper); the batch file and its adjacent
+`build-install-windows.ps1` helper must be kept together.
+
+For the default installation, right-click **`build-install-windows.bat` → Run as
+administrator**. A plain double-click without administrator access stops with
+instructions before making Program Files or machine PATH changes. The default
+destination is `%ProgramFiles%\AdmixTools`, with commands under its `bin` folder.
+The batch window stays open at the end when no arguments were supplied.
+
+The batch/helper flow:
+
+1. Checks x64 Windows, Git, native x64 Python with venv/pip, and the matching
+   MSYS2 UCRT64 GCC, binutils, GSL, OpenBLAS and zlib packages.
+2. Installs missing Git/Python/MSYS2 using
+   [WinGet](https://learn.microsoft.com/en-us/windows/package-manager/winget/install)
+   when available. Missing UCRT64 packages trigger the MSYS2-supported full
+   upgrade in separate shell sessions, then package installation. This needs
+   internet access and can also update other packages in that MSYS2 installation.
+   See [MSYS2 automation](https://www.msys2.org/docs/ci/). Existing sufficient
+   prerequisites are reused without an automatic global upgrade.
+3. Copies tracked source files, including their current local edits, into a new
+   build area **under the chosen installation parent**. With the default, builds
+   run inside Program Files. The original checkout is not moved or modified.
+   Private guides, `.private`, raw user data and existing build caches are not
+   copied. The copied source retains upstream's `src`/`perlsrc` layout.
+4. Prepares pinned GNU argp, compiles all 37 supported native executables, verifies
+   runtime DLL hashes, and runs the 35-case synthetic integration suite. Its
+   expected error case and binary genotype round trip are checked explicitly.
+5. Installs the completed `bin` payload, licenses, source snapshot, provenance
+   record and synthetic-check evidence. It adds **only the final `bin` folder**
+   to machine PATH, preserving other entries and avoiding matching duplicates.
+
+Open a new PowerShell window afterwards, then run `Get-Command qpAdm -All` and
+`qpAdm -h`. Restart VS Code if its terminals still inherit the old PATH. Individual
+tools keep upstream option behavior, including version switches that continue.
+
+For an existing MSYS2 installation at another location, use an **administrator
+PowerShell** from the repository directory:
+
+```powershell
+.\build-install-windows.bat -Msys2Root 'D:\msys64'
+```
+
+The helper checks `MSYS2_ROOT`, the default `C:\msys64`, the per-user
+`%LOCALAPPDATA%\AdmixTools-build\msys64` cache, and an existing UCRT64 compiler
+on PATH; pass `-Msys2Root` explicitly for other locations. MSYS2's compiler
+installation is separate from the AdmixTools installation and normally stays at
+its own existing root. Keep that root short and without spaces; the AdmixTools
+destination itself can contain spaces.
+
+Useful options, also accepted through the batch launcher:
+
+```powershell
+# Read-only prerequisite check; does not install packages or change PATH.
+.\build-install-windows.bat -CheckOnly -Msys2Root 'C:\msys64'
+
+# Require preinstalled system/toolchain prerequisites (private argp preparation
+# still uses the network to obtain its pinned source and Python build tools).
+.\build-install-windows.bat -Msys2Root 'C:\msys64' -NoInstallDependencies
+
+# Custom installation folder. Machine PATH still requires administrator access.
+.\build-install-windows.bat -InstallRoot 'D:\Applications\AdmixTools' -Msys2Root 'C:\msys64'
+
+# Local-only build/install, without writing persistent PATH; useful for testing.
+.\build-install-windows.bat -InstallRoot "$env:LOCALAPPDATA\Programs\AdmixTools" -Msys2Root 'C:\msys64' -PathScope None -NoInstallDependencies
+```
+
+`-PathScope User` adds the commands to the current Windows user's PATH instead.
+A destination inside Program Files still needs administrator access. Keep the
+same PATH scope when updating an existing installation. If elevation uses a
+different administrator account, a User PATH change belongs to that account;
+the default Machine scope applies to the computer.
+
+Run the batch file again to rebuild/update. Only a destination containing its
+recognized `admixtools-install.json` record is replaced; an unrelated existing
+directory is refused. Successful updates retain the previous whole installation
+in a neighboring `.backup-...` folder. Build failures preserve the previous tools
+and do not add an AdmixTools PATH entry. Newly installed/upgraded prerequisites
+are not uninstalled on a later build failure. If final promotion/PATH/smoke verification fails, the helper
+attempts rollback and retains the failed build for diagnosis. Close running tools
+before updating; file locks can prevent renaming an installation.
+
+Local build transcripts are written to `%TEMP%\AdmixTools-build-install-*.log`.
+They contain local machine details: do not commit them or post them publicly
+without redaction. Keep analysis data outside the installation folder; both
+Program Files and its copied source/build area are administrator-managed.
+This script is not a repair/uninstall service. To remove it manually, first
+remove its exact `bin` entry from the selected PATH scope, then remove only its
+installation/backup folders when no tools are running. Preserve needed analysis
+data and provenance. A proper MSI lifecycle remains a later milestone.
+
+Functional build checks do not certify full-suite numerical parity with pristine
+Linux. The source build uses the same scientific code and build flags; no new
+statistical behavior or optimization is introduced by this automation.
+
+Recorded automation checks: a complete build/install into a new local folder
+with spaces, 37 executable outputs, all 35 synthetic cases, 70 streams/18 files
+matching the retained pristine-Linux regression, successful upgrade/backup and
+injected failure/rollback checks. Batch invocation with spaces/`&` in its own path
+and missing-prerequisite failures were checked. The test session was not elevated:
+an actual Program Files write, machine PATH update and fresh WinGet/MSYS2 package
+installation were not performed. Those administrator/bootstrap paths remain
+explicit deployment checks. No persistent PATH values changed during validation.
 
 ## 1. Prerequisites
 

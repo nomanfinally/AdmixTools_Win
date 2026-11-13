@@ -28,7 +28,7 @@ New items get new IDs; do not renumber the existing queue.
 
 | Inventory group | Items |
 | --- | ---: |
-| Build/install/maintenance controls | 10 |
+| Build/install/maintenance controls | 11 |
 | Example scripts/workflows | 7 |
 | Header/ABI/default/table contracts | 40 |
 | Historical Makefile targets with missing source | 10 |
@@ -37,9 +37,9 @@ New items get new IDs; do not renumber the existing queue.
 | Shared C modules linked directly or available through libnick | 28 |
 | Additional C programs with main(), outside supported build | 5 |
 | Additional C modules outside supported links | 7 |
-| Validation runners/probes | 55 |
+| Validation runners/probes | 56 |
 
-Total: **228 audit items**, covering **78 production C sources and 40 headers** plus scripts and build/test controls.
+Total: **230 audit items**, covering **78 production C sources and 40 headers** plus scripts and build/test controls.
 I10 and Q07–Q08 were appended during T01; original snapshot hashes remain historical.
 Q09–Q10 were appended during T02; snapshot hashes remain historical.
 Q11–Q13 were appended during T03 and its corrections; snapshot hashes remain historical.
@@ -52,6 +52,7 @@ Q38 was appended during T06 corrections; original evidence is retained.
 Q39 was appended for port-only restoration; original snapshot hashes remain historical.
 Q40-Q46 were appended during T07; original snapshot hashes remain historical.
 Q47-Q55 were appended during T08; original snapshot hashes remain historical.
+I11/Q56 were appended for the automated batch build/install workflow; independent audits remain pending.
 
 Data files, parameter templates (including `parsimp.templ` and
 `parsimp2.templ`), reference logs, manuals and generated binaries are fixtures or
@@ -413,6 +414,9 @@ T08 validation additions (independent harness checks remain pending):
 | [ ] | Q53 | `helper_t08.py` | Parent behavior when a child produces valid fstats then exits nonzero |
 | [ ] | Q54 | `t08_helper_child.c` | Fault-injection child, valid data and exit 7 |
 | [ ] | Q55 | `collect_t08_evidence.py` | Source/fixture/oracle/native invariants, differences and raw archive |
+
+I11: [`build-install-windows.bat`](build-install-windows.bat) and its PowerShell helper; [functional checks and deployment limits](tests/windows/audits/I11_build_install.md).
+Q56: [`test_build_install.ps1`](tests/windows/test_build_install.ps1), controlled installation/rollback/PATH boundaries.
 
 ## Hard-check procedure for each item
 
