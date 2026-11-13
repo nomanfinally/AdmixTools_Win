@@ -1,5 +1,17 @@
 # ADMIXTOOLS on Windows
 
+This is the **public, generalized guide**. Paths use variables or example
+locations; replace them with your own settings. To generate a parallel guide
+containing this checkout's actual paths, run from the repository in PowerShell:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\New-PersonalWindowsGuide.ps1 -Msys2Root 'C:\msys64'
+```
+
+Use your MSYS2 installation root for `-Msys2Root`. The command creates
+`README.WINDOWS.personal.md`, which is ignored by Git. Regenerate it after changes
+to this public guide. Do not force-add it or private recovery files to Git.
+
 This guide takes a new Windows installation from prerequisites to a compiled
 suite, a first PowerShell analysis, PATH configuration and verification.
 Documentation checked on **12 November 2026** against this checkout's scripts.
@@ -191,7 +203,7 @@ profile. Keep this variable for the later commands.
 Use its actual location instead of cloning again:
 
 ```powershell
-$Repo = 'C:\work\AdmixTools_Win'  # Or your checkout.
+$Repo = Join-Path $env:USERPROFILE 'source\AdmixTools_Win'  # Or your checkout.
 Set-Location -LiteralPath $Repo
 git status --short
 git branch --show-current

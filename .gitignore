@@ -6,6 +6,11 @@ src/.windows/
 validation-results/
 __pycache__/
 
+# Personal setup guides, machine-specific settings and private recovery copies
+/.private/
+/README.WINDOWS.personal.md
+*.local.ps1
+
 #Data - download example data from Reight lab website
 data/*
 

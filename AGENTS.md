@@ -88,6 +88,15 @@
 
 ## Documentation and packaging
 
+- Public files and commit history must not include a contributor's personal
+  name, email, Windows profile, machine name or absolute workspace/toolchain
+  location. Use variables, relative paths or clearly generic examples. Public
+  GitHub handles and upstream attribution may remain.
+- Keep `README.WINDOWS.md` general. Generate machine-specific instructions as
+  `README.WINDOWS.personal.md` with `New-PersonalWindowsGuide.ps1`; this file and
+  `.private/` must remain ignored. Never force-add personal guides or recovery
+  copies. Before publishing, check staged text and metadata for personal paths,
+  including nested JSON strings in audit evidence.
 - Maintain `README.WINDOWS.md` as a reproducible beginner-friendly tutorial:
   prerequisites, checkout, build, dependencies, PowerShell usage, parameter/data
   paths, output redirection, persistent user PATH, verification, troubleshooting,
